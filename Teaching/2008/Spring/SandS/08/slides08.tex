@@ -1,0 +1,393 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{8}
+\date{6 marts 2008}
+\usepackage{../sogs08-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Pumpelemmaet og dets anvendelser}
+
+\section[Pumpelemmaet]{Pumpelemmaet for kontekstfrie sprog}
+
+\begin{frame}
+  \alert{Sætning 2.34:} Hvis $A$ er et kontekstfrit sprog, så findes
+  der et (naturligt) tal $p$ således at ethvert ord $s\in A$ der har
+  længde mindst $p$ kan opsplittes i fem stykker, $s= uvxyz$, med
+  \begin{itemize}
+  \item $|vy|> 0$ og $|vxy|\le p$,
+  \item og således at ordene $u v^i x y^i z\in A$ for alle $i\in
+    \Nat_0$.
+  \end{itemize}
+
+  \medskip \alert{Bevis (oversigt):}
+
+  \hspace*{-1.5em}
+  \begin{minipage}{1.05\linewidth}
+  \begin{enumerate}
+  \item Lad $G$ være en CFG der genererer $A$, med \alert{$n=|V|$}
+    variable.
+  \item Vælg $p$ således at der gælder for enhver streng $s\in A$ med
+    $|s|\ge p$, at ethvert parsetræ for $s$ har \alert{højde mindst
+      $n+ 1$}.
+  \item Tag en streng $s\in A$ med $|s|\ge p$, og tag et af dens
+    laveste parsetræer.  Dette træ indeholder en sti med mindst
+    $n+2$ punkter.
+  \item Der er $n+1$ variable på den sti, så en af dem må forekomme to
+    gange.  \alert{En løkke.}
+  \item Skriv $s= uvxyz$, hvor $x$ deriveres af den sidste forekomst
+    af den dobbelte variabel, og $vxy$ af den næstsidste.
+  \item Erstat den dobbelte variabels del-parsetræer med hinanden
+    (rekursivt) for at få parsetræer for alle $uv^i xy^i z$.
+    \alert{Voilà.}
+  \end{enumerate}
+  \end{minipage}
+\end{frame}
+
+\section{Udsagnslogik}
+
+\begin{frame}[t]
+  \alert{Udsagnslogik} beskæftiger sig med logiske udsagn som kan være
+  enten sande eller falske.
+  \begin{itemize}
+  \item \blue{Månen er en grøn ost.}
+  \item \blue{Enhver CFG kan konverteres til en PDA.}
+  \end{itemize}
+
+  \medskip Givet udsagn $p$, $q$, etc.\ kan vi danne
+  \alert{kombinerede udsagn}:
+
+  \medskip\hspace*{-3em}
+  \begin{minipage}{1.1\linewidth}
+    \begin{description}
+    \item[$\neg p$ :] \alert{Negationen} af $p$.  Sandt hvis $p$ er
+      falsk, falsk hvis $p$ er sandt.
+    \item[$p\wedge q$ :] \alert{Konjunktionen} af $p$ og $q$.  Sandt
+      hvis $p$ og $q$ begge er sande.
+    \item[$p\vee q$ :] \alert{Alternativet} mellem $p$ og $q$.  Sandt
+      hvis $p$ eller $q$ (eller begge) er sandt.
+    \item[$p\To q$ :] \alert{Implikationen} fra $p$ til $q$.  Sandt
+      hvis $p$ er falsk eller $q$ er sandt.
+    \end{description}
+  \end{minipage}
+
+  \bigskip Vigtige sætninger:
+  \begin{itemize}
+  \item $\neg( p\wedge q)= \neg p\vee \neg q$ \quad $\neg( p\vee q)=
+    \neg p\wedge \neg q$ \quad \blue{(De Morgans love)}
+  \item $p\To q= \neg p\vee q$ \quad \blue{(direkte fra definitionen}
+  \item $p\To q= \neg q\To \neg p$ \quad \blue{(Kontraposition)}
+  \end{itemize}
+\end{frame}
+
+\section{Prædikatlogik}
+
+\begin{frame}[t]
+  \alert{Prædikatlogik} beskæftiger sig med udsagn der er
+  \alert{kvalificerede} med \alert{kvantorer}:
+  \begin{description}
+  \item[$\forall x: p(x)$ :] \alert{For alle} $x$ gælder udsagnet $p(x)$.
+  \item[$\exists x: p(x)$ :] \alert{Der findes} et $x$ for hvilket
+    udsagnet $p(x)$ er sandt.
+  \end{description}
+
+  \medskip Eksempler:
+  \begin{itemize}
+  \item $\forall x\in \Int: x^2\ge 0$ \quad \blue{For alle heltal $x$
+      er $x^2\ge 0$.} \quad \alert{Sandt.}
+  \item $\forall x\in \Int: \exists y\in \Int: x+ y= 0$ \quad
+    \blue{For alle heltal $x$ findes der et heltal $y$ for hvilket $x+
+      y= 0$.} \quad \alert{Sandt.}
+  \item $\forall x\in \Nat: \exists y\in \Nat: x+ y= 0$ \quad
+    \blue{For alle naturlige tal $x$ findes der et naturligt tal $y$
+      for hvilket $x+ y= 0$.} \quad \alert{Falsk.}
+  \item $\text{PRIM}( p)= \forall i\in \Nat:\big(( i> 1\wedge i<p)\To
+    p\mod i\ne 0\big)$ \\
+    \blue{$p$ er et primtal.}
+  \item $\forall x\in \Nat: \exists p\in \Nat:\big( p> x\wedge
+    \text{PRIM}( p)\big)$ \\
+    \blue{Der findes uendeligt mange primtal.} \quad \alert{Sandt.}
+  \end{itemize}
+
+  \medskip Negation af kvantorer:
+  \begin{itemize}
+  \item $\neg( \forall x: p(x))= \exists x: \neg p(x)$
+  \item $\neg( \exists x: p(x))= \forall x: \neg p(x)$
+  \end{itemize}
+
+\end{frame}
+
+\section{Beviser}
+
+\begin{frame}
+  \alert{Konstruktivt bevis:} At vise en sætning ved at konstruere det
+  der påstås.
+  \begin{itemize}
+  \item \blue{Der findes en algoritme der konverterer NFAs til DFAs}
+    \\
+    \alert{Bevis} ved at opskrive algoritmen
+  \item \blue{Ethvert kontekstfrit sprog kan genkendes af en PDA} \\
+    \alert{Bevis} ved at opskrive en algoritme der konverterer CFGs
+    til PDAs
+  \end{itemize}
+
+  \medskip \alert{Direkte bevis:} At vise konklusionen som en logisk
+  konsekvens af forudsætningerne og generelle sandheder.
+  \begin{itemize}
+  \item Alle konstruktive beviser er direkte.
+  \item De fleste direkte beviser er konstruktive.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \alert{Indirekte bevis:} At vise en påstand ved at antage at den er
+  forkert.
+  \begin{itemize}
+  \item ved \alert{kontraposition}: At bevise \alert{$p\To q$} ved at
+    give et bevis for \alert{$\neg q\To \neg p$}.
+  \item ved \alert{modstrid}: At bevise \alert{$p$} ved at antage at
+    $p$ er forkert og komme frem til en \alert{logisk modstrid}.
+  \item at bevise \alert{$p\To q$} ved modstrid:
+    \begin{itemize}
+    \item Antag \alert{$\neg( p\To q)$}.
+    \item Bemærk at $\neg( p\To q)= \neg( \neg p\vee q)=
+      \alert{p\wedge \neg q}$.
+    \item Dvs. vi antager at forudsætningen $p$ holder, men at
+      konklusionen $q$ er falsk.  Specielt kan $p$ indgå som argument
+      i beviset.
+    \end{itemize}
+  \end{itemize}
+
+  \medskip
+  \begin{itemize}
+  \item Det kan være svært at kende forskel på kontrapositions- og modstridsbeviser.
+  \item \alert{Alle indirekte beviser er ikke-konstruktive.}
+  \end{itemize}
+\end{frame}
+
+\section[Indirekte beviser]{Et par indirekte beviser}
+
+\begin{frame}[t]
+  \alert{Sætning:} $\sqrt2$ er et irrationelt tal.
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item \emph{Antag\/} at $\sqrt2$ er et \emph{rationelt\/} tal.
+  \item Så må det kunne skrives som en brøk: $\sqrt2= \frac a b$, for to
+    positive heltal $a$ og $b$.
+  \item\label{enu:sqrt2.2} Lad brøken være \emph{reduceret\/}, dvs.
+    specielt er ikke både $a$ og $b$ lige tal.
+  \item\label{enu:sqrt2.1} $\frac a b= \sqrt2$ medfører at $2 b^2= a^2$.
+  \item Hvis $a$ er ulige, er $a^2$ også ulige, \alert{modstrid} til
+    \eqref{enu:sqrt2.1}.
+  \item Dvs.\ $a$ må være et lige tal, og med \eqref{enu:sqrt2.2} må $b$
+    så være ulige.
+  \item\label{enu:sqrt2.3} Skriv $a= 2c$. Så er $2 b^2= a^2= 4 c^2$, dvs.\ $b^2= 2 c^2$.
+  \item Men $b$ er ulige, så det er $b^2$ også, \alert{modstrid} til
+    \eqref{enu:sqrt2.3}.
+  \item Antagelsen om at $\sqrt2$ var et rationelt tal ledte frem til et
+    modstrid, så den må være forkert. Konklusion: $\sqrt2$ er et
+    irrationelt tal.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \alert{Sætning:} Der findes uendeligt mange primtal.
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item \emph{Antag\/} at der kun findes endeligt mange primtal. Kald dem
+    $p_1, p_2,\dots, p_k$.
+  \item Lad $N= p_1 p_2\dots p_k+ 1$.
+  \item $N$ er større end ethvert af primtallene, så det kan ikke være et
+    primtal selv.
+  \item Dvs.\ der er et primtal der går op i $N$. Kald det $p_i$.
+  \item Men $N- 1= p_1 p_2\dots p_k$, så $p_i$ går også op i $N- 1$.
+  \item Derfor går $p_i$ op i $N- (N- 1)= 1$, \alert{modstrid}.
+  \item Antagelsen om at der kun findes endeligt mange primtal ledte
+    frem til et modstrid, så den må være forkert. Konklusion: Der
+    findes uendeligt mange primtal.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \alert{Sætning:} Der findes ikke nogen generel algoritme der kan
+  afgøre om et program går i uendelig løkke.
+
+  \medskip \alert{Præcisering:} Følgende algoritme HALT findes ikke:
+  \begin{enumerate}
+  \item HALT (algoritme $P$, streng $s$) :
+  \item hvis algoritmen $P$, givet $s$ som input, standser, output "FINT"
+  \item ellers (hvis $P$ med input $s$ går i uendelig løkke) output
+    "HOVSA"
+  \end{enumerate}
+
+  \medskip Med andre ord: \alert{Standseproblemet er uafgørbart.}
+
+  \medskip Flere andre ord:  Generel softwareverifikation er umulig.
+
+  \medskip Og en masse andre dårlige nyheder som konsekvens.
+
+  \medskip \blue{(Meget mere om det på næste semester!)}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Sætning:} Følgende algoritme HALT findes ikke:
+  \begin{enumerate}
+  \item HALT (algoritme $P$, streng $s$) :
+  \item hvis algoritmen $P$, givet $s$ som input, standser, output "FINT"
+  \item ellers (hvis $P$ med input $s$ går i uendelig løkke) output
+    "HOVSA"
+  \end{enumerate}
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item \alert{Antag} at HALT findes.
+  \item Definér følgende nye algoritme:
+    \begin{enumerate}
+    \item HEST (algoritme $P$) :
+    \item hvis HALT ($P$, $P$) = "HOVSA!", output SANDT
+    \item ellers gå i uendelig løkke
+    \end{enumerate}
+  \item Hvis HEST (HEST) går i uendelig løkke, må HALT (HEST, HEST)
+    være "FINT", dvs. HEST standser givet input HEST.  \alert{Modstrid!}
+  \item Hvis HEST (HEST) standser, må HALT (HEST, HEST) være "HOVSA",
+    dvs. HEST går i uendelig løkke givet input HEST.  \alert{Modstrid!}
+  \end{enumerate}
+\end{frame}
+
+\section[Pumpelemmaet]{Pumpelemmaet og dets anvendelse}
+
+\begin{frame}
+  \alert{Pumpelemma:} Hvis $A$ er et kontekstfrit sprog, så findes
+  der et (naturligt) tal $p$ således at ethvert ord $s\in A$ der har
+  længde mindst $p$ kan opsplittes i fem stykker, $s= uvxyz$, med
+  \begin{itemize}
+  \item $|vy|> 0$ og $|vxy|\le p$,
+  \item og således at ordene $u v^i x y^i z\in A$ for alle $i\in
+    \Nat_0$.
+  \end{itemize}
+
+  \medskip Indfør \alert{pumpe-egenskaben} PE($s$, $A$) :
+  \begin{multline*}
+    \text{PE}( s, A):= \exists u,v,x,y,z:( s= uvxyz\wedge |vy|> 0\wedge
+    |vxy|\le p\;\wedge \\ \forall i\in \Nat_0: uv^ixy^iz\in A)
+  \end{multline*}
+
+  Så er pumpelemmaet:
+  \begin{equation*}
+    A\in \text{CFL}\To( \exists p\in \Nat: \forall s\in A: ( |s|\ge
+    p\To PE( s, A))
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  \alert{Pumpe-egenskaben} PE($s$, $A$) : der findes en opsplitning
+  $s= uvxyz$ således at
+  \begin{itemize}
+  \item $|vy|> 0$ og $|vxy|\le p$,
+  \item og således at ordene $u v^i x y^i z\in A$ for alle $i\in
+    \Nat_0$.
+  \end{itemize}
+  \begin{multline*}
+    \text{PE}( s, A)= \exists u,v,x,y,z:( s= uvxyz\wedge |vy|> 0\wedge
+    |vxy|\le p\;\wedge \\ \forall i\in \Nat_0: uv^ixy^iz\in A)
+  \end{multline*}
+
+  \alert{Pumpelemmaet}: Hvis $A$ er et kontekstfrit sprog, så findes
+  der et (naturligt) tal $p$ således at ethvert ord $s\in A$ der har
+  længde mindst $p$ opfylder PE($s$, $A$).
+  
+  \medskip At anvende pumpelemmaet:
+  \begin{enumerate}
+  \item Givet et konkret sprog $A$, vis at $A$ \alert{ikke} er
+    kontekstfrit:
+  \item \alert{Antag} at $A$ er kontekstfrit, så holder pumpelemmaet
+    for $A$.
+  \item Dvs. vi har en (ukonkret) pumpelængde $p$ således at $\forall
+    s\in A:( |s|\ge p\To PE( s, A)$.
+  \item Demonstrér ved eksempel at der findes et $s\in A$ med $|s|\ge
+    p$ og $\neg PE( s, A)$.  \alert{Modstrid} til (3)!
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \begin{multline*}
+    \text{PE}( s, A)= \exists u,v,x,y,z:( s= uvxyz\wedge |vy|> 0\wedge
+    |vxy|\le p\;\wedge \\ \forall i\in \Nat_0: uv^ixy^iz\in A)
+  \end{multline*}
+  
+  \begin{enumerate}
+  \item Givet et konkret sprog $A$, vis at $A$ \alert{ikke} er
+    kontekstfrit:
+  \item \alert{Antag} at $A$ er kontekstfrit, så holder pumpelemmaet
+    for $A$.
+  \item Dvs. vi har en (ukonkret) pumpelængde $p$ således at $\forall
+    s\in A:( |s|\ge p\To PE( s, A))$.
+  \item Demonstrér ved eksempel at der findes et $s\in A$ med $|s|\ge
+    p$ og $\neg PE( s, A)$.  \alert{Modstrid} til (3)!
+  \end{enumerate}
+  \begin{multline*}
+    \neg \text{PE}( s, A)= \forall u,v,x,y,z:(( s= uvxyz\wedge |vy|> 0\wedge
+    |vxy|\le p)\To \\ \exists i\in \Nat_0: uv^ixy^iz\notin A)
+  \end{multline*}
+\end{frame}
+
+\section{Eksempler}
+
+\begin{frame}[t]
+  \mbox{\alert{Eksempel 2.36:} Sproget $B=\{ a^n b^n c^n\mid n\in \Nat_0\}$ er
+    ikke kontekstfrit:}
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item \alert{Antag} at $B$ er kontekstfrit, og lad $p$ være dets
+    pumpelængde.
+  \item Lad $s= a^p b^p c^p$. \blue{\emph{(Et smart valg!)\/}} Vi har
+    $|s|\ge p$.
+  \item Lad $s= uvxyz$ være den opsplitning af $s$ som pumpelemmaet
+    garanterer. \blue{\emph{(Vi ved den findes. Vi ved ikke hvordan den
+        ser ud!)}}
+  \item Hvis $v$ og $y$ hver kun indeholder én slags af symbolerne $a$,
+    $b$ og $c$, er der et af symbolerne der ikke er med i $v$ eller $y$.
+    Strengen $uv^2 xy^2 z$ indeholder så for få symboler af denne slags og
+    er derfor ikke indeholdt i $B$, \alert{modstrid!}
+  \item Hvis $v$ eller $y$ indeholder mere end én slags symboler, optræder
+    de i $uv^2 xy^2 z$ i forkert rækkefølge \IMPL~$uv^2 xy^2 z\notin
+    B$, \alert{modstrid!}
+  \item Ligegyldigt hvad får vi en modstrid. \IMPL\ antagelsen forkert
+    \IMPL\ $B$ er ikke kontekstfrit.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]
+  \mbox{\alert{Eksempel 2.38:} Sproget $D=\{ ww\mid w\in\{ 0, 1\}^*\}$ er ikke
+  kontekstfrit:}
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item \alert{Antag} at $D$ er kontekstfrit, og lad $p$ være dets
+    pumpelængde.
+  \item Lad $s= 0^p 1^p 0^p 1^p$. Vi har $|s|\ge p$. Lad $s= uvxyz$ være
+    den opsplitning af $s$ som pumpelemmaet garanterer.
+  \item Hvis strengen $vxy$ er en del af det \alert{første} $0^p 1^p$ i
+    $s$, starter anden halvdel af $uv^2 xy^2 z$ med et $1$. Men første
+    halvdel starter stadig med $0$, så $uv^2 xy^2 z\notin D$,
+    \alert{modstrid!}
+  \item Hvis strengen $vxy$ er en del af det \alert{andet} $0^p 1^p$ i
+    $s$, slutter første halvdel af $uv^2 xy^2 z$ med et $0$, men anden
+    halvdel slutter med $1$, så $uv^2 xy^2 z\notin D$, \alert{modstrid!}
+  \item Så strengen $vxy$ må indeholde midten af $s$, dvs.\ $vxy$ er en
+    del af det midterste $1^p 0^p$. Men $|vy|> 0$, så $|x|< |vxy|$, dvs.\
+    $uv^0 xy^0 z= 0^p 1^i 0^j 1^p$ med $i< p$ eller $j< p$, så $uv^0 xy^0
+    z\notin D$, \alert{modstrid!}
+  \end{enumerate}
+
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,576 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{5}
+\date{19 februar 2008}
+\usepackage{../sogs08-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Regulære sprog}
+
+\section[Sprog]{Bogstaver, ord og sprog\hfill (13f, 44)}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{alfabet:} en endelig mængde, normalt betegnet $\Sigma$
+  \item \alert{bogstav / tegn / symbol:} et element i $\Sigma$
+  \item \alert{ord / streng:} en endelig følge $( a_1, a_2,\dots, a_k)$ af
+    bogstaver. Normalt skrevet uden parenteser og komma: $a_1 a_2\dots
+    a_k$
+  \item \alert{$\epsilon$:} det tomme ord (med 0 bogstaver)
+  \item at \alert{sammensætte} ord: $abe\circ kat= abekat$
+  \item $\epsilon$ er \alert{identiteten} for $\circ$: $w\circ \epsilon=
+    \epsilon\circ w= w$ for alle ord $w$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \begin{itemize}
+  \item \alert{Sprog (over $\Sigma$):} en mængde af ord med bogstaver fra
+    $\Sigma$
+  \item \alert{$\emptyset$:} det tomme sprog
+  \item \alert{$\Sigma^*$:} sproget bestående af \emph{alle} ord over
+    $\Sigma$
+  \item[\IMPL] $L$ er et sprog over $\Sigma$ hvis og kun hvis $L\subseteq
+    \Sigma^*$
+  \item  Givet sprog $L_1, L_2\subseteq \Sigma^*$, da kan vi danne sprogene
+    \begin{itemize}
+    \item $\alert{L_1\cup L_2}=\{ w\mid w\in L_1\text{ eller } w\in
+      L_2\}$ \\\hfill \blue{foreningsmængden}
+    \item $\alert{L_1\circ L_2}=\{ w_1\circ w_2\mid w_1\in L_1\text{ og }
+      w_2\in L_2\}$ \\\hfill \blue{sammensætningen}
+    \item $\alert{L_1^*}=\{ w_1\circ w_2\circ\dots\circ w_k\mid \text{alle }
+      w_i\in L_1\}$ \hfill \blue{stjernen}
+    \end{itemize}
+  \item Disse 3 operationer kaldes de \alert{regulære operationer} på
+    sprog.
+  \item Vi kan også danne andre sprog; de vigtigste andre operationer:
+    \begin{itemize}
+    \item $\alert{L_1\cap L_2}=\{ w\mid w\in L_1\text{ og } w\in L_2\}$
+      \hfill \blue{fællesmængden}
+    \item $\alert{\bar L_1}= \Sigma^*\setminus L_1=\{ w\in \Sigma^*\mid
+      w\notin L\}$ \hfill \blue{komplementet}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section[DFA]{Deterministiske endelige automater\hfill (35f, 40)}
+
+\begin{frame}[t]
+  \begin{itemize}
+  \item \alert{Definition 1.5:} En \alert{deterministisk endelig automat}
+    (\alert{DFA}) er en 5-tupel \alert{$M=( Q, \Sigma, \delta, q_0, F)$},
+    hvor delene er
+    \begin{enumerate}
+    \item $Q$ : en endelig mængde af tilstande
+    \item $\Sigma$ : input-alfabetet
+    \item $\delta: Q\times \Sigma\to Q$ : transitionsfunktionen
+    \item $q_0\in Q$ : starttilstanden
+    \item $F\subseteq Q$ : mængden af accepttilstande
+    \end{enumerate}
+  \item $M$ siges at \alert{acceptere} et ord $w\in \Sigma^*$ hvis der
+    findes $w_1, w_2,\dots, w_k\in \Sigma$ og $r_0, r_1,\dots, r_k\in Q$
+    således at $w= w_1 w_2\dots w_k$ og
+    \begin{enumerate}
+    \item $r_0= q_0$,
+    \item $r_{i+1}= \delta( r_i, w_{i+1})$ for alle $i= 0, 1,\dots, k-1$,
+      og
+    \item $r_k\in F$.
+    \end{enumerate}
+  \item Sproget som \alert{genkendes} af $M$ er \alert{$\llbracket
+      M\rrbracket=\{ w\in \Sigma^*\mid \text{$M$ accepterer $w$}\}$}.
+  \item \alert{Definition 1.16:} Et sprog siges at være \alert{regulært}
+    hvis der findes en DFA der genkender det.
+  \end{itemize}
+\end{frame}
+
+\section[NFA]{Nondeterministiske endelige automater\hfill (53--56)}
+
+\begin{frame}[t]
+  \begin{itemize}
+  \item \alert{Definition 1.37:} En \alert{nondeterministisk endelig
+      automat} (\alert{NFA}) er en 5-tupel \alert{$M=( Q, \Sigma, \delta,
+      q_0, F)$}, hvor delene er
+    \begin{enumerate}
+    \item $Q$ : en endelig mængde af tilstande
+    \item $\Sigma$ : input-alfabetet
+    \item $\delta: Q\times\big( \Sigma\cup\{ \epsilon\}\big)\to
+        \Pot(Q)$ : transitionsfunktionen
+    \item $q_0\in Q$ : starttilstanden
+    \item $F\subseteq Q$ : mængden af accepttilstande
+    \end{enumerate}
+  \item $M$ siges at \alert{acceptere} et ord $w\in \Sigma^*$ hvis der
+    findes $w_1, w_2,\dots, w_k\in \Sigma\cup\{ \epsilon\}$ og $r_0,
+    r_1,\dots, r_k\in Q$ således at $w= w_1 w_2\dots w_k$ og
+    \begin{enumerate}
+    \item $r_0= q_0$,
+    \item $r_{i+1}\in \delta( r_i, y_{i+1})$ for alle $i= 0, 1,\dots,
+      k-1$, og
+    \item $r_k\in F$.
+    \end{enumerate}
+  \item Sproget som \alert{genkendes} af $M$ er \alert{$\llbracket
+      M\rrbracket=\{ w\in \Sigma^*\mid \text{$M$ accepterer $w$}\}$}.
+  \end{itemize}
+
+  \vspace*{5ex}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item Enhver DFA er også en NFA.
+  \item \alert{Sætning 1.39:} Til enhver NFA findes der en DFA der
+    genkender samme sprog.
+  \item \alert{Bevis} ved brug af
+    \begin{itemize}
+    \item \alert{delmængdekonstruktionen:} Hvis NFAen har tilstandsmængde
+      $Q$, skal DFAens tilstandsmængde være \alert{$\Pot(Q)$}
+    \item og \alert{$\epsilon$-aflukningen:} Den nye transitionsfunktion
+      skal være
+
+      \vspace{-4ex}
+      \begin{multline*}
+        \hspace*{-2em} \delta'( R, a)=\{ q\in Q \mid \text{$q$ kan nås fra
+          $R$ ved en $a$-transition}\\
+        \text{efterfulgt af 0 eller flere $\epsilon$-transitioner}\}
+      \end{multline*}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section[Lukningsegenskaber]{Lukningsegenskaber\hfill (45f, 58--63, 85)}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Sætning 1.45, 1.47, 1.49:} Mængden af regulære sprog er
+    \alert{lukket} under de regulære operationer. Dvs.\ $A_1, A_2\in
+    \Sigma^*$ regulære \IMPL\ $A_1\cup A_2$, $A_1\circ A_2$, $A_1^*$
+    regulære
+  \item \alert{Bevis} ved at sammensætte NFAs på en meget intuitiv måde
+  \item \alert{Sætning $1.25$ (fodnote):} Mængden af regulære sprog er
+    lukket under $\cap$.
+  \item \alert{Bevis} ved at konstruere produktet af to \alert{D}FAs
+  \item \alert{Opgave 1.14:} Mængden af regulære sprog er lukket under
+    $\bar{~}$ (komplement)
+  \item \alert{Bevis} ved at bytte om på accept- og reject-tilstandene i
+    en \alert{D}FA
+  \end{itemize}
+\end{frame}
+
+\section[RE]{Regulære udtryk\hfill (64, 67, 69--74)}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Definition 1.52:} Et \alert{regulært udtryk} over et
+    alfabet $\Sigma$ er et udtryk af formen
+    \begin{enumerate}
+    \item $a$ for et $a\in \Sigma$, $\epsilon$ eller $\emptyset$,
+    \item $(R_1\cup R_2)$, $(R_1\circ R_2)$ eller $(R_1^*)$, hvor $R_1$ og
+      $R_2$ er regulære udtryk.
+    \end{enumerate}
+  \item \alert{Sproget}, som et regulært udtryk $R$ beskriver, betegnes
+    $\llbracket R\rrbracket$ og er defineret som følger:
+    \begin{enumerate}
+    \item $\llbracket a\rrbracket= \{ a\}$, $\llbracket
+      \epsilon\rrbracket= \{ \epsilon\}$ og $\llbracket
+      \emptyset\rrbracket= \emptyset$,
+    \item $\llbracket R_1\cup R_2\rrbracket= \llbracket R_1\rrbracket\cup
+      \llbracket R_2\rrbracket$, $\llbracket R_1\circ R_2\rrbracket=
+      \llbracket R_1\rrbracket\circ \llbracket R_2\rrbracket$ og
+      $\llbracket R_1^*\rrbracket= \llbracket R_1\rrbracket^*$
+    \end{enumerate}
+  \item \alert{Sætning 1.54:} Et sprog er regulært hvis og kun hvis det
+    kan beskrives ved et regulært udtryk.
+  \item (følger af Lemma 1.55 og Lemma 1.60)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Lemma 1.55:} Hvis et sprog genereres af et regulært udtryk,
+    da er det regulært.
+  \item \alert{Bevis} ved brug af \alert{strukturel induktion:}
+    \begin{enumerate}
+    \item Vis at de basale regulære udtryk $a$, $\epsilon$ og $\emptyset$
+      kan konverteres til NFAs
+    \item Konvertér sammensætninger af regulære udtryk til sammensætninger
+      af NFAs
+    \end{enumerate}
+  \item \alert{Lemma 1.60:} Hvis et sprog er regulært, da kan det
+    beskrives ved et regulært udtryk.
+  \item \alert{Bevis} ved brug af
+    \begin{itemize}
+    \item \alert{generaliserede NFAs:} Konvertér en DFA til en GNFA, der
+      har regulære udtryk på transitionerne (i stedet for bare bogstaver)
+    \item og \alert{rekursion:} Konvertér en GNFA til en ny med én
+      tilstand mindre, ved at fjerne en tilstand og lave tilsvarende
+      ændringer på transitionerne.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Oversigt}
+
+\begin{frame}
+  Tre formalismer der beskriver den samme klasse af sprog:
+
+  \medskip\hfill\xymatrix{%
+    \text{\alert{NFA}} \ar[d]^{\mbox{delmængde}} \\
+    \text{\alert{DFA}} \ar[d]^{\mbox{GNFA, rekursion}} \\
+    \text{\alert{RE}} \ar[d]^{\mbox{strukturel induktion, lukningsegenskaber}}
+    \\
+    \text{\alert{NFA}}
+  }\hfill\mbox{}
+
+  \bigskip -- Findes der endnu andre formalismer til det?
+  \quad\blue{Jep, f.x. regulære grammatikker.}
+\end{frame}
+
+\section[Ikke-regulære sprog]{Ikke-regulære sprog\hfill (77--80)}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Sætning 1.70 (Pumpelemmaet):} For ethvert regulært sprog
+    $A$ findes der et (naturligt) tal $p$ (\alert{pumpelængden}) således
+    at ethvert ord $s\in A$ der har længde mindst $p$ kan \alert{pumpes},
+    dvs.\ opsplittes i tre stykker, $s= xyz$, med
+    \begin{itemize}
+    \item $|y|\ge 1$ og $|xy|\le p$,
+    \item og således at ordene $x y^i z\in A$ for alle $i\in \Nat_0$.
+    \end{itemize}
+  \item \alert{Bevis} ved at tage en DFA for $A$ og lade $p$ være antallet
+    af dens tilstande
+  \item \alert{Anvendelse:} At vise at et givet sprog $B$ \alert{ikke er regulært}:
+    \begin{enumerate}
+    \item \emph{antag\/} at $B$ er regulært
+    \item så må der findes en pumpelængde $p$ for $B$
+    \item tag et velegnet ord $s$ som
+      \begin{itemize}
+      \item har længde $|s|\ge p$, dvs.\ bør kunne pumpes,
+      \item men som \emph{ikke kan pumpes}.
+      \end{itemize}
+    \item Modstrid!
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\section{Anvendelser}
+
+\begin{frame}
+  \begin{itemize}
+  \item \texttt{grep}, \texttt{sed}, teksteditorer etc.: konverterer et
+    givet regulært udtryk til en \alert{NFA} for at søge og erstatte
+  \item \texttt{lex}, \texttt{flex} etc.: konverterer et eller flere givne
+    regulære udtryk til en \alert{DFA} der kan bruges til
+    \alert{leksikalsk analyse} \\\mbox{}\prog[sok.lex]
+  \end{itemize}
+\end{frame}
+
+%   \medskip Opgaver som der specielt var problemer med:
+%   \begin{itemize}
+%   \item 1.21 a
+%   \item 1.29 a, c
+%   \item 1.46 a
+%   \item 1.53
+%   \end{itemize}
+
+\section{At forstå}
+
+\begin{frame}
+  \frametitle{Vigtige emner indtil nu}
+
+  \begin{itemize}
+  \item Sprog\qquad\blue\checkmark
+  \item DFA, NFA\qquad\blue\checkmark
+  \item Konvertering NFA $\longrightarrow$ DFA\qquad\blue\checkmark
+  \item Lukningsegenskaber ($+$ beviser)\qquad\blue\checkmark
+  \item Regulære udtryk\qquad\blue\checkmark
+  \item Konvertering RE $\longrightarrow$ NFA\qquad\blue\checkmark
+  \item Konvertering DFA $\longrightarrow$ RE\qquad\blue?
+  \item Pumpelemma ($+$ bevis)\qquad\blue\checkmark
+  \item Anvendelse af pumpelemma\qquad\blue?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{At forstå (på forskellige måder)}
+
+  \setlength{\extrarowheight}{2ex}
+  \begin{tabular}{l|c|c|c}
+    & formelt & grafisk & ved eksempel \\\hline
+    Sætninger & \blue\checkmark && \blue\checkmark \\
+    Beviser & \blue\checkmark & \blue\checkmark & \blue\checkmark \\
+    Anvendelser & \blue\checkmark & \blue\checkmark & \blue\checkmark 
+  \end{tabular}
+\end{frame}
+
+\section[Bog]{En anden bog}
+
+\begin{frame}
+  Hvis I synes at \emph{Sipser\/} er for blød, eller hvis I vil vide
+  mere end hvad \emph{Sipser\/} skriver om, prøv at kigge i
+  \begin{quote}
+    \textup{\blue{Hopcroft, Motwani, Ullman: Introduction to automata
+        theory, languages, and computation. 2nd ed. Addison-Wesley,
+        2001}}
+  \end{quote}
+\end{frame}
+
+\part{Kontekst-frie grammatikker}
+
+\section{Kontekst-frie sprog}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Problem:} Mange interessante sprog er \alert{ikke regulære}. F.x.
+    \begin{itemize}
+    \item sproget \emph{ADD\/} fra opgave 1.53
+    \item sproget $L_3$ fra syntaksopgaven
+    \item programmeringssprog generelt
+    \end{itemize}
+  \item Brug for ``stærkere'' værktøjer til at beskrive dem:
+    \begin{itemize}
+    \item \alert{kontekst-frie grammatikker} (\alert{CFG}) for at
+      \emph{generere\/} dem
+    \item \alert{push-down-automater} (\alert{PDA}) for at
+      \emph{genkende\/} dem
+    \end{itemize}
+  \item sprog genereret af CFGs $=$ sprog genkendt af PDAs $=$
+    \alert{kontekst-frie sprog}
+  \item Er alle sprog kontekst-frie? \emph{Nej.}
+  \item \alert{Anvendelse:} parsere
+  \end{itemize}
+\end{frame}
+
+\section{Eksempel}
+
+\begin{frame}[t]
+  En \alert{kontekstfri grammatik}:
+
+  \vspace{-4ex}
+  \begin{align*}
+    \qquad\magenta{S} &\tto1 \magenta{ASB} \\
+    \magenta{S} &\tto2 \epsilon \\
+    \magenta{A} &\tto3 0 \\
+    \magenta{B} &\tto4 1
+  \end{align*}
+
+  \vspace{-3ex}
+  \begin{itemize}
+  \item \magenta{$S$, $A$, $B$}: \alert{variable}
+  \item $0$, $1$: \alert{terminaler}
+  \item \alert{startvariablen}: \magenta{$S$}
+  \end{itemize}
+  At \emph{generere ord\/}:
+  \begin{itemize}
+  \item $\magenta{S}\Tto2 \epsilon$\qquad\blue\checkmark
+  \item $\magenta{S}\Tto1 \magenta{ASB}\Tto2
+    \magenta{A}\grey{\epsilon}\magenta{B}\Tto3 0\magenta{B}\Tto4
+    01$\qquad\blue\checkmark
+  \item $\magenta{S}\Tto1 \magenta{ASB} \Tto1 \magenta{AASBB}\Tto2
+    \magenta{AA}\grey{\epsilon}\magenta{BB}\Tto{3,3,4,4}
+    0011$\qquad\blue\checkmark
+  \item $\magenta{S}\Tto{1,\dots, 1} \magenta{A}^n \magenta{S}
+    \magenta{B}^n\Tto2 \magenta{A}^n \grey{\epsilon}
+    \magenta{B}^n\Tto{3,4} 0^n 1^n$
+  \item grammatikken genererer sproget \alert{$\{ 0^n 1^n\mid n\in
+      \Nat_0\}$}
+  \end{itemize}
+\end{frame}
+
+\section{Definition}
+
+\begin{frame}[t]
+  \alert{Definition 2.2:} En \alert{kontekstfri grammatik} (\alert{CFG})
+  er en 4-tupel $G=( V, \Sigma, R, S)$, hvor delene er
+  \begin{enumerate}
+  \item $V$ : en endelig mængde af \alert{variable}
+  \item $\Sigma$ : en endelig mængde af \alert{terminaler}, med $V\cap
+    \Sigma= \emptyset$
+  \item $R: V\to \Pot\big(( V\cup \Sigma)^*\big)$ : \alert{produktioner} /
+    \alert{regler}
+  \item $S\in V$ : \alert{startvariablen}
+  \end{enumerate}
+
+  \medskip -- produktioner skrives \alert{$A\to w$} i stedet for $w\in R(
+  A)$
+
+  \begin{itemize}
+  \item Hvis $u, v, w\in( V\cup \Sigma)^*$ er ord og $A\to w$ er en
+    produktion, siges $uAv$ at \alert{frembringe} $uwv$: \alert{$uAv\To
+      uwv$}.
+  \item Hvis $u, v\in( V\cup \Sigma)^*$ er ord, siges $u$ at
+    \alert{derivere} $v$: \alert{$u\overset*\To v$}, hvis $u= v$ eller der
+    findes en følge $u_1, u_2,\dots, u_k$ af ord således at $u\To u_1\To
+    u_2\To\dots\To u_k\To v$.
+  \item \alert{Sproget} som $G$ genererer er \alert{$\llbracket
+      G\rrbracket=\{ w\in \Sigma^*\mid S\overset*\To w\}$}.
+  \end{itemize}
+
+  \medskip -- dvs.\ et ord $w\in \Sigma^*$ genereres af $G$ hvis og kun
+  hvis der findes en \alert{derivation} $S\To w_1\To w_2\To\dots\To w_k\To
+  w$, hvor alle $w_i\in( V\cup \Sigma)^*$.
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel 2.3:} $G_3=\big(\{ S\}, \{ a, b\}, R, S\big)$ med
+  produktioner
+  \begin{equation*}
+    S\to aSb\mid SS\mid \epsilon
+  \end{equation*}
+
+  Et par derivationer:
+  \begin{itemize}
+  \item $S\To \epsilon$
+  \item $S\To aSb\To ab$
+  \item $S\To aSb\To aSSb\To aaSbSb\To aaSbaSbb\To aababb$
+  \end{itemize}
+
+  \bigskip Generelt er det nok at opskrive \emph{produktionerne\/} for at
+  specificere en kontekstfri grammatik:
+  \begin{itemize}
+  \item de variable er venstresiderne
+  \item terminalerne er alle andre bogstaver
+  \item startvariablen er venstresiden af den \emph{øverste\/} produktion
+  \end{itemize}
+\end{frame}
+
+\section{Parse-træer}
+
+\begin{frame}[t]
+  \alert{Eksempel 2.4:} Aritmetiske udtryk
+  \begin{align*}
+    \text{Expr} &\to \text{Expr}+ \text{Term}\mid \text{Term} \\
+    \text{Term} &\to \text{Term}\times \text{Factor}\mid \text{Factor} \\
+    \text{Factor} &\to ( \text{Expr})\mid a
+  \end{align*}
+  En derivation:
+  \begin{multline*}
+    \text{Expr}\To \text{Expr}+ \text{Term}\To \text{Term}+
+    \text{Term}\overset*\To \text{Factor}+ \text{Term}\times \text{Factor}
+    \\[-.8ex]
+    \To \text{Factor}+ \text{Factor}\times \text{Factor}\overset*\To a+
+    a\times a
+  \end{multline*}
+  Et \alert{parse-træ}:
+
+  \vspace{-3ex}
+  \begin{equation*}
+    \qquad\xymatrix@R=1.5ex@C=3ex{%
+      & \text{Expr} \ar[dl] \ar[drr] \ar[dddd]
+      \\  \text{Expr} \ar[d]
+      &&& \text{Term} \ar[dl] \ar[dr] \ar[ddd]
+      \\ \text{Term} \ar[d]
+      && \text{Term} \ar[d]
+      && \text{Factor} \ar[dd]
+      \\ \text{Factor} \ar[d]
+      && \text{Factor} \ar[d]
+      \\ a & {+} & a & \times & a
+    }
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  Et \alert{parsetræ}:
+
+  \vspace{-3ex}
+  \begin{equation*}
+    \qquad\xymatrix@R=1.5ex@C=3ex{%
+      & \text{Expr} \ar[dl] \ar[drr] \ar[dddd]
+      \\  \text{Expr} \ar[d]
+      &&& \text{Term} \ar[dl] \ar[dr] \ar[ddd]
+      \\ \text{Term} \ar[d]
+      && \text{Term} \ar[d]
+      && \text{Factor} \ar[dd]
+      \\ \text{Factor} \ar[d]
+      && \text{Factor} \ar[d]
+      \\ a & {+} & a & \times & a
+    }
+  \end{equation*}
+  
+  \begin{itemize}
+  \item Parsetræer udtrykker \alert{betydningen} af et ord
+  \item At parse: programkode \blue{$\rightsquigarrow$} parsetræ
+    \blue{$\rightsquigarrow$} \dots
+  \item En kontekstfri grammatik i hvilken der er et ord der har to
+    \emph{forskellige\/} parsetræer kaldes \alert{tvetydig}.
+  \item to forskellige parsetræer \IMPL\ to forskellige
+    \emph{betydninger\/} \\ \IMPL\ \alert{BAD}
+  \end{itemize}
+\end{frame}
+
+\section{Opsummering}
+
+\begin{frame}
+  \alert{Opsummering:}
+  \begin{itemize}
+  \item CFG: et (endeligt) antal \alert{produktioner} af formen
+    \alert{$A\to s_1\mid s_2\mid\dots s_k$} for symboler $A$ og strenge
+    $s_1, s_2,\dots, s_k$.
+  \item ``$\mid$'' kendetegner \emph{alternativer\/} (nondeterminisme!)
+  \item symboler på venstre side af produktionerne: \alert{variable}
+    (eller \alert{non-terminaler})
+  \item alle andre symboler: \alert{terminaler}
+  \item venstre side af \emph{første\/} produktion: \alert{startsymbolet}
+  \item at \alert{frembringe}: $uAv\To uwv$ hvis $A\to w$ er en produktion
+  \item hvis $w$ er en streng af \emph{terminaler\/}: grammatikken
+    \alert{genererer} $w$ hvis der findes en \alert{derivation} $S\To
+    w_1\To\dots\To w_k\To w$, hvor alle $w_i$ er strenge af terminaler og
+    variable.
+  \item vigtigt: \alert{parsetræer}
+  \item \alert{Definition:} Et sprog siges at være \alert{kontekstfrit}
+    hvis det kan genereres af en CFG.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel:} En CFG til sproget
+  \begin{equation*}
+    \{ w\in\{ a, b\}^*\mid \text{antallet af $a$ i $w$}= \text{antallet af
+      $b$ i $w$}\}
+  \end{equation*}
+
+  Idé: Variable som \emph{tilstande\/}:
+  \begin{itemize}
+  \item $S$ : Jeg har set lige mange $a$ og $b$
+  \item $A$ : Jeg mangler et $a$
+  \item $B$ : Jeg mangler et $b$
+  \end{itemize}
+
+  \begin{align*}
+    S &\to aB\mid bA\mid \epsilon \\
+    A &\to aS\mid bAA \\
+    B &\to bS\mid aBB
+  \end{align*}
+
+  \hfill\green{(opgave 2.21!)}
+\end{frame}
+
+\section[Sok]{\protect\textbf{Sok}}
+
+\begin{frame}
+  \alert{Eksempel:} En (ufuldstændig og ikke helt rigtig) CFG for
+  \textbf{Sok}
+  \begin{align*}
+    \text{ProGram} &\to \text{VarErkList}\,; \text{MetErkList} \\
+    \text{VarErkList} &\to \text{VarErk}\,; \text{VarErkList}\mid \epsilon
+    \\
+    \text{VarErk} &\to \textit{var } \text{VarNavn}= \text{HelTal} \\
+    \text{MetErkList} &\to \text{MetErk}\,; \text{MetErkList}\mid \epsilon
+    \\
+    \text{MetErk} &\to \textit{metode\/ } \text{MetNavn }
+    \text{StateMentList } \textit{end} \\
+    \text{StateMentList} &\to \text{StateMent}\,; \text{StateMentList}\mid
+    \epsilon \\
+    \text{StateMent} &\to \text{MetKald}\mid \text{TilSkriv} \\
+    \text{TilSkriv} &\to \text{VarNavn}:= \text{ArUdtryk} \\
+    \text{MetKald} &\to \textit{kald\/ } \text{MetNavn}
+  \end{align*}
+\end{frame}
+
+
+
+\end{document}

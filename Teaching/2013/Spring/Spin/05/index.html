@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Spin 2013</title>
+</head>
+
+<body>
+
+<h2>Fifth lecture</h2>
+
+<p>Friday 29 March 2013, 16:15 to 18:15</p>
+
+<p>Accessible online at: <strong>http://tiny.cc/sa0nuw</strong></p>
+
+<p>We will install and start to use a new model checker today, <em>NuSMV</em>.
+<ol>
+	<li>NuSMV can be found at <a href="http://nusmv.fbk.eu/">http://nusmv.fbk.eu/</a>.
+	<ol>
+		<li>Take some time to look around.</li>
+		<li>Download NuSMV from <a href="http://nusmv.fbk.eu/bin/bin_download2-v2.cgi">http://nusmv.fbk.eu/bin/bin_download2-v2.cgi</a> and unpack the archive.</li>
+		<li>There's a good tutorial at <a href="http://nusmv.fbk.eu/NuSMV/tutorial/v25/tutorial.pdf">http://nusmv.fbk.eu/NuSMV/tutorial/v25/tutorial.pdf</a> which you can have a look at.</li>
+	</ol></li>
+	<li>Our first simple example is in <a href="process.smv">process.smv</a>.  This is a simple transition system, modeling a process which receives <code>request</code>s that put it into <code>busy</code> state.
+	<ol>
+		<li>Download <a href="process.smv">process.smv</a> to the <code>bin</code> directory of NuSMV and start NuSMV in a terminal with <code>./NuSMV -int process.smv</code>.  This starts NuSMV in <em>interactive</em> mode.</li>
+		<li>In the NuSMV prompt, write first <code>go</code> and then <code>pick_state -r</code>.  This tells NuSMV to choose, at random, one of the initial states.  (We have only one initial state, so this is not very random in our case...)  Now tell NuSMV to <code>print_current_state -v</code>, which (surprise!) prints the current state.  Do a 5-step random simulation by <code>simulate -r -k 5</code> and show the trace using <code>show_traces -v</code> .  Then prolong your random trace by running <code>simulate -r -k 5</code> again and have another look at it with <code>show_traces -v</code> .</li>
+		<li>Experiment some more if you wish (Section 3.2 in the tutorial can give some inspiration).  Use <code>quit</code> to exit the interactive NuSMV session.</li>
+	</ol></li>
+	<li>Next we look at a semaphore model: <a href="semaphore.smv">semaphore.smv</a>.
+	<ol>
+		<li>Have a look at the model and see that you understand what is going on.</li>
+		<li>Open the model in an interactive NuSMV session and do a simulation to see whether it looks to behave in the way it's supposed to.  (You'll need at least 10 steps in your simulation to see anything interesting.).</li>
+		<li>We need to model check the semaphore program, and we'll use <em>CTL</em>.  Add the two following lines to the semaphore program:<br />
+		<code>SPEC AG ! (proc1.state = critical & proc2.state = critical)</code><br />
+		<code>SPEC AG (proc1.state = entering -> AF proc1.state = critical)</code><br />
+		Which properties do they express?</li>
+		<li>Model check your semaphore program with the command <code>NuSMV semaphore.smv</code> .  Have a careful look at the output trace to understand why the second property is not true.</li>
+	</ol></li>
+	<li>Implement Peterson's algorithm and the Bakery algorithm (see <a href="../02/">lecture 2</a>) in NuSMV and model check them using CTL.</li>
+</ol></p>
+
+</body>
+</html>
+

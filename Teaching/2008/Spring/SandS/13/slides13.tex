@@ -1,0 +1,153 @@
+\documentclass{beamer}
+
+\newcommand*\lektion{13}
+\date{22 april 2008}
+\usepackage{../sogs08-color}
+
+\newcommand*\emner{%
+  \bigskip
+  \noindent \rule{5em}{.7pt}
+
+  \noindent Emner som berøres af denne eksamensopgave}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Forord}
+
+\section{Eksamen}
+
+\begin{frame}
+  \begin{textblock*}{8em}[1,.5](\textwidth,.45\textheight)
+    \includegraphics[width=\linewidth]{jcg}
+  \end{textblock*}
+
+  \begin{itemize}
+  \item mundtlig
+  \item 7-trins-skala
+  \item 10 eksamensspørgsmål, \alert{kendt på forhånd}. \emph{(Coming
+      up)}
+  \item 20 minutters forberedelse
+  \item 20 minutters eksamen
+  \item hjælpemidler: ingen computer, ingen mobil-\\telefon,
+    \alert{ingen slides}
+  \item ekstern censor: Jens Chr.\ Godskesen, ITU
+
+    \url{http://www.itu.dk/~jcg/}
+  \item syntaks- og semantikopgaven plus 8 andre
+  \item de andre: incl.\ \alert{prøveopgave}
+  \item prøveopgaven dækker \alert{kun en del af} opgavens pensum
+  \item prøveopgavens besvarelse indgår \alert{som en del af} en
+    samlet præsentation
+  \end{itemize}
+\end{frame}
+
+\section{Eksamenspensum}
+
+\begin{frame}
+  \begin{itemize}
+  \item \textit{Sipser} kapitel \alert1, side 31 (31) til 82 (82)
+  \item \textit{Sipser} kapitel \alert2, side 101 (99) til 108 (106)
+    og 111 (109) til 129 (127)
+    \begin{itemize}
+    \item dvs.\ alt bortset fra Chomsky-normalformen
+    \end{itemize}
+  \item \textit{Hüttel} kapitel \alert3, side 35 til 49
+  \item \textit{Hüttel} kapitel \alert4, side 51 til 66 og 69 til 70
+    \begin{itemize}
+    \item dvs.\ alt bortset fra sætning 4.13, lemma 4.14 og tilhørende
+      beviser
+    \end{itemize}
+  \item \textit{Hüttel} kapitel \alert5, side 73 til 76 og 78 til 87
+    \begin{itemize}
+    \item dvs.\ alt bortset fra anden halvdel af beviset for sætning 5.2
+    \end{itemize}
+  \item \textit{Hüttel} kapitel \alert6, side 89 til 98 og 102 til 103
+    \begin{itemize}
+    \item dvs.\ alt bortset fra afsnittene 6.6.1 og 6.6.2
+    \end{itemize}
+  \item \textit{Hüttel} kapitel \alert7, side 105 til 111
+    \begin{itemize}
+    \item dvs.\ afsnittene 7.1 til 7.4
+    \end{itemize}
+  \item \textit{Hüttel} kapitel \alert{14}, side 187 til 201
+    \begin{itemize}
+    \item dvs.\ afsnittene 14.1 til 14.6
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section[Eksempel]{Eksempel på prøveopgave}
+
+\begin{frame}
+  \alert{Opgave 1} fra sidste år:
+
+  \medskip Lad $L$ være sproget givet ved det regulære udtryk $( a^*bb)^*$.
+  \begin{enumerate}
+  \item Konstruér en nondeterministisk endelig automat $A$ som
+    genkender $L$.
+  \item Forenkl evt.\ $A$ så den kun har tre tilstande, og konvertér
+    $A$ til en deterministisk endelig automat.
+  \end{enumerate}
+
+  \emner:
+  \begin{itemize}
+  \item deterministiske og nondeterministiske endelige automater
+  \item regulære udtryk
+  \item konverteringer mellem de tre
+  \item regulære sprog og deres lukningsegenskaber
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \hfill
+  {\tiny\alert{Spørgsmål?}}\hfill\mbox{}
+\end{frame}
+
+\section{Semantikopgaven}
+
+\begin{frame}[fragile]
+  \textbf{Bof}, variant af \textbf{Bip} med \emph{funktioner}
+  (`udtryksprocedurer') i stedet for procedurer:
+  \begin{itemize}
+  \item én call-by-value-parameter
+  \item returnerer en værdi
+  \item[\IMPL] funktionskald er ikke \emph{kommando}, men
+    \alert{aritmetisk udtryk}
+  \item eksempel:
+\begin{verbatim}
+func f (x) is 
+  begin
+    var i:= 1;
+    f := x + i
+  end
+...
+y := f(17) + 4
+\end{verbatim}
+  \item dvs.\ værdien returneres ved at tilskrive den til en
+    (`alias')variabel med samme navn som funktionen
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item ny syntaktisk kategori:
+    \begin{description}
+    \item[$f\in \textbf{Fnavne}$] -- funktionsnavne
+    \end{description}
+    -- vi sætter $\textbf{Fnavne}= \textbf{Var}$
+  \item nye opbygningsregler:
+    \begin{alignat*}{2}
+      &\textbf{ErkF:}\quad & D_F &\;::=\; \texttt{func $f(x)$ is
+        $S$}\,; D_F \mid \epsilon \\
+      &\textbf{Kom:} & S &\;::=\; \cdots\; \mid \texttt{begin
+        $D_V$ $D_F$ $S$ end} \\
+      &\textbf{Aud:} & a &\;::=\; \cdots\; \mid f(a)
+    \end{alignat*}
+  \end{itemize}
+\end{frame}
+
+\end{document}

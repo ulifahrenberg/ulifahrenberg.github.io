@@ -1,0 +1,190 @@
+Introduktion til kurset
+
+Indhold
+
+Kursets emne
+
+Grundlæggende aspekter ved programmeringssprog:
+
+Hvordan kan vi beskrive hvordan et sprog ser ud? (dets
+    form)
+
+      Syntaks:
+
+       regulære sprog, endelige automater, regulære udtryk
+       kontekst-frie sprog, push-down-automater, kontekst-frie grammatikker
+      
+    
+   Hvordan kan vi beskrive hvordan et sprog skal forstås?
+    (dets adfærd)
+
+      Semantik:
+      
+       operationel semantik
+
+  Kursets indhold
+  Syntax -- regulære sprog:
+   Introduktion; sprog; regulære udtryk
+   Endelige automater
+   Regulære udtryk
+   Sprog der ikke er regulære
+
+  Syntax -- kontekstfrie sprog:
+   Kontekstfrie grammatikker
+   Pushdown-automater
+   Sprog der ikke er kontekstfrie
+
+  Kursets indhold
+  Semantik:
+   Introduktion til operationel semantik
+   Operationelle semantikker for Bims
+   Udvidelser af Bims
+   Blokke og procedurer
+   Parametermekanismer
+   Objektorientede sprog
+
+  Teoretisk grundlag:
+   Rekursive definitioner
+
+  Hvad kan jeg bruge det til?
+  
+   Vil jeg lære et nyt programmeringssprog?
+
+    Nej.
+   Skal vi se nogen smarte algoritmer?
+
+    Nej.
+   Vil jeg blive bedre til at programmere?
+
+    Forhåbentlig.
+   Vil jeg opnå større forståelse for hvordan programmeringssprog er
+    opbygget?
+
+    Ja.
+
+   Vil jeg opnå større forståelse for hvilke problemer computere kan
+    løse?
+
+    Til dels.
+   Vil jeg blive bedre til at forstå teorien bag programmering?
+
+    Ja.
+  
+
+
+Form
+
+
+  Kursets form
+  
+   8:15 -- 10:00: Forelæsning
+
+       i B3-104 og på NOVI
+       de sidste 5 minutter bruges på quiz
+       Læs stoffet hurtigt inden forelæsningen, så I ved hvad
+        det handler om, og læs det grundigt igen bagefter, så I er
+        sikre på at have forstået det.
+       Kursets emner bygger ovenpå hinanden, så hvis der er noget man
+        misser, er det svært at finde tilbage igen!
+      
+    
+   10:10 -- 12:00: Opgaveregning
+
+       i grupperum
+       to større afleveringsopgaver
+       Forvent ikke at kunne forstå stoffet uden at regne opgaver.
+       Studerende der ikke regner opgaver, kan ikke opholde sig i
+        grupperummet under opgaveregningen.
+      
+  Quiz
+
+   sidste 5 minutter af hver forelæsning
+   små opgaver, multiple choice
+   afleveres anonymt
+   I kan se hvad dagens vigtige pointer var, og om I har
+    forstået dem
+   Jeg kan se om jeg formår at formidle de vigtige pointer
+  
+  Afleveringsopgaver
+
+   to gennemgående opgaver som I skal bruge en del af opgaveregningen
+    på, hver gang
+   afleveres til mig, kommenteres bagefter først af jeres kolleger og
+    til sidst af mig
+   vil være del af eksamenspensum
+   kan for PE-studerende erstattes af tilsvarende opgaver der har
+    relation til projektet
+
+   Syntaksopgave
+
+       tilgængelig nu
+       afleveres senest 12 marts
+       evt. erstatningsopgave skal indleveres senest 16
+        februar
+      
+   Semantikopgave
+
+       vil blive offentliggjort senest 6 marts
+      
+    
+Materiale
+
+
+  Bøger
+  
+   Michael Sipser: Introduction to the Theory of
+      Computation, Second Edition, PWS Publishing Co. 2005.
+
+     Brug ikke ældre udgaver, der er lavet for meget om!
+
+    
+   Hans Hüttel: Pilen ved træets rod, Aalborg
+    Universitet 2007.
+
+    
+   begge klar i boghandelen nu
+   Sipser skal vi bruge nu
+   Hüttel først i marts
+
+Hjemmeside
+
+  http://sands07.twoday.net
+
+   slides
+   opgaver
+   andet materiale
+   interessante links
+   RSS-feed
+   kommentarfunktion!
+  
+Eksamen
+
+
+  Eksamen
+
+   mundtlig, 20min
+   et antal spørgsmål kendt på forhånd -- træk ét af dem
+   20min forberedelsestid
+   ekstern censor, karakter
+   pensum og spørgsmål fastlægges ved tredjesidste kursusgang
+   afleveringsopgaver indgår som hver deres spørgsmål
+  
+Folk
+
+      Uli Fahrenberg
+
+      underviser
+
+      uli@cs.aau.dk
+      
+      Jens Alsted
+
+      hjælpelærer
+
+      alsted@cs.aau.dk
+      
+      Hans Hüttel
+
+      lærebogsforfatter
+
+      hans@cs.aau.dk

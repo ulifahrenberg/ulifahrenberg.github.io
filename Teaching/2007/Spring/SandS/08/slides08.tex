@@ -1,0 +1,287 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{8}
+\date{13 marts 2007}
+\usepackage{../sogs07-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Perspektivering}
+
+\section{Automater med stacke}
+
+\begin{frame}
+  \alert{Definition:} En \alert{automat med $k$ stacke}, for $k\in
+  \Nat_0$, er en 6-tupel \alert{$M=( Q, \Sigma, \Gamma, \delta, q_0, F)$},
+  hvor delene er
+  \begin{enumerate}
+  \item $Q$ : en endelig mængde af tilstande
+  \item $\Sigma$ : input-alfabetet
+  \item $\Gamma$ : stack-alfabetet
+  \item $\delta: Q\times \Sigma_\epsilon\times \Gamma_\epsilon^{\alert
+      k}\to \Pot( Q\times \Gamma_\epsilon^{\alert k})$ :
+    transitionsfunktionen
+  \item $q_0\in Q$ : starttilstanden
+  \item $F\subseteq Q$ : mængden af accepttilstande
+  \end{enumerate}
+
+  \begin{itemize}
+  \item $k= 0$ : \alert{NFA}
+  \item $k= 1$ : \alert{PDA}
+  \item \alert{$k\ge 2$} : \alert{Turing-maskine!}
+
+    -- to stacke er nok!
+  \end{itemize}
+\end{frame}
+
+\section{Grammatikker}
+
+\begin{frame}[t]
+  \alert{Definition:} En \alert{grammatik} er en 4-tupel $G=( V, \Sigma,
+  R, S)$, hvor delene er
+  \begin{enumerate}
+  \item $V$ : en endelig mængde af variable
+  \item $\Sigma$ : en endelig mængde af terminaler, med $V\cap \Sigma=
+    \emptyset$
+  \item $R: ( V\cup \Sigma)^* V( V\cup \Sigma)^*\to \Pot\big(( V\cup
+    \Sigma)^*\big)$ : produktioner
+  \item $S\in V$ : startvariablen
+  \end{enumerate}
+
+  \begin{itemize}
+  \item alle produktioner på formen $A\to w$, for $A\in V$ og $w\in( V\cup
+    \Sigma)^*$ : \alert{kontekstfri} grammatik
+  \item alle produktioner på formen $A\to \epsilon$, $A\to a$ eller $A\to
+    aB$, for $A, B\in V$ og $a\in \Sigma$ : \alert{regulær} grammatik
+  \end{itemize}
+
+  \medskip Eksempel på en ikke-kontekstfri grammatik:
+  \begin{equation*}
+    S\to aBSc\mid abc \qquad Ba \to aB \qquad
+    Bb \to bb
+  \end{equation*}
+  Genererer sproget $\{ a^n b^n c^n\mid n\in \Nat_+\}$
+\end{frame}
+
+\section{Chomsky-hierarkiet}
+
+\begin{frame}
+  \setlength{\extrarowheight}{.4ex}
+  \begin{tabular}{p{.12\linewidth}|*{3}{p{.27\linewidth}<{\raggedright}}}
+    & Type 3 & Type 2 & Type 0 \\\hline
+    & regul\ae re sprog & kontekstfrie sprog & \emph{rekursivt enumerable\/}
+    sprog \\
+    & regul\ae re grammatikker & kontekstfrie grammatikker & generelle
+    grammatikker \\
+    & endelige automater & pushdown-automater & Turing-maskiner \\
+    determ inisme & ingen indskrænkning & indskrænkning & ingen
+    indskrænkning \\
+    lukket under: \\
+    $\cup$, $\circ$, ${}^*$ & ja & ja & ja \\
+    $\cap$ & ja & nej & ja \\
+    $\bar{~~}$ & ja & nej & nej
+  \end{tabular}
+\end{frame}
+
+
+\part{Ikke-kontekstfrie sprog}
+
+\section[Pumpelemmaet]{Pumpelemmaet for kontekstfrie sprog}
+
+\begin{frame}
+  \alert{Sætning 2.34:} For ethvert kontekstfrit sprog $A$ findes der et
+  (naturligt) tal $p$ således at ethvert ord $s\in A$ der har længde
+  mindst $p$ kan opsplittes i \alert{fem} stykker, $s= \alert{uv}xyz$, med
+  \begin{itemize}
+  \item $|\alert{v}y|> 0$ og $|\alert{v}xy|\le p$,
+  \item og således at ordene $\alert{u v^i} x y^i z\in A$ for alle $i\in
+    \Nat_0$.
+  \end{itemize}
+
+  \medskip\bigskip \alert{Anvendelse:} Vis a sproget $X$ \emph{ikke er
+    kontekstfrit\/}:
+
+  \medskip \emph{Antag\/} at $X$ er kontekstfrit. Så må det opfylde
+  pumpelemmaet. Lad $p$ være pumpelængden.
+
+  \medskip Find en streng $s$ som
+  \begin{itemize}
+  \item har $|s|\ge p$, dvs. \emph{bør kunne pumpes},
+  \item men som \emph{ikke kan pumpes}, ligegyldigt hvordan man opsplitter
+    $s= uvxyz$.
+  \end{itemize}
+  Modstrid!
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Bevis:} Lad $G=( V, \Sigma, P, S)$ være en CFG med $\llbracket
+  G\rrbracket= A$.
+  \begin{enumerate}
+  \item Lad $b$ være længden af den længste streng på højresiden af
+    produktionerne i $G$:\ \alert{$b= \max\{ |s|\mid s\in P( A), A\in
+      V\}$}
+  \item Lad \alert{$p= b^{|V|+ 1}$}. \alert{Fejl i bogen!} Tag et $s\in A$ med $|s|\ge p$.%
+    \only<1>{%
+
+      \blue{%
+        $|V|$ er antallet af variable i $G$.
+      }}%
+    \only<2->{%
+    \item Lad $\tau$ være et af de parsetræer for $s$ der har færrest
+      punkter. $\tau$ har \alert{højde mindst $|V|+ 1$}.}%
+    \only<2>{%
+
+      \blue{%
+        Lad $h$ være højden af $\tau$. Hvert punkt i $\tau$ har
+        \emph{højst $b$ sønner}, så $\tau$ har \emph{højst $b^h$ blade}.
+        Tegnene i $s$ står i bladene, så $s$ har længde højst $b^h$. Men
+        $|s|> b^{|V|}$, så $h> |V|$.}}%
+    \only<3->{%
+    \item Lad $\ell$ være en sti i $\tau$ af længde mindst $|V|+ 2$.
+    \item $\ell$ indeholder mindst $|V|+ 1$ variable (og én terminal), så
+      blandt de \emph{sidste\/} $|V|+ 1$ variable i $\ell$ er der en der
+      forekommer \emph{to gange}. Kald den $R$.
+    \item Lad $x$ være den delstreng af $s$ der deriveres af den
+      \emph{sidste\/} forekomst af $R$. Strengen der deriveres af den
+      \emph{næstsidste\/} forekomst af $R$ kan da skrives $vxy$, og $s=
+      uvxyz$.
+
+      \blue{%
+        Dvs. $R\overset*\To x$, $R\overset*\To vRy\overset*\To vxy$, og
+        $S\overset*\To uRz\overset*\To uvRyz\overset*\To uvxyz$.}}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]
+  \begin{enumerate}
+    \setcounter{enumi}5
+  \item Lad $x$ være den delstreng af $s$ der deriveres af den
+    \emph{sidste\/} forekomst af $R$. Strengen der deriveres af den
+    \emph{næstsidste\/} forekomst af $R$ kan da skrives $vxy$, og $s=
+    uvxyz$.
+  \item Den næstsidste forekomst af $R$ er blandt de sidste $|V|+ 1$
+    variable i $\ell$, så deltræet med dette $R$ som rod har højde
+    \emph{højst\/} \alert{$|V|+ 1$}, så $|vxy|\le b^{\alert{|V|+ 1}}= p$.
+    \alert{Fejl i bogen!}
+  \item Ved at erstatte deltræet med det \emph{næstsidste\/} $R$ som rod,
+    med deltræet med det \emph{sidste\/} $R$ som rod fås derivationen
+    $S\overset*\To uRz\overset*\To uxz$. Dvs.
+    \begin{itemize}
+    \item $uxz= uv^0 xy^0 z\in A$
+    \item $|vy|> 0$, for ellers ville $s= uxz$, og det parsetræ for $uxz$
+      vi lige har lavet er mindre end det vi startede med. Modstrid til
+      (3).
+    \end{itemize}
+  \item Ved at erstatte deltræet med det \emph{sidste\/} $R$ som rod, med
+    deltræet med det \emph{næstsidste\/} $R$ som rod fås derivationen
+    $S\overset*\To uRz\overset*\To uvRyz\overset*\To uv^2 Ry^2
+    z\overset*\To uv^2 xy^2 z$.
+
+    \mbox{Ved at gentage dette fås derivationer til $uv^i xy^i z$ for alle $i\in
+    \Nat$.}
+  \end{enumerate}
+\end{frame}
+
+\section[Indirekte beviser]{Et par indirekte beviser}
+
+\begin{frame}[t]
+  \alert{Sætning:} $\sqrt2$ er et irrationelt tal.
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item \emph{Antag\/} at $\sqrt2$ er et \emph{rationelt\/} tal.
+  \item Så må det kunne skrives som en brøk: $\sqrt2= \frac a b$, for to
+    positive heltal $a$ og $b$.
+  \item\label{enu:sqrt2.2} Lad brøken være \emph{reduceret\/}, dvs.
+    specielt er ikke både $a$ og $b$ lige tal.
+  \item\label{enu:sqrt2.1} $\frac a b= \sqrt2$ medfører at $2 b^2= a^2$.
+  \item Hvis $a$ er ulige, er $a^2$ også ulige, \alert{modstrid} til
+    \eqref{enu:sqrt2.1}.
+  \item Dvs.\ $a$ må være et lige tal, og med \eqref{enu:sqrt2.2} må $b$
+    så være ulige.
+  \item\label{enu:sqrt2.3} Skriv $a= 2c$. Så er $2 b^2= a^2= 4 c^2$, dvs.\ $b^2= 2 c^2$.
+  \item Men $b$ er ulige, så det er $b^2$ også, \alert{modstrid} til
+    \eqref{enu:sqrt2.3}.
+  \item Antagelsen om at $\sqrt2$ var et rationelt tal ledte frem til et
+    modstrid, så den må være forkert. Konklusion: $\sqrt2$ er et
+    irrationelt tal.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \alert{Sætning:} Der findes uendeligt mange primtal.
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item \emph{Antag\/} at der kun findes endeligt mange primtal. Kald dem
+    $p_1, p_2,\dots, p_k$.
+  \item Lad $N= p_1 p_2\dots p_k+ 1$.
+  \item $N$ er større end ethvert af primtallene, så det kan ikke være et
+    primtal selv.
+  \item Dvs.\ der er et primtal der går op i $N$. Kald det $p_i$.
+  \item Men $N- 1= p_1 p_2\dots p_k$, så $p_i$ går også op i $N- 1$.
+  \item Derfor går $p_i$ op i $N- (N- 1)= 1$, \alert{modstrid}.
+  \item Antagelsen om at der kun findes endeligt mange primtal ledte frem
+    til et modstrid, så den må være forkert. Konklusion: Der findes
+    uendeligt mange primtal. Euklid havde ret!
+  \end{enumerate}
+\end{frame}
+
+\section{Ikke-kontekstfrie sprog}
+
+\begin{frame}[t]
+  \mbox{\alert{Eksempel 2.36:} Sproget $B=\{ a^n b^n c^n\mid n\in \Nat_0\}$ er
+    ikke kontekstfrit:}
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item \emph{Antag\/} at $B$ er kontekstfrit, og lad $p$ være dets
+    pumpelængde.
+  \item Lad $s= a^p b^p c^p$. \blue{\emph{(Et smart valg!)\/}} Vi har
+    $|s|\ge p$.
+  \item Lad $s= uvxyz$ være den opsplitning af $s$ som pumpelemmaet
+    garanterer. \blue{\emph{(Vi ved den findes. Vi ved ikke hvordan den
+        ser ud!)}}
+  \item Hvis $v$ og $y$ hver kun indeholder én slags af symbolerne $a$,
+    $b$ og $c$, er der et af symbolerne der ikke er med i $v$ eller $y$.
+    Strengen $uv^2 xy^2 z$ indeholder så for få symboler af denne slags og
+    er derfor ikke indeholdt i $B$, \alert{modstrid!}
+  \item Hvis $v$ eller $y$ indeholder mere end én slags symboler, optræder
+    de i $uv^2 xy^2 z$ i forkert rækkefølge \IMPL~$uv^2 xy^2 z\notin
+    B$, \alert{modstrid!}
+  \item Ligegyldigt hvad får vi en modstrid. \IMPL\ antagelsen forkert
+    \IMPL\ $B$ er ikke kontekstfrit.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]
+  \mbox{\alert{Eksempel 2.38:} Sproget $D=\{ ww\mid w\in\{ 0, 1\}^*\}$ er ikke
+  kontekstfrit:}
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item \emph{Antag\/} at $D$ er kontekstfrit, og lad $p$ være dets
+    pumpelængde.
+  \item Lad $s= 0^p 1^p 0^p 1^p$. Vi har $|s|\ge p$. Lad $s= uvxyz$ være
+    den opsplitning af $s$ som pumpelemmaet garanterer.
+  \item Hvis strengen $vxy$ er en del af det \emph{første\/} $0^p 1^p$ i
+    $s$, starter anden halvdel af $uv^2 xy^2 z$ med et $1$. Men første
+    halvdel starter stadig med $0$, så $uv^2 xy^2 z\notin D$,
+    \alert{modstrid!}
+  \item Hvis strengen $vxy$ er en del af det \emph{andet\/} $0^p 1^p$ i
+    $s$, slutter første halvdel af $uv^2 xy^2 z$ med et $0$, men anden
+    halvdel slutter med $1$, så $uv^2 xy^2 z\notin D$, \alert{modstrid!}
+  \item Så strengen $vxy$ må indeholde midten af $s$, dvs.\ $vxy$ er en
+    del af det midterste $1^p 0^p$. Men $|vy|> 0$, så $|x|< |vxy|$, dvs.\
+    $uv^0 xy^0 z= 0^p 1^i 0^j 1^p$ med $i< p$ eller $j< p$, så $uv^0 xy^0
+    z\notin D$, \alert{modstrid!}
+  \end{enumerate}
+
+\end{frame}
+
+
+\end{document}

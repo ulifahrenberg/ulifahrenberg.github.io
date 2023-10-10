@@ -1,0 +1,497 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{5}
+\date{27 februar 2007}
+\usepackage{../sogs07-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Regulære sprog}
+
+\section[Sprog]{Bogstaver, ord og sprog\hfill (13f, 44)}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{alfabet:} en endelig mængde, normalt betegnet $\Sigma$
+  \item \alert{bogstav / tegn / symbol:} et element i $\Sigma$
+  \item \alert{ord / streng:} en endelig følge $( a_1, a_2,\dots, a_k)$ af
+    bogstaver. Normalt skrevet uden parenteser og komma: $a_1 a_2\dots
+    a_k$
+  \item \alert{$\epsilon$:} det tomme ord (med 0 bogstaver)
+  \item at \alert{sammensætte} ord: $abe\circ kat= abekat$
+  \item $\epsilon$ er \alert{identiteten} for $\circ$: $w\circ \epsilon=
+    \epsilon\circ w= w$ for alle ord $w$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \begin{itemize}
+  \item \alert{Sprog (over $\Sigma$):} en mængde af ord med bogstaver fra
+    $\Sigma$
+  \item \alert{$\emptyset$:} det tomme sprog
+  \item \alert{$\Sigma^*$:} sproget bestående af \emph{alle} ord over
+    $\Sigma$
+  \item[\IMPL] $L$ er et sprog over $\Sigma$ hvis og kun hvis $L\subseteq
+    \Sigma^*$
+  \item  Givet sprog $L_1, L_2\subseteq \Sigma^*$, da kan vi danne sprogene
+    \begin{itemize}
+    \item $\alert{L_1\cup L_2}=\{ w\mid w\in L_1\text{ eller } w\in
+      L_2\}$ \\\hfill \blue{foreningsmængden}
+    \item $\alert{L_1\circ L_2}=\{ w_1\circ w_2\mid w_1\in L_1\text{ og }
+      w_2\in L_2\}$ \\\hfill \blue{sammensætningen}
+    \item $\alert{L_1^*}=\{ w_1\circ w_2\circ\dots\circ w_k\mid \text{alle }
+      w_i\in L_1\}$ \hfill \blue{stjernen}
+    \end{itemize}
+  \item Disse 3 operationer kaldes de \alert{regulære operationer} på
+    sprog.
+  \item Vi kan også danne andre sprog; de vigtigste andre operationer:
+    \begin{itemize}
+    \item $\alert{L_1\cap L_2}=\{ w\mid w\in L_1\text{ og } w\in L_2\}$
+      \hfill \blue{fællesmængden}
+    \item $\alert{\bar L_1}= \Sigma^*\setminus L_1=\{ w\in \Sigma^*\mid
+      w\notin L\}$ \hfill \blue{komplementet}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section[DFA]{Deterministiske endelige automater\hfill (35f, 40)}
+
+\begin{frame}[t]
+  \begin{itemize}
+  \item \alert{Definition 1.5:} En \alert{deterministisk endelig automat}
+    (\alert{DFA}) er en 5-tupel \alert{$M=( Q, \Sigma, \delta, q_0, F)$},
+    hvor delene er
+    \begin{enumerate}
+    \item $Q$ : en endelig mængde af tilstande
+    \item $\Sigma$ : input-alfabetet
+    \item $\delta: Q\times \Sigma\to Q$ : transitionsfunktionen
+    \item $q_0\in Q$ : starttilstanden
+    \item $F\subseteq Q$ : mængden af accepttilstande
+    \end{enumerate}
+  \item $M$ siges at \alert{acceptere} et ord $w\in \Sigma^*$ hvis der
+    findes $w_1, w_2,\dots, w_k\in \Sigma$ og $r_0, r_1,\dots, r_k\in Q$
+    således at $w= w_1 w_2\dots w_k$ og
+    \begin{enumerate}
+    \item $r_0= q_0$,
+    \item $r_{i+1}= \delta( r_i, w_{i+1})$ for alle $i= 0, 1,\dots, k-1$,
+      og
+    \item $r_k\in F$.
+    \end{enumerate}
+  \item Sproget som \alert{genkendes} af $M$ er \alert{$\llbracket
+      M\rrbracket=\{ w\in \Sigma^*\mid \text{$M$ accepterer $w$}\}$}.
+  \item \alert{Definition 1.16:} Et sprog siges at være \alert{regulært}
+    hvis der findes en DFA der genkender det.
+  \end{itemize}
+\end{frame}
+
+\section[NFA]{Nondeterministiske endelige automater\hfill (53--56)}
+
+\begin{frame}[t]
+  \begin{itemize}
+  \item \alert{Definition 1.37:} En \alert{nondeterministisk endelig
+      automat} (\alert{NFA}) er en 5-tupel \alert{$M=( Q, \Sigma, \delta,
+      q_0, F)$}, hvor delene er
+    \begin{enumerate}
+    \item $Q$ : en endelig mængde af tilstande
+    \item $\Sigma$ : input-alfabetet
+    \item $\delta: Q\times\big( \Sigma\cup\{ \epsilon\}\big)\to
+        \Pot(Q)$ : transitionsfunktionen
+    \item $q_0\in Q$ : starttilstanden
+    \item $F\subseteq Q$ : mængden af accepttilstande
+    \end{enumerate}
+  \item $M$ siges at \alert{acceptere} et ord $w\in \Sigma^*$ hvis der
+    findes $w_1, w_2,\dots, w_k\in \Sigma\cup\{ \epsilon\}$ og $r_0,
+    r_1,\dots, r_k\in Q$ således at $w= w_1 w_2\dots w_k$ og
+    \begin{enumerate}
+    \item $r_0= q_0$,
+    \item $r_{i+1}\in \delta( r_i, y_{i+1})$ for alle $i= 0, 1,\dots,
+      k-1$, og
+    \item $r_k\in F$.
+    \end{enumerate}
+  \item Sproget som \alert{genkendes} af $M$ er \alert{$\llbracket
+      M\rrbracket=\{ w\in \Sigma^*\mid \text{$M$ accepterer $w$}\}$}.
+  \end{itemize}
+
+  \vspace*{5ex}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item Enhver DFA er også en NFA.
+  \item \alert{Sætning 1.39:} Til enhver NFA findes der en DFA der
+    genkender samme sprog.
+  \item \alert{Bevis} ved brug af
+    \begin{itemize}
+    \item \alert{delmængdekonstruktionen:} Hvis NFAen har tilstandsmængde
+      $Q$, skal DFAens tilstandsmængde være \alert{$\Pot(Q)$}
+    \item og \alert{$\epsilon$-aflukningen:} Den nye transitionsfunktion
+      skal være
+
+      \vspace{-4ex}
+      \begin{multline*}
+        \hspace*{-2em} \delta'( R, a)=\{ q\in Q \mid \text{$q$ kan nås fra
+          $R$ ved en $a$-transition}\\
+        \text{efterfulgt af 0 eller flere $\epsilon$-transitioner}\}
+      \end{multline*}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section[Lukningsegenskaber]{Lukningsegenskaber\hfill (45f, 58--63, 85)}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Sætning 1.45, 1.47, 1.49:} Mængden af regulære sprog er
+    \alert{lukket} under de regulære operationer. Dvs.\ $A_1, A_2\in
+    \Sigma^*$ regulære \IMPL\ $A_1\cup A_2$, $A_1\circ A_2$, $A_1^*$
+    regulære
+  \item \alert{Bevis} ved at sammensætte NFAs på en meget intuitiv måde
+  \item \alert{Sætning $1.25$ (fodnote):} Mængden af regulære sprog er
+    lukket under $\cap$.
+  \item \alert{Bevis} ved at konstruere produktet af to \emph{DFA}s
+  \item \alert{Opgave 1.14:} Mængden af regulære sprog er lukket under
+    $\bar{~}$ (komplement)
+  \item \alert{Bevis} ved at bytte om på accept- og reject-tilstandene i
+    en \emph{DFA}
+  \end{itemize}
+\end{frame}
+
+\section[RE]{Regulære udtryk\hfill (64, 67, 69--74)}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Definition 1.52:} Et \alert{regulært udtryk} over et
+    alfabet $\Sigma$ er et udtryk af formen
+    \begin{enumerate}
+    \item $a$ for et $a\in \Sigma$, $\epsilon$ eller $\emptyset$,
+    \item $(R_1\cup R_2)$, $(R_1\circ R_2)$ eller $(R_1^*)$, hvor $R_1$ og
+      $R_2$ er regulære udtryk.
+    \end{enumerate}
+  \item \alert{Sproget}, som et regulært udtryk $R$ beskriver, betegnes
+    $\llbracket R\rrbracket$ og er defineret som følger:
+    \begin{enumerate}
+    \item $\llbracket a\rrbracket= \{ a\}$, $\llbracket
+      \epsilon\rrbracket= \{ \epsilon\}$ og $\llbracket
+      \emptyset\rrbracket= \emptyset$,
+    \item $\llbracket R_1\cup R_2\rrbracket= \llbracket R_1\rrbracket\cup
+      \llbracket R_2\rrbracket$, $\llbracket R_1\circ R_2\rrbracket=
+      \llbracket R_1\rrbracket\circ \llbracket R_2\rrbracket$ og
+      $\llbracket R_1^*\rrbracket= \llbracket R_1\rrbracket^*$
+    \end{enumerate}
+  \item \alert{Sætning 1.54:} Et sprog er regulært hvis og kun hvis det
+    kan beskrives ved et regulært udtryk.
+  \item (følger af Lemma 1.55 og Lemma 1.60)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Lemma 1.55:} Hvis et sprog genereres af et regulært udtryk,
+    da er det regulært.
+  \item \alert{Bevis} ved brug af \alert{strukturel induktion:}
+    \begin{enumerate}
+    \item Vis at de basale regulære udtryk $a$, $\epsilon$ og $\emptyset$
+      kan konverteres til NFAs
+    \item Konvertér sammensætninger af regulære udtryk til sammensætninger
+      af NFAs
+    \end{enumerate}
+  \item \alert{Lemma 1.60:} Hvis et sprog er regulært, da kan det
+    beskrives ved et regulært udtryk.
+  \item \alert{Bevis} ved brug af
+    \begin{itemize}
+    \item \alert{generaliserede NFAs:} Konvertér en DFA til en GNFA, der
+      har regulære udtryk på transitionerne (i stedet for bare bogstaver)
+    \item og \alert{rekursion:} Konvertér en GNFA til en ny med én
+      tilstand mindre, ved at fjerne en tilstand og lave tilsvarende
+      ændringer på transitionerne.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section[Ikke-regulære sprog]{Ikke-regulære sprog\hfill (77--80)}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Sætning 1.70 (Pumpelemmaet):} For ethvert regulært sprog
+    $A$ findes der et (naturligt) tal $p$ (\alert{pumpelængden}) således
+    at ethvert ord $s\in A$ der har længde mindst $p$ kan \alert{pumpes},
+    dvs.\ opsplittes i tre stykker, $s= xyz$, med
+    \begin{itemize}
+    \item $|y|\ge 1$ og $|xy|\le p$,
+    \item og således at ordene $x y^i z\in A$ for alle $i\in \Nat_0$.
+    \end{itemize}
+  \item \alert{Bevis} ved at tage en DFA for $A$ og lade $p$ være antallet
+    af dens tilstande
+  \item \alert{Anvendelse:} At vise at et givet sprog $B$ \alert{ikke er regulært}:
+    \begin{enumerate}
+    \item \emph{antag\/} at $B$ er regulært
+    \item så må der findes en pumpelængde $p$ for $B$
+    \item tag et velegnet ord $s$ som
+      \begin{itemize}
+      \item har længde $|s|\ge p$, dvs.\ bør kunne pumpes,
+      \item men som \emph{ikke kan pumpes}.
+      \end{itemize}
+    \item Modstrid!
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\section{Anvendelser}
+
+\begin{frame}
+  \begin{itemize}
+  \item \texttt{grep}, \texttt{sed}, teksteditorer etc.: konverterer et
+    givet regulært udtryk til en \alert{NFA} for at søge og erstatte
+  \item \texttt{lex}, \texttt{flex} etc.: konverterer et eller flere givne
+    regulære udtryk til en \alert{DFA} der kan bruges til
+    \alert{leksikalsk analyse} \\\mbox{}\prog[sok.lex]
+  \end{itemize}
+\end{frame}
+
+\section[Bog]{En anden bog}
+
+\begin{frame}
+Hvis I synes at \emph{Sipser\/} er for blød, eller hvis I vil vide mere
+end hvad \emph{Sipser\/} skriver om, prøv at kigge i
+\begin{quote}
+  \textup{\blue{Hopcroft, Motwani, Ullman: Introduction to automata
+      theory, languages, and computation. 2nd ed. Addison-Wesley, 2001}}
+\end{quote}
+\end{frame}
+
+\section[Forståelse]{Jeres forståelse som \protect\emph{jeg\/} oplever den}
+
+\begin{frame}
+  Jeres forståelse som \protect\emph{jeg\/} oplever den
+  \begin{itemize}
+  \item sprog\qquad\blue\checkmark
+  \item DFAs\qquad\blue\checkmark
+  \item NFAs\qquad\blue\checkmark
+  \item lukningsegenskaber\qquad\blue\checkmark
+  \item regulære udtryk\qquad\blue\checkmark
+    \begin{itemize}
+    \item konvertering DFA $\to$ regulært udtryk\qquad\blue?
+    \end{itemize}
+  \item ikke-regulære sprog\qquad\blue?
+  \end{itemize}
+
+  \medskip Opgaver som der specielt var problemer med:
+  \begin{itemize}
+  \item 1.21 a
+  \item 1.29 a, c
+  \item 1.46 a
+  \item 1.53
+  \end{itemize}
+\end{frame}
+
+\part{Push-down-automater}
+
+\section{Kontekst-frie sprog}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Problem:} Mange interessante sprog er \alert{ikke regulære}. F.x.
+    \begin{itemize}
+    \item sproget \emph{ADD\/} fra opgave 1.53
+    \item sproget $L_3$ fra syntaksopgaven
+    \item programmeringssprog generelt
+    \end{itemize}
+  \item Brug for ``stærkere'' værktøjer til at beskrive dem:
+    \begin{itemize}
+    \item \alert{kontekst-frie grammatikker} (\alert{CFG}) for at
+      \emph{generere\/} dem
+    \item \alert{push-down-automater} (\alert{PDA}) for at
+      \emph{genkende\/} dem
+    \end{itemize}
+  \item sprog genereret af CFGs $=$ sprog genkendt af PDAs $=$
+    \alert{kontekst-frie sprog}
+  \item Er alle sprog kontekst-frie? \emph{Nej.}
+  \item \alert{Anvendelse:} parsere
+  \end{itemize}
+\end{frame}
+
+\section{Push-down-automater}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Pushdown-automat:} endelig automat plus \emph{stack}
+  \item \alert{Stack:}
+
+    \hspace*{-4em}\includegraphics[width=1.1\textwidth]{stack}
+    \medskip
+  \item kan pushe symboler på stacken og læse og poppe det
+    \emph{øverste\/} stacksymbol
+  \item Eksempel:
+    \begin{equation*}
+      \xymatrix@C=3.5ex{%
+        \ar[r] & *+<4ex>[o][F=]{} \ar[rr]_{\txt{læs $\epsilon$}}
+        && *+<4ex>[o][F]{} \ar@(dl,dr)[]_{\txt{læs 0\\push 0}}
+        \ar[rrr]_{\txt{læs 1\\0 ? pop}}
+        &&& *+<4ex>[o][F]{} \ar@(dl,dr)[]_{\txt{læs 1\\0 ? pop}}
+        \ar[rrr]_{\txt{læs $\epsilon$\\stack tom?}}
+        &&& *+<4ex>[o][F=]{}
+      }
+    \end{equation*}
+  \item genkender sproget $\{ 0^n 1^n\mid n\in \Nat_0\}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Definition 2.13:} En \alert{pushdown-automat} (\alert{PDA}) er en
+  6-tupel \alert{$M=( Q, \Sigma, \Gamma, \delta, q_0, F)$}, hvor delene er
+  \begin{enumerate}
+  \item $Q$ : en endelig mængde af tilstande
+  \item $\Sigma$ : input-alfabetet
+  \item $\Gamma$ : stack-alfabetet
+  \item $\delta: Q\times \Sigma_\epsilon\times \Gamma_\epsilon\to \Pot(
+    Q\times \Gamma_\epsilon)$ : transitionsfunktionen
+  \item $q_0\in Q$ : starttilstanden
+  \item $F\subseteq Q$ : mængden af accepttilstande
+  \end{enumerate}
+
+  \medskip $M$ siges at \alert{acceptere} et ord $w\in \Sigma^*$ hvis der
+  findes $m\in \Nat$ og $w_1, w_2,\dots, w_m\in \Sigma_\epsilon$, $r_0,
+  r_1,\dots, r_m\in Q$ og $s_0, s_1,\dots, s_m\in \Gamma^*$ således at
+  \begin{enumerate}
+  \item $r_0= q_0$ og $s_0= \epsilon$,
+  \item for alle $i= 0, 1,\dots, m-1$ findes $a, b\in \Gamma_\epsilon$ og
+    $t\in \Gamma^*$ som opfylder $s_i= at$, $s_{i+1}= bt$ og $( r_{i+1},
+    b)\in \delta( r_i, w_{i+1}, a)$, og
+  \item $r_m\in F$.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Eksempel 2.14:}
+
+  \only<1>{%
+    \vspace{-1ex} \hfill\xymatrix@C=3.5ex{%
+      \ar[r] & *+<4ex>[o][F=]{} \ar[rr]_{\txt{læs $\epsilon$}}
+      && *+<4ex>[o][F]{} \ar@(dl,dr)[]_{\txt{læs 0\\push 0}}
+      \ar[rrr]_{\txt{læs 1\\0 ? pop}}
+      &&& *+<4ex>[o][F]{} \ar@(dl,dr)[]_{\txt{læs 1\\0 ? pop}}
+      \ar[rrr]_{\txt{læs $\epsilon$\\stack tom?}}
+      &&& *+<4ex>[o][F=]{}
+    }
+    
+    \bigskip At finde ud af om stacken er tom: Introducér et specielt
+    \alert{end-of-stack-symbol} $\$$
+    
+    \bigskip}%
+  \only<2>{%
+    \vspace{1.3ex}}
+    \hfill\xymatrix@C=3.5ex{%
+    \ar[r] & *+<2ex>[o][F=]{q_1} \ar[rr]_{\epsilon,\; \alert{\epsilon\to
+        \$}}
+    && *+<2ex>[o][F]{q_2} \ar@(dl,dr)[]_{0,\; \epsilon\to 0}
+    \ar[rrr]_{1,\; 0\to \epsilon}
+    &&& *+<2ex>[o][F]{q_3} \ar@(dl,dr)[]_{1,\; 0\to \epsilon}
+    \ar[rrr]_{\epsilon,\; \alert{\$\to \epsilon}}
+    &&& *+<2ex>[o][F=]{q_4}
+  }
+
+  \only<2>{%
+    \begin{equation*}
+      Q=\{ q_1, q_2, q_3, q_4\} \qquad \Sigma=\{ 0, 1\} \qquad \Gamma=\{ 0,
+      \$\} \qquad F=\{ q_1, q_4\}
+    \end{equation*}
+    \begin{equation*}
+      \hspace*{-1em}\delta:
+      \begin{array}[t]{c|ccccccccc}
+        \text{Input:} & \multicolumn{3}{c|}{0} & \multicolumn{3}{c|}{1} &
+        \multicolumn{3}{c|}{\epsilon} \\\hline
+        \text{Stack:} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{\$} &
+        \multicolumn{1}{c|}{\epsilon} & \multicolumn{1}{c|}{0} &
+        \multicolumn{1}{c|}{\$} & \multicolumn{1}{c|}{\epsilon} &
+        \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{\$} &
+        \multicolumn{1}{c|}{\epsilon} \\\hline
+        q_1 & \grey{\emptyset} &\grey{\emptyset} &\grey{\emptyset}
+        &\grey{\emptyset} &\grey{\emptyset} &\grey{\emptyset}
+        &\grey{\emptyset} &\grey{\emptyset} & \{( q_2, \$)\} \\ 
+        q_2 &\grey{\emptyset} &\grey{\emptyset} & \{( q_2, 0)\} & \{( q_3,
+        \epsilon)\} &\grey{\emptyset} &\grey{\emptyset} &\grey{\emptyset}
+        &\grey{\emptyset} & \grey{\emptyset} \\ 
+        q_3 &\grey{\emptyset} &\grey{\emptyset} &\grey{\emptyset} & \{(
+        q_3, \epsilon)\} &\grey{\emptyset} &\grey{\emptyset}
+        &\grey{\emptyset} & \{( q_4, \epsilon)\} & \grey{\emptyset} \\ 
+        q_4 & \grey{\emptyset} & \grey{\emptyset} & \grey{\emptyset} &
+        \grey{\emptyset} & \grey{\emptyset} & \grey{\emptyset} &
+        \grey{\emptyset} & \grey{\emptyset} & \grey{\emptyset}
+      \end{array}
+    \end{equation*}}
+\end{frame}
+
+\begin{frame}
+  \alert{Opsummering:} PDA:
+  \begin{itemize}
+  \item endelig automat med \emph{stack}
+  \item stacken kan gemme på \emph{vilkårligt mange\/} symboler, men kun
+    det \emph{øverste\/} kan læses (og poppes)
+  \item \emph{(first-in, last-out)}
+  \item \emph{nondeterministiske}
+  \item der findes deterministiske PDAs, ja. Men
+    \begin{itemize}
+    \item vi skal ikke se på dem her, og
+    \item de genkender \emph{færre\/} sprog end de nondeterministiske
+      PDAs!
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \begin{textblock*}{\textwidth}[0,1](0pt,\textheight)
+    \small
+    \begin{pgfpicture}{0pt}{0pt}{\textwidth}{\textheight}
+      \pgfsetxvec{\pgfpoint{1em}{0ex}}
+      \pgfsetyvec{\pgfpoint{0em}{1ex}}
+%       \color{yellow}
+%       \pgfsetlinewidth{.2pt}
+%       \pgfgrid[step=\pgfpoint{2em}{5ex}]{\pgfpoint{0pt}{0pt}}{\pgfpoint{\textwidth}{\textheight}}
+      \color{blue}
+      \pgfsetlinewidth{.5pt}
+      \pgfsetendarrow{\pgfarrowto}
+      \pgfputat{\pgfxy(4,32)}{\pgfbox[center,bottom]{end-of-stack-symbol}}
+      \pgfxyline(5,32)(8.9,25.1)
+      \pgfputat{\pgfxy(10,29)}{\pgfbox[center,bottom]{push $a$}}
+      \pgfxyline(10,29)(11.2,24.5)
+      \pgfputat{\pgfxy(20,26)}{\pgfbox[center,top]{sammenlign $a$ og $b$}}
+      \pgfxyline(17.5,26)(16.65,28.6)
+      \pgfputat{\pgfxy(13,15)}{\pgfbox[right,center]{smid $b$ væk}}
+      \pgfxyline(13,15)(15.8,16)
+      \pgfputat{\pgfxy(23,20)}{\pgfbox[center,bottom]{sammenlign $a$ og $c$}}
+      \pgfxyline(22.5,20)(21.9,17.7)
+    \end{pgfpicture}
+  \end{textblock*}
+
+  \alert{Eksempel 2.16:} En PDA der genkender sproget
+  \begin{equation*}
+    \{ a^i b^j c^k\mid i,j,k\in \Nat_0\text{ og } i= j\text{ eller } i=
+    k\}
+  \end{equation*}
+
+  \begin{equation*}
+    \xymatrix@C=3ex{%
+      &&&&& *+<2ex>[o][F]{} \ar@(ul,u)[]^(.4){b,\; a\to \epsilon}
+      \ar[rr]_{\epsilon,\; \$\to \epsilon} && *+<2ex>[o][F=]{}
+      \ar@(u,ur)^(.6){c,\; \epsilon\to \epsilon}
+      \\ \ar[r] & *+<2ex>[o][F]{} \ar[rr]^{\epsilon,\; \epsilon\to \$}
+      && *+<2ex>[o][F]{} \ar[urr]^(.65){\epsilon,\; \epsilon\to \epsilon}
+      \ar[drr]_(.65){\epsilon,\; \epsilon\to \epsilon} \ar@(dl,d)[]_(.4){a,\;
+        \epsilon\to a}
+      \\ &&&&& *+<2ex>[o][F]{} \ar@(dl,d)[]_(.4){b,\; \epsilon\to \epsilon}
+      \ar[rr]^{\epsilon,\; \epsilon\to \epsilon}
+      && *+<2ex>[o][F]{} \ar@(dl,d)[]_(.72){c,\; a\to \epsilon}
+      \ar[rr]^{\epsilon,\; \$\to \epsilon}
+      && *+<2ex>[o][F=]{}
+    }
+  \end{equation*}
+
+  \medskip -- det kan vises at man \emph{skal\/} bruge en
+  \emph{nondeterministisk\/} PDA for at genkende det sprog
+\end{frame}
+
+\end{document}

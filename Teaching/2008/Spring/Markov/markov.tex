@@ -1,0 +1,403 @@
+\documentclass{beamer}
+
+\date{16 april 2008}
+\usepackage{markov-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Markov-kæder}
+
+\section{Definition}
+
+\begin{frame}
+  \green{Wikipedia/en:} ``A Markov chain is a sequence of
+  \alert<2>{random variables} \dots with the \dots property \dots
+  that, given the present state, the future and past states are
+  \alert<2>{independent}. Formally,
+  \begin{equation*}
+    \alert<2>{\Pr( X_{n+1}= x\mid X_n= x_n,\dots, X_1= x_1)= \Pr(
+      X_{n+1}= x\mid X_n= x_n)}\text{ ''}
+  \end{equation*}
+
+  \bigskip \uncover<3>{%
+    \alert{Warning: All or part of this article may be confusing or
+      unclear.}
+
+    \medskip Og det passer sgu \dots\quad Bedre ikke at starte her.
+  }
+\end{frame}
+
+\begin{frame}
+  \alert{Operationel definition:} En \blue{Markov-kæde} er en
+  \alert<2>{endelig digraf $( V, E)$} sammen med en
+  \alert<2>{kantvægtning $p: E\to[ 0, 1]$} som har den egenskab at
+  \begin{equation*}
+    \alert<2>{\sum_{ e\in \text{ud}( v)} p( e)= 1}
+  \end{equation*}
+  for alle $v\in V$.
+
+  \medskip \uncover<2>{%
+    \begin{itemize}
+    \item en \alert{endelig digraf $( V, E)$} : en endelig mængde $V$
+      og en delmængde $E\subseteq V\times V$
+    \item en \alert{kantvægtning $p: E\to[ 0, 1]$} : en funktion der
+      tillægger et reelt tal mellem $0$ og $1$ til enhver kant
+    \item \alert{$\text{ud}( v)$}, for $v\in V$ : mængden af alle fra
+      $v$ udgående kanter; $\text{ud}( v)=\big\{ (v, w)\in E\bigmid
+      w\in V\big\}=\big(\{ v\}\times V\big)\cap E$
+    \item \alert{$\sum_{ e\in \text{ud}( v)} p( e)= 1$} : summen af
+      vægtene af alle kanter der udgår fra $v$ er $1$
+    \end{itemize}
+  }
+\end{frame}
+
+\section{Stokastiske vektorer}
+
+\begin{frame}
+  En \blue{stokastisk vektor} (eller \blue{sandsynlighedsvektor)} er
+  en vektor $\vec u=( u_1,\dots, u_r)\in \Real^r$ for hvilken
+  \begin{itemize}
+  \item $u_i\in[ 0, 1]$ for alle $i= 1,\dots, r$ og
+  \item $u_1+\dots+ u_r= 1$ .
+  \end{itemize}
+
+  \bigskip \uncover<2->{%
+    Givet en Markov-kæde $( V, E, p)$ med \alert<3>{$r$ tilstande,
+      $V=\{ s_1,\dots, s_r\}$}, og en sandsynlighedsvektor $\vec u=(
+    u_1,\dots, u_r)\in \Real^r$, da ``betyder'' $\vec u$ at
+    Markov-kæden er i en tilstand $s_i$ med \alert<2>{sandsynlighed}
+    $u_i$ }
+
+  \bigskip \uncover<3>{%
+    Notation: Fra nu af har enhver Markov-kæde $r$ tilstande som vi
+    skriver $V=\{ s_1,\dots, s_r\}$ }
+\end{frame}
+
+\section{Overgangsmatricen}
+
+\begin{frame}
+  Kantvægtnings-funktionen $p: E\to[ 0, 1]$ fra en Markov-kæde $( V,
+  E, p)$ kan beskrives ved en $r\times r$-matriks
+  \begin{equation*}
+    P=
+    \begin{bmatrix}
+      p_{11} & p_{12} & \cdots & p_{1r} \\
+      p_{21} & p_{22} & \cdots & p_{2r} \\
+      \vdots & \vdots & \ddots & \vdots \\
+      p_{r1} & p_{r2} & \cdots & p_{rr}
+    \end{bmatrix}
+  \end{equation*}
+  hvor $p_{ij}$ er vægten af kanten fra $s_i$ til $s_j$, eller $0$
+  hvis der ingen kant er;
+  \begin{equation*}
+    p_{ij}=
+    \begin{cases}
+      p( s_i, s_j) &\text{hvis } ( s_i, s_j)\in E \\
+      0 &\text{hvis } ( s_i, s_j)\notin E
+    \end{cases}
+  \end{equation*}
+\end{frame}
+
+\section{Stokastiske matricer}
+
+\begin{frame}
+  En $r\times r$-matriks $M=[ m_{ij}]$ kaldes \blue{rækkestokastisk}
+  hvis
+  \begin{itemize}
+  \item $m_{ij}\in[ 0, 1]$ for alle $i, j= 1,\dots, r$ og
+  \item $m_{i1}+ m_{i2}+\dots+ m_{ir}= 1$ for alle $i$ (dvs.\ summen
+    af indgangene i hver \alert<1-2>{række} er $1$)
+  \end{itemize}
+
+  \bigskip \uncover<2->{%
+    (Den kaldes \blue{søjlestokastisk} hvis
+    \begin{itemize}
+    \item $m_{ij}\in[ 0, 1]$ for alle $i, j= 1,\dots, r$ og
+    \item $m_{1j}+ m_{2j}+\dots+ m_{rj}= 1$ for alle $j$ (dvs.\ summen
+      af indgangene i hver \alert<1-2>{søjle} er $1$)
+    \end{itemize}
+    og \blue{stokastisk} hvis den er både række- og søjlestokastisk)
+  }
+
+  \bigskip \uncover<3>{%
+    Overgangsmatricen til en Markov-kæde er \alert<3>{rækkestokastisk}.
+  }
+\end{frame}
+
+\section{Opsamling}
+
+\begin{frame}
+  \begin{itemize}
+  \item En Markov-kæde er en endelig digraf ``med stokastiske kantvægte''
+  \item Punkterne (knuderne) i digrafen kaldes tilstande
+    (\textit{states}), kanterne kaldes overgange (transitioner;
+    \textit{transitions})
+  \item Kantvægtene kan samles i en matriks, kaldet
+    overgangsmatricen.  Den er rækkestokastisk
+  \item En stokastisk vektor kan bruges til at angive
+    sandsynlighederne for at Markov-kæden er i en af dens tilstande
+  \end{itemize}
+\end{frame}
+
+\section{Eksempel}
+% vejret i Oz
+
+\begin{frame}
+  \alert{Vejret i landet Oz:}
+
+  \vspace*{-5ex}
+  \begin{equation*}
+    \qquad\xymatrix@R=9ex{%
+      & *+<2.5ex>[o][F]{\text{\blue{Regn}}} \ar@<.5ex>[dl]^{0.25}
+      \ar@<.5ex>[dr]^{0.25} \ar@(ul,ur)[]^{0.5}
+      \\ *+<2.5ex>[o][F]{\text{\blue{Pænt}}} \ar@<.5ex>[ur]^{0.5}
+      \ar@<.5ex>[rr]^{0.5} \ar@(d,l)^0
+      && *+<2.5ex>[o][F]{\text{\blue{Sne}}} \ar@<.5ex>[ll]^{0.25}
+      \ar@<.5ex>[ul]^{0.25} \ar@(r,d)^{0.5}
+    }
+  \end{equation*}
+
+  Transitionsmatricen:\quad $
+  \begin{bmatrix}
+    & \text{\blue{R}} & \text{\blue{P}} & \text{\blue{S}} \\
+    \text{\blue{R}} & 0.5 & 0.25 & 0.25 \\
+    \text{\blue{P}} & 0.5 & 0 & 0.5 \\
+    \text{\blue{S}} & 0.25 & 0.25 & 0.5
+  \end{bmatrix}$
+\end{frame}
+
+\section{Den ``rigtige'' definition}
+% som stokastisk proces
+
+\begin{frame}
+  \alert{Definition:} En Markov-kæde er en uendelig følge af
+  stokastiske variable $( X_i)_{i\in \Nat}$ over et endeligt
+  tilstandsrum $V=\{ s_1,\dots, s_r\}$ med den egenskab at
+  sandsynligheden for at $X_{k+1}$ er i en given tilstand kun afhænger
+  af hvilken tilstand $X_k$ var i:
+  \begin{equation*}
+    \Pr( X_{k+1}= s_{i_{k+1}}\mid X_k= s_{i_k},\dots, X_0= s_{i_0})= \Pr(
+    X_{k+1}= s_{i_{k+1}}\mid X_k= s_{i_k})
+  \end{equation*}
+  for alle $k\in \Nat$.
+
+  \medskip \uncover<2->{%
+    \green{(Hovsa, det lyder nu næsten som Wikipedia alligevel \dots)}
+  }
+
+  \bigskip \uncover<3->{%
+    Indfør en kantvægtet graf ved \alert<3>{$E= V\times V$} og
+    \alert<3>{$p(s_i, s_j)= \Pr( X_{k+1}= s_j\mid X_k= s_i)$}
+
+    \IMPL\ en Markov-kæde som vi kender den!  }
+
+  \medskip \uncover<4->{%
+    Og en stokastisk vektor $\vec u=( u_1,\dots, u_r)\in \Real^r$
+    beskriver nu sandsynlighederne \alert<4>{$u_i= \Pr( X_k= s_i)$}
+    til et eller andet tidspunkt $k$.  }
+\end{frame}
+
+\section[]{Kilder}
+
+\begin{frame}
+  Min præsentation lægger sig tæt op ad \green{Grinstead, Snell:
+    Introduction to Probability. The Chance Project, Juli 2006}
+  
+  \bigskip Specielt afsnittene \alert{11.1, 11.3 og 11.4} i den bog er
+  god læsning.
+\end{frame}
+
+\part{Regulære Markov-kæder}
+
+\section{At tage et skridt}
+
+\begin{frame}
+  \alert{Sætning 11.2} (ca.): Lad $P$ være en Markov-kædes
+  overgangsmatriks, og lad $\vec u^{(n)}$ betegne den stokastiske
+  (række)vektor der angiver sandsynlighederne for at kæden er i de
+  enkelte tilstande til tiden $n$.  Da gælder \alert{$\vec u^{(n)}=
+    \vec u^{(n-1)} P$}.
+
+  \medskip Specielt er \alert{$\vec u^{(n)}= \vec u^{(0)} P^n$}.
+
+  \bigskip Og $P^n$s indgange $p_{ij}^{(n)}$ angiver sandsynlighederne
+  for at kæden \alert{i $n$ skridt} kommer fra $s_i$ til $s_j$.
+\end{frame}
+
+\section{Eksempel}
+
+\begin{frame}[t]
+  Lad $P=
+  \begin{bmatrix}
+    & \text{\blue{R}} & \text{\blue{P}} & \text{\blue{S}} \\
+    \text{\blue{R}} & 0.5 & 0.25 & 0.25 \\
+    \text{\blue{P}} & 0.5 & 0 & 0.5 \\
+    \text{\blue{S}} & 0.25 & 0.25 & 0.5
+  \end{bmatrix}$ ligesom sidst, og start med en solskinsdag:
+  \alert{$\vec u^{(0)}=( 0,1,0)$}.  Så har vi
+  \begin{align*}
+    \vec u^{(0)} &= ( 0, 1, 0) \\
+    \vec u^{(1)} &= ( 0.5, 0, 0.5) \\
+    \vec u^{(2)} &= ( 0.375, 0.25, 0.375) \\
+    \vec u^{(3)} &= ( 0.406, 0.188, 0.406) \\
+    \vec u^{(4)} &= ( 0.398, 0.203, 0.398) \\
+    \vec u^{(5)} &= ( 0.400, 0.199, 0.400) \\
+    \vec u^{(6)} &= ( 0.400, 0.200, 0.400)
+  \end{align*}
+  osv.\ \alert{(det konvergerer!)}.  Så efter en uge er der $20\%$
+  sandsynlighed for at solen skinner en tilfældig dag.
+\end{frame}
+
+\section{Regularitet}
+
+\begin{frame}
+  \alert{Definition 11.4}: En Markov-kæde kaldes \blue{ergodisk}
+  (eller \blue{irreducibel}) hvis enhver tilstand på et tidspunkt kan
+  nås fra enhver anden tilstand.
+
+  \medskip Dvs.\ hvis der for ethvert par af tilstande $s_i, s_j$
+  findes et $n$ så \alert{$\Pr( X_n= s_j\mid X_0= s_i)> 0$}.
+
+  \bigskip \alert{Definition 11.5:} En Markov-kæde kaldes
+  \blue{regulær} hvis der findes et $n$ \magenta{(fælles for alle
+    $i,j$)} således at der for ethvert par af tilstande $s_i, s_j$
+  gælder at \alert{$\Pr( X_n= s_j\mid X_0= s_i)> 0$}.
+
+  \medskip Dvs.\ hvis der findes $n$ så \alert{$P^n$ ikke indeholder
+    nogen $0$er}.
+\end{frame}
+
+\begin{frame}
+  Den her kæde er \alert{ikke ergodisk}:
+  \begin{equation*}
+    \xymatrix{%
+      *+<4ex>[o][F]{} \ar@<.5ex>[r]^0 \ar@(dl,ul)^1
+      & *+<4ex>[o][F]{} \ar@<.5ex>[l]^0 \ar@(ur,dr)^1
+    }
+  \end{equation*}
+
+  Den her kæde er \alert{ergodisk, men ikke regulær}:
+  \begin{equation*}
+    \xymatrix{%
+      *+<4ex>[o][F]{} \ar@<.5ex>[r]^1 \ar@(dl,ul)^0
+      & *+<4ex>[o][F]{} \ar@<.5ex>[l]^1 \ar@(ur,dr)^0    }
+  \end{equation*}
+
+  Og vejret i landet Oz er regulært (heldigvis).
+\end{frame}
+
+\section{Stabil fordeling}
+
+\begin{frame}
+  \alert{Definition 11.6}: En stokastisk vektor $\vec w$ kaldes en
+  \blue{stabil fordeling} (eller \blue{ligevægtsfordeling}) for en
+  Markov-kæde med overgangsmatriks $P$ hvis \alert{$\vec w P= \vec
+    w$}.
+
+  \medskip Ikke alle Markov-kæder har en stabil fordeling, og de kan
+  godt have flere end én.  Men:
+
+  \bigskip \alert{Sætning 11.10}: Enhver \alert{ergodisk} Markov-kæde
+  har præcist én stabil fordeling.
+
+  \medskip \alert{Sætning 11.9}: Hvis $P$ er overgangsmatricen til en
+  \alert{regulær} Markov-kæde og $\vec u$ en \alert{vilkårlig} stokastisk
+  vektor, da gælder \alert{$\lim_{n\to \infty} \vec u P^n= \vec w$},
+  hvor $\vec w$ er kædens stabile fordeling.
+\end{frame}
+
+\section{Google}
+
+\begin{frame}
+  Lad $( V, E)$ være internettet og numerér $V=\{ s_1,\dots, s_r\}$ .
+
+  \medskip Lad $H$ være \blue{hyperlink-matricen} givet ved
+  \begin{equation*}
+    h_{ij}=
+    \begin{cases}
+      \dfrac1{|\text{ud}( s_i)|} &\text{hvis der er et link fra $s_i$
+        til $s_j$}  \\
+      0 &\text{ellers}
+    \end{cases}
+  \end{equation*}
+
+  \medskip \uncover<2>{%
+    $H$ er \alert{række-substokastisk}:\ $h_{ij}\in[ 0, 1]$ for alle
+    $i,j$, og rækkesummerne er \alert{højst $1$}.
+
+    (Faktisk er rækkesummerne enten $0$ eller $1$ i det her tilfælde.)
+
+    \green{(Bevis?)}
+  }
+\end{frame}
+
+\begin{frame}
+  Lad $S$ være den matriks der fremkommer fra $H$ ved at erstatte alle
+  indgange i alle nul-rækker med $\frac1r$.
+
+  \medskip Dvs. \alert{$s_{ij}=
+    \begin{cases}
+      \frac1r &\text{hvis } h_{i1}= h_{i2}=\dots= h_{ir}= 0 \\
+      h_{ij} &\text{ellers}
+    \end{cases}$}
+
+  \bigskip Eller på en mere fancy måde: \alert{$S= H+ \vec a\frac1r
+    \vec e^T$}, hvor $\vec e^T$ er en rækkevektor med $r$ $1$-taller,
+  og $\vec a$ en søjlevektor med $a_i= 1$ hvis $|\text{ud}( s_i)|= 0$
+  og $a_i= 0$ ellers.
+
+  \bigskip \uncover<2>{%
+    $S$ er \alert{rækkestokastisk} \green{(Bevis?)} og derfor
+    overgangsmatriks for en Markov-kæde.
+
+    (Men den Markov-kæde er ikke nødvendigvis regulær, hvilket vi
+    gerne ville have.)
+  }
+\end{frame}
+
+\begin{frame}
+  Vælg et reelt tal $\alpha$ med $0< \alpha< 1$ og definer en ny
+  matriks $G$ ved \alert{$G= \alpha S+( 1- \alpha)\frac1r \vec e\vec
+    e^T$}.
+
+  \medskip $\alpha$ kaldes \magenta{dæmpefaktoren}, og ligningen
+  ovenover kan i koordinater skrives som \alert{$g_{ij}= \alpha
+    s_{ij}+( 1- \alpha)\frac1r$}.
+
+  \medskip (Det kan den fordi $\vec e\vec e^T$ er en $r\times
+  r$-matriks med lutter $1$-taller.)
+
+  \bigskip \uncover<2->{%
+    $G$ er stadig rækkestokastisk \green{(Bevis?)}, og alle indgange i
+    $G$ er \alert{$>0$} \green{(Bevis)}.  Derfor er $G$
+    overgangsmatricen for en \alert<2>{regulær} Markov-kæde.
+  }
+
+  \bigskip \uncover<3>{%
+    Den stabile fordeling for Markov-kæden givet ved overgangsmatricen
+    $G$ kaldes for internettets \alert{pagerank-vektor} og skulle
+    efter sigende give en rimelig god rangordning af internettets
+    knuder.  Med sætning 11.9 kan den beregnes som en grænseværdi
+    $\lim_{n\to \infty} \vec u G^n$, hvor $\vec u$ er en vilkårlig
+    stokastisk startvektor.
+  }
+\end{frame}
+
+\section{Ordliste}
+
+\begin{frame}
+  \begin{itemize}
+  \item \textit{skrå: engelsk standard}, \blue{blå: Grinstead /
+      Snell}, \red{rød: Langville / Meyer}
+  \item rækkestokastisk -- \textit{right stochastic} -- \red{stochastic}
+  \item ergodisk -- irreducibel -- \red{irreducible} -- \blue{ergodic}
+  \item regulær -- \textit{regular} -- \red{primitive}
+  \item (skal der flere ord på her? Forslag?)
+  \end{itemize}
+\end{frame}
+
+\end{document}

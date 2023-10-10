@@ -1,0 +1,335 @@
+\documentclass[11pt,a4paper,article,oneside]{memoir}
+\usepackage[danish,english]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage{url}
+\usepackage[bookmarks=true,colorlinks=true,pagebackref]{hyperref}
+\usepackage{memhfixc}
+
+\title{Dat2/F6S/SW4: Syntaks og semantik\\ Manual}
+\author{Uli Fahrenberg}
+\date{Foråret 2008}
+
+\pagestyle{plain}
+
+\begin{document}
+
+\begin{titlingpage}
+
+\maketitle
+
+\tableofcontents
+\end{titlingpage}
+
+\chapter{Om manualen}
+ 
+Dette er manualen for kurset `Syntaks og semantik.' På de følgende sider
+vil jeg prøve at besvare alle de vigtige og typiske spørgsmål, du måtte
+have som studerende.  \textbf{Læs denne manual grundigt igennem ved
+  kursets start og læs i den igen, hvis der er noget du kommer i tvivl
+  om.}
+
+Manualen følger kurset, så denne manual er en opdateret udgave af
+manualen fra foråret 2007, som i sig selv var en opdateret udgave af
+Hans Hüttels manual fra foråret 2006. Forfatteren takker Hans for det
+store arbejde han har lagt i manualen og i kurset generelt.
+    
+\chapter{Om kursets indhold}
+
+\section{Hvilke emner rummer kurset?}
+
+I dette kursus stifter vi bekendtskab med grundlæggende matematiske
+modeller for programmeringssprogs syntaks og semantik. Teorien om
+programmeringssprog er et centralt område af datalogi. Det er vigtigt, når
+man skal designe et nyt programmeringssprog, lære et nyt
+programmeringssprog, skrive en compiler eller fortolker eller beskæftige
+sig med verifikation af programmer.
+
+Kurset falder i to hoveddele, med ca.\ 7 minimoduler til hver:
+\begin{itemize}
+\item \emph{Syntaksdelen} af kurset handler om hvordan man kan beskrive et
+  programmeringssprogs \emph{form} -- hvornår er en programtekst `fejlfri'
+  og hvordan kan man finde ud af om en programtekst er `fejlfri'?
+\item \emph{Semantikdelen} handler om programmeringssprogs \emph{adfærd}
+  -- hvordan kan man beskrive udførelsen af et program uden at skulle tale
+  om en konkret implementation med alle dens krummerlyrer og
+  maskinafhængigheder?
+\end{itemize}
+Den opmærksomme læser vil have bemærket at $15- (7+ 7)= 1$, dvs. der
+er ca.\ én overskydende minimodul. Denne sidste kursusgang skal vi
+bruge på at opnå en dybere teoretiske forståelse for et af de helt
+centrale emner i kurset, nemlig \emph{rekursion og fikspunkter}.
+
+\section{Hvad kan det bruges til?}
+
+Kursets indhold kan umiddelbart anvendes til f.eks.\ beskrivelse og design
+af programmeringssprog, se næste afsnit. Det lægger også grobund for
+kurset `Kompleksitet og beregnelighed' på næste semester, der beskæftiger
+sig med hvad det egentlig er computere kan beregne (og hvad de \emph{ikke}
+kan).
+
+På et andet plan vil den \emph{matematiske modenhed} I (forhåbentlig)
+opnår gennem dette kursus være jer til gavn under hele jeres resterende
+uddannelse.
+
+\section{Hvordan hænger kursets indhold sammen med kurset `Sprog og
+  oversættere'?}
+
+Programmeringssprogs form og adfærd er også en del af kurset `Sprog og
+oversættere' som undervises af Bent Thomsen. Men hvor vores kursus
+fokuserer på teoretiske aspekter ved \emph{beskrivelse} af
+programmeringssprog, handler Bents kursus om \emph{design} af
+programmeringssprog og konstruktion af oversættere. Vores kursus udgør
+således et vigtigt teoretisk fundament for Bents kursus, og omvendt kan
+Bents kursus give konkrete eksempler på ting fra vores kursus.
+
+Desuden er de abstraktioner vi vil snakke om nyttige i en del sammenhænge
+udenfor oversætterkonstruktion, f.eks. i områder som programverifikation
+eller genkendelse af naturlige sprog.
+
+\section{Hvad er målene for kurset?}
+
+Et vigtigt mål med kurset er selvfølgelig at I skal forstå og kunne
+anvende de begreber og værktøjer der bliver introduceret. Men det er ikke
+det eneste: Et ligeså vigtigt formål er at I trænes i \emph{matematisk
+  modenhed}.
+
+Matematisk modenhed er et vidt begreb som er svært at definere. I forhold
+til vores kursus drejer det sig mest om det der kaldes henholdsvist
+\emph{symbolkompetence} og \emph{ræsonnementskompetence}: I trænes i at
+læse og skrive matematisk symbolsprog og i at relatere det til naturligt
+sprog, og i at læse og skrive matematiske argumenter, specielt
+beviser. Begge kompetencer er vigtige indenfor datalogi, specielt når man
+beskæftiger sig med mere grundlæggende aspekter af datalogiske
+problemstillinger.
+
+Mere præcist er målene for kurset at I
+\begin{itemize}
+\firmlist
+\item lærer at formidle jer mundtligt inden for kursets emner,
+\item lærer at formidle jer skriftligt indenfor kursets emner, herunder at
+  I bliver fortrolige med anvendelsen af matematisk notation,
+\item lærer at formidle jer præcist,
+\item får et \emph{aktivt} forhold til kursets emner,
+\item får overblik over kursets emner og hvordan de hænger sammen,
+\item opnår et præcist kendskab til alle centrale begreber i kurset,
+\item opnår et præcist kendskab til områdets centrale resultater, herunder
+  hvordan man beviser dem,
+\item lærer at relatere de centrale begreber og resultater til hinanden,
+  og
+\item får kompetence i brug af matematisk modellering som redskab i
+  sprogdesign og sprogimplementation.
+\end{itemize} 
+
+
+\chapter{Om kursets form}
+
+\section{Hvordan er en kursusgang opbygget?} 
+
+En kursusgang i `Syntaks og semantik' kommer til at forløbe således:
+\begin{description}\item[8:15--10:00] Forelæsning
+\item[10.10--12:00] Opgaveregning
+\end{description} 
+
+\section{Hvad forberedelse forventes der til kursusgangene?}
+
+Jeg forventer at I hurtigt skimter forelæsningens stof \emph{inden}
+forelæsningen, og læser det grundigt igennem efter kursusgangen. Jeg
+vil en gang imellem bruge noget af forelæsningstiden til
+«spørgetime,» hvor I forventes at stille spørgsmål til bøgernes
+eller min fremstilling af stoffet.
+
+\section{Hvordan forløber opgaveregningen?} 
+ 
+\emph{Opgaveregningen er den vigtigste del af undervisningen.} Regn
+opgaverne i fællesskab; det har vist sig at være helt klart den bedste
+måde. Bestem evt.\ en ord- og kridtfører.
+
+\emph{Grupperummene er undervisningslokaler.} Studerende, der \emph{ikke}
+deltager i opgaveregningen, kan derfor ikke opholde sig i grupperummene
+under opgaveregningen.
+
+\section{Er der afleveringsopgaver?}
+
+Jeg vil stille to større opgaver i løbet af kurset, som I forventes at
+bruge en del af hver kursusgangs opgaveregningstid på. Disse skal
+afleveres \emph{gruppevist} og vil hver danne grundlag for et af
+eksamensspørgsmålene.
+ 
+De studerende der følger kurset som PE-kursus kan vælge at erstatte en
+eller begge opgave(r) med en der relaterer sig direkte til deres projekt.
+ 
+\chapter{Kursusmateriale} 
+ 
+\section{Hvilken bog skal jeg bruge?} 
+ 
+I \emph{syntaksdelen} benytter vi os af følgende bog:
+\begin{quote}
+  Michael Sipser: \emph{Introduction to the Theory of Computation}, Second
+  Edition, PWS Publishing Co. 2005.
+\end{quote}
+Der findes en ældre udgave af bogen. Lad være med at købe den -- den er
+forældet. Alt materiale i dette kursus henviser til den nye udgave.
+ 
+\medskip\noindent I \emph{semantikdelen} bruger vi en note af min kollega
+Hans Hüttel:
+\begin{quote}
+  Hans Hüttel: \emph{Pilen ved træets rod},
+  Aalborg Universitet 2007.
+\end{quote}
+Den vil kunne købes i boghandelen i løbet af februar. (Vi skal jo ikke
+bruge den før ottende kursusgang.)
+
+\section{Hvad er kursets hjemmeside?}
+
+Den er her:
+\begin{quote}
+  \url{http://sands08.twoday.net}
+\end{quote}
+
+\noindent Jeg har for vane at bruge blogs som kursushjemmesider, da det
+\begin{enumerate}
+\item gør livet nemmere for mig og
+\item giver \emph{jer} mulighed for at \emph{kommentere} kurset. Gør
+  endelig brug af den mulighed; det er en god måde at feedbacke (findes
+  det ord?) på.
+\end{enumerate}
+
+\section{Er der en kursusplan?}
+Sidste år så den ud som nedenfor, og jeg regner ikke med at vi laver meget
+om:
+
+\begin{center}
+  \begin{tabular}{rp{7cm}@{\hspace{1em}}l}
+    \multicolumn{3}{l}{\textbf{Syntax -- regulære sprog}} \\\toprule
+    1 & Introduktion; sprog; regulære udtryk & Sipser afs. 0.2, 1.3
+    \\ \hline
+    2 & Endelige automater & Sipser afs. 1.1 \\ \hline
+    3 & Nondeterministiske automater & Sipser afs. 1.2 \\ \hline 
+    4 & Sprog der \emph{ikke} er regulære & Sipser afs. 1.4  \\
+    \multicolumn{3}{l}{\textbf{\rule{0pt}{3ex}Syntax -- kontekstfrie sprog}} \\\toprule
+    5 & Kontekstfrie grammatikker & Sipser afs. 2.1 \\ \hline
+    6 & Pushdown-automater & Sipser afs. 2.2 \\ \hline
+    7 & Sprog der \emph{ikke} er kontekstfrie & Sipser afs. 2.3 \\
+    \multicolumn{3}{l}{\textbf{\rule{0pt}{3ex}Semantik}} \\\toprule
+    8  & Introduktion til (operationel) semantik & HH, kap. 1 og 3 \\ \hline
+    9  & Operationelle semantikker for \textbf{ Bims} & HH, kap. 4 \\ \hline 
+    10 & Udvidelser af \textbf{ Bims} & HH, kap. 5 \\ \hline
+    11 & Blokke og procedurer & HH, kap. 6 \\ \hline 
+    12 & Parametermekanismer & HH, kap. 7 \\ \hline
+    13 & Semantikopgaven & \\
+    \multicolumn{3}{l}{\textbf{\rule{0pt}{3ex}Teoretisk grundlag}} \\\toprule
+    14 & Rekursive definitioner & HH, kap. 14 \\\hline
+    15 & Denotationel semantik & HH, kap. 13
+  \end{tabular}
+\end{center}
+
+\chapter{Om eksamen}
+ 
+\section{Hvordan bliver eksamen?}
+  
+Eksamen er mundtlig og varer 20 minutter per studerende. Der er et antal
+eksamensspørgsmål som I kender på forhånd. Dem trækker I et af, hvorefter
+I får 20 minutter til at forberede en besvarelse af spørgsmålet der
+forventes at vare 10 til 15 minutter. Eksamenspræstationen bedømmes af en
+\emph{ekstern} censor, og der gives karakter.
+
+Eksamenspensum og -spørgsmålene vil blive fastlagt ved tredjesidste
+kursusgang.  Syntaks- og semantikopgaverne er del af eksamenspensum.
+ 
+\section{Hvad skal jeg kunne til eksamen?} 
+ 
+Når censor og jeg bedømmer en eksamenspræstation, forsøger vi at besvare
+en række spørgsmål:
+\begin{description}
+\item[\quad Har den studerende  overblik?]
+  
+  Her ser vi efter i hvor høj grad I kan gøre rede for
+  \begin{itemize}
+  \item hvilke begreber der er væsentlige.
+  \item hvorfor det netop er disse begreber, der er de væsentlige.
+  \item hvilke resultater der er væsentlige.  I et kursus som \emph{Syntaks
+      og semantik} er de vigtige resultater normalt \emph{sætninger}.
+  \item hvorfor det netop er disse resultater, der er de væsentlige.
+  \item hvilke sammenhænge der er mellem denne del af stoffet og andre dele
+    af stoffet.
+  \end{itemize}
+  
+\item[\quad Kan den studerende formulere sig præcist?]
+  
+  Her ser vi efter i hvor høj grad I kan gøre rede for
+  \begin{itemize}
+  \item hvordan de vigtige begreber er defineret. I et kursus som
+    \emph{Syntaks og semantik} bliver de vigtige begreber indført ved
+    præcise \emph{definitioner}.
+  \item hvad de forskellige størrelser, der indgår i en definition,
+    betegner.
+  \item hvor og hvordan vi bruger definitionerne.
+  \item hvorfor definitionerne er formuleret som de er.
+  \item hvordan de vigtige sætninger er formuleret, og hvilke antagelser der
+    er gjort i sætningernes formulering.
+  \end{itemize}
+  
+\item[\quad Kan den studerende tænke om emnet og forstå dets tankegange?]
+  
+  Her ser vi efter i hvor høj grad I kan gøre rede for
+  \begin{itemize}
+  \item strukturen i et ræsonnement, hvad de væsentlige ideer er og hvorfor
+    de er væsentlige. I et kursus som \emph{Syntaks og semantik} er der især
+    vigtige ræsonnementer i \emph{beviser} for sætninger.
+  \item hvorfor vi får bevist vores sætning ved at foretage netop disse
+    bevisskridt.
+  \item hvor antagelser og definitioner bliver brugt i et ræsonnement.
+  \item hvilke bevisteknikker der er vigtige i det aktuelle emne.
+  \item hvilke konsekvenser en sætning har.
+  \end{itemize}
+  
+\item[\quad Er den studerende selvstændig?]
+  
+  Her ser vi efter i hvor høj grad I kan formulere jer selvstændige. Vi
+  ser efter
+  \begin{itemize}
+  \item i hvor høj grad I kan tale om emnet uden at læse højt eller skrive
+    af fra dispositionen.
+  \item hvad det er, I bruger dispositionen til. (Er det til at hjælpe med
+    struktur? Er det for at få styr på detaljer? Skal alle de vigtige
+    begreber læses op/skrives af?)
+  \item hvordan I reagerer, hvis I bliver præsenteret for en
+    problemstilling (f.eks. et eksempel), der ikke er kendt på forhånd.
+  \end{itemize}
+\end{description}
+
+\section{FAQ}
+
+\subsection{Hvorfor skal vi lære om alle de små opfundne legetøjssprog?
+  Hvorfor kan vi ikke se på hele Java eller C eller \dots?}
+
+Semantikdelen af kurset handler om hvordan man beskriver forskellige
+fænomener set isoleret, og derfor er det godt at vælge simple sprog der
+kun rummer disse fænomener. Senere skal I lære at betragte fænomenernes
+samspil i stadigt mere komplekse sammenhænge. En analogi: I et indledende
+kursus i mekanisk fysik lægger man heller ikke ud med at beskrive
+komplicerede mekaniske systemer med gnidningsmodstand, tyngdekraft osv.
+inddraget på samme tid.
+
+\subsection{Hvorfor er der alle de beviser?}
+
+I et universitetsstudium skal man bl.a.\ erhverve sig en teoretisk indsigt
+i studiets områder, og dette indebærer at man skal kende til
+teoriområdernes argumentation.  Angrebsvinklen i dette kursus er primært
+teoretisk, og de teorier, vi skal se på, er matematisk funderede teorier.
+Resultaterne i matematisk orienterede discipliner er matematiske
+\emph{sætninger}, og argumentationsformen er matematiske \emph{beviser}.
+Så derfor er det denne argumentationsform, du vil få at se.  Andre
+discipliner i datalogi benytter sig af andre argumentationsformer.
+ 
+Samtidig er der også en læringsbetinget grund til at gøre beviserne for
+kursets sætninger til genstand for en mere nøje betragtning. Matematiske
+sætninger siger nemlig typisk noget om, \emph{hvordan begreber hænger
+  sammen}, og man kan derfor lære at relatere kursets begreber til
+hinanden ved at betragte beviserne. Et eksempel er resultatet om
+sammenhængen mellem pushdown-automater og kontekstfrie grammatikker
+(Sipser Lemma 2.15): Beviset fortæller præcis hvordan man kan konstruere
+en grammatik ud fra en automat, og ved at I sætter jer ind i beviset, får
+I forhåbentlig en bedre forståelse af både grammatikker og automater.
+
+\end{document}

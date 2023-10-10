@@ -1,0 +1,979 @@
+\documentclass{beamer}
+
+\newcommand*{\lektion}{10}
+\date{27 marts 2007}
+\usepackage{../sogs07-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Fra sidst}
+
+\section{Operationel semantik}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Operationel semantik}: at oversætte et \emph{program\/} til
+    et \emph{transitionssystem\/}:
+    \begin{itemize}
+    \item konfigurationer: programtilstande
+    \item transitioner: programskridt
+    \item slutkonfigurationer: (succesfuld) terminering af programmet
+    \end{itemize}
+  \item \alert{Transitionssystemer}: $( \Gamma, \mathord\to, T)$
+    \begin{itemize}
+    \item konfigurationer $\Gamma$, transitioner $\to$,
+      slutkonfigurationer $T$
+    \item slutkonfigurationer er \emph{terminale\/}: $\forall \gamma\in
+      T\; \nexists \gamma'\in \Gamma: \gamma\to \gamma'$
+    \item men ikke alle terminale konfigurationer er nødvendigvis
+      slutkonfigurationer! -- \alert{deadlock}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Big vs.\ small step}
+
+\begin{frame}[t]
+  \begin{columns}[t]
+    \begin{column}{.5\textwidth}
+      \alert{Big-step}-semantik:
+      \begin{itemize}
+
+        \vspace{\topsep}\vspace{\itemsep}
+      \item at evaluere ting \emph{i ét hug}
+      \item transitioner fra konfigurationer til slutkonfigurationer
+      \end{itemize}
+    \end{column}
+    \begin{column}{.6\textwidth}
+      \alert{Small-step}-semantik:
+      \begin{itemize}
+      \item at evaluere ting \emph{ét skridt ad gangen}
+      \item transitioner fra konfigurationer til konfigurationer og til
+        slutkonfigurationer
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \vspace{3ex}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{pgfpicture}{0pt}{0pt}{\linewidth}{.5\textheight}
+        \pgfsetxvec{\pgfpoint{1ex}{0ex}}
+        \pgfsetyvec{\pgfpoint{0em}{1ex}}
+%        \color{yellow}\pgfsetlinewidth{.2pt}\pgfgrid[step=\pgfpoint{2ex}{2ex}]{\pgfpoint{0pt}{0pt}}{\pgfpoint{\linewidth}{.5\textheight}}
+      \pgfsetendarrow{\pgfarrowto}\pgfsetlinewidth{.4pt}
+\color{magenta}
+\pgfputat{\pgfxy(1,17)}{\pgfbox[center,center]{\large $\Gamma\setminus T$}}
+\pgfcircle[fill]{\pgfxy(14.69,17.94)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.09,16.67)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.40,13.77)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.86,14.56)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.74,20.27)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.65,12.06)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.28,12.34)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.12,20.44)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.61,19.19)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.82,16.37)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.64,12.27)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.89,16.48)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.04,12.49)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.30,13.06)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.75,17.58)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.87,13.96)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.04,17.97)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.16,19.44)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.74,21.54)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.53,21.00)}{.2ex}
+\pgfcircle[fill]{\pgfxy(11.82,21.70)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.06,17.10)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.05,21.70)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.54,15.18)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.42,21.36)}{.2ex}
+\pgfcircle[fill]{\pgfxy(11.08,14.06)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.15,15.49)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.06,12.72)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.98,19.37)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.30,19.26)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.47,20.18)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.74,13.51)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.15,14.90)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.48,17.41)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.45,18.01)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.41,15.79)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.23,15.48)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.41,21.28)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.70,17.95)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.99,12.64)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.84,19.07)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.23,17.51)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.56,18.29)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.23,20.06)}{.2ex}
+\pgfcircle[fill]{\pgfxy(11.18,13.54)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.32,15.65)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.72,20.07)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.69,19.39)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.49,13.17)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.80,18.94)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.70,19.21)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.25,21.93)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.21,18.66)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.74,16.44)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.14,14.25)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.08,20.50)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.32,13.31)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.01,15.40)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.61,12.25)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.46,20.31)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.31,18.79)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.49,20.55)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.38,16.18)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.94,14.87)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.35,20.74)}{.2ex}
+\color{blue}
+\pgfputat{\pgfxy(1,3)}{\pgfbox[center,center]{\large $T$}}
+\pgfcircle[fill]{\pgfxy(10.15,1.44)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.56,5.98)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.23,0.53)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.39,3.36)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.86,4.74)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.53,3.21)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.33,2.56)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.92,3.60)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.98,2.50)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.73,2.70)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.53,3.03)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.26,4.35)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.68,4.19)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.82,1.22)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.92,3.30)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.07,2.08)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.26,4.16)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.58,1.49)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.21,1.49)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.85,3.07)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.23,4.38)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.80,5.57)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.47,1.24)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.17,5.45)}{.2ex}
+\pgfcircle[fill]{\pgfxy(11.75,5.43)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.67,0.80)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.46,0.45)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.15,1.67)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.64,1.97)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.41,2.09)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.79,5.48)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.17,5.06)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.64,1.27)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.07,5.85)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.76,2.93)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.45,2.99)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.83,1.77)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.08,3.30)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.02,3.26)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.27,4.29)}{.2ex}
+\color{black}
+\pgfxyline(14.69,17.94)(10.15,1.44)
+\pgfxyline(13.09,16.67)(15.56,5.98)
+\pgfxyline(10.40,13.77)(17.23,0.53)
+\pgfxyline(7.86,14.56)(6.39,3.36)
+\pgfxyline(17.74,20.27)(16.86,4.74)
+\pgfxyline(18.65,12.06)(9.53,3.21)
+\pgfxyline(13.28,12.34)(7.33,2.56)
+\pgfxyline(19.12,20.44)(13.92,3.60)
+\pgfxyline(17.61,19.19)(14.98,2.50)
+\pgfxyline(9.82,16.37)(14.73,2.70)
+      \end{pgfpicture}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \begin{pgfpicture}{0pt}{0pt}{\linewidth}{.5\textheight}
+        \pgfsetxvec{\pgfpoint{1ex}{0ex}}
+        \pgfsetyvec{\pgfpoint{0em}{1ex}}
+%        \color{yellow}\pgfsetlinewidth{.2pt}\pgfgrid[step=\pgfpoint{2ex}{2ex}]{\pgfpoint{0pt}{0pt}}{\pgfpoint{\linewidth}{.5\textheight}}
+        \pgfsetendarrow{\pgfarrowto}\pgfsetlinewidth{.4pt}
+\color{magenta}
+\pgfputat{\pgfxy(1,17)}{\pgfbox[center,center]{\large $\Gamma\setminus T$}}
+\pgfcircle[fill]{\pgfxy(11.43,17.06)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.88,17.91)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.60,15.11)}{.2ex}
+\pgfcircle[fill]{\pgfxy(11.37,19.31)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.29,15.43)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.79,19.21)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.99,13.89)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.42,14.58)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.97,21.20)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.97,16.13)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.69,15.87)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.56,17.24)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.39,19.53)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.66,19.47)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.05,19.74)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.16,15.48)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.32,21.57)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.92,19.45)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.68,20.29)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.28,17.50)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.72,15.07)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.71,18.23)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.48,13.65)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.34,21.98)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.37,13.31)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.63,21.59)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.70,15.19)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.35,20.61)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.24,20.02)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.08,20.29)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.28,21.77)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.30,17.61)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.34,20.22)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.58,17.54)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.51,16.86)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.04,13.75)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.45,19.27)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.51,21.93)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.44,15.85)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.91,18.82)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.68,13.07)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.93,19.38)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.26,20.28)}{.2ex}
+\pgfcircle[fill]{\pgfxy(11.99,20.51)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.30,17.60)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.32,17.59)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.37,21.14)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.72,20.23)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.88,13.30)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.77,12.91)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.16,20.34)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.19,19.61)}{.2ex}
+\pgfcircle[fill]{\pgfxy(11.61,19.70)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.06,13.58)}{.2ex}
+\pgfcircle[fill]{\pgfxy(11.55,16.50)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.40,12.23)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.57,13.85)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.13,15.35)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.13,19.12)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.38,21.96)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.24,17.71)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.55,17.13)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.37,15.79)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.36,21.26)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.09,12.66)}{.2ex}
+\color{blue}
+\pgfputat{\pgfxy(1,3)}{\pgfbox[center,center]{\large $T$}}
+\pgfcircle[fill]{\pgfxy(11.85,1.60)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.55,3.35)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.72,1.23)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.06,5.13)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.24,1.66)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.83,1.59)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.32,2.29)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.92,3.44)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.31,5.07)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.40,2.28)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.57,2.52)}{.2ex}
+\pgfcircle[fill]{\pgfxy(12.04,2.52)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.97,5.16)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.95,4.61)}{.2ex}
+\pgfcircle[fill]{\pgfxy(10.25,4.69)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.97,1.62)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.81,2.04)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.97,2.05)}{.2ex}
+\pgfcircle[fill]{\pgfxy(13.27,4.56)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.70,2.51)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.74,1.54)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.10,0.06)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.35,1.03)}{.2ex}
+\pgfcircle[fill]{\pgfxy(9.51,5.18)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.10,2.43)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.98,5.19)}{.2ex}
+\pgfcircle[fill]{\pgfxy(8.96,0.54)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.23,3.93)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.70,2.18)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.06,5.96)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.39,0.03)}{.2ex}
+\pgfcircle[fill]{\pgfxy(17.58,2.21)}{.2ex}
+\pgfcircle[fill]{\pgfxy(15.59,4.08)}{.2ex}
+\pgfcircle[fill]{\pgfxy(18.26,2.86)}{.2ex}
+\pgfcircle[fill]{\pgfxy(14.64,0.49)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.90,3.90)}{.2ex}
+\pgfcircle[fill]{\pgfxy(16.03,4.52)}{.2ex}
+\pgfcircle[fill]{\pgfxy(7.97,0.90)}{.2ex}
+\pgfcircle[fill]{\pgfxy(19.55,5.00)}{.2ex}
+\pgfcircle[fill]{\pgfxy(6.08,3.17)}{.2ex}
+\color{black}
+\pgfxyline(11.43,17.06)(11.85,1.60)
+\pgfxyline(9.88,17.91)(12.55,3.35)
+\pgfxyline(17.60,15.11)(18.72,1.23)
+\pgfxyline(11.37,19.31)(12.06,5.13)
+\pgfxyline(7.29,15.43)(9.24,1.66)
+\pgfxyline(14.79,19.21)(10.83,1.59)
+\pgfxyline(10.99,13.89)(8.32,2.29)
+\pgfxyline(19.42,14.58)(12.92,3.44)
+\pgfxyline(13.97,21.20)(14.31,5.07)
+\pgfxyline(10.97,16.13)(13.40,2.28)
+\pgfxyline(7.69,15.87)(13.72,15.07)
+\pgfxyline(9.56,17.24)(18.71,18.23)
+\pgfxyline(16.39,19.53)(16.48,13.65)
+\pgfxyline(7.66,19.47)(8.34,21.98)
+\pgfxyline(6.05,19.74)(6.37,13.31)
+\pgfxyline(8.16,15.48)(17.63,21.59)
+\pgfxyline(18.32,21.57)(6.70,15.19)
+\pgfxyline(8.92,19.45)(10.35,20.61)
+\pgfxyline(14.68,20.29)(14.24,20.02)
+\pgfxyline(12.28,17.50)(16.08,20.29)
+      \end{pgfpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section[At opskrive]{At opskrive en operationel semantik}
+
+\begin{frame}[t]
+  \mbox{At opskrive en operationel semantik for et programmeringssprog:}
+
+  \begin{enumerate}
+  \item abstrakt syntaks
+    \begin{itemize}
+    \item syntaktiske kategorier
+      \only<1>{%
+        {\small\color{blue}
+          \begin{description}
+          \item[$n \in \mbox{\bf Num}$] -- Numeraler
+          \item[$x \in \mbox{\bf Var}$] --  Variable
+          \item[$a \in \mbox{\bf Aud}$] --  Aritmetiske udtryk
+          \item[$b \in \mbox{\bf Bud}$] --  Boolske udtryk
+          \item[$S \in \mbox{\bf Kom}$] --  Kommandoer
+          \end{description}
+        }}%
+    \item opbygningsregler
+      \only<1>{%
+        {\small\color{blue}
+
+          \vspace{-4ex}
+          \begin{align*} 
+            S &\;::=\;  x \mathtt{:=} a \mid \mbox{\tt skip} \mid S_{1};S_{2} 
+            \mid \mbox{\tt if}\;\; b \;\;  \mbox{\tt then} \;\; S_{1} \;\;
+            \mbox{\tt else} \;\; S_{2}
+            \\ &\qquad\mid \mbox{\tt while} \;\; b \;\; \mbox{\tt do} \;\; S
+            \\ b &\;::=\; a_{1} = a_{2} \mid a_{1}  <  a_{2} \mid \neg b_{1} \mid
+            b_{1} \wedge b_{2} \mid \mbox{\tt (}\, b_{1}\, \mbox{\tt )}
+            \\ a &\;::=\; n \mid x \mid a_{1} \splus a_{2} \mid a_{1} \smult a_{2}
+            \mid a_{1} \ssub a_{2} \mid \mbox{\tt (}\, a_{1}\, \mbox{\tt )}
+          \end{align*}
+        }}%
+    \end{itemize}
+    \only<2->{%
+    \item semantiske mængder og hjælpefunktioner
+    }%
+    \only<2>{%
+      {\small
+        \begin{itemize}
+          \color{blue}
+        \item værdier af numeraler er elementer i $\Int$
+        \item funktionen $\mathcal N: \textbf{Num}\to \Int$ giver værdien
+          af en numeral
+        \end{itemize}
+      }}%
+    \only<3->{%
+    \item transitionssystem(er)
+      \begin{itemize}
+      \item konfigurationer og slutkonfigurationer
+
+        \qquad{\small\blue{$\Gamma= \mbox{\bf Aud}\cup \Int$, $T= \Int$}}
+      \item transitionsrelationen givet ved \emph{transitionsregler}
+
+        \vspace{-2ex}
+        \begin{equation*}
+          \text{f.eks.}\quad \blue{\newcondinfrule{a_{1} \to v_{1} \;\;\; a_{2}
+              \to v_{2}}{a_{1} \splus a_{2} \to v}{\mbox{hvor}\; v = v_{1} +
+              v_{2}}}\qquad
+        \end{equation*}
+      \end{itemize}
+    }
+  \end{enumerate}
+\end{frame}
+
+\section{Derivationstræer}
+
+\begin{frame}[t]
+  For at vise at en bestemt transition findes i en operationel semantik,
+  konstrueres et \alert{derivationstræ}:
+
+  \begin{pgfpicture}{0pt}{0pt}{\textwidth}{.5\textheight}
+    \pgfsetxvec{\pgfpoint{2em}{0ex}}
+    \pgfsetyvec{\pgfpoint{0em}{2em}}
+    % \color{yellow}\pgfsetlinewidth{.2pt}\pgfgrid[step=\pgfpoint{2em}{2em}]{\pgfpoint{0pt}{0pt}}{\pgfpoint{\textwidth}{.5\textheight}}
+    \color{black}\pgfsetlinewidth{.4pt}
+    \pgfputat{\pgfxy(7,.5)}{\pgfbox[center,center]{$\slp \ul2\splus
+        \ul4\srp\smult\slp \ul6\splus \ul1\srp\to
+        {\blue{\text?\;\;}}$}}
+    \pgfxyline(3.2,1.3)(10.9,1.3)
+    \pgfputat{\pgfxy(4.5,2)}{\pgfbox[center,center]{$\slp \ul2\splus
+        \ul4\srp\to {\blue{\text?}}$}}
+    \pgfputat{\pgfxy(9.5,2)}{\pgfbox[center,center]{$\slp
+        \ul6\splus \ul1\srp\to {\blue{\text?}}$}}
+    \pgfxyline(3.3,2.8)(5.8,2.8)
+    \pgfxyline(8.3,2.8)(10.8,2.8)
+    \pgfputat{\pgfxy(4.6,3.5)}{\pgfbox[center,center]{$\ul2\splus
+        \ul4\to {\blue{\text?}}$}}
+    \pgfputat{\pgfxy(9.6,3.5)}{\pgfbox[center,center]{$\ul6\splus
+        \ul1\to {\blue{\text?}}$}}
+    \pgfxyline(2.8,4.3)(6.3,4.3)
+    \pgfxyline(7.8,4.3)(11.3,4.3)
+    \pgfputat{\pgfxy(3.5,5)}{\pgfbox[center,center]{$\ul2\to 2$}}
+    \pgfputat{\pgfxy(5.7,5)}{\pgfbox[center,center]{$\ul4\to 4$}}
+    \pgfputat{\pgfxy(8.5,5)}{\pgfbox[center,center]{$\ul6\to 6$}}
+    \pgfputat{\pgfxy(10.7,5)}{\pgfbox[center,center]{$\ul1\to 1$}}
+    \color{red}\pgfsetlinewidth{.7pt}\pgfsetendarrow{\pgfarrowto}
+    \pgfxyline(7,.9)(4.6,1.6)
+    \pgfxyline(7,.9)(9.6,1.6)
+    \pgfxyline(4.6,2.4)(4.6,3.1)
+    \pgfxyline(9.6,2.4)(9.6,3.1)
+    \pgfxyline(4.6,3.9)(3.5,4.6)
+    \pgfxyline(4.6,3.9)(5.7,4.6)
+    \pgfxyline(9.6,3.9)(8.5,4.6)
+    \pgfxyline(9.6,3.9)(10.7,4.6)
+  \end{pgfpicture}
+
+  \begin{itemize}
+  \item aksiomer i bladene
+  \item knude $k$ har sønner $p_1, p_2,\dots, p_n$ hvis og kun hvis der
+    er en transitionsregel
+    
+    \vspace{-3ex}
+    \begin{equation*}
+      \infrule{p_{1}, p_2,\dots, p_{n}}{k}
+    \end{equation*}
+
+    \vspace{-2ex}
+  \item \emph{mekanisk\/} proces \IMPL\ \alert{automatisering!}
+  \end{itemize}
+\end{frame}
+
+
+\part{Operationelle semantikker for \protect\textbf{Bims}}
+
+\section{Programtilstande}
+
+\begin{frame}
+  \alert{Mål:} Transitionssystem hvori transitioner beskriver udførelser
+  af \textbf{Bims}-kommandoer.
+
+  \medskip Hvad skal \emph{konfigurationerne\/} være?
+  \begin{itemize}
+  \item konfiguration $=$ \emph{programtilstand}
+  \item programmers opførsel kan afhænge af værdier af variable
+  \item[\IMPL] programtilstand $=$ de kommandoer vi mangler at udføre\\
+    \textcolor{white}{programtilstand} $+$ værdier af alle variable
+  \end{itemize}
+
+  \medskip \alert{Definition 4.1:} En \alert{tilstand} er en
+  \emph{partiel\/} funktion $\textbf{Var}\to \Int$.
+
+  \alert{Definition 4.3:} Mængden af alle tilstande kaldes
+  \textbf{Tilstande}.
+
+  \medskip Dvs. \alert{$\textbf{Tilstande}= \textbf{Var}\parto
+    \Int$}. \blue{%
+    ~$\xleftarrow{\hspace*{3em}}$~\parbox{.4\linewidth}{%
+      mængden af alle \emph{partielle\/} funktioner fra \textbf{Var} til
+      $\Int$}}
+
+  \bigskip -- konfigurationerne vil være \emph{par af kommandoer og
+    tilstande}: \alert{$\Gamma= \textbf{Kom}\times \textbf{Tilstande}$}
+\end{frame}
+
+\section[Aud]{Big-step-semantik for aritmetiske udtryk med variable}
+
+\begin{frame}[t]
+  Aritmetiske udtryk med variable:
+  \begin{equation*}
+    \textbf{Aud:}\qquad a \;::=\; n \mid x \mid a_{1} \splus a_{2} \mid
+    a_{1} \smult a_{2} \mid a_{1} \ssub a_{2} \mid \mbox{\tt (}\, a_{1}\,
+    \mbox{\tt )}
+  \end{equation*}
+
+  \begin{itemize}
+  \item big-step-semantik
+  \item semantikken \emph{afhænger\/} af tilstanden, men \emph{ændrer den
+      ikke}
+  \item[\IMPL] konfigurationer $\Gamma= \textbf{Aud}\cup \Int$ (som før!),
+    \alert{men transitionssystemet afhænger af tilstanden!}
+  \item transitioner skrives \alert{$s\vdash a\to_a v$}:\ i tilstand $s$
+    kan $a$ evaluere til $v$
+  \item slutkonfigurationer $T= \Int$ (også som før)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+
+  \vspace*{-2ex}
+  \begin{tabular}{lc}
+    \runa{plus}{bss} & \newcondinfrule{\magenta{s\vdash\,} a_{1} \to_a v_{1}
+      \;\;\; \magenta{s\vdash\,} a_{2} \to_a v_{2}}{\magenta{s\vdash\,}
+      a_{1} \splus a_{2} \to_a v}{\text{hvor}\; v = v_{1} + v_{2}} \\[-2.5ex]
+    \runa{minus}{bss} & \newcondinfrule{\magenta{s\vdash\,} a_{1} \to_a
+      v_{1} \;\;\; \magenta{s\vdash\,} a_{2} \to_a
+      v_{2}}{\magenta{s\vdash\,} a_{1} \ssub a_{2} \to_a v}{\text{hvor}\; v
+      = v_{1} - v_{2}} \\[-2.5ex]
+    \runa{mult}{bss} & \newcondinfrule{\magenta{s\vdash\,} a_{1} \to_a
+      v_{1} \;\;\; \magenta{s\vdash\,} a_{2} \to_a
+      v_{2}}{\magenta{s\vdash\,} a_{1} \text{\tt *} a_{2} \to_a
+      v}{\text{hvor}\; v = v_{1} \cdot v_{2}} \\[-2.5ex]
+    \runa{parent}{bss} & \infrule{\magenta{s\vdash\,} a_{1} \to_a
+      v_{1}}{\magenta{s\vdash\,} \text{\tt (} a_{1} \text{\tt )} \to_a v_{1}} \\
+    \runa{num}{bss} & $\magenta{s\vdash\,} n \to_a v \;\;\;\; \text{hvis}
+    \;\;\;\; {\cal N}\sem{n} = v$ \\[1ex]
+    \magenta{\runa{var}{bss}} & \magenta{$s \vdash x \to_a v \;\;\;\;
+      \text{hvis} \;\;\;\; s( x) = v$}
+  \end{tabular}
+
+  \medskip
+  \begin{itemize}
+  \item \alert{syntaksdirigerede}: ethvert sammensat element fra syntaksen
+    optræder som konklusion i en transitionsregel, ethvert basiselement
+    som aksiom
+  \item \alert{kompositionelle:} præmisserne i en regel udtaler sig om de
+    \emph{umiddelbare bestanddele\/} af elementet i konklusionen
+  \end{itemize}
+\end{frame}
+
+\section[Bud]{Big-step-semantik for boolske udtryk}
+
+\begin{frame}
+  Boolske udtryk:
+  \begin{equation*}
+    \qquad\textbf{Bud:}\qquad b \;::=\; a_{1} = a_{2} \mid a_{1}  <  a_{2} \mid
+    \neg b_{1} \mid b_{1} \wedge b_{2} \mid \mbox{\tt (}\, b_{1}\,
+    \mbox{\tt )}
+  \end{equation*}
+
+  \begin{itemize}
+  \item samme big-step-semantik som før
+  \item bortset fra at alle transitioner nu er af formen $\alert s\vdash
+    b\to_b \sand$ eller $\alert s\vdash b\to_b \falsk$
+  \item det gider vi ikke vise igen \dots
+  \end{itemize}
+\end{frame}
+
+\section[Bims: big-step]{Big-step-semantik for \protect\textbf{Bims}}
+
+\begin{frame}[t]
+  Kommandoer i \textbf{Bims}:
+  \begin{align*}
+    S &\;::=\;  x \mathtt{:=} a \mid \mbox{\tt skip} \mid S_{1};S_{2} 
+    \mid \mbox{\tt if}\;\; b \;\;  \mbox{\tt then} \;\; S_{1} \;\;
+    \mbox{\tt else} \;\; S_{2}
+    \\ &\qquad\mid \mbox{\tt while} \;\; b \;\; \mbox{\tt do} \;\; S
+  \end{align*}
+
+  \begin{itemize}
+  \item \mbox{kommandoer kan ændre tilstanden (f.x.\ kommandoen \texttt{x:=2})\hspace*{-4em}}
+  \item[\IMPL] skal have tilstanden med i konfigurationerne
+  \item dvs.\ konfigurationer \alert{$\Gamma= \textbf{Kom}\times
+      \textbf{Tilstande}\cup \textbf{Tilstande}$} og slutkonfigurationer
+    \alert{$T= \textbf{Tilstande}$}
+  \item skrives \alert{$\la S, s\ra$} \quad ($S$ kommando, $s$ tilstand)
+  \item (og transitionsrelationen $\to$ defineres ved transitionsregler;
+    \blue{coming up})
+  \item at ændre en tilstand: \alert{Definition 4.4:} Lad
+    $s\in\textbf{Tilstande}$, $x\in \textbf{Var}$ og $v\in \Int$. Den
+    \alert{opdaterede tilstand $s[ x\mapsto v]$} er givet ved
+
+    \vspace{-2ex}
+    \begin{equation*}
+      s[ x\mapsto v]( y)=
+      \begin{cases}
+        s( y) &\text{hvis $y\ne x$} \\
+        v &\text{hvis $y= x$}
+      \end{cases}
+    \end{equation*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \begin{tabular}{ll}
+    \runa{ass}{bss} & $\langle x:=a, s \rangle \to
+    s[ x \mapsto v ]$ \hfill hvor $s \vdash a \to_a v$ \\[1ex]
+    \runa{skip}{bss} & $\langle {\text{\tt skip}}, s
+    \rangle \to s$ \\  
+    \runa{comp}{bss} & \infrule{\langle S_{1},s
+      \rangle \to s'' \;\; \langle S_{2},s'' \rangle \to s'}{\langle
+      S_{1};S_{2},s \rangle \to s'} \\[-2ex]
+    \runa{if-sand}{bss} & \infrule{\langle S_{1} 
+      ,s \rangle \to s'}{\langle 
+      \text{\tt if}\;\; b\;\; \text{\tt then}\;\ S_{1}\;\ \text{\tt else}\;\
+      S_{2}\; , s \rangle \to s'} \\[-1.5ex]
+    & \hfill $\text{hvis} \;\;s \vdash b \to_b \sand$ \\[-1.5ex]
+    \runa{if-falsk}{bss} & \infrule{\langle S_{2} 
+      ,s \rangle \to s'}{\langle 
+      \text{\tt if}\;\; b\;\; \text{\tt then}\;\ S_{1}\;\ \text{\tt else}\;\
+      S_{2}\; , s \rangle \to s'} \\[-1.5ex]
+    & \hfill $\text{hvis} \;\;s \vdash b \to_b \falsk$ \\[-.5ex]
+    \runa{while-sand}{bss} & \infrule{\langle S,s \rangle 
+      \to s'' \;\;\; \langle \text{\tt while}\;\;b \;\; \text{\tt do}\;\;S ,s''\rangle \to 
+      s'}{\langle \text{\tt while}\;\;b \;\; \text{\tt do}\;\;S,s \rangle \to 
+      s'} \\[-1.5ex]
+    & \hfill $\text{hvis}\;\; s \vdash b \to_b \sand$ \\[1ex]
+    \runa{while-falsk}{bss} & $\langle \text{\tt while}\;\;b \;\; \text{\tt
+      do}\;\;S,s \rangle \to s \qquad \text{hvis}\;\; s \vdash b \to_b \falsk$
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \begin{tabular}{lp{20.5em}}
+    \runa{while-sand}{bss} & \infrule{\langle S,s \rangle 
+      \to s'' \;\;\; \langle \text{\tt while}\;\;b \;\; \text{\tt do}\;\;S ,s''\rangle \to 
+      s'}{\langle \text{\tt while}\;\;b \;\; \text{\tt do}\;\;S,s \rangle \to 
+      s'} \\[-1.5ex]
+    & \hfill $\text{hvis}\;\; s \vdash b \to_b \sand$
+  \end{tabular}
+
+  \medskip Dén regel er \alert{ikke kompositionel}: præmissen indeholder
+  ikke kun umiddelbare bestanddele af konklusionens syntakselement
+  \begin{itemize}
+  \item fordi \texttt{while}-løkker er \emph{rekursive}
+  \item reglen skal anvendes \emph{indtil $b$ bliver falsk}
+  \item ellers: \emph{uendelig løkke} -- ikke-terminering
+  \item fikspunkt-teori!
+  \end{itemize}
+\end{frame}
+
+\section[Derivationstræ]{At konstruere et derivationstræ}
+
+\begin{frame}[t]
+  \alert{Eksempel:} Givet kommandoen
+  \begin{equation*}
+    S \;=\; \texttt{i:=6; while i$\ne$0 do (x:=x+i; i:=i-2)}
+  \end{equation*}
+  og tilstanden $s$ ved $s( \texttt x)= 5$, konstruer et derivationstræ
+  for at finde en transition $\la S, s\ra\to s'$:
+
+  \bigskip
+  \begin{columns}
+    \begin{column}{1.15\textwidth}
+      \begin{enumerate}
+        \addtolength\itemsep{.5ex}
+      \item $\dfrac{%
+          \la \texttt{i:=6},s \ra \to s_2 \quad \la \texttt{while i$\ne$0
+            do (x:=x+i; i:=i-2)}, s_2 \ra \to s'}{%
+          \la \texttt{i:=6; while i$\ne$0 do (x:=x+i; i:=i-2)}, s\ra\to
+          s'}$
+      \item $\la \texttt{i:=6}, s\ra\to s[ \texttt i\mapsto 6]$, fordi $s
+        \vdash \texttt 6 \to_a 6$. Så \alert{$s_2= s[ \texttt i\mapsto
+          6]$}.
+      \item $\dfrac{%
+          \datop{%
+            \la \texttt{x:=x+i; i:=i-2}, s_2\ra\to s_3}{%
+            \la \texttt{while i$\ne$0 do (x:=x+i; i:=i-2)}, s_3\ra\to s'
+          }}{%
+          \la \texttt{while i$\ne$0 do (x:=x+i; i:=i-2)}, s_2 \ra \to s'}$
+        \\ \hfill fordi \alert{$s_2\vdash \texttt{i$\ne$0}\to_b \sand$}
+      \item $\dfrac{%
+          \la \texttt{x:=x+i}, s_2\ra\to s_4\quad \la \texttt{i:=i-2},
+          s_4\ra\to s_3}{%
+          \la \texttt{x:=x+i; i:=i-2}, s_2\ra\to s_3}$
+      \end{enumerate}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \begin{columns}
+    \begin{column}{1.15\textwidth}
+      \begin{enumerate}
+        \addtolength\itemsep{.5ex}
+        \setcounter{enumi}4
+      \item $\la \texttt{x:=x+i}, s_2\ra\to s_2[ \texttt x\mapsto 11]$,
+        fordi $s_2\vdash \texttt{x+i}\to_a 11$ (anvend
+        $\runa{plus}{bss}$!)  \\
+        \IMPL\ \alert{$s_4= s_2[ \texttt x\mapsto 11]= s[ \texttt i\mapsto
+          6, \texttt x\mapsto 11]$}
+      \item $\la \texttt{i:=i-2}, s_4\ra\to s_4[ \texttt i\mapsto 4]$,
+        fordi $s_4\vdash \texttt{i-2}\to_a 4$ (anvend $\runa{plus}{bss}$!)
+        \\
+        \IMPL\ \alert{$s_3= s_4[ \texttt i\mapsto 4]= s[ \texttt i\mapsto
+          4, \texttt x\mapsto 11]$}
+      \item $\dfrac{%
+          \datop{%
+            \la \texttt{x:=x+i; i:=i-2}, s_3\ra\to s_5}{%
+            \la \texttt{while i$\ne$0 do (x:=x+i; i:=i-2)}, s_5\ra\to s'
+          }}{%
+          \la \texttt{while i$\ne$0 do (x:=x+i; i:=i-2)}, s_3 \ra \to s'}$
+        \\ \hfill fordi \alert{$s_3\vdash \texttt{i$\ne$0}\to_b \sand$}
+      \item \ldots
+      \item \ldots
+      \item \ldots\quad \alert{$s_5= s[ \texttt i\mapsto 2, \texttt x\mapsto 15]$}
+      \item $\dfrac{%
+          \datop{%
+            \la \texttt{x:=x+i; i:=i-2}, s_5\ra\to s_7}{%
+            \la \texttt{while i$\ne$0 do (x:=x+i; i:=i-2)}, s_7\ra\to s'
+          }}{%
+          \la \texttt{while i$\ne$0 do (x:=x+i; i:=i-2)}, s_5 \ra \to s'}$
+        \\ \hfill fordi \alert{$s_5\vdash \texttt{i$\ne$0}\to_b \sand$}
+      \end{enumerate}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \begin{columns}
+    \begin{column}{1.15\textwidth}
+      \begin{enumerate}
+        \addtolength\itemsep{.5ex}
+        \setcounter{enumi}{11}
+      \item \ldots
+      \item \ldots
+      \item \ldots\quad \alert{$s_7= s[ \texttt i\mapsto 0, \texttt x\mapsto 17]$}
+      \item $\la \texttt{while i$\ne$0 do (x:=x+i; i:=i-2)}, s_7\ra\to
+        s_7$, fordi \alert{$s_7\vdash \texttt{i$\ne$0}\to_b \falsk$ !}
+      \item[\IMPL] $s'= s_7= s[ \texttt i\mapsto 0, \texttt x\mapsto 17]$, dvs.
+        \begin{multline*}
+          \la \texttt{i:=6; while i$\ne$0 do (x:=x+i; i:=i-2)}, s\ra \\
+          \to s[ \texttt i\mapsto 0, \texttt x\mapsto 17]
+        \end{multline*}
+      \end{enumerate}
+    \end{column}
+  \end{columns}
+
+  \medskip
+  \begin{itemize}
+  \item at konstruere derivationstræer $=$ \emph{kedeligt},
+    \alert{mekanisk}
+  \item[\IMPL] automatisering \IMPL\ \alert{fortolker!}
+  \end{itemize}
+\end{frame}
+
+\section[Terminering]{Terminering (big-step)}
+
+\begin{frame}
+  \alert{Definition:} Givet $S\in \textbf{Kom}$ og $s\in
+  \textbf{Tilstande}$:
+  \begin{itemize}
+  \item $S$ siges at \alert{terminere fra $s$} hvis der findes $s'\in
+    \textbf{Tilstande}$ så $\la S, s\ra\to s'$.
+  \item $S$ siges at \alert{gå i uendelig løkke på $s$} hvis $S$ ikke
+    terminerer fra $s$.
+  \item $S$ \alert{terminerer altid} hvis $S$ terminerer fra alle $s\in
+    \textbf{Tilstande}$.
+  \item $S$ \alert{går altid i uendelig løkke} hvis $S$ går i uendelig
+    løkke på alle $s\in \textbf{Tilstande}$.
+  \end{itemize}
+
+  \bigskip Opgave 4.8: Vis at $S= \texttt{while 0=0 do skip}$ altid går i
+  uendelig løkke.
+\end{frame}
+
+\section[Bims: small-step]{Small-step-semantik for \protect\textbf{Bims}}
+
+\begin{frame}
+  \begin{itemize}
+  \item (Husk: $\textbf{Tilstande}= \textbf{Var}\parto \Int$)
+  \item konfigurationer \alert{$\Gamma= \textbf{Kom}\times
+      \textbf{Tilstande}\cup \textbf{Tilstande}$}, slutkonfigurationer
+    \alert{$T= \textbf{Tilstande}$}
+  \item transitionsregler for $\To$ coming up
+  \item transition \alert{$\la S, s\ra\To s'$}: terminering i $s'$
+    \emph{efter ét skridt}
+  \item transition \alert{$\la S, s\ra\To \la S', s'\ra$}: efter \emph{ét
+      skridt\/} kommer vi fra $S$ i tilstand $s$ til $S'$ i tilstand $s'$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\begin{tabular}{ll}
+  \runa{ass}{sss} & $\langle x:=a, s \rangle \To
+  s[ x \mapsto v ]$ \hfill hvor $s \vdash a \to_a v$\quad\mbox{} \\[2ex]
+  \runa{skip}{sss} & $\langle {\texttt{skip}}, s
+  \rangle \To s$ \\  
+  \runa{comp-1}{sss} & \infrule{\langle S_{1},s
+    \rangle \To \langle S'_{1}, s' \rangle }{ \langle
+    S_{1};S_{2},s \rangle \To \langle S'_{1};S_{2}, s'\rangle} 
+  \\[-1ex]
+  \runa{comp-2}{sss} & \infrule{\langle S_{1},s
+    \rangle \To s'}{ \langle
+    S_{1};S_{2},s \rangle \To \langle S_{2},s' \rangle} \\
+  \runa{if-sand}{sss} & $\langle \texttt{if}\;\;
+  b\;\; \texttt{then}\;\ S_{1}\;\ \texttt{else}\;\ S_{2}\; , s
+  \rangle \To \langle S_{1}, s \rangle $ \\
+  & \hfill hvis $s \vdash b \to_b
+  \sand$\quad\mbox{} \\
+  \runa{if-falsk}{sss} & $\langle \texttt{if}\;\;
+  b\;\; \texttt{then}\;\ S_{1}\;\ \texttt{else}\;\ S_{2}\; , s
+  \rangle \To \langle S_{2}, s \rangle$ \\
+  & \hfill hvis $s \vdash b \to_b
+  \falsk$\quad\mbox{} \\
+  \runa{while}{sss} & $\langle \texttt{while} \;\; b \;\;
+  \texttt{do} \;\; S, s \rangle \To$ \\
+  & \quad $\langle \texttt{if}\;\; b
+  \;\; \texttt{then}\;\; \mathtt{(} S; \texttt{while} \;\; b \;\;
+  \texttt{do} \;\; S \mathtt{)} \;\; \texttt{else}\;\; \texttt{skip}, s\rangle $ \\
+\end{tabular}
+
+\bigskip -- reglen for \texttt{while}-løkken indeholder igen \alert{rekursion}
+\end{frame}
+
+\section[Terminering]{Terminering (small-step)}
+
+\begin{frame}
+  Ikke-terminering svarer nu til \emph{uendelige transitionsfølger\/}:
+  \begin{equation*}
+    \la \texttt{while 0=0 do skip}, s\ra\overset3\To \la \texttt{while 0=0
+      do skip}, s\ra\overset3\To \dots
+  \end{equation*}
+  (eller til \emph{løkker i transitionssystemet\/}!)
+
+  \bigskip \alert{Definition:} Givet $S\in \textbf{Kom}$ og $s\in
+  \textbf{Tilstande}$:
+  \begin{itemize}
+  \item $S$ siges at \alert{terminere fra $s$} hvis der findes $s'\in
+    \textbf{Tilstande}$ så $\la S, s\ra\overset*\To s'$.
+  \item $S$ siges at \alert{gå i uendelig løkke på $s$} hvis der findes en
+    uendelig transitionsfølge
+    \begin{equation*}
+      \la S, s\ra\To \la S_1, s_1\ra\To \la S_2, s_2\ra\To \dots
+    \end{equation*}
+  \end{itemize}
+\end{frame}
+
+\section[Ækvivalens]{Ækvivalens af big-step- og small-step-semantikken for
+\protect\textbf{Bims}}
+
+\begin{frame}
+  \alert{Sætning 4.11 / 4.13 :} Lad $S\in \textbf{Kom}$ og $s, s'\in
+  \textbf{Tilstande}$. Da har vi $\la S, s\ra\to s'$ hvis og kun hvis $\la
+  S, s\ra\overset*\To s'$.
+
+  \medskip -- dvs.\ kommandoen $S$ terminerer fra tilstand $s$ i tilstand
+  $s'$ i big-step-semantikken hvis og kun hvis den gør det i
+  small-step-semantikken.
+
+  \medskip -- dvs.\ big-step- og small-step-semantikken er
+  \alert{ækvivalent}.
+
+  \bigskip \blue{Vi viser her sætning 4.11 med tilhørende lemma
+    4.12. Beviserne for sætning 4.13 og lemma 4.14 springes over.}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Lemma 4.12:} Lad $S_1, S_2\in \textbf{Kom}$ og $s, s'\in
+  \textbf{Tilstande}$. Hvis $\la S_1, s\ra\overset*\To s'$ så $\la S_1;
+  S_2, s\ra\overset*\To \la S_2, s'\ra$.
+
+  \medskip \alert{Bevis} ved \emph{induktion\/} i transitionsfølgers
+  længde:
+
+  \blue{\emph{(Bemærk forskellen fra bogens bevis!)}}
+  \begin{enumerate}
+  \item Lad $\la S_1, s\ra\overset*\To s'$, dvs.\ $\la S_1, s\ra\overset
+    k\To s'$ for et eller andet $k\in \Nat_0$.
+  \item Vi må have $k\ne 0$, da $\la S_1, s\ra\ne s'$.
+    \blue{($\overset0\To$ er defineret som $=$ !)}
+  \item \emph{Induktionsbasis:\/} Lad $k= 1$. Reglen $\runa{comp-2}{sss}$
+    giver at $\la S_1, s\ra\To s'$ medfører $\la S_1; S_2, s\ra\To \la
+    S_2, s'\ra$. \quad\blue{\checkmark}
+  \item \emph{Induktionsskridt:\/} Lad $k\ge 1$ og antag at vi har vist
+    påstanden for alle transitionsfølger af længde $k$.
+  \item Lad $\la S_1, s\ra\overset{k+1}\To s'$. Vi må have $S_1'\in
+    \textbf{Kom}$ og $s''\in \textbf{Tilstande}$ med \alert{$\la S_1,
+      s\ra\To \la S_1', s''\ra\overset k\To s'$}.
+  \item Pga.\ induktionsantagelsen kan vi konkludere $\la S_1'; S_2,
+    s''\ra\overset k\To \la S_2, s'\ra$. Og med $\runa{comp-1}{sss}$ har
+    vi $\la S_1; S_2, s\ra\To \la S_1'; S_2, s''\ra$. Dvs.
+
+    \vspace{-1.3ex}
+    \begin{equation*}
+      \la S_1; S_2, s\ra\To \la S_1'; S_2, s''\ra\overset k\To \la S_2,
+      s'\ra \quad\blue{\checkmark}
+    \end{equation*}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Sætning 4.11:} Lad $S\in \textbf{Kom}$ og $s, s'\in
+  \textbf{Tilstande}$. Hvis $\la S, s\ra\to s'$ så $\la S,
+  s\ra\overset*\To s'$.
+
+  \medskip \alert{Bevis} ved \emph{transitionsinduktion\/}:
+
+  \blue{Vis at egenskaben gælder for alle aksiomer, og at den bevares ved
+    opbygning af derivationstræer.}
+  \begin{description}
+  \item[$\runa{ass}{bss}$:] Hvis $\la S, s\ra\to s'$ kommer fra
+    $\runa{ass}{bss}$, må vi have $S= x\texttt{:=}a$, $s\vdash a\to_a v$
+    og $s'= s[ x\mapsto v]$ for nogle $x$, $a$ og $v$. $\runa{ass}{sss}$
+    medfører $\la S, s\ra\To s'$ \quad\blue{\checkmark}
+  \item[$\runa{skip}{bss}$:] Hvis $\la S, s\ra\to s'$ kommer fra
+    $\runa{skip}{bss}$, må vi have \\
+    \mbox{$S= \texttt{skip}$ og $s'= s$.  $\runa{skip}{sss}$ medfører $\la
+      S, s\ra\To s'$ \quad\blue{\checkmark}}
+  \item[$\runa{comp}{bss}$:] Hvis $\la S_1; S_2, s\ra\to s''$ kommer fra
+    reglen
+    \begin{equation*}
+      \frac{\la S_{1},s\ra \to s' \quad \la S_{2},s' \ra \to s''}{\la
+        S_{1};S_{2},s \ra \to s''}
+    \end{equation*}
+    og vores påstand gælder for præmisserne, må vi have $\la S_1,
+    s\ra\overset*\To s'$ og $\la S_2, s'\ra\overset*\To s''$.
+
+    Med lemma 4.12 bliver den første til $\la S_1; S_2, s\ra\overset*\To
+    \la S_2, s'\ra$, sammensæt \IMPL\ \blue{\checkmark}
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \begin{description}
+  \item[$\runa{if-falsk}{bss}$:] Hvis $\la \texttt{if}\;\; b\;\;
+    \texttt{then}\;\ S_{1}\;\ \texttt{else}\;\ S_{2}\; , s \ra \to s'$
+    kommer fra reglen
+    \begin{equation*}
+      \frac{\la S_{2},s \ra \to s'}{\langle \texttt{if}\;\;
+        b\;\; \texttt{then}\;\ S_{1}\;\ \texttt{else}\;\ S_{2}\; , s
+        \ra \to s'} \qquad s \vdash b \to_b \falsk
+    \end{equation*}
+    giver $\runa{if-falsk}{sss}$ transitionen
+    \begin{equation*}
+      \la \texttt{if}\;\; b\;\; \texttt{then}\;\ S_{1}\;\ \texttt{else}\;\
+      S_{2}\; , s \ra \To \la S_{2},s \ra
+    \end{equation*}
+    Med induktionsantagelsen har vi $\la S_{2},s \ra \overset*\To s'$,
+    sammensæt \IMPL\ \blue{\checkmark}
+  \item[$\runa{if-sand}{bss}$:] tilsvarende
+  \end{description}
+\end{frame}
+
+\begin{frame}[t]
+  \begin{description}
+  \item[$\runa{while-sand}{bss}$:] Hvis $\la \texttt{while}\;\; b \;\;
+    \texttt{do}\;\; S,s \ra \to s'$ kommer fra reglen
+    \begin{equation*}
+      \frac{\la S,s \ra \to s'' \quad \la \texttt{while}\;\; b \;\; 
+        \texttt{do}\;\; S,s'' \ra \to s'}{\la \texttt{while}\;\; b \;\; 
+        \texttt{do}\;\; S,s \ra \to s'} \quad s \vdash b \to_b \sand
+    \end{equation*}
+    kan vi per antagelse konkludere at
+    \begin{equation*}
+      \la S,s \ra \overset*\To s'' \quad\text{og}\quad \la \texttt{while}\;\; b
+      \;\; \texttt{do}\;\; S,s'' \ra \overset*\To s'
+    \end{equation*}
+    \mbox{dvs. med lemma 4.12: $\la S; \texttt{while}\;\; b \;\;
+      \texttt{do}\;\; S,s \ra \overset*\To s'$}
+
+    Og med \runa{if-sand}{sss} og \runa{while}{sss} har vi så
+    \begin{align*}
+      &\la \texttt{while}\;\; b \;\; \texttt{do}\;\; S,s \ra \\
+      &\To
+      \la \texttt{if}\;\; b\;\; \texttt{then}\;\; (S; \;\;
+      \texttt{while}\;\; b \;\; \texttt{do}\;\; S \texttt{) else skip},s \ra \\
+      &\To \la S; \texttt{while}\;\; b \;\; \texttt{do}\;\; S,s \ra \\
+      &\overset*\To s'
+    \end{align*}
+  \item[$\runa{while-falsk}{bss}$:] tilsvarende \hfill \blue{Færdig!}
+  \end{description}
+\end{frame}
+
+\end{document}

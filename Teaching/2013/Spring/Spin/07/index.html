@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Spin 2013</title>
+</head>
+
+<body>
+
+<h2>Seventh lecture</h2>
+
+<p>Tuesday 9 April 2013, 10:15 to 12:15</p>
+
+<p>Accessible online at: <strong>http://ow.ly/jSFAZ</strong></p>
+
+<p>We go on having fun with model checking:
+<ol start="4">
+	<li>A farmer wants to cross a river in a little boat, together with her <em>dog</em>, her <em>goat</em>, and a <em>cabbage</em>.  The boat can only hold the farmer and <em>one</em> other thing (and the farmer does the rowing, so she needs to be in the boat for crossing the river).  Also, if left alone, the dog will scare away the goat, and the goat will eat the cabbage.<br />
+	How can the farmer get all her things across the river, without the goat running away and without the cabbage being eaten?<br />
+	Write a formal model of the system, using Spin or NuSMV, and use model checking to solve the puzzle.  (Hint: Make it so that your solution will be a <em>counter-example</em>.)<br />
+	<i>You can find a suggestion for solving this in <a href="boat.pml">boat.pml</a>.  This is incomplete, but only needs a bit of <code>atomic</code> magic to be made to work.</i></li>
+	<li>Have a look at the Frog Puzzle at <a href="http://www.hellam.net/maths2000/frogs.html">http://www.hellam.net/maths2000/frogs.html</a>. Write a formal model of the puzzle (which works for an arbitrary number of frogs) and use model checking to solve it.  How many frog moves does the solution take?<br />
+	<i>I will upload a solution to this puzzle after the lecture. <strong><a href="frogs.pml">Here it is.</a></strong></i></li>
+	<li>How many frogs can your model checker handle? Can you optimize it to handle more?</li>
+	<li>At <a href="http://www.puzzles.com/products/RushHour/RushHourVideo.htm">http://www.puzzles.com/products/RushHour/RushHourVideo.htm</a> you will find the puzzle game <em>Rush Hour</em>.  Use model checking to solve a few of the puzzles at <a href="http://www.puzzles.com/products/RushHour/RHfromMarkRiedel/Jam.html">http://www.puzzles.com/products/RushHour/RHfromMarkRiedel/Jam.html</a>.</li>
+	<li>Can you find solutions for Rush Hour puzzles which take as few steps as possible?</li>
+	<li>(Difficult!) Now assume that the cars can move independently (in parallel), and use your model checker to find <em>fastest</em> solutions.</li>
+</ol></p>
+      
+</body>
+</html>
+

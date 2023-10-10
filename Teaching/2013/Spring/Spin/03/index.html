@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Spin 2012</title>
+</head>
+
+<body>
+
+<h2>Third lecture</h2>
+
+<p>Friday 15 March 2013, 16:15 to 18:15</p>
+
+<p>Short URL: <strong>http://goo.gl/vY1cL</strong></p>
+
+<img src="pn.jpg" style="float:right; margin-bottom:10px; margin-left:30px; margin-top:0px" />
+
+<p>Another model which is easy to specify in Spin is the one of <a href="http://fr.wikipedia.org/wiki/R%C3%A9seau_de_Petri">Petri nets</a>.  These are like transition systems, only that the system can be in more than one (or even zero) states at the same time.  States which are active are drawn with a <em>token</em>; there may be more than one token in a state (then the state is active <em>twice</em> etc.).</p>
+
+<p>To the right is shown a Petri net with 6 states (called <em>places</em> in Petri nets) and 6 transitions.  Places p1 and p4 contain a token.  There are two transitions, t1 and t4, which <em>can be fired</em>: the others do not have tokens in all of their <em>pre-places</em>.  If t1 is fired, then the token on p1 is removed and a token is added in p2.  At this point, transition t2 can be fired, and afterwards there is only one token in the net, in p3.</p>
+
+<p><ol>
+	<li>The Spin model <a href="pn1.pml">pn1.pml</a> contains a model of this Petri net.  Understand how the model works, and use Spin to verify whether the Petri net is deadlock-free.</li>
+	<li>The Spin model <a href="pn2.pml">pn2.pml</a> contains another Petri net, modeling a transport protocol.  Draw the Petri net, and use Spin to verify whether it is deadlock-free.</li>
+	<li>The <a href="http://fr.wikipedia.org/wiki/D%C3%AEner_des_philosophes">Dining philosophers' problem</a> has a nice Petri net model which you can find, for four philosophers, at <a href="http://fr.wikipedia.org/wiki/D%C3%AEner_des_philosophes#Solutions">http://fr.wikipedia.org/wiki/Dîner_des_philosophes#Solutions</a>.  Use Spin to verify whether the philosophers may starve to death.  (Hint: Use <a href="pn1.pml">pn1.pml</a> as a template.  You will need to model transitions which have <em>three</em> pre- or post-places.  The <code>#define</code>s for these are like the ones for transitions with two pre- or post-places.)</li>
+	<li>This is not a good model of the dining philosophers: they are supposed to pick up their forks <em>one by one</em>, which is exactly what may lead to deadlocks.  Change your model so that the philosophers pick up their forks one at a time, and use Spin to find a deadlocking execution.</li>
+	<li>Add a <em>counting semaphore</em> to your model to make it deadlock-free.  (The idea is that there is a waiter at the table which counts how many forks are free, and a philosopher with no forks is only allowed to pick up a fork if it's not the last one.  See also <a href="http://en.wikipedia.org/wiki/Dining_philosophers_problem#Conductor_solution">http://en.wikipedia.org/wiki/Dining_philosophers_problem#Conductor_solution</a>.  You may need transitions with <em>four</em> post-places.)</li>
+	<li>Petri net models are nice, but we need something more scalable.  Make a new model of the dining philosophers (without the waiter), this time as transition systems which pick up and put down forks by sending signals.  Make your model scalable, so it works for any number of philosophers.<br />
+(So each philosopher is a process, and each fork is a process.  Forks can be either free or in use, and philosophers can be thinking, waiting for a second fork, or eating.)</li>
+	<li>Implement the waiter semaphore in your transition system model, and verify that the system is deadlock-free.  JSpin may say "<code>error: max search depth too small</code>"; in this case, increase the search depth in <code>Settings|Max Depth</code>.</li>
+	<li>Experiment with Spin: Starting with <code>n=2</code> and working upwards, run Spin on the <code>n</code>-philosophers' problem.  For each <code>n</code>, note down the size of the state vector and the number of stored states.  (Increase the search depth if necessary.)  Plot your results.  What do you see?</li>
+	<li>Try to optimize your model, to be able to verify the <code>n</code>-philosophers' problem for larger values of <code>n</code>.</li>
+</ol></p>
+
+</body>
+</html>
+

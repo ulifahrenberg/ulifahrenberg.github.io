@@ -1,0 +1,417 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{2}
+\date{7 februar 2008}
+\usepackage{../sogs08-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Forord}
+
+\section{Ord}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{alfabet:} en endelig mængde, normalt betegnet $\Sigma$
+  \item \alert{bogstav / tegn / symbol:} et element i $\Sigma$
+  \item \alert{ord / streng:} en endelig følge $( a_1, a_2,\dots, a_k)$ af
+    bogstaver. Normalt skrevet uden parenteser og komma: $a_1 a_2\dots
+    a_k$
+  \item \alert{$\epsilon$:} det tomme ord (med 0 bogstaver)
+  \item at \alert{sammensætte} ord: $abe\circ kat= abekat$
+  \item $\epsilon$ er \alert{identiteten} for $\circ$: $w\circ \epsilon=
+    \epsilon\circ w= w$ for alle ord $w$
+  \end{itemize}
+\end{frame}
+
+\section{Sprog}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Sprog (over $\Sigma$):} en mængde af ord med bogstaver fra
+    $\Sigma$
+  \item \alert{$\emptyset$:} det tomme sprog
+  \item \alert{$\Sigma^*$:} sproget bestående af \emph{alle} ord over
+    $\Sigma$
+  \item[\IMPL] $L$ er et sprog over $\Sigma$ hvis og kun hvis $L\subseteq
+    \Sigma^*$
+  \end{itemize}
+
+  \medskip \alert{Bemærk:} Det kan godt være vi snakker om ``ord'' og
+  ``sprog'' her, men vi \alert{tillægger dem ikke nogen betydning!} Vi er
+  (lige nu) \emph{kun} interesseret i \alert{formen}, ikke i betydningen.
+\end{frame}
+
+\section{De regulære operationer}
+
+\begin{frame}
+  Givet sprog $L_1, L_2\subseteq \Sigma^*$, da kan vi danne sprogene
+  \begin{itemize}
+  \item $\alert{L_1\cup L_2}=\{ w\mid w\in L_1\text{ eller } w\in L_2\}$
+  \item $\alert{L_1\circ L_2}=\{ w_1\circ w_2\mid w_1\in L_1, w_2\in
+    L_2\}$
+  \item $\alert{L_1^*}=\{ w_1\circ w_2\circ\dots\circ w_k\mid \text{alle }
+    w_i\in L_1\}$
+  \end{itemize}
+  \medskip Disse 3 operationer (forening, sammensætning og stjerne) kaldes
+  de \alert{regulære operationer} på sprog.
+
+  \medskip (Der er andre operationer på sprog, ja.)
+\end{frame}
+
+\section{Regulære udtryk}
+
+\begin{frame}
+  \begin{itemize}
+  \item formål: At beskrive sprog (som generelt er \emph{uendelige}
+    mængder) ved \emph{endelige} udtryk.
+  \item $a$ (for $a\in \Sigma$), $\epsilon$, $\emptyset$
+  \item $R_1\cup R_2$, $R_1\circ R_2$, $R_1^*$, for $R_1$, $R_2$ regulære
+    udtryk
+  \item en \alert{rekursiv} definition
+  \item forkortelser: $\Sigma= a_1\cup a_2\cup\dots\cup a_n$ (for $\Sigma=
+    \{ a_1, a_2,\dots, a_n\}$),\hspace*{-2ex}\\ $R^+= R\circ R^*$
+  \item $\llbracket a\rrbracket= \{ a\}$, $\llbracket \epsilon\rrbracket=
+    \{ \epsilon\}$, $\llbracket \emptyset\rrbracket= \emptyset$
+  \item $\llbracket R_1\cup R_2\rrbracket= \llbracket R_1\rrbracket\cup
+    \llbracket R_2\rrbracket$, $\llbracket R_1\circ R_2\rrbracket=
+    \llbracket R_1\rrbracket\circ \llbracket R_2\rrbracket$, $\llbracket
+    R_1^*\rrbracket= \llbracket R_1\rrbracket^*$
+  \item ikke alle sprog kan beskrives ved regulære udtryk! (se lektion 4
+    \dots )
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Anvendelse:
+  \begin{itemize}
+  \item tekstbehandling (\texttt{grep}, \texttt{sed}, etc.)
+  \item \alert{leksikalsk analyse}: at splitte en input stream op i
+    tokens:
+  \end{itemize}
+
+  \medskip\hfill$
+  \underbrace{\blue{\texttt{while}}}%
+  \underbrace{\blue{\texttt{(}}}
+  \underbrace{\blue{\texttt{xy}}}
+  \underbrace{\blue{<}}
+  \underbrace{\blue{\texttt{zp}}}
+  \underbrace{\blue{\texttt{)}}}
+  \underbrace{\blue{\{}}
+  \underbrace{\blue{\texttt{t}}}
+  \underbrace{\blue{=}}
+  \underbrace{\blue{\texttt{t}}}
+  \underbrace{\blue{*}}
+  \underbrace{\blue{1.2}}
+  \underbrace{\blue{\texttt{;}}}
+  \underbrace{\blue{\}}}
+  $\hfill\mbox{}
+
+  \begin{itemize}
+  \item (\texttt{flex})
+  \end{itemize}
+
+\end{frame}
+
+\part{Endelige automater}
+
+\section{Endelige automater}
+
+\begin{frame}
+  \explbox{12.9em}{17.2ex}{6ex}{1ex}{start-tilstand}
+  \explbox{17.2em}{17.2ex}{3.5ex}{1ex}{accept-tilstand}
+
+  \begin{itemize}
+  \item at beskrive sprog ved \alert{maskiner der kan læse dem}
+  \item den mest simple maskine: \alert{endelig automat}
+  \item \alert{tilstande}, og \alert{transitioner} der læser bogstaver:
+
+    \hfill\xymatrix{%
+      \ar[r] &
+      *+<2ex>[o][F]{\magenta{q_1}} \ar@(ul,ur)[]^(.65)0 \ar@/^/[r]^1 &
+      *+<2ex>[o][F=]{\green{q_2}} \ar@(ul,ur)[]^(.65)1 \ar@/^/[r]^0 &
+      *+<2ex>[o][F]{\brown{q_3}} \ar@/^/[l]^{0,1}
+    }\hfill\mbox{}
+
+    \vspace{8ex}
+  \item eksempel:\ læs ordet ``1101'': $\magenta{q_1}\tto1
+    \green{q_2}\tto1 \green{q_2}\tto0 \brown{q_3}\tto1
+    \green{q_2}$\quad\IMPL\ \alert{accept}
+  \item eksempel:\ læs ordet ``0110'': $\magenta{q_1}\tto0
+    \magenta{q_1}\tto1 \green{q_2}\tto1 \green{q_2}\tto0
+    \brown{q_3}$\quad\IMPL\ \alert{afvis}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \alert{Definition 1.5:} En \alert{endelig automat} er en 5-tupel
+  \alert{$(Q, \Sigma, \delta, q_0, F)$}, hvor delene er
+  \begin{enumerate}
+  \item $Q$ : en endelig mængde af \alert{tilstande}
+  \item $\Sigma$ : en endelig mængde af \alert{bogstaver}
+    (\alert{input-alfabetet})
+  \item $\delta: Q\times \Sigma\to Q$ : \alert{transitions-funktionen}
+  \item $q_0\in Q$ : \alert{starttilstanden}
+  \item $F\subseteq Q$ : mængden af \alert{accepttilstande}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \hfill\xymatrix{%
+    \ar[r] &
+    *+<2ex>[o][F]{\magenta{q_1}} \ar@(ul,ur)[]^(.65)0 \ar@/^/[r]^1 &
+    *+<2ex>[o][F=]{\green{q_2}} \ar@(ul,ur)[]^(.65)1 \ar@/^/[r]^0 &
+    *+<2ex>[o][F]{\brown{q_3}} \ar@/^/[l]^{0,1}
+  }\hfill\mbox{}
+
+  Her har vi:
+  \begin{enumerate}
+  \item tilstande $Q=\{ \magenta{q_1}, \green{q_2}, \brown{q_3}\}$
+  \item inputalfabetet $\Sigma=\{ 0, 1\}$
+  \item transitionsfunktionen $\delta: Q\times \Sigma\to Q$ givet ved
+    \begin{equation*}
+      \begin{array}{c|cc}
+        & 0 & 1 \\\hline
+        \magenta{q_1} & \magenta{q_1} & \green{q_2} \\
+        \green{q_2} & \brown{q_3} & \green{q_2} \\
+        \brown{q_3} & \green{q_2} & \green{q_2}
+      \end{array}
+    \end{equation*}
+  \item starttilstanden $q_0= \magenta{q_1}$
+  \item accepttilstandene $F=\{ \green{q_2}\}$
+  \end{enumerate}
+\end{frame}
+
+\section{Eksempler}
+
+\begin{frame}[t]
+  \alert{Eksempel 1.11:}
+
+  \hfill\xymatrix{%
+    & \ar[d]
+    \\ *+<2ex>[o][F=]{q_1} \ar@(ul,l)[]_(.3)a \ar@/_/[d]_(.4)b
+    & *+<2ex>[o][F]{s} \ar[l]_a \ar[r]^b
+    & *+<2ex>[o][F=]{r_1} \ar@(ur,r)[]^(.3)b \ar@/_/[d]_(.4)a
+    \\ *+<2ex>[o][F]{q_2} \ar@(dl,l)[]^(.3)b \ar@/_/[u]_(.4)a
+    && *+<2ex>[o][F]{r_2} \ar@(dr,r)[]_(.3)a \ar@/_/[u]_(.4)b
+  }\hfill\mbox{}
+
+  \only<1>{%
+    \medskip\begin{align*}
+      Q &= \{ s, q_1, q_2, r_1, r_2\} \qquad \raisebox{0pt}[0pt][0pt]{$\delta:
+        \begin{array}[t]{c|cc}
+          & a & b \\\hline
+          s & q_1 & r_1 \\
+          q_1 & q_1 & q_2 \\
+          q_2 & q_1 & q_2 \\\hline
+          r_1 & r_2 & r_1 \\
+          r_2 & r_2 & r_1
+        \end{array}$} \\
+      \Sigma &= \{ a, b\} \\
+      q_0 &= s\\
+      F &= \{ q_1, r_1\}
+    \end{align*}}%
+  \only<2>{%
+    \bigskip\bigskip Accepterer alle ord der starter og slutter med samme bogstav.}
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel 1.13:}
+
+  \medskip \hfill\xymatrix{%
+    && *+<2ex>[o][F]{q_1} \ar@(ur,ul)[]_(.65)0 \ar@/^2ex/[dr]^1 \ar@/^/[dl]_{2,\blue{R}\!\!\!\!\!}
+    \\ \ar[r] &
+    *+<2ex>[o][F=]{q_0} \ar@(ul,u)[]^{0,\blue{R}} \ar@/^2ex/[ur]^1 \ar@/^.7ex/[rr]^2
+    && *+<2ex>[o][F]{q_2} \ar@(r,ur)[]_0 \ar@/^2ex/[ll]^{1,\blue{R}} \ar@/^/[ul]_{\!\!2}
+  }\hfill\mbox{}
+
+  \bigskip Accepterer alle ord hvor summen af cifrene efter det sidste
+  ``$\blue{R}$'' er deleligt med 3 !
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel 1.15:} En endelig automat over alfabetet $\{ 0, 1, 2,
+  \blue{R}\}$ der accepterer alle ord hvor summen af cifrene efter det
+  sidste ``$\blue{R}$'' er deleligt med et givet tal $i$:
+  \begin{align*}
+    Q &= \{ q_0, q_1,\dots, q_{i-1}\} \\
+    \Sigma &= \{ 0, 1, 2, \blue{R}\} \\
+    q_0 &= q_0 \\
+    F &= \{ q_0 \} \\[2ex]
+    \delta( q_j, 0) &= q_j \\
+    \delta( q_j, 1) &= q_{j+1\mod i} \\
+    \delta( q_j, 2) &= q_{j+2\mod i} \\
+    \delta( q_j, \blue{R}) &= q_0
+  \end{align*}
+
+  \medskip -- kan umiddelbart generaliseres til $\Sigma=\{ 0, 1, 2, 3, 4,
+  5, 6, 7, 8, 9, \blue R\}$\quad\green{(Hvordan?)}
+\end{frame}
+
+\section[Sproget af en endelig automat]{Sproget som genkendes af en
+  endelig automat}
+
+\begin{frame}
+  \alert{Definition:} Lad $M=( Q, \Sigma, \delta, q_0, F)$ være en endelig
+  automat, og lad $w= w_1 w_2\dots w_n\in \Sigma^*$. Da siges $M$ at
+  \alert{acceptere} $w$ hvis der findes en følge $( r_0, r_1,\dots, r_n)$
+  af tilstande $r_i\in Q$ således at
+  \begin{enumerate}
+  \item $r_0= q_0$,
+  \item $r_{i+1}= \delta( r_i, w_{i+1})$ for alle $i= 0, 1,\dots, n-1$, og
+  \item $r_n\in F$.
+  \end{enumerate}
+
+  \medskip Sproget som \alert{genkendes} af $M$ er
+  \begin{equation*}
+    \llbracket M\rrbracket=
+    L(M)=\{ w\mid \text{$M$ accepterer $w$}\}
+  \end{equation*}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Eksempel:} \emph{Sætning:}\quad Sproget som genkendes af
+  automaten $M$ fra eksempel 1.15 er $L=\{ w\mid \text{summen af cifrene
+    efter sidste ``$\blue R$'' er deleligt med $i$}\}$
+
+  \medskip \emph{Bevis:}\quad Lad $w\in \Sigma^*$, og skriv $w$ som
+  $\alert{w= \Sigma^* R w_1 w_2\dots w_k}$, hvor $w_1, w_2,\dots, w_k\in\{
+  0, 1, 2\}$. Dvs.\ $w_1 w_2\dots w_k$ er den del af $w$ der står
+    efter det \emph{sidste} ``$\blue{R}$.''
+
+  Efter at have læst det sidste ``\blue{$R$},'' er $M$ i tilstand $q_0$.
+  Lad nu $r_1, r_2,\dots, r_k$ betegne de tilstande som $M$ er i efter at
+  have læst $w_1, w_2,\dots, w_k$. Da er
+  \begin{align*}
+    r_1 &= \delta( q_0, w_1)= q_{w_1\mod i} \\
+    r_2 &= \delta( r_1, w_2)= \delta( q_{w_1\mod i}, w_2)= q_{w_1+ w_2\mod
+      i} \\
+    r_3 &= \delta( r_2, w_3)= \delta( q_{w_1+ w_2\mod i}, w_3)= q_{w_1+
+      w_2+ w_3\mod i} \\[-2ex]
+    &\;\vdots \\[-1.4ex]
+    r_k &= q_{w_1+ w_2+\dots+ w_k\mod i}
+  \end{align*}
+  Bemærk nu at $w$ accepteres af $M$ hvis og kun hvis \alert{$r_k= q_0$}.
+  Dvs.\ $w$ accepteres af $M$ hvis og kun hvis\\
+  \alert{$w_1+ w_2+\dots+ w_k\mod i= 0$}. \qquad\blue{$\square$}
+\end{frame}
+
+\section{At designe endelige automater}
+
+\begin{frame}[t]
+  Clue: tilstandene repræsenterer \emph{information}!
+
+  \medskip \alert{Eksempel 1.21:} En endelig automat der genkender sproget
+  $\Sigma^* 001 \Sigma^*$, for $\Sigma=\{ 0, 1\}$.
+  \begin{itemize}
+  \item starttilstand \only<2->{\hfill\makebox[0pt][l]{\blue{$q_{\text
+            s}$}}\qquad\qquad\qquad\mbox{}}
+  \item tilstand ``jeg har lige set `0' ''
+    \only<2->{\hfill\makebox[0pt][l]{\blue{$q_0$}}\qquad\qquad\qquad\mbox{}}
+  \item tilstand ``jeg har lige set `00' ''
+    \only<2->{\hfill\makebox[0pt][l]{\blue{$q_{00}$}}\qquad\qquad\qquad\mbox{}}
+  \item tilstand ``jeg har lige set `001' '' (accept!)
+    \only<2->{\hfill\makebox[0pt][l]{\blue{$q_{001}$}}\qquad\qquad\qquad\mbox{}}
+  \end{itemize}
+
+  \vspace{5ex}
+  \only<2>{%
+    \hfill\raisebox{0pt}[0pt][0pt]{\xymatrix{%
+      \ar[r] &
+      *+<2ex>[o][F]{q_{\text s}} &
+      *+<2ex>[o][F]{q_0} &
+      *+<2ex>[o][F]{q_{00}} &
+      *+<2ex>[o][F=]{q_{001}}
+    }}\qquad\hfill\mbox{}}%
+  \only<3>{%
+    \hfill\raisebox{0pt}[0pt][0pt]{\xymatrix{%
+      \ar[r] &
+      *+<2ex>[o][F]{q_{\text s}} \ar@/^/[r]^0 &
+      *+<2ex>[o][F]{q_0} \ar[r]^0 &
+      *+<2ex>[o][F]{q_{00}} \ar[r]^1 &
+      *+<2ex>[o][F=]{q_{001}}
+    }}\qquad\hfill\mbox{}}%
+  \only<4>{%
+    \hfill\raisebox{0pt}[0pt][0pt]{\xymatrix{%
+      \ar[r] &
+      *+<2ex>[o][F]{q_{\text s}} \ar@/^/[r]^0 \ar@(ul,ur)^(.65)1 &
+      *+<2ex>[o][F]{q_0} \ar[r]^0 \ar@/^/[l]^1 &
+      *+<2ex>[o][F]{q_{00}} \ar[r]^1 \ar@(ul,ur)^(.65)0 &
+      *+<2ex>[o][F=]{q_{001}} \ar@(ul,ur)^{0,1}
+    }}\qquad\hfill\mbox{}}
+\end{frame}
+
+\section{Regulære sprog}
+
+\begin{frame}
+  \alert{Definition 1.16:} Et sprog siges at være \alert{regulært} hvis
+  der findes en endelig automat der genkender det.
+
+  \medskip \emph{Eller:\/} Givet et alfabet $\Sigma$ og $L\subseteq
+  \Sigma^*$, da kaldes $L$ et \alert{regulært sprog} hvis der findes en
+  endelig automat $M$ over $\Sigma$ således at $\llbracket M\rrbracket=
+  L$.
+
+  \bigskip \alert{Vigtig sætning 1.54:} Et sprog er regulært hvis og kun
+  hvis det kan beskrives ved et \alert{regulært udtryk}.
+
+  \medskip (Beviset ser vi på næste gang.)
+\end{frame}
+
+\begin{frame}
+  \alert{Sætning 1.25 / 1.45 / 1.47 / 1.49:}
+
+  Klassen af regulære sprog er \alert{lukket} under foreningsmængde
+  $\cup$, sammensætning $\circ$ og stjerne ${}^*$.
+
+  Dvs.\ hvis $A$ og $B$ er regulære sprog, da er også
+  \begin{itemize}
+  \item $A\cup B$,
+  \item $A\circ B$ og
+  \item $A^*$
+  \end{itemize}
+  regulære sprog.
+
+  \bigskip Beviserne skal vi se i dag og næste gang.
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Sætning 1.25:} Lad $A_1$ og $A_2$ være regulære sprog over et
+  fælles alfabet $\Sigma$. Da er også \alert{$A_1\cup A_2$} et regulært
+  sprog.
+
+  \medskip \alert{Bevis:} Lad \alert{$M_1=( Q_1, \Sigma, \delta_1, q_1,
+    F_1)$}, \alert{$M_2=( Q_2, \Sigma, \delta_2, q_2, F_2)$} være endelige
+  automater med $\llbracket M_1\rrbracket= A_1$ og $\llbracket
+  M_2\rrbracket= A_2$.
+
+  Konstruér en ny endelig automat \alert{$M=( Q, \Sigma, \delta, q_0, F)$} ved
+  \begin{itemize}
+  \item $Q= Q_1\times Q_2$,
+  \item $q_0=( q_1, q_2)$,
+  \item $F=\{( r_1, r_2)\in Q\mid r_1\in F_1\text{ eller } r_2\in F_2\}$,
+  \item og med $\delta: Q\times \Sigma\to Q$ defineret som
+    \begin{equation*}
+      \delta\big(( r_1, r_2), a\big)=\big( \delta( r_1, a), \delta( r_2,
+      a)\big)
+    \end{equation*}
+  \end{itemize}
+  For at vise at $\llbracket M\rrbracket= A_1\cup A_2$, skal vi vise at
+  \begin{enumerate}
+  \item ethvert $w\in \llbracket M_1\rrbracket$ også er i $\llbracket
+    M\rrbracket$,
+  \item ethvert $w\in \llbracket M_2\rrbracket$ også er i $\llbracket
+    M\rrbracket$, og at
+  \item ethvert $w\in \llbracket M\rrbracket$ også er i $\llbracket
+    M_1\rrbracket$ eller i $\llbracket M_2\rrbracket$.
+  \end{enumerate}
+\end{frame}
+
+
+
+
+\end{document}

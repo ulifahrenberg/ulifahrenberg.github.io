@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Spin 2012</title>
+</head>
+
+<body>
+
+<h2>Fifth lecture</h2>
+
+<p>Friday 23 March 2012, 16:15 to 18:15</p>
+
+<p>Accessible online at: <strong>http://tiny.cc/iglmbw</strong></p>
+
+<p>I have published some <a href="../04/sol04.html">solutions</a> to last lecture's exercises.</p>
+
+<p>We will do some LTL model checking today.
+<ol>
+	<li>Open <a href="peterson.pml">peterson.pml</a>, my implementation of the Peterson mutual exclusion protocol.  I have annotated it with some Boolean variables which are used to signal that a process is in the critical section.<br />
+We want to check mutual exclusion.  The Spin syntax for this property is <code>[] ( !c1 || !c2 )</code>.  JSpin has an input field "LTL formula"; enter it there.  Then click the "Translate" button.  What have you done?  Click "Verify".  How does Spin verify the formula?</li>
+	<li>Be sure to understand precisely how LTL model checking is done in Spin.</li>
+	<li>Check whether my Peterson implementation is <em>live</em> (every process enters its critical section infinitely often), and whether it is <em>starvation free</em>.  (For starvation freedom, you may have to annotate your model some more.)</li>
+	<li>Do the same for your implementations of the other protocols which we discussed during <a href="../02/plan02.html">lecture 2</a>.</li>
+	<li>Verify important properties of your (or <a href="http://www.irisa.fr/s4/people/ulrich.fahrenberg/Teaching/12/Spring/Spin/04/dp-ts3.pml">my</a>) model of the <em>dining philosophers</em>.  Use LTL formulas to see whether the system is deadlock-free, starvation-free, etc.</li>
+</ol></p>
+
+</body>
+</html>
+

@@ -1,0 +1,532 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{6}
+\date{26 februar 2008}
+\usepackage{../sogs08-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Fra sidst}
+
+\section[CFG]{Kontekstfrie grammatikker}
+
+\begin{frame}[t]
+  \alert{Definition 2.2:} En \alert{kontekstfri grammatik} (\alert{CFG})
+  er en 4-tupel $G=( V, \Sigma, R, S)$, hvor delene er
+  \begin{enumerate}
+  \item $V$ : en endelig mængde af \alert{variable}
+  \item $\Sigma$ : en endelig mængde af \alert{terminaler}, med $V\cap
+    \Sigma= \emptyset$
+  \item $R: V\to \Pot\big(( V\cup \Sigma)^*\big)$ : \alert{produktioner} /
+    \alert{regler}
+  \item $S\in V$ : \alert{startvariablen}
+  \end{enumerate}
+
+  \medskip -- produktioner skrives \alert{$A\to w$} i stedet for $w\in R(
+  A)$
+
+  \begin{itemize}
+  \item Hvis $u, v, w\in( V\cup \Sigma)^*$ er ord og $A\to w$ er en
+    produktion, siges $uAv$ at \alert{frembringe} $uwv$: \alert{$uAv\To
+      uwv$}.
+  \item Hvis $u, v\in( V\cup \Sigma)^*$ er ord, siges $u$ at
+    \alert{derivere} $v$: \alert{$u\overset*\To v$}, hvis $u= v$ (\alert!)
+    eller der findes en følge $u_1, u_2,\dots, u_k$ af ord således at
+    $u\To u_1\To u_2\To\dots\To u_k\To v$.
+  \item \alert{Sproget} som $G$ genererer er \alert{$\llbracket
+      G\rrbracket=\{ w\in \Sigma^*\mid S\overset*\To w\}$}.
+  \end{itemize}
+
+  \medskip -- dvs.\ et ord $w\in \Sigma^*$ genereres af $G$ hvis og kun
+  hvis der findes en \alert{derivation} $S\To w_1\To w_2\To\dots\To w_k\To
+  w$, hvor alle $w_i\in( V\cup \Sigma)^*$.
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel:} Opgave 2.6 d (ca.)
+  \begin{align*}
+    S &\to A\# T\# A \\
+    T &\to aTa\mid bTb\mid \# A\# \\
+    A &\to aA\mid bA\mid \epsilon\mid A\# A
+  \end{align*}
+  Genererer sproget
+  \begin{multline*}
+    \{ x_1\# x_2\#\dots\# x_k\mid k\ge 5, \text{alle } x_i\in \{ a, b\}^*,
+    \\
+    \text{og } x_i= x_j^R \text{ for to indices $i\ne j$} \}
+  \end{multline*}
+\end{frame}
+
+
+
+\begin{frame}
+  \alert{Definition:} Et sprog siges at være \alert{kontekstfrit} hvis der
+  findes en CFG der genererer det.
+
+  \bigskip \alert{Sætning 2.20:} Et sprog er kontekstfrit hvis og kun hvis
+  der findes en \alert{push-down-automat} der genkender det.
+
+  \medskip (PDAs kommer lige om lidt.)
+\end{frame}
+
+\section{Lukningsegenskaber}
+
+\begin{frame}[t]
+  \mbox{\alert{Sætning:} Klassen af kontekstfrie sprog er lukket under
+    $\cup$, $\circ$ og ${}^*$.}
+
+  \medskip \alert{Bevis:} (Opgave 2.8) Lad $A_1$ og $A_2$ være
+  kontekstfrie sprog over et fælles alfabet $\Sigma$.
+  \begin{itemize}
+  \item[$\boldsymbol\cup$ :] Lad $G_1=( V_1, \Sigma, R_1, S_1)$,
+    $G_2=( V_2, \Sigma, R_2, S_2)$ være CFGs med $\llbracket
+    G_1\rrbracket=A_1$ og $\llbracket G_2\rrbracket=A_2$. Konstruér en
+    ny CFG $G=( V, \Sigma, R, S)$ ved $V= V_1\cup V_2\cup\{ S\}$ og
+    $R= R_1\cup R_2\cup\{ \alert{S\to S_1\mid S_2}\}$.  Da er
+    $\llbracket G\rrbracket=A_1\cup A_2$.
+  \item[$\boldsymbol\circ$ :] Lad $G_1=( V_1, \Sigma, R_1, S_1)$,
+    $G_2=( V_2, \Sigma, R_2, S_2)$ være CFGs med $\llbracket
+    G_1\rrbracket=A_1$ og $\llbracket G_2\rrbracket=A_2$. Konstruér en
+    ny CFG $G=( V, \Sigma, R, S)$ ved $V= V_1\cup V_2\cup\{ S\}$ og
+    $R= R_1\cup R_2\cup\{ \alert{S\to S_1 S_2}\}$.  Da er $\llbracket
+    M\rrbracket=A_1\circ A_2$.
+  \item[${}^{\boldsymbol*}$ :] Lad $G_1=( V_1, \Sigma, R_1, S_1)$ være
+    en CFG med $\llbracket G_1\rrbracket=A_1$. Konstruér en ny CFG
+    $G=( V, \Sigma, R, S)$ ved $V= V_1\cup\{ S\}$ og $R= R_1\cup\{
+    \alert{S\to \epsilon\mid SS\mid S_1}\}$.  Da er $\llbracket
+    G\rrbracket=A_1^*$.
+  \end{itemize}
+\end{frame}
+
+\section{Regulære grammatikker}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Definition:} En kontekstfri grammatik siges at være
+    \begin{itemize}
+    \item \alert{højre-regulær} hvis alle produktioner er på formen
+      \begin{equation*}
+        A\to a \quad\text{eller}\quad A\to aB \quad\text{eller}\quad
+        A\to \epsilon
+      \end{equation*}
+    \item \alert{venstre-regulær} hvis alle produktioner er på formen
+      \begin{equation*}
+        A\to a \quad\text{eller}\quad A\to Ba \quad\text{eller}\quad
+        A\to \epsilon
+      \end{equation*}
+    \end{itemize}
+  \item \alert{Sætning:} Et sprog er regulært \\\IFF\ det generereres af
+    en højre-regulær grammatik \\\IFF\ det generereres af en
+    venstre-regulær grammatik.
+  \item Men højre og venstre må ikke blandes:  Grammatikken
+    \begin{equation*}
+      S\to aA\mid \epsilon \qquad A\to Sb
+    \end{equation*}
+    genererer $\{ a^n b^n\mid n\in \Nat_0\}$ !
+  \end{itemize}
+
+
+\end{frame}
+
+\part{Kontekstfrie grammatikker og push-down-automater}
+
+\section{Tvetydighed}
+
+\begin{frame}
+  \alert{Eksempel:} Grammatikken $G_5$, ca.:
+  \begin{equation*}
+    \text{Expr}\to \text{Expr}+ \text{Expr}\mid \text{Expr}\times
+    \text{Expr}\mid( \text{Expr})\mid \text{Heltal}
+  \end{equation*}
+  To forskellige parsetræer for $1+ 2\times 3$:
+  \begin{equation*}
+    \xymatrix@R=1.5ex@C=.5ex{%
+      &&& \text{Expr} \ar[dll] \ar[ddd] \ar[dr]
+      \\ & \text{Expr} \ar[dl] \ar[dd] \ar[dr]
+      &&& \text{Expr} \ar[dd]
+      \\ \text{Expr} \ar[d]
+      && \text{Expr} \ar[d]
+      \\ 1 & {+} & 2 & \times & 3 \\
+      && {\alert{= 9}}
+    } \qquad
+    \xymatrix@R=1.5ex@C=.5ex{%
+      & \text{Expr} \ar[dl] \ar[ddd] \ar[drr]
+      \\ \text{Expr} \ar[dd]
+      &&& \text{Expr} \ar[dl] \ar[dd] \ar[dr]
+      \\ && \text{Expr} \ar[d]
+      && \text{Expr} \ar[d]
+      \\ 1 & {+} & 2 & \times & 3 \\
+      && {\alert{= 7}}
+    }
+  \end{equation*}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Definition:} En derivation $S\To w_1\To w_2\To\dots\To w_k$ i en
+  grammatik kaldes en \alert{venstre-derivation} hvis det i ethvert skridt
+  er den variable \emph{længst til venstre\/} der erstattes.
+
+  \medskip Eksempel:
+  \begin{itemize}
+  \item $S\To AB\To aB\To ab$ er en venstre-derivation,
+  \item $S\To AB\To Ab\To ab$ er ikke.
+  \end{itemize}
+
+  \medskip \alert{Bemærk:} Til ethvert parsetræ svarer en entydig
+  venstre-derivation.
+
+  \medskip \alert{Definition 2.7:}
+  \begin{itemize}
+  \item Et ord siges at være genereret \alert{tvetydigt} hvis det har to
+    forskellige venstre-derivationer.
+  \item En grammatik er \alert{tvetydig} hvis den genererer et ord på en
+    tvetydig måde.
+  \item Et kontekstfrit sprog har en \alert{iboende tvetydighed} hvis
+    enhver CFG der genererer det er tvetydig.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \alert{Sætning:}  Der findes kontekstfrie sprog som har en iboende
+  tvetydighed.  \quad\blue{(Opgave 2.29)}
+
+  \bigskip \alert{Sætning:}  Der findes ikke nogen algoritme som,
+  givet en kontekstfri grammatik, kan afgøre om denne er tvetydig
+  eller ej.  \quad\blue{(Opgave 5.21)}
+
+  \bigskip \IMPL\ i anvendelser: vigtigt at \alert{designe}
+  ikke-tvetydige CFGs
+\end{frame}
+
+\section[Chomsky]{Chomsky-normalformen}
+
+\begin{frame}
+  Mål: specielle former for kontekstfrie grammatikker som er nemme at
+  håndtere
+
+  \bigskip \alert{Definition 2.8:} En CFG med startvariabel $S$ er i
+  \alert{Chomsky-normalform} hvis hver produktion er af formen
+  \alert{$A\to BC$} eller \alert{$A\to a$}, hvor $a$ er en terminal, $A$,
+  $B$ og $C$ er variable og $B, C\ne S$. Desuden tillades produktionen
+  \alert{$S\to \epsilon$}.
+
+  \bigskip \alert{Sætning 2.9:} Ethvert kontekstfrit sprog genereres af en
+  CFG i Chomsky-normalform.
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Bevis:} Lad $( V, \Sigma, R, S)$ være en CFG. Vi konverterer den
+  til Chomsky-normalform:
+  \begin{enumerate}
+  \item \blue{$S$ må ikke forekomme på højresider.}
+
+    \only<1>{%
+      Introducér en ny startvariabel $S_0$ og en produktion $S_0\to S$.
+    }%
+    \only<2->{%
+    \item \blue{Vi vil ikke have $\epsilon$-produktioner $A\to \epsilon$,
+        medmindre $A= S$.}
+    }%
+    \only<2>{%
+      \begin{itemize}
+      \item Tag en produktion $A\to \epsilon$ og fjern den.
+      \item For alle produktioner $R\to uAv$: introducér en ny produktion
+        $R\to uv$.
+      \item Men hvis der er en produktion $R\to A$, introduceres $R\to
+        \epsilon$ \emph{kun hvis den ikke allerede før er blevet fjernet}.
+      \item Gentag indtil alle $\epsilon$-produktioner er væk (undtaget
+        måske $S\to \epsilon$).
+      \end{itemize}
+    }%
+    \only<3->{%
+    \item \blue{Vi vil ikke have \textit{unit rules\/}: produktioner af
+        formen $A\to B$.}  }%
+    \only<3>{%
+      \begin{itemize}
+      \item Tag en produktion $A\to B$ og fjern den.
+      \item For alle produktioner $B\to u$: introducér en ny produktion
+        $A\to u$.
+      \item Men hvis der er en produktion $B\to C$, introduceres $A\to C$
+        \emph{kun hvis den ikke allerede før er blevet fjernet}.
+      \item Gentag indtil alle \textit{unit rules\/} er væk.
+      \end{itemize}
+    }%
+    \only<4->{%
+    \item \blue{Vi vil ikke have produktioner af formen $A\to u_1 u_2\dots
+        u_k$ for $k\ge 3$.}
+    }%
+    \only<4>{%
+      \begin{itemize}
+      \item Lad $A\to u_1 u_2\dots u_k$ være en sådan produktion. (Her er
+        $u_i$erne variable eller terminaler.)
+      \item Erstat den med produktioner $A\to u_1 A_1$, $A_1\to u_2
+        A_2$,\dots, $A_{k-2}\to u_{k-1} u_k$, hvor $A_i$erne er nye
+        variable.
+      \item Gentag.
+      \end{itemize}
+    }%
+    \only<5->{%
+    \item \blue{Vi vil ikke have produktioner af formen $A\to bC$, $A\to
+        Bc$ eller $A\to bc$.}
+      \begin{itemize}
+      \item Erstat $A\to bC$ med $A\to BC$ og $B\to b$, og gør lignende
+        for de andre to. (Igen introduceres nye variable.)
+      \end{itemize}
+    \item \blue{Færdig!}
+    }
+  \end{enumerate}
+\end{frame}
+
+\section{Push-down-automater}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Pushdown-automat:} endelig automat plus \emph{stack}
+  \item \alert{Stack:}
+
+    \hspace*{-4em}\includegraphics[width=1.05\textwidth]{stack}
+    \medskip
+  \item kan pushe symboler på stacken og læse og poppe det
+    \emph{øverste\/} stacksymbol
+  \item Eksempel:
+    \begin{equation*}
+      \xymatrix@C=3.5ex{%
+        \ar[r] & *+<4ex>[o][F=]{} \ar[rr]_{\txt{læs $\epsilon$}}
+        && *+<4ex>[o][F]{} \ar@(dl,dr)[]_{\txt{læs 0\\push 0}}
+        \ar[rrr]_{\txt{læs 1\\0 ? pop}}
+        &&& *+<4ex>[o][F]{} \ar@(dl,dr)[]_{\txt{læs 1\\0 ? pop}}
+        \ar[rrr]_{\txt{læs $\epsilon$\\stack tom?}}
+        &&& *+<4ex>[o][F=]{}
+      }
+    \end{equation*}
+  \item genkender sproget $\{ 0^n 1^n\mid n\in \Nat_0\}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Definition 2.13:} En \alert{pushdown-automat} (\alert{PDA}) er en
+  6-tupel \alert{$M=( Q, \Sigma, \Gamma, \delta, q_0, F)$}, hvor delene er
+  \begin{enumerate}
+  \item $Q$ : en endelig mængde af tilstande
+  \item $\Sigma$ : input-alfabetet
+  \item $\Gamma$ : stack-alfabetet
+  \item $\delta: Q\times \Sigma_\epsilon\times \Gamma_\epsilon\to \Pot(
+    Q\times \Gamma_\epsilon)$ : transitionsfunktionen
+  \item $q_0\in Q$ : starttilstanden
+  \item $F\subseteq Q$ : mængden af accepttilstande
+  \end{enumerate}
+
+  \medskip $M$ siges at \alert{acceptere} et ord $w\in \Sigma^*$ hvis der
+  findes $m\in \Nat$ og $w_1, w_2,\dots, w_m\in \Sigma_\epsilon$, $r_0,
+  r_1,\dots, r_m\in Q$ og $s_0, s_1,\dots, s_m\in \Gamma^*$ således at $w=
+  w_1 w_2\dots w_m$ og
+  \begin{enumerate}
+  \item $r_0= q_0$ og $s_0= \epsilon$,
+  \item for alle $i= 0, 1,\dots, m-1$ findes $a, b\in \Gamma_\epsilon$ og
+    $t\in \Gamma^*$ som opfylder $s_i= at$, $s_{i+1}= bt$ og $( r_{i+1},
+    b)\in \delta( r_i, w_{i+1}, a)$, og
+  \item $r_m\in F$.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Eksempel 2.14:}
+
+  \only<1>{%
+    \vspace{1.3ex}
+    %\vspace{-1ex}
+    \hfill\xymatrix@C=3.5ex{%
+      \ar[r] & *+<4ex>[o][F=]{} \ar[rr]_{\txt{læs $\epsilon$}}
+      && *+<4ex>[o][F]{} \ar@(dl,dr)[]_{\txt{læs 0\\push 0}}
+      \ar[rrr]_{\txt{læs 1\\0 ? pop}}
+      &&& *+<4ex>[o][F]{} \ar@(dl,dr)[]_{\txt{læs 1\\0 ? pop}}
+      \ar[rrr]_{\txt{læs $\epsilon$\\stack tom?}}
+      &&& *+<4ex>[o][F=]{}
+    }
+    
+    \bigskip At finde ud af om stacken er tom: Introducér et specielt
+    \alert{end-of-stack-symbol} $\$$
+    
+    \bigskip}%
+  \only<2>{%
+    \vspace{1.3ex}}
+    \hfill\xymatrix@C=3.5ex{%
+    \ar[r] & *+<2ex>[o][F=]{q_1} \ar[rr]_{\epsilon,\; \alert{\epsilon\to
+        \$}}
+    && *+<2ex>[o][F]{q_2} \ar@(dl,dr)[]_{0,\; \epsilon\to 0}
+    \ar[rrr]_{1,\; 0\to \epsilon}
+    &&& *+<2ex>[o][F]{q_3} \ar@(dl,dr)[]_{1,\; 0\to \epsilon}
+    \ar[rrr]_{\epsilon,\; \alert{\$\to \epsilon}}
+    &&& *+<2ex>[o][F=]{q_4}
+  }
+
+  \only<2>{%
+    \begin{equation*}
+      Q=\{ q_1, q_2, q_3, q_4\} \qquad \Sigma=\{ 0, 1\} \qquad \Gamma=\{ 0,
+      \$\} \qquad F=\{ q_1, q_4\}
+    \end{equation*}
+    \begin{equation*}
+      \hspace*{-1em}\delta:
+      \begin{array}[t]{c|ccccccccc}
+        \text{Input:} & \multicolumn{3}{c|}{0} & \multicolumn{3}{c|}{1} &
+        \multicolumn{3}{c|}{\epsilon} \\\hline
+        \text{Stack:} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{\$} &
+        \multicolumn{1}{c|}{\epsilon} & \multicolumn{1}{c|}{0} &
+        \multicolumn{1}{c|}{\$} & \multicolumn{1}{c|}{\epsilon} &
+        \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{\$} &
+        \multicolumn{1}{c|}{\epsilon} \\\hline
+        q_1 & \grey{\emptyset} &\grey{\emptyset} &\grey{\emptyset}
+        &\grey{\emptyset} &\grey{\emptyset} &\grey{\emptyset}
+        &\grey{\emptyset} &\grey{\emptyset} & \{( q_2, \$)\} \\ 
+        q_2 &\grey{\emptyset} &\grey{\emptyset} & \{( q_2, 0)\} & \{( q_3,
+        \epsilon)\} &\grey{\emptyset} &\grey{\emptyset} &\grey{\emptyset}
+        &\grey{\emptyset} & \grey{\emptyset} \\ 
+        q_3 &\grey{\emptyset} &\grey{\emptyset} &\grey{\emptyset} & \{(
+        q_3, \epsilon)\} &\grey{\emptyset} &\grey{\emptyset}
+        &\grey{\emptyset} & \{( q_4, \epsilon)\} & \grey{\emptyset} \\ 
+        q_4 & \grey{\emptyset} & \grey{\emptyset} & \grey{\emptyset} &
+        \grey{\emptyset} & \grey{\emptyset} & \grey{\emptyset} &
+        \grey{\emptyset} & \grey{\emptyset} & \grey{\emptyset}
+      \end{array}
+    \end{equation*}}
+\end{frame}
+
+\begin{frame}
+  \alert{Opsummering:} PDA:
+  \begin{itemize}
+  \item endelig automat med \emph{stack}
+  \item stacken kan gemme på \emph{vilkårligt mange\/} symboler, men kun
+    det \emph{øverste\/} kan læses (og poppes)
+  \item \emph{(first-in, last-out)}
+  \item \emph{nondeterministiske}
+  \item der findes deterministiske PDAs, ja. Men
+    \begin{itemize}
+    \item vi skal ikke se på dem her, og
+    \item de genkender \emph{færre\/} sprog end de nondeterministiske
+      PDAs!
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \begin{textblock*}{\textwidth}[0,1](2ex,\textheight)
+    \small
+    \begin{pgfpicture}{0pt}{0pt}{\textwidth}{\textheight}
+      \pgfsetxvec{\pgfpoint{1em}{0ex}}
+      \pgfsetyvec{\pgfpoint{0em}{1ex}}
+%       \color{yellow}
+%       \pgfsetlinewidth{.2pt}
+%       \pgfgrid[step=\pgfpoint{2em}{5ex}]{\pgfpoint{0pt}{0pt}}{\pgfpoint{\textwidth}{\textheight}}
+      \color{blue}
+      \pgfsetlinewidth{.5pt}
+      \pgfsetendarrow{\pgfarrowto}
+      \pgfputat{\pgfxy(4,32)}{\pgfbox[center,bottom]{end-of-stack-symbol}}
+      \pgfxyline(5,32)(8.9,25.1)
+      \pgfputat{\pgfxy(10,29)}{\pgfbox[center,bottom]{push $a$}}
+      \pgfxyline(10,29)(11.2,24.5)
+      \pgfputat{\pgfxy(20,26)}{\pgfbox[center,top]{sammenlign $a$ og $b$}}
+      \pgfxyline(17.5,26)(16.65,28.6)
+      \pgfputat{\pgfxy(13,15)}{\pgfbox[right,center]{smid $b$ væk}}
+      \pgfxyline(13,15)(15.8,16)
+      \pgfputat{\pgfxy(23,20)}{\pgfbox[center,bottom]{sammenlign $a$ og $c$}}
+      \pgfxyline(22.5,20)(21.9,17.7)
+    \end{pgfpicture}
+  \end{textblock*}
+
+  \alert{Eksempel 2.16:} En PDA der genkender sproget
+  \begin{equation*}
+    \{ a^i b^j c^k\mid i,j,k\in \Nat_0\text{ og } i= j\text{ eller } i=
+    k\}
+  \end{equation*}
+
+  \begin{equation*}
+    \xymatrix@C=3ex{%
+      &&&&& *+<2ex>[o][F]{} \ar@(ul,u)[]^(.4){b,\; a\to \epsilon}
+      \ar[rr]_{\epsilon,\; \$\to \epsilon} && *+<2ex>[o][F=]{}
+      \ar@(u,ur)^(.6){c,\; \epsilon\to \epsilon}
+      \\ \ar[r] & *+<2ex>[o][F]{} \ar[rr]^{\epsilon,\; \epsilon\to \$}
+      && *+<2ex>[o][F]{} \ar[urr]^(.65){\epsilon,\; \epsilon\to \epsilon}
+      \ar[drr]_(.65){\epsilon,\; \epsilon\to \epsilon} \ar@(dl,d)[]_(.4){a,\;
+        \epsilon\to a}
+      \\ &&&&& *+<2ex>[o][F]{} \ar@(dl,d)[]_(.4){b,\; \epsilon\to \epsilon}
+      \ar[rr]^{\epsilon,\; \epsilon\to \epsilon}
+      && *+<2ex>[o][F]{} \ar@(dl,d)[]_(.72){c,\; a\to \epsilon}
+      \ar[rr]^{\epsilon,\; \$\to \epsilon}
+      && *+<2ex>[o][F=]{}
+    }
+  \end{equation*}
+
+  \medskip -- det kan vises at man \emph{skal\/} bruge en
+  \emph{nondeterministisk\/} PDA for at genkende det sprog
+\end{frame}
+
+\section[CFG $\Rightarrow$ PDA]{Ethvert kontekstfrit sprog genkendes af en
+  PDA}
+
+\begin{frame}[t]
+  \alert{Lemma 2.21:} Lad $\Sigma$ være et alfabet og $A\subseteq \Sigma^*$
+  et kontekstfrit sprog. Da findes en PDA $P$ med $\llbracket
+  P\rrbracket= A$.
+
+  \medskip \alert{Bevis:} Lad $G=( V, \Sigma, R, S)$ være en CFG med
+  $\llbracket G\rrbracket= A$.
+
+  \only<1>{%
+    {\color{blue}%
+      Idéen er at PDAen, givet en inputstreng $s$, nondeterministisk
+      forsøger at finde en derivation for $s$ i $G$:
+      \begin{enumerate}
+      \item \color{blue} Push $S$ på stacken
+      \item \color{blue} Hvis topsymbolet på stacken er en variabel $A$:
+        Pop $A$ og push højresiden $w$ af en produktion $A\to w$ i $R$.
+        (Dø hvis der ikke er nogen produktion $A\to w$ i $R$.)
+      \item \color{blue} Hvis topsymbolet på stacken er en terminal $a$:
+        Sammenlign med næste inputsymbol. Hvis de er ens, pop $a$. Hvis de
+        ikke er ens, dø.
+      \item Gentag step 2 og 3 indtil stacken er tom.
+      \end{enumerate}
+    }}%
+  \only<2>{%
+    Vi konstruerer først en ``generaliseret PDA'' $P=( Q, \Sigma, \Gamma,
+    \delta, q_s, F)$, der kan pushe strenge i stedet for bare symboler.
+    Lad \alert{$Q=\{ q_s, q_\ell, q_f\}$}, \alert{$F=\{ q_a\}$} og
+    \alert{$\Gamma= V\cup \Sigma\cup\{ \$\}$}. Lad
+
+    \vspace{-1ex}
+    \begin{columns}
+      \begin{column}{.7\textwidth}
+        \begin{align*}
+          \delta( q_s, \epsilon, \epsilon) &= \{( q_\ell, S\$)\} \\
+          \delta( q_\ell, \epsilon, A) &= \{( q_\ell, w)\mid w\in R( A)\}
+          \quad \text{for alle $A\in V$} \\
+          \delta( q_\ell, a, a) &= \{( q_\ell, \epsilon)\}
+          \quad \text{for alle $a\in \Sigma$} \\
+          \delta( q_\ell, \epsilon, \$) &= \{( q_a, \epsilon)\} \\
+          \delta( q, a, b) &= \emptyset \quad \text{for alle andre}
+        \end{align*}
+      \end{column}
+      \begin{column}{.2\textwidth}
+        \xymatrix@R=3ex{%
+          *+<2ex>[o][F]{q_s} \ar[d]^{\txt{ \footnotesize $\epsilon,
+              \epsilon\to \$$}}
+          \\ *+<2ex>[o][F]{q_\ell} \ar@(ur,dr)[]^{\txt{ \footnotesize
+              $\epsilon, A\to w$ \\ \footnotesize $a, a\to \epsilon$}}
+          \ar[d]^{\txt{ \footnotesize $\epsilon, \$\to \epsilon$}}
+          \\ *+<2ex>[o][F=]{q_a}
+        }
+      \end{column}
+    \end{columns}
+
+    \medskip Lav til sidst $P$ om til en ``almindelig'' PDA ved at
+    erstatte enhver transition \alert{$q\xrightarrow{a, b\to s_1 s_2\dots
+        s_n} r$} med (nye tilstande og) en følge \alert{$q\xrightarrow{ a,
+        b\to s_n} q_1\xrightarrow{ \epsilon, \epsilon\to s_{n-1}}
+      q_2\tto{}\dots\tto{} q_{n-1}\xrightarrow{ \epsilon, \epsilon\to s_1}
+      r$}. }
+\end{frame}
+
+\end{document}

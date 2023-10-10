@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Spin 2012</title>
+</head>
+
+<body>
+
+<h2>Third lecture</h2>
+
+<p>Friday 9 March 2012, 16:15 to 18:15</p>
+
+<p>Accessible online at: <strong>http://goo.gl/TKSKW</strong></p>
+
+<p>First we will model <em>transition systems</em> which communicate through named channels:
+<ol>
+	<li>Warm-up: Open <a href="ts.pml">ts.pml</a> to see how one easily can model transition systems in Spin.  Do a random simulation to see how the channels work.  Draw the transition systems which we have modeled here.</li>
+	<li>The Spin model <a href="ab2.pml">ab2.pml</a> contains a model of the <a href="http://en.wikipedia.org/wiki/Alternating_bit_protocol">alternating bit protocol</a>.
+	<ol>
+		<li>Draw the transition systems which we have modeled.</li>
+		<li>Use Spin to verify whether the model has the property that <em>every message transmitted by A is received error-free at least once and accepted at most once by B</em>.</li>
+	</ol>
+</ol></p>
+
+<img src="pn.jpg" style="float:right; margin-bottom:10px; margin-left:30px; margin-top:0px" />
+
+<p>Another model which is easy to specify in Spin is the one of <a href="http://fr.wikipedia.org/wiki/R%C3%A9seau_de_Petri">Petri nets</a>.  These are like transition systems, only that the system can be in more than one (or even zero) states ate the same time.  States which are active are drawn with a <em>token</em>; there may be more than one token in a state (then the state is active <em>twice</em> etc.).</p>
+
+<p>To the right is shown a Petri net with 6 states (called <em>places</em> in Petri nets) and 6 transitions.  Places p1 and p4 contain a token.  There are two transitions, t1 and t4, which <em>can be fired</em>: the others do not have tokens in all of their <em>pre-places</em>.  If t1 is fired, then the token on p1 is removed and a token is added in p2.  At this point, transition t2 can be fired, and afterwards there is only one token in the net, in p3.</p>
+
+<p><ol>
+	<li>The Spin model <a href="pn1.pml">pn1.pml</a> contains a model of this Petri net.  Understand how the model works, and use Spin to verify whether the Petri net is deadlock-free.</li>
+	<li>The Spin model <a href="pn2.pml">pn2.pml</a> contains another Petri net, modeling a transport protocol.  Draw the Petri net, and use Spin to verify whether it is deadlock-free.</li>
+	<li>The <a href="http://fr.wikipedia.org/wiki/D%C3%AEner_des_philosophes">Dining philosophers' problem</a> has a nice Petri net model which you can find, for four philosophers, at <a href="http://fr.wikipedia.org/wiki/D%C3%AEner_des_philosophes#Solutions">http://fr.wikipedia.org/wiki/Dîner_des_philosophes#Solutions</a>.  Use Spin to verify whether the philosophers may starve to death.</li>
+	<li>Is this a good model of the dining philosophers?  How may it be improved?</li>
+</ol></p>
+
+</body>
+</html>
+

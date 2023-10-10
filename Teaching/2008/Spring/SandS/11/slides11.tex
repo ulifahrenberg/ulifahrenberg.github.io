@@ -1,0 +1,501 @@
+\documentclass{beamer}
+
+\newcommand*{\lektion}{11}
+\date{8 april 2008}
+\usepackage{../sogs08-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Forord}
+
+\section{Operationel semantik}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Operationel semantik}: at oversætte et \emph{program\/} til
+    et \emph{transitionssystem\/}:
+    \begin{itemize}
+    \item konfigurationer: programtilstande
+    \item transitioner: programskridt
+    \item slutkonfigurationer: (succesfuld) terminering af programmet
+    \end{itemize}
+  \item \alert{Transitionssystemer}: $( \Gamma, \mathord\to, T)$
+    \begin{itemize}
+    \item konfigurationer $\Gamma$, transitioner $\to$,
+      slutkonfigurationer $T$
+    \item fra nu af: slutkonfigurationer er \alert{terminale}:
+      \begin{equation*}
+        \forall \gamma\in T: \neg \exists \gamma'\in \Gamma: \gamma\to \gamma'
+      \end{equation*}
+    \item men ikke alle terminale konfigurationer er nødvendigvis
+      slutkonfigurationer! -- \alert{deadlock}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section[Regulære udtryk]{En big-step operationel semantik for
+  regulære udtryk}
+
+\begin{frame}[t]
+  \alert{Regulære udtryk} over et givet alfabet $\Sigma$ :
+  \begin{enumerate}
+  \item abstrakt syntaks
+    \begin{itemize}
+    \item syntaktiske kategorier
+
+      \qquad \blue{$a\in \Sigma$ -- tegn}
+    \item opbygningsregler
+
+      \qquad \blue{$\text{RE}_\Sigma\ni R \;::=\; a\mid \epsilon\mid
+        \emptyset\mid R\cup R\mid R\circ R\mid R^*$}
+    \end{itemize}
+
+  \item semantiske mængder og hjælpefunktioner
+
+    \qquad \blue{(har vi ikke her)}
+
+  \item transitionssystem(er)
+    \begin{itemize}
+    \item konfigurationer og slutkonfigurationer
+
+      \qquad \blue{$\Gamma= \text{RE}_\Sigma\cup \Pot( \Sigma^*)$}
+    \item transitionsrelationen givet ved \emph{transitionsregler}
+
+      \vspace*{-3ex}
+      {\color{blue}
+      \begin{gather*}
+        a\to\{ a\}\qquad \epsilon\to\{ \epsilon\}\qquad \emptyset\to
+        \emptyset \\[1ex]
+        \frac{ R_1\to L_1\quad R_2\to L_2}{ R_1\cup R_2\to L_1\cup
+          L_2}\qquad \frac{ R_1\to L_1\quad R_2\to L_2}{ R_1\circ
+          R_2\to L_1\circ L_2}\qquad \frac{ R\to L}{ R^*\to L^*}
+      \end{gather*}}
+    \end{itemize}
+  \end{enumerate}
+\end{frame}
+
+\section[Bims]{Operationelle semantikker for \protect\textbf{Bims}}
+
+\begin{frame}
+  \begin{itemize}
+  \item konfigurationer \alert{$\Gamma= \textbf{Kom}\times
+      \textbf{Tilstande}\cup \textbf{Tilstande}$}, slutkonfigurationer
+    \alert{$T= \textbf{Tilstande}$}
+  \item $\textbf{Tilstande}= \textbf{Var}\parto \Int$ : en
+    \alert{programtilstand} er en \emph{partiel\/} funktion fra
+    variabelnavne til værdier. For $s\in \textbf{Tilstande}$ og $x\in
+    \textbf{Var}$ har vi
+    \begin{equation*}
+      \qquad s( x)=
+      \begin{cases}
+        \text{værdien af $x$} &\text{hvis $x$ er defineret} \\[-.5ex]
+        \text{\underline{undef}} &\text{ellers}
+      \end{cases}
+    \end{equation*}
+  \item \alert{tilstandsopdatering}: $s[ x\mapsto v]$ givet ved
+    \begin{equation*}
+      s[ x\mapsto v]( y)=
+      \begin{cases}
+        s( y) &\text{hvis $y\ne x$} \\
+        v &\text{hvis $y= x$}
+      \end{cases}
+    \end{equation*}
+  \end{itemize}
+\end{frame}
+
+\section[Big-step]{Big-step-semantik for
+  \protect\textbf{Bims}}
+
+\begin{frame}
+  \begin{itemize}
+  \item transitioner på formen $\la S, s\ra\to s'$ : fra
+    \emph{konfigurationer\/} til \emph{slutkonfigurationer}
+  \item regler på formen
+    \begin{equation*}
+      \runa{ass}{bss} \qquad \la x:=a, s\ra \to s[ x \mapsto v ] \qquad
+      \text{hvor } s \vdash a \to_a v
+    \end{equation*}
+    (et \alert{aksiom})
+  \item eller på formen
+    \begin{multline*}
+      \runa{if-sand}{bss} \qquad \frac{\langle S_{1} ,s \rangle \to
+        s'}{\langle \text{\tt if}\;\; b\;\; \text{\tt then}\;\ S_{1}\;\
+        \text{\tt else}\;\
+        S_{2}\; , s \rangle \to s'} \\[-.5ex]
+      \text{hvis } s\vdash b \to_b \sand
+    \end{multline*}
+  \item reglen
+    \begin{multline*}
+      \runa{while-sand}{bss} \qquad \frac{\langle S,s \rangle \to s''
+        \;\;\; \langle \text{\tt while}\;\;b \;\; \text{\tt do}\;\;S
+        ,s''\rangle \to s'}{\langle \text{\tt while}\;\;b \;\; \text{\tt
+          do}\;\;S,s \rangle \to
+        s'} \\[-.5ex]
+      \text{hvis } s\vdash b \to_b \sand
+    \end{multline*}
+    er \emph{ikke kompositionel}, men \emph{rekursiv}
+  \end{itemize}
+\end{frame}
+
+\section[Small-step]{Small-step operationel semantik for
+  \protect\textbf{Bims}}
+
+\begin{frame}
+  \begin{itemize}
+  \item transitioner på formen $\la S, s\ra\To s'$ (terminering i ét
+    skridt) eller på formen $\la S, s\ra\To \la S', s'\ra$
+  \item regler på formen
+    \begin{equation*}
+      \runa{comp-1}{sss} \qquad \frac{\langle S_{1},s
+        \rangle \To \langle S'_{1}, s' \rangle }{ \langle
+        S_{1};S_{2},s \rangle \To \langle S'_{1};S_{2}, s'\rangle}       
+    \end{equation*}
+  \item eller på formen
+    \begin{multline*}
+      \runa{if-sand}{sss} \qquad \langle \texttt{if}\;\; b\;\;
+      \texttt{then}\;\ S_{1}\;\ \texttt{else}\;\ S_{2}\; , s
+      \rangle \To \langle S_{1}, s \rangle \\[-.5ex]
+      \text{hvis } s \vdash b \to_b \sand
+    \end{multline*}
+  \item reglen
+    \begin{multline*}
+      \runa{while}{sss} \qquad \langle \texttt{while} \;\; b \;\;
+      \texttt{do} \;\; S, s \rangle \To \\[-.5ex]
+      \langle \texttt{if}\;\; b \;\; \texttt{then}\;\; \mathtt{(}
+      S; \texttt{while} \;\; b \;\; \texttt{do} \;\; S \mathtt{)} \;\;
+      \texttt{else}\;\; \texttt{skip}, s\rangle
+    \end{multline*}
+    er igen \emph{ikke kompositionel}, men \emph{rekursiv}
+  \end{itemize}
+\end{frame}
+
+\section{Terminering}
+
+\begin{frame}
+  Givet $S\in \textbf{Kom}$ og $s\in \textbf{Tilstande}$
+  \begin{itemize}
+  \item $S$ \alert{terminerer} fra starttilstand $s$ i
+    \alert{big-step}-semantikken hvis der findes $s'\in \textbf{Tilstande}$
+    så \alert{$\la S, s\ra\to s'$}
+  \item $S$ \alert{terminerer} fra starttilstand $s$ i
+    \alert{small-step}-semantikken hvis der findes $s'\in
+    \textbf{Tilstande}$ så \alert{$\la S, s\ra\overset*\To s'$}
+  \item $S$ \alert{går i uendelig løkke} fra starttilstand $s$ i
+    \alert{big-step}- semantikken hvis der \emph{ikke\/} findes $s'\in
+    \textbf{Tilstande}$ så $\la S, s\ra\to s'$
+  \item $S$ \alert{går i uendelig løkke} fra starttilstand $s$ i
+    \alert{small-step}- semantikken hvis der findes en \emph{uendelig
+      transitionsfølge}
+    \begin{equation*}
+      \la S, s\ra\To \la S_1, s_1\ra\To \la S_2, s_2\ra\To \dots
+    \end{equation*}
+  \item \emph{Bemærk forskellen \dots}
+  \end{itemize}
+\end{frame}
+
+\section{Ækvivalens}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Sætning 4.11 /4.13 :} Vores givne big-step- og
+    small-step-semantikker for \textbf{Bims} er \alert{semantisk
+      ækvivalente}:
+    \begin{equation*}
+      \forall S\in \textbf{Kom}, \forall s, s'\in \textbf{Tilstande} : \la
+      S, s\ra\to s'\IFF \la S, s\ra\overset*\To s'
+    \end{equation*}
+  \item \alert{Bevis} for sætning 4.13 (ikke gennemgået!): ved
+    \alert{induktion i transitionsfølgers længde}
+  \item \alert{Bevis} for sætning 4.11: ved \alert{transitionsinduktion}:
+    \begin{enumerate}
+    \item Vis at $\la S, s\ra\to s'\IMPL \la S, s\ra\overset*\To s'$
+      gælder hver gang $\la S, s\ra\to s'$ kommer fra et \emph{aksiom}
+    \item Vis for enhver transitionsregel der ikke er et aksiom:
+      \alert{Hvis} $\la S, s\ra\to s'\IMPL \la S, s\ra\overset*\To s'$
+      gælder for alle dens \emph{præmisser}, \alert{da} gælder det også
+      for dens \emph{konklusion}
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\part{Udvidelser af \protect\textbf{Bims}}
+
+\section{Repeat-løkker}
+
+\begin{frame}[t]
+  Abstrakt syntaks for \textbf{Kom}+\texttt{repeat}:
+  \begin{align*}
+    S &\;::=\; x \texttt{:=} a \mid \texttt{skip} \mid
+    S_1\texttt; S_2\mid \texttt{if $b$ then $S_1$ else $S_2$} \\
+    &\qquad\mid \texttt{while $b$ do $S$}\mid \alert{\texttt{repeat $S$
+        until $b$}}
+  \end{align*}
+
+  Big-step-semantik:
+
+  \vspace{-2ex}
+  \begin{tabular}{ll}
+    \runa{rep-sand}{bss} & \newcondinfrule{\la S,s \ra \to s'}{\la 
+      \texttt{repeat $S$ until $b$}, s \ra \to s'}{\!\!\text{hvis } s'\vdash
+      b\to_b \sand} \\[-1.5ex]
+    \runa{rep-falsk}{bss} & \infrule{\la S,s \ra \to s' \quad \la 
+      \texttt{repeat $S$ until $b$}, s'\ra \to s''}{\la 
+      \texttt{repeat $S$ until $b$}, s\ra \to s''} \\[-1.5ex]
+    & \hspace*{15.4em} $\text{hvis } s'\vdash b\to_b \falsk$
+  \end{tabular}
+
+  \bigskip \alert{Sætning 5.2:} Kommandoerne ``\texttt{repeat $S$ until
+    $b$}'' og ``\texttt{$S$;while $\neg b$ do $S$}'' er \alert{semantisk
+    ækvivalente}.  Dvs.
+  \begin{align*}
+    \forall S\in \textbf{Kom}, \forall s, s'\in \textbf{Tilstande} :\;
+    &\la \texttt{repeat $S$ until $b$}, s\ra\to s'\\
+    \IFF\; &\la \texttt{$S$;while $\neg b$ do $S$}, s\ra\to s'
+  \end{align*}
+
+  \vspace{-1ex}
+  (dvs.\ ``\emph{de gør de samme ting\/}'')
+
+  -- vi viser kun \IMPL\ her; den anden retning er tilsvarende
+\end{frame}
+
+\begin{frame}[t]
+
+  \vspace*{-4ex}
+  \begin{align*}
+    \forall S\in \textbf{Kom}, \forall s, s'\in \textbf{Tilstande} :\;
+    &\la \texttt{repeat $S$ until $b$}, s\ra\to s'\\
+    \IMPL\; &\la \texttt{$S$;while $\neg b$ do $S$}, s\ra\to s'
+  \end{align*}
+
+  \alert{Bevis} ved \emph{induktion i højden af derivationstræer\/}:
+  \begin{enumerate}
+  \item Hvis $\la \texttt{repeat $S$ until $b$}, s\ra\to s'$ har et
+    derivationstræ af \alert{højde 0}, da har $\la \texttt{$S$;while $\neg
+      b$ do $S$}, s\ra\to s'$ også. (For der er ikke nogen.)\quad\blue\checkmark
+  \item Antag at vi har vist for alle $S, s, s'$ for hvilke $\la
+    \texttt{repeat}$ $\texttt{$S$ until $b$}, s\ra\to s'$ har et
+    derivationstræ af \alert{højde $\le n$}, at da har $\la
+    \texttt{$S$;while $\neg b$ do $S$}, s\ra\to s'$ et derivationstræ. Lad
+    $S, s, s'$ være således at $\la \texttt{repeat $S$ until $b$}, s\ra\to
+    s'$ har et derivationstræ af \alert{højde $n+1$}.  \only<1>{%
+    \item Hvis den sidste regel i træet er \alert{\runa{rep-sand}{bss}}:
+      \begin{itemize}
+      \item[\IMPL] $\la S, s\ra\to s'$, $s'\vdash b\to_b \sand$
+      \item[\IMPL] (pga.\ \alert{\runa{while-falsk}{bss}})\quad $\la
+        \texttt{while $\neg b$ do $S$}, s'\ra\to s'$
+      \item[\IMPL] (pga.\ \alert{\runa{comp}{bss}})\quad $\la
+        \texttt{$S$;while $\neg b$ do $S$}, s\ra\to s'$\quad\blue\checkmark
+      \end{itemize}
+
+      \vspace*{7ex}}%
+    \only<2>{%
+      \stepcounter{enumi}
+    \item Hvis den sidste regel i træet er \alert{\runa{rep-falsk}{bss}}:
+      \begin{itemize}
+      \item[\IMPL] $\la S, s\ra\to s''$, $\la \texttt{repeat $S$ until $b$},
+        s''\ra\to s'$, $s''\vdash b\to_b \falsk$
+      \item[\IMPL] (\alert{induktionshypotese}) $\la
+        \texttt{$S$;while $\neg b$ do $S$}, s''\ra\to s'$
+      \item[\IMPL] (\alert{\runa{comp}{bss}}) $\la S, s''\ra\to
+        s'''$, $\la \texttt{while $\neg b$ do $S$}, s'''\ra\to s'$
+      \item[\IMPL] (\alert{\runa{while-sand}{bss}}) $\la \texttt{while
+          $\neg b$ do $S$}, s''\ra\to s'$
+      \item[\IMPL] ($\la S, s\ra\to s''$, \alert{\runa{comp}{bss}}) $\la
+        \texttt{$S$;while $\neg b$ do $S$}, s\ra\to s'$\\[-.5ex]
+        \hfill \blue\checkmark
+      \end{itemize}
+    }
+  \end{enumerate}
+\end{frame}
+
+\section{Semantisk ækvivalens}
+
+\begin{frame}[t]
+  \alert{Definition 5.4:} Lad $( \Gamma, \mathord\to, T)$ være
+  transitionssystemet for \textbf{Bims}s big-step-semantik, og lad $S_1,
+  S_2\in \textbf{Kom}$. $S_1$ og $S_2$ siges at være \alert{semantisk
+    ækvivalente i big-step-semantik} (\alert{$S_1\sim_\text{bss} S_2$})
+  hvis
+
+  \vspace{-2ex}
+  \begin{equation*}
+    \forall s, s'\in \textbf{Tilstande} : \la S_1, s\ra\to s'\IFF \la S_2,
+    s\ra\to s'
+  \end{equation*}
+
+  \bigskip \alert{Definition 5.8:} Lad $( \Gamma, \mathord\To, T)$ være
+  transitionssystemet for \textbf{Bims}s small-step-semantik, og lad $S_1,
+  S_2\in \textbf{Kom}$. $S_1$ og $S_2$ siges at være \alert{semantisk
+    ækvivalente i small-step-semantik} (\alert{$S_1\sim_\text{sss} S_2$})
+  hvis
+  \begin{equation*}
+    \forall s, s'\in \textbf{Tilstande} : \la S_1, s\ra\overset*\To s'\IFF
+    \la S_2, s\ra\overset*\To s'
+  \end{equation*}
+
+  \bigskip \alert{Bemærk} at for vores semantikker er $\sim_\text{bss}$ og
+  $\sim_\text{sss}$ \emph{det samme\/}, for vi har jo allerede vist at
+  \begin{equation*}
+    \forall S\in \textbf{Kom}, \forall s, s'\in \textbf{Tilstande} : \la
+    S, s\ra\to s'\IFF \la S, s\ra\overset*\To s'
+  \end{equation*}
+\end{frame}
+
+\section{For-løkker}
+
+\begin{frame}
+  Abstrakt syntaks for \textbf{Kom}+\texttt{for}:
+  \begin{align*}
+    S &\;::=\; x \texttt{:=} a \mid \texttt{skip} \mid
+    S_1\texttt; S_2\mid \texttt{if $b$ then $S_1$ else $S_2$} \\
+    &\qquad\mid \texttt{while $b$ do $S$}\mid \alert{\texttt{for
+        $x$:=$n_1$ to $n_2$ do $S$}}
+  \end{align*}
+
+  \bigskip \hspace*{-2em}
+  \begin{tabular}{lr}
+    \runa{for-1}{bss} & $\dfrac{\la S,s[x\mapsto v_{1}] \ra \to s'' \quad
+      \la \texttt{for $x$:=$n'_{1}$ to $n_{2}$ do $S$}, s'' \ra \to
+      s'}{\la \texttt{for $x$:=$n_{1}$ to $n_{2}$ do $S$}, s \ra \to s'}$
+    \\[.5ex]
+    & hvis $v_{1} \le v_{2}$ hvor $v_{1} = {\cal N}\sem{n_{1}}, v_{2} =
+    {\cal N}\sem{n_{2}}$ \\
+    & og $n'_{1} = {\cal N}^{-1}(v_{1}+1)$ \\[2ex]
+    \runa{for-2}{bss} & $\la
+    \texttt{for $x$:=$n_{1}$ to $n_{2}$ do $S$},s \ra \to s[x \mapsto v_{1}] $ \hfill\mbox{}\\
+    & $\text{hvis } v_{1} > v_{2} \text{ hvor } v_{1} = {\cal
+      N}\sem{n_{1}}, v_{2} = {\cal N}\sem{n_{2}}$
+  \end{tabular}
+\end{frame}
+
+\section{Abnorm terminering}
+
+\begin{frame}
+  Abstrakt syntaks for \textbf{Kom}+\texttt{abort}:
+  \begin{align*}
+    S &\;::=\; x \texttt{:=} a \mid \texttt{skip} \mid
+    S_1\texttt; S_2\mid \texttt{if $b$ then $S_1$ else $S_2$} \\
+    &\qquad\mid \texttt{while $b$ do $S$}\mid \alert{\texttt{abort}}
+  \end{align*}
+
+  \medskip -- ingen nye transitionsregler
+
+  \begin{itemize}
+  \item $\texttt{abort}\sim_\text{bss} \texttt{while 0=0 do skip}$ \\
+    og $\texttt{abort}\sim_\text{sss} \texttt{while 0=0 do skip}$
+  \item i small-step-semantik går \texttt{while 0=0 do skip} i
+    \emph{uendelig løkke}, mens \texttt{abort} \emph{ikke\/} gør!
+  \end{itemize}
+\end{frame}
+
+\section{Nondeterminisme}
+
+\begin{frame}
+  Abstrakt syntaks for \textbf{Kom}+\texttt{or}:
+  \begin{align*}
+    S &\;::=\; x \texttt{:=} a \mid \texttt{skip} \mid
+    S_1\texttt; S_2\mid \texttt{if $b$ then $S_1$ else $S_2$} \\
+    &\qquad\mid \texttt{while $b$ do $S$}\mid \alert{\texttt{$S_1$ or
+        $S_2$}}
+  \end{align*}
+
+  Big-step-semantik:
+
+  \vspace{-3ex}
+  \begin{equation*}
+    \runa{or-1}{bss} \quad \dfrac{%
+      \la S_1, s\ra\to s'
+    }{%
+      \la \texttt{$S_1$ or $S_2$}, s\ra\to s'
+    } \qquad
+    \runa{or-2}{bss} \quad \dfrac{%
+      \la S_2, s\ra\to s'
+    }{%
+      \la \texttt{$S_1$ or $S_2$}, s\ra\to s'
+    }
+ \end{equation*}
+
+ Small-step-semantik:
+
+  \vspace{-3ex}
+ \begin{align*}
+   \runa{or-1}{sss} \quad & \la \texttt{$S_1$ or $S_2$}, s\ra \To \la S_1, s\ra
+   \\
+   \runa{or-2}{sss} \quad & \la \texttt{$S_1$ or $S_2$}, s\ra \To \la S_2, s\ra
+ \end{align*}
+  
+ \medskip Lad $S= \texttt{x:=1 or while 0=0 do skip}$
+ \begin{itemize}
+ \item big-step: $S$ terminerer
+ \item small-step: $S$ terminerer \alert{og går i uendelig løkke!}
+ \end{itemize}
+\end{frame}
+
+\section{Parallelitet}
+
+\begin{frame}[t]
+  Abstrakt syntaks for \textbf{Kom}+\texttt{par}:
+  \begin{align*}
+    S &\;::=\; x \texttt{:=} a \mid \texttt{skip} \mid
+    S_1\texttt; S_2\mid \texttt{if $b$ then $S_1$ else $S_2$} \\
+    &\qquad\mid \texttt{while $b$ do $S$}\mid \alert{\texttt{$S_1$ par
+        $S_2$}}
+  \end{align*}
+  
+  \medskip
+  \begin{tabular}{lc}
+    \runa{par-1}{sss} & $\dfrac{%
+      \la S_1, s\ra\To \la S_1', s'\ra
+    }{%
+      \la \texttt{$S_1$ par $S_2$}, s\ra\To \la \texttt{$S_1'$ par $S_2$},
+      s'\ra
+    }$ \\[2.5ex]
+    \runa{par-2}{sss} & $\dfrac{%
+      \la S_1, s\ra\To s'
+    }{%
+      \la \texttt{$S_1$ par $S_2$}, s\ra\To \la S_2, s'\ra
+    }$ \\[2.5ex]
+    \runa{par-3}{sss} & $\dfrac{%
+      \la S_2, s\ra\To \la S_2', s'\ra
+    }{%
+      \la \texttt{$S_1$ par $S_2$}, s\ra\To \la \texttt{$S_1$ par $S_2'$},
+      s'\ra
+    }$ \\[2.5ex]
+    \runa{par-4}{sss} & $\dfrac{%
+      \la S_2, s\ra\To s'
+    }{%
+      \la \texttt{$S_1$ par $S_2$}, s\ra\To \la S_1, s'\ra
+    }$
+  \end{tabular}
+
+  \bigskip
+  \begin{itemize}
+  \item fletning: $\la \texttt{x:=1 par (x:=2; x:=x+3)}, s\ra$\\
+    $\overset*\To s[ x\mapsto 1]$~~og\quad $\overset*\To s[ x\mapsto
+    4]$~~og\quad $\overset*\To s[ x\mapsto 5]$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item fletning kan ikke beskrives i big-step-semantik -- fordi her er de
+    atomare skridt \emph{hele kommandoer}
+  \item[\IMPL] big-step-semantik kan ikke bruges til at beskrive
+    parallelitet
+  \item fletning af kommandoer \emph{der ikke kan gå i uendelig løkke} \\
+    \alert{$=$ nondeterminisme}:
+    \begin{align*}
+      \texttt{x:=1 par (x:=2; x:=x+3)} & \\
+      \sim_\text{sss}\; &\texttt{(x:=1;x:=2;x:=x+3)} \\
+      &\,\texttt{or (x:=2;x:=1;x:=x+3)} \\
+      &\,\texttt{or (x:=2;x:=x+3;x:=1)}
+    \end{align*} 
+  \end{itemize}
+\end{frame}
+
+\end{document}

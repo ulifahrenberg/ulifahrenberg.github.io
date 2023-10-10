@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Spin 2013</title>
+</head>
+
+<body>
+
+<h2>Fourth lecture</h2>
+
+<p>Wednesday 27 March 2013, 10:15 to 12:15</p>
+
+<p>Accessible online at: <strong>http://goo.gl/p400K</strong></p>
+
+<p>I'm not sure you got to the last exercises last time, and there's some important points there, so we'll start by doing these together:
+<ol start="6">
+	<li>Make a model of the dining philosophers (without the waiter), as transition systems which pick up and put down forks by sending signals.  Make your model scalable, so it works for any number of philosophers.<br />
+(So each philosopher is a process, and each fork is a process.  Forks can be either free or in use, and philosophers can be thinking, waiting for a second fork, or eating.)<br />
+	<i>See <a href="dp-ts1.pml">dp-ts1.pml</a>.  Note how philosophers and forks communicate using <em>synchronous</em> channnels of size 0.</i></li>
+	<li>Implement the waiter semaphore in your transition system model, and verify that the system is deadlock-free.  JSpin may say "<code>error: max search depth too small</code>"; in this case, increase the search depth in <code>Settings|Max Depth</code>.<br />
+	<i>See <a href="dp-ts2.pml">dp-ts2.pml</a>.  I implemented the waiter as an extra process.</i></li>
+	<li>Experiment with Spin: Starting with <code>n=2</code> and working upwards, run Spin on the <code>n</code>-philosophers' problem.  For each <code>n</code>, note down the size of the state vector and the number of stored states.  (Increase the search depth if necessary.)  Plot your results.  What do you see?</li>
+	<li>Try to optimize your model, to be able to verify the <code>n</code>-philosophers' problem for larger values of <code>n</code>.<br />
+	<i>In <a href="dp-ts3.pml">dp-ts3.pml</a> there is another implementation where the waiter is implemented as a communication channel instead; this is much more efficient!</i></li>
+</ol>
+</p>
+
+<p>Next we will do some LTL model checking.
+<ol>
+	<li>Open <a href="peterson.pml">peterson.pml</a>, my implementation of the Peterson mutual exclusion protocol.  I have annotated it with some Boolean variables which are used to signal that a process is in the critical section.<br />
+We want to check mutual exclusion.  The Spin syntax for this property is <code>[] ( !c1 || !c2 )</code>.  JSpin has an input field "LTL formula"; enter it there.  Then click the "Translate" button.  What have you done?  Click "Verify".  How does Spin verify the formula?</li>
+	<li>Be sure to understand precisely how LTL model checking is done in Spin.</li>
+	<li>Check whether my Peterson implementation is <em>live</em> (every process enters its critical section infinitely often), and whether it is <em>starvation free</em>.  (For starvation freedom, you may have to annotate your model some more.)</li>
+	<li>Do the same for your implementations of the other protocols which we discussed during <a href="../02/">lecture 2</a>.</li>
+	<li>Verify important properties of your (or <a href="dp-ts3.pml">my</a>) model of the <em>dining philosophers</em>.  Use LTL formulas to see whether the system is deadlock-free, starvation-free, etc.</li>
+</ol></p>
+
+</body>
+</html>
+

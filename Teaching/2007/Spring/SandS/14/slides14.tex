@@ -1,0 +1,499 @@
+\documentclass{beamer}
+
+\newcommand*\lektion{14}
+\date{17 april 2007}
+\usepackage{../sogs07-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Rekursive definitioner og fikspunkter}
+
+\section{Eksempler}
+
+\begin{frame}[t]
+  En (lille) kontekstfri grammatik:
+  \begin{equation*}
+    S\to aSb\mid c\mid S
+  \end{equation*}
+  Oversæt direkte til en rekursiv sprogligning:
+  \begin{equation*}
+    L_S=\{ a\}\circ L_S\circ\{ b\}\cup\{ c\}\cup L_S
+  \end{equation*}
+  At finde en løsning til dén ligning:  Kald højresiden for \alert{$F( L_S)$}:
+  \begin{equation*}
+    L_S= \alert{F( L_S)}=\{ a\}\circ L_S\circ\{ b\}\cup\{ c\}\cup L_S
+  \end{equation*}
+  Start med $U_0= \emptyset$ og anvend ligningen:
+  \begin{align*}
+    U_1 &= F( U_0)=\{ a\}\circ \emptyset\circ\{ b\}\cup\{ c\}\cup
+    \emptyset=\{ c\} \\
+    U_2 &= F( U_1)=\{ a\}\circ \{ c\}\circ\{ b\}\cup\{ c\}\cup \{ c\}=\{
+    c, acb\} \\
+    U_3 &= F( U_2)=\{ a\}\circ \{ c, acb\}\circ\{ b\}\cup\{ c\}\cup \{ c,
+    acb\}=\{ c, acb, a^2 cb^2\} \\[-.5ex]
+    &\cdots \\[-.7ex]
+    \alert{U_n} &\alert{=\{ a^i cb^i\mid i< n\}} \\
+    &\quad\alert{\text{``grænseværdi'':}} \quad \alert{U=\{ a^i cb^i\mid
+      i\in \Nat\}}
+  \end{align*}
+  $U$ er en løsning -- fordi \alert{$F( U)= U$} \quad\blue{(Prøve!)}
+\end{frame}
+
+\begin{frame}[t]
+  Så for
+  \begin{equation*}
+    L_S= F( L_S)=\{ a\}\circ L_S\circ\{ b\}\cup\{ c\}\cup L_S
+  \end{equation*}
+  virkede følgende:
+  \begin{itemize}
+  \item start med $U_0= \emptyset$
+  \item anvend rekursionsligningen gentagne gange
+  \item få en følge $U_1\subseteq U_2\subseteq U_3\subseteq\cdots$
+  \item ``tag grænseværdien'' af følgen
+  \item[\IMPL] løsning til ligningen: $L_S=\{ a^i cb^i\mid i\in \Nat\}$
+  \end{itemize}
+  Er der flere løsninger?
+  \begin{itemize}
+  \item \alert{Jep}, f.x.\ $L_S''=\{ a^i cb^i, a^i cccb^i\mid i\in \Nat\}$
+  \end{itemize}
+  Hvorfor virker det? Virker det også ved andre eksempler?
+  \begin{itemize}
+  \item Hvad med ligningen
+    \begin{equation*}
+      \textbf{Env}_P= \textbf{Pnavne}\parto
+      \textbf{Kom}\times \textbf{Env}_V\times \textbf{Env}_P\quad\text{?}
+    \end{equation*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Sidebemærkning:\ Rekursion for reelle funktioner:
+  \begin{itemize}
+  \item ligningen \alert{$x^2+ x= 6$} har en løsning $x= 2$
+  \item rekursion:\ omskriv ligningen til \alert{$x= F( x)= 6- x^2$}
+  \item kan løsningen $x=2$ findes ved rekursion? \\
+    \alert{Nej} \prog[rekursion-bad.c]
+  \end{itemize}
+
+  \medskip
+  \begin{itemize}
+  \item ligningen \alert{$x^2+ 8x= 20$} har en løsning $x= 2$
+  \item rekursion:\ omskriv ligningen til \alert{$x= F( x)=( 20- x^2)/ 8$}
+  \item kan løsningen $x=2$ findes ved rekursion? \\
+    \alert{Ja, men kun for \emph{nogle\/} startværdier !}
+    \prog[rekursion-ok.c]
+  \end{itemize}
+\end{frame}
+
+\section{Fikspunkter}
+
+\begin{frame}[t]
+  Et par rekursive ligninger:
+  \begin{align*}
+    L &= F_1( L)=\{ a\}\circ L\circ\{ b\}\cup\{ c\}\cup L \\
+    x &= F_2( x)= 6- x^2 \\
+    \textbf{Env}_P &= F_3( \textbf{Env}_P)= \textbf{Pnavne}\parto
+    \textbf{Kom}\times \textbf{Env}_V\times \textbf{Env}_P
+  \end{align*}
+  Funktionerne på højresiderne:
+  \begin{align*}
+    F_1 &: \Sigma^*\to \Sigma^* \\
+    F_2 &: \Real\to \Real \\
+    F_3 &: \text{mængder}\to \text{mængder}\quad\text{(?)}
+  \end{align*}
+
+  \medskip \alert{Definition 14.2:} Lad $F: D\to D$ være en funktion. Et
+  element $x\in D$ kaldes et \alert{fikspunkt} for $F$ hvis \alert{$F( x)=
+    x$}.
+
+  \bigskip -- så vi skal finde ud af hvornår, og hvordan, vi kan beregne
+  fikspunkter
+\end{frame}
+
+\begin{frame}
+  \alert{\textit{Tarski\/}s fikspunkts-sætning 14.3:} \\
+  Lad $D$ være et \blue{domæne} og $f: D\to D$ en \blue{kontinuert
+    funktion}. Da har $f$ et \alert{mindste fikspunkt} $x^*$, som kan
+  beregnes ved
+  \begin{equation*}
+    x^*= \blue{\lim}\{ f^i( \blue{\bot})\mid i\in \Nat\}
+  \end{equation*}
+  hvor \blue{$\bot$} er \blue{bundelementet} i $D$.
+
+  \medskip
+  \begin{itemize}
+  \item \alert{domæne}: en mængde $D$ med en \blue{fuldstændig partiel orden}
+    $\sqsubseteq$
+  \item \alert{$\bot$}: det mindste element i $D$; $\bot\sqsubseteq d$ for
+    alle $d\in D$
+  \item \alert{grænseværdi}: $\lim Y$ er den mindste øvre grænse for
+    den \blue{voksende mængde} $Y$ (hvis den findes)
+  \item \alert{kontinuert funktion}: $f$ kontinuert \IFF\ $f( \lim Y)=
+    \lim f( Y)$ for alle voksende mængder $Y$
+  \end{itemize}
+\end{frame}
+
+\section{Partielt ordnede mængder}
+
+\begin{frame}[t]
+  \alert{Definition 14.4:} En relation $\sqsubseteq$ over en mængde $D$
+  kaldes en \alert{partiel orden} hvis den er
+  \begin{itemize}
+  \item \alert{refleksiv}: $d\sqsubseteq d$ for alle $d\in D$
+  \item \alert{transitiv}: hvis $d_1\sqsubseteq d_2$ og $d_2\sqsubseteq
+    d_3$, så $d_1\sqsubseteq d_3$
+  \item \alert{antisymmetrisk}: hvis $d_1\sqsubseteq d_2$ og
+    $d_2\sqsubseteq d_1$, så $d_1= d_2$
+  \end{itemize}
+  Parret $( D, \mathord\sqsubseteq)$ kaldes da en \alert{partielt ordnet
+    mængde}.
+
+  \medskip \alert{Eksempler:}
+  \begin{itemize}
+  \item $\Real$ med den sædvanlige orden $\mathord\sqsubseteq=
+    \mathord\le$
+  \item $\Nat$ med den sædvanlige orden $\mathord\sqsubseteq= \mathord\le$
+  \item $\Real^2$ med den \emph{punktvise\/} orden
+    \begin{equation*}
+      ( x, y)\sqsubseteq( x', y')\quad\IFF\quad x\le x'\text{ og } y\le y'
+    \end{equation*}
+  \item \alert{delmængdedomænet}: Givet en mængde $M$, da er potensmængden
+    $\Pot( M)$ partielt ordnet ved
+    \begin{equation*}
+      A\sqsubseteq B\quad\IFF\quad A\subseteq B
+    \end{equation*}
+  \end{itemize}
+\end{frame}
+
+\section{Grænseværdier}
+
+\begin{frame}
+  \alert{Definition 14.9:} Givet en partielt ordnet mængde $D$ og en
+  delmængde $Y\subseteq D$, da kaldes $Y$ en \alert{voksende mængde} hvis
+  der findes en nummerering $Y=\{ d_1, d_2, d_3,\dots\}$ af elementerne i
+  $Y$ således at \alert{$d_1\sqsubseteq d_2\sqsubseteq d_3\sqsubseteq
+    \cdots$}.
+
+  \medskip \alert{Eksempler:}
+  \begin{itemize}
+  \item $\{ 1, 17, 3, 9\}$ er en voksende mængde i $( \Nat, \mathord\le)$
+  \item $\{ 0, 2, 4, 6,\dots\}$ er en voksende mængde i $( \Nat,
+    \mathord\le)$
+  \item $\{ 3, 3.1, 3.14, 3.141, 3.1415,\dots\}$ er en voksende mængde i
+    $( \Rat, \mathord\le)$ \quad\blue{$\longleftarrow$ rationelle tal}
+  \item $\{( 1, 0),( 0, 1)\}$ er \emph{ikke\/} en voksende mængde i $(
+    \Real^2, \mathord\sqsubseteq)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Definition 14.10 / 14.11 :} Givet en partielt ordnet
+  mængde $D$ og en voksende delmængde $Y\subseteq D$.
+  \begin{itemize}
+  \item $x\in D$ kaldes en \alert{øvre grænse} for $Y$ hvis $y\sqsubseteq
+    x$ for alle $y\in Y$.
+  \item $x\in D$ kaldes en \alert{grænseværdi} (eller \alert{mindste øvre
+      grænse}; \alert{\textit{least upper bound}}, \alert{\textit{lub\/}})
+    for $Y$, hvis
+    \begin{enumerate}
+    \item $x$ er en øvre grænse for $Y$,
+    \item og for alle andre øvre grænser $z$ for $Y$ gælder $x\sqsubseteq
+      z$
+    \end{enumerate}
+  \end{itemize}
+
+  \medskip \alert{Eksempler:}
+  \begin{itemize}
+  \item $42$ er en øvre grænse for $\{ 1, 17, 3, 9\}$ i $( \Nat,
+    \mathord\le)$
+  \item $17$ er en grænseværdi for $\{ 1, 17, 3, 9\}$ i $( \Nat,
+    \mathord\le)$
+  \item $\{ 0, 2, 4, 6,\dots\}$ har ingen øvre grænse i $( \Nat,
+    \mathord\le)$
+  \item $\{ 3, 3.1, 3.14, 3.141, 3.1415,\dots\}$ har en øvre grænse i
+    $( \Rat, \mathord\le)$, \emph{men ingen grænseværdi}
+  \end{itemize}
+
+  \medskip \alert{Opgave:} Vis at enhver voksende mængde kan have højst én
+  grænseværdi (!)
+
+  \medskip Hvis en voksende mængde $Y$ har en grænseværdi $x$, skriver vi
+  den \alert{$x= \lim Y$}
+\end{frame}
+
+\section{Domæner}
+
+\begin{frame}
+  \alert{Definition 14.16:} Et \alert{domæne} er en partielt ordnet mængde
+  $D$ der opfylder følgende betingelser:
+  \begin{itemize}
+  \item Enhver voksende mængde $Y\subseteq D$ har en grænseværdi $\lim
+    Y\in D$
+  \item Der findes et element $\bot\in D$ som opfylder $\bot\sqsubseteq d$
+    for alle $d\in D$
+  \end{itemize}
+  $\bot$ kaldes \alert{bundelementet} af $D$
+
+  \medskip \alert{Eksempler:}
+  \begin{itemize}
+  \item $( \Nat, \mathord\le)$, $( \Real, \mathord\le)$ og $( \Real^2,
+    \mathord\sqsubseteq)$ er \emph{ikke\/} domæner
+  \item delmængdedomænet er et domæne
+  \end{itemize}
+\end{frame}
+
+\section[Kontinuitet]{Kontinuerte funktioner}
+
+\begin{frame}[t]
+  \alert{Definition $14.21'$:} Lad $D_1$ og $D_2$ være partielt ordnede
+  mængder og $f: D_1\to D_2$ en funktion. Da siges $f$ at være
+  \alert{monoton} (eller \alert{monotont voksende}) hvis $d_1\sqsubseteq
+  d_2$ medfører $f( d_1)\sqsubseteq f( d_2)$ for alle $d_1, d_2\in D_1$.
+
+  \begin{itemize}
+  \item så monotone funktioner er dem der \alert{bevarer ordensrelationen}
+  \item monotone funktioner er de ``\emph{naturlige\/}'' funktioner for
+    partielt ordnede mængder. Man siger også at partielt ordnede mængder
+    og monotone funktioner tilsammen udgør en \alert{kategori}
+  \item dertil skal bruges følgende:
+  \end{itemize}
+
+  \alert{Lemma:} Hvis $f_1: D_1\to D_2$ og $f_2: D_2\to D_3$ er monotone,
+  er deres sammensætning $f_2\circ f_1: D_1\to D_3$ også monoton.
+
+  \medskip
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{.6\textwidth}
+      \alert{Bevis:}
+      \begin{enumerate}
+      \item Lad $d_1, d_2\in D_1$, med $d_1\sqsubseteq d_2$.
+      \item $f_1$ monoton \IMPL\ $f_1( d_1)\sqsubseteq f_1( d_2)$
+      \item $f_2$ monoton \IMPL\ $f_2( f_1( d_1))\sqsubseteq f_2( f_1(
+        d_2))$
+      \item færdig
+      \end{enumerate}
+    \end{column}
+    \begin{column}{.35\textwidth}
+      {\vspace*{-3ex}\color{blue}
+        \xymatrix{%
+          & D_2 \ar[dr]^{f_2} \\ D_1 \ar[ur]^{f_1} \ar[rr]_{f_2\circ f_1} && D_3
+        }}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Notation 14.25:} For en funktion $f: D_1\to D_2$ og en delmængde
+  $Y\subseteq D_1$ betegner $\alert{f( Y)=\{ f(y)\mid y\in Y\}}\subseteq
+  D_2$.
+
+  \bigskip \alert{Lemma $14.23'$:} Lad $f: D_1\to D_2$ være en monoton
+  funktion mellem partielt ordnede mængder. Hvis $Y\subseteq D_1$ er en
+  voksende mængde, er $f( Y)\subseteq D_2$ også en voksende mængde.
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item Skal vise at der findes nummerering $f( Y)=\{ z_1, z_2,\dots\}$
+    med $z_1\sqsubseteq z_2\sqsubseteq\cdots$
+  \item $Y$ voksende \IMPL\ \emph{har\/} nummerering $Y=\{ y_1, y_2\}$ med
+    $y_1\sqsubseteq y_2\sqsubseteq\cdots$
+  \item[\IMPL] skriv $f( Y)=\{ f( y_1), f( y_2),\dots\}$
+    \qquad\blue\checkmark
+  \end{enumerate}
+
+  \medskip \alert{Definition $14.26'$:} Lad $D_1$ og $D_2$ være domæner og
+  $f: D_1\to D_2$ en \emph{monoton\/} funktion. Da siges $f$ at være
+  \alert{kontinuert} hvis $f$ er \emph{grænseværdi-bevarende}, dvs.:
+  \begin{equation*}
+    \text{for alle voksende mængder } Y\subseteq D_1: \alert{\lim f( Y)=
+      f( \lim Y)}
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  Domæner og kontinuerte funktioner udgør igen en
+  \alert{kategori}. Specielt:
+
+  \medskip \alert{Sætning 14.15(201):} Hvis $f_1: D_1\to D_2$ og $f_2:
+  D_2\to D_3$ er kontinuerte, er deres sammensætning $f_2\circ f_1: D_1\to
+  D_3$ også kontinuert.
+
+  \medskip
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{.6\textwidth}
+      \alert{Bevis:}
+      \begin{enumerate}
+      \item Lad $Y\subseteq D_1$ være en voksende mængde.
+      \item[\IMPL] $f_1( Y)\subseteq D_2$ og $f_2( f_1( Y))\subseteq D_3$
+        er også voksende
+      \item og \makebox[0pt][l]{%
+          $f_2( f_1( \lim Y))= f_2( \lim f_1( Y))= \lim f_2( f_1( Y))$
+        }
+      \end{enumerate}
+    \end{column}
+    \begin{column}{.35\textwidth}
+      {\vspace*{-3ex}\color{blue}
+        \xymatrix{%
+          & D_2 \ar[dr]^{f_2} \\ D_1 \ar[ur]^{f_1} \ar[rr]_{f_2\circ f_1} && D_3
+        }}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section[Sætningen]{Fikspunktssætningen}
+
+\begin{frame}
+  \alert{Notation:} For en funktion $f: D\to D$ betegner $f^i$ funktionen
+  $f$ sammensat med sig selv $i$ gange: $f^1= f$, $f^2= f\circ f$, $f^3=
+  f\circ f\circ f$, \dots
+
+  \medskip \alert{Lemma 14.30:} Lad $f: D\to D$ være en monoton funktion.
+  Da er også $f^i: D\to D$ monoton for alle $i\in \Nat$.
+
+  \medskip \alert{Bevis:} Sammensætninger af monotone funktioner er
+  monotone. \hfill\blue\checkmark
+
+  \bigskip \alert{Lemma 14.31:} Lad $D$ være et domæne og $f: D\to D$ en
+  \emph{monoton\/} funktion. Da er \alert{$\{ f^i( \bot)\mid i\in \Nat\}$}
+  en voksende mængde.
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item $\bot$ er mindste element i $D$ \IMPL\ $\bot\sqsubseteq f( \bot)$
+  \item anvend $f$, $i$ gange: \IMPL\ $f^i( \bot)\sqsubseteq f^{i+1}(
+    \bot)$ \qquad\blue\checkmark
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Sætning 14.3:} Lad $D$ være et domæne og $f: D\to D$ en
+  kontinuert funktion. Da har $f$ et \alert{mindste fikspunkt} $x^*$, som
+  kan beregnes ved
+  \begin{equation*}
+    x^*= \lim\{ f^i( \bot)\mid i\in \Nat\}
+  \end{equation*}
+  hvor $\bot$ er bundelementet i $D$.
+
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item $x^*$ er \emph{et fikspunkt\/}:
+    \begin{align*}
+      \alert{f( x^*)} &= f( \lim\{ f^i( \bot)\})= \lim f(\{ f^i( \bot)\})= \lim\{
+      f^{i+1}( \bot)\} \\
+      &= \lim(\{ f^{i+1}( \bot)\}\cup\{ \bot\})= \lim\{ f^i( \bot)\}= \alert{x^*}
+    \end{align*}
+  \item $x^*$ er \emph{det mindste\/} fikspunkt:
+    \begin{itemize}
+    \item Lad $d$ være et fikspunkt for $f$, dvs.\ \alert{$f( d)= d$}.
+      \blue{Vis at $x^*\sqsubseteq d$.}
+    \item $\bot\sqsubseteq d$ \IMPL\ $f^i( \bot)\sqsubseteq f^i( d)= d$
+    \item[\IMPL] $d$ er øvre grænse for $\{ f^i( \bot)\}$
+    \item[\IMPL] $\lim\{ f^i( \bot)\}\sqsubseteq d$\qquad\blue\checkmark
+    \end{itemize}
+  \end{enumerate}
+\end{frame}
+
+\section{Anvendelser}
+
+\begin{frame}
+  \alert{Sætning 14.7(199):} For enhver mængde $S$ er potensmængden $\Pot(
+  S)$, med inklusion $\subseteq$ som ordensrelation, et domæne.
+
+  \medskip \alert{Bevis} (fyld selv detaljer ind!):
+  \begin{enumerate}
+  \item $\subseteq$ er en partiel orden på $\Pot(S)$
+  \item bundelementet er \alert{$\bot= \emptyset$}
+  \item hvis $Y=\{ M_1, M_2,\dots\}$ er en voksende mængde (af delmængder
+    $M_1, M_2,\ldots\subseteq S$), er
+    \begin{align*}
+      \lim Y &= \bigcup_i M_i \\
+      &= M_1\cup M_2\cup\cdots
+    \end{align*}
+  \end{enumerate}
+
+  \bigskip \alert{Anvendelse:} Mængden af \alert{sprog over et givet
+    alfabet $\Sigma$}, $\Pot( \Sigma^*)$, er et domæne.
+\end{frame}
+
+\begin{frame}
+  \alert{Lemma:} Konkatenering og foreningsmængde er kontinuerte
+  operationer på $\Pot( \Sigma^*)$.
+
+  \medskip \alert{Bevis} (delvis): Vi skal f.x.\ vise følgende:
+  \begin{itemize}
+  \item for ethvert $L\subseteq \Sigma^*$ er funktionen $f: \Pot(
+    \Sigma^*)\to \Pot( \Sigma^*)$ givet ved \alert{$f( M)= L\circ M$}
+    kontinuert:
+    \begin{enumerate}
+    \item Lad $\{ M_1, M_2,\dots\}$ være en voksende mængde af sprog.
+    \item Da er også $\{ L\circ M_1, L\circ M_2,\dots\}$ en voksende
+      mængde.
+    \item Vi skal vise at $f( \lim\{ M_1, M_2\,\dots\})= \lim f(\{ M_1,
+      M_2,\dots\})$, dvs.\ \alert{$f( \bigcup_i M_i)= \bigcup_i f( M_i)$}.
+    \item Men $f( \bigcup_i M_i)= L\circ( \bigcup_i M_i)$ og $\bigcup_i f(
+      M_i)= \bigcup_i L\circ M_i$.
+    \item Og $L\circ( \bigcup_i M_i)= \bigcup_i L\circ M_i$ pga.\
+      distributivitet.
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Eksemplet} med den kontekstfrie grammatik igen:
+  \begin{equation*}
+    S\to aSb\mid c\mid S
+  \end{equation*}
+  Oversat til en fikspunktsligning:
+  \begin{equation*}
+    L_S= F( L_S)=\{ a\}\circ L_S\circ\{ b\}\cup\{ c\}\cup L_S
+  \end{equation*}
+  Og $F: \Pot( \Sigma^*)\to \Pot( \Sigma^*)$ er en \alert{sammensætning af
+    konkateneringer og foreningsmængder} \IMPL\ $F$ er \alert{kontinuert}
+  !
+
+  \medskip\IMPL\ $L_S$ kan findes ved fikspunktssætningen:
+  \begin{align*}
+    L_S & = \lim\{ F^i( \emptyset)\mid i\in \Nat\} \\
+    &= \lim\big\{ \emptyset, \{ c\}, \{ c, acb\}, \{ c, acb, a^2
+    cb^2\},\dots\big\} \\
+    &= \bigcup\nolimits_n \{ a^i cb^i\mid i< n\} \\
+    &= \{ a^n cb^n\mid n\in \Nat\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Eksemplet} med $\textbf{Env}_P$ igen:
+  \begin{equation*}
+    \textbf{Env}_P= \textbf{Pnavne}\parto
+    \textbf{Kom}\times \textbf{Env}_V\times \textbf{Env}_P
+  \end{equation*}
+  Oversat til en fikspunktsligning:
+  \begin{equation*}
+    \textbf{Env}_P = F( \textbf{Env}_P)= \textbf{Pnavne}\parto
+    \textbf{Kom}\times \textbf{Env}_V\times \textbf{Env}_P
+  \end{equation*}
+  $F$ er nu en funktion fra \alert{``mængden'' af domæner} til sig selv,
+  givet ved
+  \begin{equation*}
+    F( D)= \textbf{Pnavne}\parto
+    \textbf{Kom}\times \textbf{Env}_V\times D
+  \end{equation*}
+  og følgende virker:
+  \begin{itemize}
+  \item tag det mindste domæne \alert{$\{ \bot\}$}
+  \item beregn en \alert{``voksende mængde'' af domæner} $\big\{ \{
+    \bot\}, F(\{ \bot\}), F( F(\{ \bot\})),\dots\big\}$
+  \item tag \alert{``grænseværdien''} af den ``mængde''
+  \end{itemize}
+  Men \emph{hvorfor\/} virker det? og \emph{hvad\/} bliver resultatet?
+  \begin{itemize}
+  \item Se de grumme detaljer i kapitel 6 af Mads Rosendahls
+    domæneteori-noter: \url{http://akira.ruc.dk/~madsr/webpub/domaene.pdf}
+  \end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,14 @@
+% regex matching commands used
+
+grep 'Hans' manual.tex
+grep 'vi' manual.tex
+grep 'vi[ ,.]' manual.tex
+grep 'o[a-zA-Z]*o' manual.tex
+grep 'o[a-zA-Z]*o[a-zA-Z]*o' manual.tex
+grep 'a[a-zA-Z]*a[a-zA-Z]*i[a-zA-Z]*e' manual.tex
+
+sed 's:\\[a-zA-Z]*: :g' manual.tex
+sed 's:\\usepackage{[a-zA-Z]*}: :g' manual.tex
+sed 's:\\usepackage\(\[[a-zA-Z]*]\)\?{[a-zA-Z]*}: :g' manual.tex
+sed 's:\\usepackage\(\[[a-zA-Z,]*]\)\?{[a-zA-Z]*}: :g' manual.tex
+sed 's:\\usepackage\(\[[a-zA-Z,=]*]\)\?{[a-zA-Z]*}: :g' manual.tex

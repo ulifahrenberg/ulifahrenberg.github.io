@@ -1,0 +1,550 @@
+\documentclass{beamer}
+
+\newcommand*\lektion{12}
+\date{15 april 2008}
+\usepackage{../sogs08-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\part{Blokke}
+
+\section[Abstrakt syntaks]{Abstrakt syntaks for \protect\textbf{Bip}}
+% 6.1
+
+\begin{frame}
+  \textbf{Bip} $=$ \textbf{Bims} $+$ blokke og parameterløse procedurer:
+  \begin{alignat*}{2}
+    &\textbf{Kom:}\quad & S &\;::=\; x \texttt{:=} a \mid \texttt{skip} \mid
+    S_1\texttt; S_2\mid \texttt{if $b$ then $S_1$ else $S_2$} \\
+    &&&\qquad\mid \texttt{while $b$ do $S$} \\
+    &&&\qquad\mid \texttt{begin $D_V$ $D_P$
+      $S$ end}\mid \texttt{call $p$} \\
+    &\textbf{ErkV:} & D_V &\;::=\; \texttt{var $x$:=$a$;$D_V$}\mid
+    \epsilon \\
+    &\textbf{ErkP:} & D_P &\;::=\; \texttt{proc $p$ is $S$;$D_P$}\mid
+    \epsilon
+  \end{alignat*}
+
+  \begin{itemize}
+  \item \emph{lokale\/} erklæringer af variable (\alert{\textbf{ErkV}}) og
+    procedurer (\alert{\textbf{ErkP}}) i en \alert{blok}
+  \item variable \emph{initialiseres\/} ved erklæring
+  \item semantikken af \emph{procedurekald\/} afhænger af
+    \alert{scope-regler}
+  \item \emph{bogen\/} beskæftiger sig både med \alert{dynamisk} og
+    \alert{statisk} scope
+  \item \emph{vi\/} lægger mest vægt på \emph{statisk\/} scope her
+  \end{itemize}
+\end{frame}
+
+\section[Environment \& store]{Environment-store-modellen}
+% 6.2
+
+\begin{frame}
+  \begin{itemize}
+  \item brug for ny tilstandsmodel for at kunne erklære variable
+  \item før: $\textbf{Tilstande}= \textbf{Var}\parto \Int$
+  \item nu: \alert{$\textbf{Var}\parto \textbf{Loc}\parto \Int$}
+  \item \textbf{Loc}:\ \alert{lokationer}; lager-adresser
+  \item[\IMPL] en tilstand \alert{$( \textit{env}_V, \textit{sto})$}
+    beskrives ved:
+
+    \smallskip\hspace*{-2.4em}
+    \begin{minipage}{1.1\linewidth}
+      \begin{description}
+      \item[$\textit{env}_V$] \alert{variabel-environment}
+        \begin{itemize}
+        \item hvilken adresse er en given variabel bundet til?
+        \item $\textbf{Env}_V= \textbf{Var}\cup\{ \text{next}\}\parto
+          \textbf{Loc}$
+        \item next\; peger til næste \emph{frie\/} lokation
+        \item \emph{for os:\/}\ $\textbf{Loc}= \Int$
+        \item opdatering:
+
+          \vspace{-1ex}
+          $\textit{env}_V[ x\mapsto \ell]( x')=
+          \begin{cases}
+            \textit{env}_V( x') &\text{hvis } x'\ne x \\
+            \ell &\text{hvis } x'= x
+          \end{cases}$
+        \end{itemize}
+      \item[$\textit{sto}$] \alert{store}
+        \begin{itemize}
+        \item hvilken værdi indeholder en given adresse?
+        \item $\textbf{Store}= \textbf{Loc}\parto \Int$
+
+          \vspace{-1ex}
+        \item opdatering:
+          $\textit{sto}[ \ell\mapsto v]( \ell')=
+          \begin{cases}
+            \textit{sto}( \ell') &\text{hvis } \ell'\ne \ell \\
+            v &\text{hvis } \ell'= \ell
+          \end{cases}$
+        \end{itemize}
+      \end{description}
+    \end{minipage}
+  \end{itemize}
+\end{frame}
+
+\section[Udtryk]{Aritmetiske og boolske udtryk}
+% 6.3
+
+\begin{frame}
+  \begin{tabular}{ll}
+    \runa{plus}{bss} & $\dfrac{{\textit{env}_V, \textit{sto}\vdash\,} a_{1} \to_a v_{1}
+      \quad {\textit{env}_V, \textit{sto}\vdash\,} a_{2} \to_a v_{2}}{{\textit{env}_V, \textit{sto}\vdash\,}
+      a_{1} \splus a_{2} \to_a v}$\qquad\qquad\qquad \\
+    & \hfill hvor $v = v_{1} + v_{2}$ \\[1.5ex]
+    \runa{minus}{bss} & $\dfrac{{\textit{env}_V, \textit{sto}\vdash\,} a_{1} \to_a
+      v_{1} \quad {\textit{env}_V, \textit{sto}\vdash\,} a_{2} \to_a
+      v_{2}}{{\textit{env}_V, \textit{sto}\vdash\,} a_{1} \ssub a_{2}
+      \to_a v}$\qquad\qquad\qquad \\
+    & \hfill hvor $v= v_{1} - v_{2}$ \\[1.5ex]
+    \runa{mult}{bss} & $\dfrac{{\textit{env}_V, \textit{sto}\vdash\,} a_{1} \to_a
+      v_{1} \quad {\textit{env}_V, \textit{sto}\vdash\,} a_{2} \to_a
+      v_{2}}{{\textit{env}_V, \textit{sto}\vdash\,} a_{1} \texttt{*} a_{2} \to_a
+      v}$\qquad\qquad\qquad \\
+    & \hfill hvor $v = v_{1} \cdot v_{2}$ \\
+    \runa{parent}{bss} & $\dfrac{{\textit{env}_V, \textit{sto}\vdash\,} a_{1} \to_a
+      v_{1}}{{\textit{env}_V, \textit{sto}\vdash\,} \texttt{(} a_{1}
+      \texttt{)} \to_a v_{1}}$\qquad\qquad\qquad \\[2.5ex]
+    \runa{num}{bss} & ${\textit{env}_V, \textit{sto}\vdash\,} n \to_a v
+    \hfill \text{hvis } {\cal N}\sem{n} = v$ \\[1.5ex]
+    {\runa{var}{bss}} & {$\textit{env}_V, \textit{sto}\vdash x \to_a v \hfill
+      \text{hvis } \textit{sto}( \textit{env}_V( x))= v$}
+  \end{tabular}
+\end{frame}
+
+\section{Variabel-erklæringer}
+% 6.4.1
+
+\begin{frame}
+  \vspace*{-1.5ex}
+  \begin{equation*}
+    \textbf{ErkV:}\qquad D_V \;::=\; \texttt{var $x$:=$a$;$D_V$}\mid
+    \epsilon
+  \end{equation*}
+
+  \begin{itemize}
+  \item erklæringer \alert{modificerer} $\textit{env}_V$ (pga.\ nye
+    variable) og \textit{sto} (pga.\ nye værdier til nye variable)
+  \item[\IMPL] transitionssystem:
+    \begin{itemize}
+    \item konfigurationer $\Gamma_{DV}= \textbf{ErkV}\times
+      \textbf{Env}_V\times \textbf{Store}\;\cup\; \textbf{Env}_V\times
+      \textbf{Store}$
+    \item slutkonfigurationer $T_{DV}= \textbf{Env}_V\times
+      \textbf{Store}$
+    \item dvs.\ konfigurationer \alert{$( D_V, \textit{env}_V,
+        \textit{sto})$} og \alert{$( \textit{env}_V, \textit{sto})$}
+    \end{itemize}
+  \end{itemize}
+
+  \vspace{-3ex}
+  \begin{multline*}
+    \!\!\!\runa{var-erkl}{bss} \\
+    \dfrac{%
+      \langle D_{V},\textit{env}_{V}[x \mapsto \ell][\text{next} \mapsto
+      \text{new}( \ell)],\textit{sto}[\ell \mapsto v] \rangle \to_{DV}
+      \la \textit{env}'_{V},\textit{sto}'\ra}{%
+      \langle \texttt{var $x$:=$a$;$D_{V}$}, \textit{env}_{V},\textit{sto}
+      \rangle \to_{DV} \la \textit{env}'_{V},\textit{sto}'\ra} \\
+    \text{hvor } \textit{env}_{V},\textit{sto} \vdash a \to_a v \text{ og
+    } \ell = \textit{env}_{V}( \text{next})
+  \end{multline*}
+
+  \vspace{-3ex}
+  \begin{multline*}
+    \!\!\!\runa{tom-var-erkl}{bss} \qquad \langle \varepsilon, \textit{env}_{V}, \textit{sto}
+    \rangle \to_{DV} \la \textit{env}_{V},\textit{sto}\ra \\
+  \end{multline*}
+
+  \vspace{-3ex}
+  \begin{itemize}
+  \item \alert{big-step:} variabelerklæringer sker i ét hug
+  \item \alert{$\text{new}: \textbf{Loc}\to \textbf{Loc}$} giver næste
+    lokation; $\text{new}( \ell)= \ell+ 1$
+  \end{itemize}
+\end{frame}
+
+\section[Kommandoer]{Kommandoer minus procedurekald}
+% 6.5
+
+\begin{frame}
+  \begin{itemize}
+  \item også procedure-environment $\textit{env}_P\in \textbf{Env}_P$,
+    til at holde styr på \emph{procedurer\/}
+  \item med tilhørende big-step-semantik for procedure-erklæringer $(
+    \Gamma_{DP}, \mathord\to_{DP}, T_{DP})$
+  \item \blue{men det snakker vi om senere}
+  \item dvs.\ \alert{procedure-environment} $\textit{env}_P$,
+    \alert{variabel-environment} $\textit{env}_V$ og \alert{store}
+    \textit{sto}
+  \item men kommandoer \alert{kan ikke ændre} $\textit{env}_V$ og
+    $\textit{env}_P$ !
+  \item[\IMPL] transitioner på formen \alert{$\textit{env}_V,
+      \textit{env}_P\vdash \la S, \textit{sto}\ra\to \textit{sto}'$}
+  \item dvs.\ konfigurationer \alert{$\textbf{Kom}\times
+      \textbf{Store}\;\cup\; \textbf{Store}$}
+  \item og slutkonfigurationer \alert{\textbf{Store}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{tabular}{ll}
+    \runa{ass}{bss} & $\textit{env}_{V},\textit{env}_{P} \vdash \langle
+    \texttt{$x$:=$a$}, \textit{sto} \ra \to \textit{sto}[ \ell \mapsto v ]$
+    \\
+    & \hfill hvor $\textit{env}_{V},\textit{sto} \vdash a \to_a v$ og
+    $\textit{env}_{V}( x) = \ell$ \\[1ex]
+    \runa{skip}{bss} & $\textit{env}_{V},\textit{env}_{P} \vdash \langle
+    {\texttt{skip}}, \textit{sto}
+    \ra \to \textit{sto}$ \\[2ex]
+    \runa{comp}{bss} & $\dfrac{%
+      \datop{%
+        \textit{env}_{V},\textit{env}_{P} \vdash \langle S_{1},\textit{sto}
+        \ra \to \textit{sto}''}{%
+        \textit{env}_{V},\textit{env}_{P}
+        \vdash \langle S_{2},\textit{sto}'' \ra  
+        \to \textit{sto}'}}{%
+      \textit{env}_{V},\textit{env}_{P} \vdash \langle
+      S_{1};S_{2},\textit{sto} \ra \to \textit{sto}'}$ \\[3ex]
+    \runa{if-sand}{bss} & $\dfrac{%
+      \textit{env}_{V},\textit{env}_{P} \vdash \langle S_{1} 
+      ,\textit{sto} \ra \to \textit{sto}'}{%
+      \textit{env}_{V},\textit{env}_{P} \vdash \langle 
+      \texttt{if}\;\; b\;\; \texttt{then}\;\ S_{1}\;\ \texttt{else}\;\ 
+      S_{2}\; , \textit{sto} \ra \to \textit{sto}'}$ \\
+    & \hfill $\text{hvis} \;\; \textit{env}_{V}, \textit{sto} \vdash b
+    \to_b \sand$ \\[2ex]
+    \runa{if-falsk}{bss} & $\dfrac{%
+      \textit{env}_{V},\textit{env}_{P} \vdash \langle
+      S_{2},\textit{sto} \ra \to \textit{sto}'}{%
+      \textit{env}_{V},\textit{env}_{P} \vdash \langle 
+      \texttt{if}\;\; b\;\; \texttt{then}\;\ S_{1}\;\ \texttt{else}\;\ 
+      S_{2}\; , \textit{sto} \ra \to \textit{sto}'}$ \\
+    & \hfill $\text{hvis} \;\;\textit{env}_{V},\textit{sto} \vdash b \to_b
+    \falsk$
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \begin{tabular}{ll}
+    \runa{while-sand}{bss} & $\dfrac{%
+      \datop{%
+        \textit{env}_{V},\textit{env}_{P} \vdash 
+        \langle S,\textit{sto} \ra \to \textit{sto}''}{%
+        \textit{env}_{V},\textit{env}_{P} \vdash \langle \texttt{while}\;\;b \;\;
+        \texttt{do}\;\;S , \textit{sto}''\ra \to \textit{sto}'}}{%
+      \textit{env}_{V},\textit{env}_{P} \vdash\langle
+      \texttt{while}\;\;b \;\; \texttt{do}\;\;S,\textit{sto} \ra \to  
+      \textit{sto}'}$ \\
+    & \hfill $\text{hvis}\;\; \textit{env}_{V},\textit{sto} \vdash b \to_b
+    \sand$ \\[2ex]
+    \runa{while-falsk}{bss} & $\textit{env}_{V},\textit{env}_{P} \vdash
+    \langle \texttt{while}\;\;b \;\; \texttt{do}\;\;S ,\textit{sto} \ra
+    \to \textit{sto}$ \\
+    & \hfill $\text{hvis}\;\; \textit{env}_{V},\textit{sto} \vdash b \to_b
+    \falsk$ \\[2ex]
+    \runa{blok}{bss} & $\dfrac{%
+      \datop{%
+        \datop{%
+          \la D_{V},\textit{env}_{V},\textit{sto} \ra \to_{DV}
+          \la \textit{env}'_{V},\textit{sto}''\ra}{%
+          \blue{\textit{env}'_{V} \vdash \la D_{P},\textit{env}_{P} \ra \to_{DP}
+          \textit{env}'_{P}}}}{%
+        \textit{env}'_{V},\textit{env}'_{P} \vdash \la S,\textit{sto}'' \ra \to 
+        \textit{sto}'}}{%
+      \textit{env}_{V},\textit{env}_{P} \vdash \la \texttt{begin}\; D_{V} \; D_{P} \; S \; 
+      \texttt{end},\textit{sto} \ra \to \textit{sto}'}$
+  \end{tabular}
+\end{frame}
+
+\section{Scoperegler}
+
+\begin{frame}
+  \hfill\parbox{7cm}{
+    \tt \begin{tabbing}
+      begin \= var x:= 5 \= then aaaaaa \kill
+      begin \> var x:= 0; \\
+      \> var y:= 42 \\
+      \> proc p is x:= x+3; \\
+      \> proc q is call p; \\
+      \> begin var x:= 9; \\
+      \> \> proc p is x:= x+1; \\
+      \> \> call q; \\
+      \> \> y:=x \\
+      \> end \\
+      end \\
+    \end{tabbing}}\hfill\mbox{}
+
+  \begin{itemize}
+  \item \alert{dynamisk binding af variable og procedurer:} $\texttt y=
+    10$
+  \item \alert{statisk binding af variable og procedurer:} $\texttt y=
+    9$ \blue{(hint: det er et andet \texttt x !)}
+  \item også muligt: \emph{statisk\/} binding af variable og
+    \emph{dynamisk\/} binding af procedurer, og omvendt
+  \end{itemize}
+\end{frame}
+
+\section{Statisk binding}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{statisk} binding af variable og procedurer: ved
+    procedure\emph{kald\/} skal anvendes det variabel- og
+    procedure-environment der fandtes ved \emph{erklæringen}
+  \item[\IMPL] procedurer skal \alert{huske} $\textit{env}_V$ og
+    $\textit{env}_P$
+  \item[\IMPL] \alert{$\textbf{Env}_P= \textbf{Pnavne}\parto
+      \textbf{Kom}\times \textbf{Env}_V\times \textbf{Env}_P$}
+  \item (\textbf{Pnavne} : procedurenavne)
+  \item dvs.\ $\textbf{Env}_P$ består af partielle afbildninger
+    $p\mapsto\la S, \textit{env}_V, \textit{env}_P\ra$
+    \begin{itemize}
+    \item $S$ : procedure``kroppen''
+    \item $\textit{env}_V, \textit{env}_P$ : variabel- og
+      procedure-environment da $p$ blev erklæret
+    \end{itemize}
+  \item en \alert{rekursiv definition!}
+  \item big-step-semantik:
+    \begin{itemize}
+    \item tilstande $\textbf{ErkP}\times \textbf{Env}_P\;\cup\;
+      \textbf{Env}_P$
+    \item sluttilstande $\textbf{Env}_P$
+    \item transitioner $\to_{DP}$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{tabular}{ll}
+    \runa{proc}{bss} & $\dfrac{%
+      \textit{env}_{V} \vdash \la D_{P}, \textit{env}_{P}[p 
+      \mapsto (S,\textit{env}_{V},\textit{env}_{P})] \ra \to_{DP}
+      \textit{env}'_{P}}{%
+      \textit{env}_{V} \vdash 
+      \la \texttt{proc}\; p \; \texttt{is} \; S \; ; D_{P}, \textit{env}_{P} \ra \to_{DP} 
+      \textit{env}'_{P}}$  \\[2.5ex]
+    \runa{proc-tom}{bss} & $\textit{env}_{V} \vdash \la \varepsilon, \textit{env}_{P} \ra 
+    \to_{DP} \textit{env}_{P}$ \\[2ex]
+    \runa{call}{bss} & $\dfrac{%
+      \textit{env}'_{V}[\text{next}\mapsto \ell],\textit{env}'_{P} \vdash \la S,\textit{sto} 
+      \ra \to \textit{sto}'}{%
+      \textit{env}_{V},\textit{env}_{P} \vdash \la \text{\tt call}\; p,\textit{sto} 
+      \ra \to \textit{sto}'}$ \\
+    & \hfill $\text{hvor}\; \textit{env}_{P}( p) =
+    (S,\textit{env}'_{V},\textit{env}'_{P})$ \\
+    & \hfill og $\ell = \textit{env}_{V}( \text{next})$\\
+  \end{tabular}
+\end{frame}
+
+\part{Procedurer med parametre}
+
+\section{Referenceparametre}
+% 7.2
+
+\begin{frame}[t]
+  At udvide \textbf{Bip} med procedurer med én \alert{referenceparameter}:
+  \begin{alignat*}{2}
+    &\textbf{Kom:}\quad & S &\;::=\; x \texttt{:=} a \mid \texttt{skip}
+    \mid S_1\texttt; S_2\mid \texttt{if $b$ then $S_1$ else $S_2$} \\
+    &&&\qquad\mid \texttt{while $b$ do $S$} \\
+    &&&\qquad\mid \texttt{begin $D_V$ $D_P$
+      $S$ end}\mid \alert{\texttt{call $p$($y$)}} \\
+    &\textbf{ErkV:} & D_V &\;::=\; \texttt{var $x$:=$a$;$D_V$}\mid
+    \epsilon \\
+    &\textbf{ErkP:} & D_P &\;::=\; \texttt{\alert{proc $p$(var $x$) is
+        $S$};$D_P$}\mid \epsilon
+  \end{alignat*}
+
+  \begin{itemize}
+  \item \alert{reference}parametre: den \alert{formelle} parameter $x$ er
+    en \emph{reference\/} til \emph{adressen\/} på den \alert{aktuelle}
+    parameter $y$
+  \item (klares ved pointers i \texttt C)
+  \item Eksempel:\quad \parbox[t]{.7\linewidth}{%
+      \tt begin\\
+      \hspace*{1em} var y:=3;\\
+      \hspace*{1em} proc p(var x) is x:= x+1;\\
+      \hspace*{1em} call p(y)\\
+      end
+    }
+  \item[\IMPL] $\texttt y= 4$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item procedure-environment:
+    \begin{equation*}
+      \textbf{Env}_P= \textbf{Pnavne}\parto \textbf{Kom}\times
+      \alert{\textbf{Var}}\times \textbf{Env}_V\times \textbf{Env}_P
+    \end{equation*}
+  \item skal huske navnet på den formelle parameter
+  \item at \alert{erklære} procedurer:
+    \begin{align*}
+      &\hspace*{-2ex} \runa{proc}{bss} \quad \dfrac{%
+        \textit{env}_{V} \vdash \la D_{P}, \textit{env}_{P}[p \mapsto (S, x,
+        \textit{env}_{V},\textit{env}_{P})] \ra \to_{DP}
+        \textit{env}'_{P}}{%
+        \textit{env}_{V} \vdash \la \texttt{proc $p$(var $x$) is
+          $S$;$D_{P}$}, \textit{env}_{P} \ra \to_{DP}
+        \textit{env}'_{P}} \\[1ex]
+      &\hspace*{-2ex} \runa{proc-tom}{bss} \quad \textit{env}_{V} \vdash \la \varepsilon,
+      \textit{env}_{P} \ra \to_{DP} \textit{env}_{P}
+    \end{align*}
+  \item at \alert{kalde} procedurer:
+
+    \smallskip
+    \begin{tabular}{ll}
+      \runa{call-ref}{bss} & $\dfrac{%
+        \textit{env}'_{V}[x \mapsto \ell][\text{next} \mapsto
+        \ell'],\textit{env}'_{P} \vdash \langle S,\textit{sto} \ra \to
+        \textit{sto}'}{%
+        \textit{env}_V,\textit{env}_P \vdash \langle \texttt{call}\;\;
+        p(y),\textit{sto} \ra \to \textit{sto}'}$ \\[1.8ex]
+      & \hfill hvor $\textit{env}_P( p) =
+      (S,x,\textit{env}'_{V},\textit{env}'_{P})$, \\
+      & \hfill $\ell = \textit{env}_V( y)$ og $\ell' = \textit{env}_V(
+      \text{next})$
+    \end{tabular}
+  \end{itemize}
+\end{frame}
+
+\section{Rekursion}
+% 7.3
+
+\begin{frame}
+  \begin{tabular}{ll}
+    \runa{call-ref}{bss} & $\dfrac{%
+      \textit{env}'_{V}[x \mapsto \ell][\text{next} \mapsto
+      \ell'],\textit{env}'_{P} \vdash \langle S,\textit{sto} \ra \to
+      \textit{sto}'}{%
+      \textit{env}_V,\textit{env}_P \vdash \langle \texttt{call}\;\;
+      p(y),\textit{sto} \ra \to \textit{sto}'}$ \\[1.8ex]
+    & \hfill hvor $\textit{env}_P( p) =
+    (S,x,\textit{env}'_{V},\textit{env}'_{P})$, \\
+    & \hfill $\ell = \textit{env}_V( y)$ og $\ell' = \textit{env}_V(
+    \text{next})$
+  \end{tabular}
+  
+  \medskip Problem:\ dén regel \alert{tillader ikke rekursive
+    procedurekald}
+  \begin{itemize}
+  \item fordi $\textit{env}_P'$ er procedure-environmentet fra
+    \alert{før $p$ blev erklæret}
+  \end{itemize}
+
+  \medskip Løsning: ny regel:
+
+  \medskip \hspace*{-2em}
+  \begin{tabular}{ll}
+    \runa{call-ref-rec}{bss} & $\dfrac{%
+      \datop{%
+        \textit{env}'_{V}[x \mapsto 
+        \ell][\mbox{next} \mapsto \ell'],\textit{env}'_{P}[p \mapsto
+        (S,x,\textit{env}'_{V},\textit{env}'_{P})]}{%
+        \hfill \vdash \langle S,\textit{sto}  
+        \ra \to \textit{sto}'}}{%
+      \textit{env}_V,\textit{env}_P \vdash \langle {\tt call}\;\; p(y),\textit{sto} 
+      \rangle \to \textit{sto}'}$ \\[1.8ex]
+    & \hfill hvor $\textit{env}_P( p) = (S,x,\textit{env}_V', \textit{env}'_{P})$,
+    \\
+    & \hfill $\ell= \textit{env}_V( y)$ og $\ell' = \textit{env}_V(
+    \text{next})$
+  \end{tabular}
+
+  \bigskip (kan også klares ved at modificere \runa{proc}{bss} i
+  stedet \blue{(hvordan?)})
+\end{frame}
+
+\section{Værdiparametre}
+% 7.4
+
+\begin{frame}[t]
+  At udvide \textbf{Bip} med procedurer med én \alert{værdiparameter}:
+  \begin{alignat*}{2}
+    &\textbf{Kom:}\quad & S &\;::=\; x \texttt{:=} a \mid \texttt{skip}
+    \mid S_1\texttt; S_2\mid \texttt{if $b$ then $S_1$ else $S_2$} \\
+    &&&\qquad\mid \texttt{while $b$ do $S$} \\
+    &&&\qquad\mid \texttt{begin $D_V$ $D_P$
+      $S$ end}\mid \texttt{call $p$($\alert a$)} \\
+    &\textbf{ErkV:} & D_V &\;::=\; \texttt{var $x$:=$a$;$D_V$}\mid
+    \epsilon \\
+    &\textbf{ErkP:} & D_P &\;::=\; \texttt{proc $p$(var $x$) is
+        $S$;$D_P$}\mid \epsilon
+  \end{alignat*}
+
+  \begin{itemize}
+  \item \alert{værdi}parametre: den \alert{formelle} parameter $x$ bliver
+    til en lokal variabel i proceduren, med \emph{startværdi} $=$ værdien
+    af den \alert{aktuelle} parameter
+  \item Eksempel:\quad \parbox[t]{.7\linewidth}{%
+      \tt begin\\
+      \hspace*{1em} var y:=3;\\
+      \hspace*{1em} proc p(var x) is x:= x+1;\\
+      \hspace*{1em} call p(y)\\
+      end
+    }
+  \item[\IMPL] $\texttt y= 3$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item procedure-\alert{erklæringer} (uændret):
+    \begin{align*}
+      &\hspace*{-2ex} \runa{proc}{bss} \quad \dfrac{%
+        \textit{env}_{V} \vdash \la D_{P}, \textit{env}_{P}[p \mapsto (S, x,
+        \textit{env}_{V},\textit{env}_{P})] \ra \to_{DP}
+        \textit{env}'_{P}}{%
+        \textit{env}_{V} \vdash \la \texttt{proc $p$(var $x$) is
+          $S$;$D_{P}$}, \textit{env}_{P} \ra \to_{DP}
+        \textit{env}'_{P}} \\[.8ex]
+      &\hspace*{-2ex} \runa{proc-tom}{bss} \quad \textit{env}_{V} \vdash \la \varepsilon,
+      \textit{env}_{P} \ra \to_{DP} \textit{env}_{P}
+    \end{align*}
+  \item procedure\alert{kald}:
+
+    \smallskip\hspace*{-2em}
+    \begin{tabular}{lp{.77\linewidth}}
+      \runa{call-val}{bss} & $\dfrac{%
+        \datop{%
+          \textit{env}'_{V}[x \mapsto \ell][\text{next} 
+          \mapsto \text{new}( \ell)] ,\textit{env}'_{P}}{%
+          \hfill \vdash \langle S,\textit{sto}[\ell \mapsto 
+          v]\ra \to \textit{sto}'}}{%
+        \textit{env}_V,\textit{env}_P \vdash \langle \texttt{call}\;\; 
+        p(a),\textit{sto} \ra \to \textit{sto}'}$ \\  
+      & \hfill hvor $\textit{env}_P( p) =
+      (S,x,\textit{env}'_{V},\textit{env}'_{P})$, \\
+      & \hfill $\textit{env}_V,\textit{sto} \vdash a \to_a v$
+      og $\ell =
+      \textit{env}_V( \text{next})$ \\[1.8ex]
+      \runa{call-val-rec}{bss} & $\dfrac{%
+        \datop{%
+          \datop{%
+            \textit{env}'_{V}[x \mapsto
+            \ell][\text{next} \mapsto \text{new}( \ell)],}{%
+            \textit{env}'_{P}[p \mapsto 
+            (S,x,\textit{env}'_{V},\textit{env}'_{P})]}}{%
+          \hfill \vdash \langle S,\textit{sto}[\ell \mapsto v] \ra \to 
+          \textit{sto}'}}{%
+        \textit{env}_V,\textit{env}_P 
+        \vdash \langle \texttt{call}\;\; p(a),\textit{sto} \ra \to \textit{sto}'}$ \\ 
+      & \hfill hvor $\textit{env}_P( p) =
+      (S,x,\textit{env}'_{V},\textit{env}'_{P})$, \\
+      & \hfill $\textit{env}_V,\textit{sto} \vdash a \to_a v$ og $\ell =
+      \textit{env}_V( \text{next})$
+    \end{tabular}
+  \end{itemize}
+\end{frame}
+
+\end{document}

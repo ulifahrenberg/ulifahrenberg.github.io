@@ -1,0 +1,626 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{3}
+\date{15 februar 2007}
+\usepackage{../sogs07-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Forord}
+
+\section{Endelige automater}
+
+\begin{frame}
+  \hfill\xymatrix{%
+    \ar[r] &
+    *+<2ex>[o][F]{q_1} \ar@(ul,ur)[]^(.65)0 \ar@/^/[r]^1 &
+    *+<2ex>[o][F=]{q_2} \ar@(ul,ur)[]^(.65)1 \ar@/^/[r]^0 &
+    *+<2ex>[o][F]{q_3} \ar@/^/[l]^{0,1}
+  }\hfill\mbox{}
+
+  \begin{itemize}
+  \item tilstande $+$ transitioner
+  \item $( Q, \Sigma, \delta, q_0, F)$: tilstande, (input)alfabetet,
+    transitionsfunktionen, starttilstand, accepttilstande
+  \item $\delta: Q\times \Sigma\to Q$
+  \item \alert{deterministisk}: givet en tilstand og et inputsymbol,
+    kender vi næste tilstand
+  \item \alert{accepterer} et ord $w\in \Sigma^*$ hvis der findes $w_1,
+    w_2,\dots, w_n\in \Sigma$ og $r_0, r_1,\dots, r_n\in Q$ således at $w=
+    w_1 w_2\dots w_n$ og
+    \begin{enumerate}
+    \item $r_0= q_0$,
+    \item $r_{i+1}= \delta( r_i, w_{i+1})$ for alle $i= 0, 1,\dots, n-1$,
+      og
+    \item $r_n\in F$.
+    \end{enumerate}
+  \item \alert{genkender} sproget $ \llbracket M\rrbracket=\{ w\mid
+    \text{$M$ accepterer $w$}\}$
+  \end{itemize}
+\end{frame}
+
+\section{Regulære sprog}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{Definition:} Et sprog siges at være \alert{regulært} hvis
+    der findes en endelig automat der genkender det.
+  \item \alert{Vigtig}, hidtil ubevist \alert{Sætning}: Et sprog er
+    regulært hvis og kun hvis det kan beskrives ved et \alert{regulært
+      udtryk}.
+  \item \alert{Ligeså vigtig}, også hidtil ubevist \alert{Sætning}: Der
+    findes sprog der \emph{ikke\/} er regulære.
+  \end{itemize}
+\end{frame}
+
+\section[Lukningsegenskaber]{Lukningsegenskaber ved regulære sprog}
+
+\begin{frame}
+  Lad $\Sigma$ være et alfabet og $A_1, A_2\subseteq \Sigma^*$. Hvis $A_1$
+  og $A_2$ er regulære sprog, da er også følgende sprog regulære:
+  \begin{itemize}
+  \item $A_1\cup A_2$ \hfill\blue\checkmark\hspace{17em}\mbox{}
+  \item $A_1\cap A_2$ \hfill\blue\checkmark\hspace{17em}\mbox{}
+  \item $\overline A_1= \Sigma^*\setminus A_1$
+    \only<2>{\hfill\blue\checkmark\hspace{17em}\mbox{}}
+
+    \visible<2>{%
+      Lad $M=( Q, \Sigma, \delta, q_0, F)$ være en endelig automat med
+      $\llbracket M\rrbracket= A_1$. Lad $F'= Q\setminus F$ og $M'=( Q,
+      \Sigma, \delta, q_0, F')$, da er $\llbracket M'\rrbracket= \overline
+      A_1$. }
+  \item $A_1\circ A_2$ \only<2>{\hfill\blue?\hspace{17em}\mbox{}}
+
+    \visible<2>{%
+      Problem: Flertydigheder i sammensætninger. F.eks.\ ved $A_1=\{ a,
+      ab\}$, $A_2=\{ ba\}$
+    }
+  \item $A_1^*$ \only<2>{\hfill\blue?\hspace{17em}\mbox{}}
+  \end{itemize}
+\end{frame}
+
+
+\part{Non-determinisme}
+
+\section{Motivation}
+
+\begin{frame}[t]
+  \begin{textblock*}{20em}(9.4em,23.2ex)
+    \only<3>{%
+      \begin{pgfpicture}{0em}{0ex}{10em}{5ex}
+        \color{red}
+        \pgfsetlinewidth{.7pt}
+        \pgfsetxvec{\pgfpoint{1.1ex}{0ex}}
+        \pgfsetyvec{\pgfpoint{0ex}{1.1ex}}
+        \pgfsetendarrow{\pgfarrowto}
+        \pgfcircle[stroke]{\pgfxy(0,0)}{1.1ex}
+        \pgfxycurve(.707,-.707)(4.707,-3.707)(16.5,-3.5)(20.5,-.5)
+        \pgfcircle[stroke]{\pgfxy(11.95,6.4)}{1.1ex}
+        \pgfxycurve(12.657,7.107)(16.657,9.107)(19.5,3.5)(20.5,.5)
+        \pgfputat{\pgfxy(21,0)}{\pgfbox[left,center]{Konflikt!}}
+      \end{pgfpicture}}
+  \end{textblock*}
+
+  \alert{Ønske:} Givet endelige automater $M_1$ og $M_2$, konstruér en
+  ``sammensat'' automat $M$ således at $\llbracket M\rrbracket= \llbracket
+  M_1\rrbracket\circ \llbracket M_2\rrbracket$.
+
+  \medskip%
+  \only<1>{%
+    \xymatrix{%
+      \ar[r] & *+<2ex>[o][F]{} \ar[r] & {\cdots} \ar[r] & *+<2ex>[o][F=]{}
+      & \ar[r] & *+<2ex>[o][F]{} \ar[r] & {\cdots} \ar[r] & *+<2ex>[o][F=]{}
+    }}%
+  \only<2->{%
+    \xymatrix{%
+      \ar[r] & *+<2ex>[o][F]{} \ar[r] & {\cdots} \ar[r] & *+<2ex>[o][F]{}
+      \ar@{=}[rr] && *+<2ex>[o][F]{} \ar[r] & {\cdots} \ar[r] & *+<2ex>[o][F=]{}
+    }}
+
+  \bigskip%
+  \only<2->{%
+    \alert{Problem:} Hvis $M_1$ har transitioner mellem accepttilstande,
+    bliver transitionsfunktionen uspecificeret.
+
+    \medskip Eksempel, med $\llbracket M_1\rrbracket=\{ a, ab\}$,
+    $\llbracket M_2\rrbracket=\{ ba\}$: }
+
+  \medskip%
+  \only<2>{%
+    \xymatrix@=4ex{%
+      \ar[r] & *+<2ex>[o][F]{} \ar[rr]^a \ar[dd]_b
+      && *+<2ex>[o][F=]{} \ar[dd]^b \ar[ddll]_{a\!\!}
+      & \ar[r] & *+<2ex>[o][F]{} \ar[rr]^b \ar[dd]_a
+      && *+<2ex>[o][F]{} \ar[dd]^a \ar[ddll]_{b\!\!}
+      \\\\ & *+<2ex>[o][F]{} \ar@(d,l)[]^(.65){a,b}
+      && *+<2ex>[o][F=]{} \ar[ll]^{a,b}
+      && *+<2ex>[o][F]{} \ar@(d,l)[]^(.65){a,b}
+      && *+<2ex>[o][F=]{} \ar[ll]^{a,b}
+    }}%
+  \only<3->{%
+    \xymatrix@=4ex{%
+      \ar[r] & *+<2ex>[o][F]{} \ar[rr]^a \ar[dd]_b
+      && *+<2ex>[o][F]{} \ar[dd]^{\alert b} \ar[ddll]_{a\!\!}
+      \ar@{=}[rr] && *+<2ex>[o][F]{} \ar[r]^{\alert b} \ar[d]_a
+      & *+<2ex>[o][F]{} \ar[d]^a \ar[dl]_{b\!\!}
+      \\ &&&&& *+<2ex>[o][F]{} \ar@(dl,ul)[]^{a,b}
+      & *+<2ex>[o][F=]{} \ar[l]^{a,b}
+      \\ & *+<2ex>[o][F]{} \ar@(d,l)[]^(.65){a,b}
+      && *+<2ex>[o][F]{} \ar[ll]^{a,b}
+      \ar@{=}[rr] && *+<2ex>[o][F]{} \ar[r]^b \ar[d]_a
+      & *+<2ex>[o][F]{} \ar[d]^a \ar[dl]_{b\!\!}
+      \\ &&&&& *+<2ex>[o][F]{} \ar@(dl,ul)[]^{a,b}
+      & *+<2ex>[o][F=]{} \ar[l]^{a,b}
+    }}%
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Idé:} Tillad hvad vi ikke kan undgå!
+  \begin{itemize}
+  \item tillad at der er \alert{flere end én transition} med samme label
+    fra en tilstand
+  \item tillad at der er \alert{ingen transitioner} med et bestemt label
+    fra en tilstand
+  \item tillad transitioner der \alert{ikke læser input-symboler}
+  \end{itemize}
+
+  \hfill\xymatrix{%
+    \ar[r] & *+<2ex>[o][F]{q_1} \ar[r]^1 \ar@(ul,ur)[]^(.65){0,1}
+    & *+<2ex>[o][F]{q_2} \ar[r]^{0, \epsilon} 
+    & *+<2ex>[o][F]{q_3} \ar[r]^1
+    & *+<2ex>[o][F=]{q_4} \ar@(ul,ur)[]^(.65){0,1}
+  }\hfill\mbox{}
+
+  \begin{itemize}
+  \item ved flere end én mulige transitioner: gå til alle mulige
+    tilstande \emph{samtidigt}
+  \item hvis ingen mulige transitioner: dø
+  \item ved $\epsilon$-transitioner: bliv i tilstanden, men gå
+    \emph{også} hen til den anden
+  \item acceptér hvis en accept-tilstand \emph{kan nås}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \hfill\xymatrix{%
+    \ar[r] & *+<2ex>[o][F]{q_1} \ar[r]^1 \ar@(ul,ur)[]^(.65){0,1}
+    & *+<2ex>[o][F]{q_2} \ar[r]^{0, \epsilon} 
+    & *+<2ex>[o][F]{q_3} \ar[r]^1
+    & *+<2ex>[o][F=]{q_4} \ar@(ul,ur)[]^(.65){0,1}
+  }\hfill\mbox{}
+
+  \bigskip\xymatrix@R=.8ex@C=5ex{%
+    \ar@{}[r]_{\alert 0}="1u" & \ar@{}[r]_{\alert 1}="2u"
+    & \ar@{}[r]_{\alert 0}="3u" & \ar@{}[r]_{\alert 1}="4u"
+    & \ar@{}[r]_{\alert 1}="5u" & \ar@{}[r]_{\alert 0}="6u" &
+    \\ && q_3
+    \\ q_1 \ar[r] & q_1 \ar[ur] \ar[r] \ar[ddr] & q_2 \ar[r] & q_3 \ar[r]
+    & q_4 \ar[r] & q_4 \ar[r] & {\alert{q_4}}
+    \\ &&&& q_3 \ar[r] & q_4 \ar[r] & {\alert{q_4}}
+    \\ && q_1 \ar[r] & q_1 \ar[ur] \ar[r] \ar[ddr] & q_2
+    \\ &&&&& q_3
+    \\ &&&& q_1 \ar[ur] \ar[r] \ar[dr] & q_2 \ar[r] & q_3
+    \\ &&&&& q_1 \ar[r] & q_1
+    \\ \ar@{}[r]^{\alert 0}="1l" & \ar@{}[r]^{\alert 1}="2l"
+    & \ar@{}[r]^{\alert 0}="3l" & \ar@{}[r]^{\alert 1}="4l"
+    & \ar@{}[r]^{\alert 1}="5l" & \ar@{}[r]^{\alert 0}="6l" &
+    \ar@{.}"1l";"1u" \ar@{.}"2l";"2u" \ar@{.}"3l";"3u" \ar@{.}"4l";"4u"
+    \ar@{.}"5l";"5u" \ar@{.}"6l";"6u"
+  }
+\end{frame}
+
+\section[NFA]{Non-deterministiske endelige automater}
+
+\begin{frame}[t]
+  \alert{Definition 1.37:} En \alert{nondeterministisk endelig automat} er
+  en 5-tupel \alert{$(Q, \Sigma, \delta, q_0, F)$}, hvor delene er
+  \begin{enumerate}
+  \item $Q$ : en endelig mængde af tilstande
+  \item $\Sigma$ : input-alfabetet
+  \item \alert{$\delta: Q\times\big( \Sigma\cup\{ \epsilon\}\big)\to
+      \Pot(Q)$} : transitions-funktionen
+  \item $q_0\in Q$ : starttilstanden
+  \item $F\subseteq Q$ : mængden af accepttilstande
+  \end{enumerate}
+
+  \bigskip Transitions-funktionen:
+  \begin{itemize}
+  \item \alert{deterministisk} automat (fra sidste lektion):
+    \alert{$\delta: Q\times \Sigma\to Q$}
+
+    \emph{input:} tilstand $+$ tegn \\
+    \emph{output:} ny tilstand
+  \item \alert{nondeterministisk} automat: \alert{$\delta: Q\times\big(
+      \Sigma\cup\{ \epsilon\}\big)\to \Pot(Q)$}
+
+    \emph{input:} tilstand $+$ tegn eller $\epsilon$ \\
+    \emph{output:} en \alert{mængde} af nye tilstande
+  \item $\Pot(Q)$: \alert{potensmængden} af $Q$; mængden af alle
+    delmængder af $Q$: \alert{$\Pot( Q)=\{ S\mid S\subseteq Q\}$}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel 1.38:}
+
+  \hfill\xymatrix{%
+    \ar[r] & *+<2ex>[o][F]{q_1} \ar[r]^1 \ar@(ul,ur)[]^(.65){0,1}
+    & *+<2ex>[o][F]{q_2} \ar[r]^{0, \epsilon} 
+    & *+<2ex>[o][F]{q_3} \ar[r]^1
+    & *+<2ex>[o][F=]{q_4} \ar@(ul,ur)[]^(.65){0,1}
+  }\hfill\mbox{}
+
+  \medskip
+  \begin{gather*}
+    Q=\{ q_1, q_2, q_3, q_4\} \qquad \Sigma=\{ 0, 1\} \\
+    q_0= q_1 \qquad F=\{ q_4\} \\[1ex]
+    \begin{array}{l|ccc}
+      \delta & 0 & 1 & \epsilon \\\hline
+      q_1 & \{ q_1\} & \{ q_1, q_2\} & \emptyset \\
+      q_2 & \{ q_3\} & \emptyset & \{ q_3\} \\
+      q_3 & \emptyset & \{ q_4\} & \emptyset \\
+      q_4 & \{ q_4\} & \{ q_4\} & \emptyset
+    \end{array}
+  \end{gather*}
+\end{frame}
+
+\begin{frame}
+  \alert{Terminologi:} Fra nu af:
+  \begin{itemize}
+  \item \alert{deterministisk} endelig automat (\alert{DFA}): dem fra
+    sidste lektion med $\delta: Q\times \Sigma\to Q$
+  \item \alert{nondeterministisk} endelig automat (\alert{NFA}): dem med
+    $\delta: Q\times\big( \Sigma\cup\{ \epsilon\}\big)\to \Pot(Q)$
+  \item $\Sigma\cup\{ \epsilon\}$ skrives også $\Sigma_\epsilon$
+  \item Husk: $\Pot(Q)=$ \alert{potensmængden} (``\emph{power set\/}'') af
+    $Q$: $\Pot(Q)=\{ S\mid S\subseteq Q\}$
+  \item enhver DFA er også en NFA
+  \item og enhver NFA kan laves om til en DFA! (bevis kommer lige om lidt)
+  \end{itemize}
+\end{frame}
+
+\section{At genkende sprog}
+
+\begin{frame}
+  \alert{Definition:} Lad $M=( Q, \Sigma, \delta, q_0, F)$ være en endelig
+  automat og $w\in \Sigma^*$. Da siges $M$ at \alert{acceptere} $w$ hvis
+  der findes $m\in \Nat$ og $y_1, y_2,\dots, y_m\in \Sigma_{\alert
+    \epsilon}$ (\alert!) og $r_0, r_1,\dots, r_m\in Q$ således at $w= y_1
+  y_2\dots y_m$ og
+  \begin{enumerate}
+  \item $r_0= q_0$,
+  \item $r_{i+1}\in \delta( r_i, y_{i+1})$ for alle $i= 0, 1,\dots, m-1$, og
+  \item $r_m\in F$.
+  \end{enumerate}
+
+  \medskip Sproget som \alert{genkendes} af $M$ er
+  \begin{equation*}
+    \llbracket M\rrbracket=
+    L(M)=\{ w\mid \text{$M$ accepterer $w$}\}
+  \end{equation*}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Eksempel 1.33:}
+
+  \vspace{-3ex}
+  \qquad\qquad\hfill\xymatrix@C=1.3ex@R=-.2ex{%
+    &&&& *+<2ex>[o][F=]{q_{20}} \ar@/_/@<-.05ex>[rr]_0
+    && *+<2ex>[o][F]{q_{21}} \ar@/_/@<-.05ex>[ll]_0
+    \\ \ar[rr] && *+<2ex>[o][F]{q_0} \ar[rru]^\epsilon \ar[rrd]_\epsilon
+    \\ &&&& *+<2ex>[o][F=]{q_{30}} \ar[rr]^0
+    && *+<2ex>[o][F]{q_{31}} \ar[dddl]^0
+    \\\\\\ &&&&& *+<2ex>[o][F]{q_{32}} \ar[uuul]^0
+  }\hfill\mbox{}
+
+  \vspace{-1ex}
+  \begin{itemize}
+  \item $w= 00= \epsilon 00$:\\ $q_0\to\{ q_{20}, q_{30}\}\to\{ q_{21},
+    q_{31}\}\to\{ \alert{q_{20}}, q_{32}\}$\quad\IMPL\ \alert{Jep.}
+  \item $w= 000= \epsilon 000$:\\ \mbox{$q_0\to\{ q_{20}, q_{30}\}\to\{
+      q_{21}, q_{31}\}\to\{ q_{20}, q_{32}\}\to\{ q_{21},
+      \alert{q_{30}}\}$ \IMPL\ \alert{Jep.}}
+  \item $w= 0000= \epsilon 0000$:\\
+    $q_0\to q_{20}\to q_{21}\to q_{20}\to q_{21}\to
+    \alert{q_{20}}$\quad\IMPL\ \alert{Jep.}\\ (Nok med \emph{ét}
+    accepterende \emph{run}.)
+  \item $w= 00000= \epsilon 00000$:\\ $q_0\to\{ q_{20}, q_{30}\}\to\{
+      q_{21}, q_{31}\}\to\{ q_{20}, q_{32}\}\to\{ q_{21},
+      q_{30}\}\to\{ q_{20}, q_{31}\}\to\{ q_{21}, q_{32}\}$\quad\IMPL\
+      \alert{Nej.}\\
+      (\emph{Alle} runs er ikke-accepterende.)
+  \end{itemize}
+\end{frame}
+
+\section[NFA $\Leftrightarrow$ DFA]{Nondeterminisme er ligegyldig (?)}
+
+\begin{frame}[t]
+  \alert{Vigtig sætning 1.39:} Til enhver NFA $N$ findes der en DFA $M$
+  med \alert{$\llbracket M\rrbracket=\llbracket N\rrbracket$}.
+
+  \only<1>{%
+    \medskip Eller: Til enhver NFA findes der en DFA der genkender samme
+    sprog.
+
+    \medskip Eller: Til enhver NFA findes der en \emph{ækvivalent} DFA.
+
+    (Hvis vi siger at to maskiner er ækvivalente hvis de genkender samme
+    sprog.)}%
+  \only<2>{%
+    \medskip \alert{Bevisidé:} Når vi ser efter om vores NFA $N$
+    accepterer et ord, skal vi holde styr på \alert{mængder af tilstande}.
+
+    Dvs. vi skal konstruere en DFA $M$ der holder styr på mængder af
+    tilstande i $N$. \IMPL\ \emph{Tilstandene} i $M$ afspejler
+    \emph{mængder af tilstande} i $N$. }%
+  \only<3->{%
+    \medskip \alert{Bevis:} Skriv $N=( Q, \Sigma, \delta, q_0, F)$. Vi
+    konstruerer en DFA $M=( Q', \Sigma, \delta', q_0', F')$:
+    \begin{itemize}
+    \item $Q'= \Pot( Q)$ \only<3>{%
+        \hfill\blue{tilstande i $M$ er mængder af tilstande i $N$}}
+    \item $F'=\{ R\subseteq Q\mid R\cap F\ne\emptyset\}$ \only<3>{%
+        \\
+        \hfill\blue{vi accepterer hvis én af $N$s tilstande er
+          accepterende}}}%
+      \only<3>{%
+    \item $q_0'=\{ q_0\}$ \hfill\blue{$M$ starter i $N$s starttilstand}
+    \end{itemize}
+    \medskip Transitionsfunktionen: første forsøg: \alert{$\delta'( R,
+      a)=\{ \delta( r, a)\mid r\in R\}$}
+
+    \medskip Virker ikke helt: mangler at tage $\epsilon$-transitioner:
+    $\delta'( R, a)$ skal være den mængde af tilstande vi kan nå fra
+    tilstande i $R$ ved at læse et $a$, \emph{plus} alle de tilstande vi
+    så kan nå via $\epsilon$-transitioner!
+
+    \medskip \blue{\emph{Hovsa!\/}} der er også problemer med $q_0'$:
+    $q_0'$ skal bestå af alle de tilstande i $N$ der kan nås fra $q_0$ via
+    $\epsilon$-transitioner.
+
+  \vspace*{5ex}}%
+  \only<4>{%
+  \end{itemize}
+  For enhver delmængde $R\subseteq Q$ lad
+  \begin{equation*}
+    E( R)=\{ q\in Q\mid \text{$q$ kan nås fra $R$ ved $0$ eller flere
+      $\epsilon$-transitioner} \}
+  \end{equation*}
+  -- \alert{$\epsilon$-aflukningen} af $R$.
+
+  \begin{itemize}
+  \item $q_0'= \alert{E}(\{ q_0\})$
+  \item $\delta'( R, a)=\{ q\in Q\mid q\in \alert{E}(\{ \delta( r, a)\})
+    \text{ for et $r\in R$}\}$\\
+    $= \bigcup_{r\in R} \alert{E}(\{ \delta( r, a)\})$
+  \end{itemize}
+
+  \medskip For at vise at $\llbracket M\rrbracket= \llbracket
+  N\rrbracket$, skal vi vise at
+  \begin{itemize}
+  \item ethvert $w\in \llbracket N\rrbracket$ accepteres af $M$, og at
+  \item ethvert $w\in \llbracket M\rrbracket$ accepteres af $N$.
+  \end{itemize}
+  }
+\end{frame}
+
+\section[Lukningsegenskaber]{Lukningsegenskaber ved regulære sprog}
+
+\begin{frame}[t]
+  \alert{Sætning 1.45:} (havde vi allerede, \emph{men nu med nyt
+    bevis!\/})
+
+  Hvis $A_1$ og $A_2$ er regulære sprog over et alfabet $\Sigma$, da er
+  også $A_1\cup A_2$ et regulært sprog over $\Sigma$.
+
+  \medskip \alert{Bevis:} Lad $N_1$ og $N_2$ være NFAs med $\llbracket
+  N_1\rrbracket= A_1$ og $\llbracket N_2\rrbracket= A_2$.
+
+  Skriv $N_1=( Q_1, \Sigma, \delta_1, q_1, F_1)$, $N_2=( Q_2, \Sigma,
+  \delta_2, q_2, F_2)$, og konstruér en ny NFA $N=( Q, \Sigma, \delta,
+  q_0, F)$ ved
+  \begin{itemize}
+  \item $Q= Q_1\cup Q_2\cup\{ q_0\}$, \quad\blue{(en ekstra \emph{ny}
+      starttilstand)}
+  \item $F= F_1\cup F_2$ og
+
+    \vspace{-4.5ex}
+    \begin{equation*}
+      \qquad\qquad\delta( q, a)=
+      \begin{cases}
+        \delta_1( q, a) &\text{hvis $q\in Q_1$} \\
+        \delta_2( q, a) &\text{hvis $q\in Q_2$} \\
+        \{ q_1, q_2\} &\text{hvis $q= q_0$ og $a= \epsilon$} \\
+        \emptyset &\text{hvis $q= q_0$ og $a\ne \epsilon$}
+      \end{cases}
+    \end{equation*}
+  \end{itemize}
+
+  \vspace{-2ex}
+  Da er $\llbracket N\rrbracket= A_1\cup A_2$.
+
+  \only<1>{%
+    \hfill\xymatrix@R=.5ex@C=3.5ex{%
+      & \ar[r] & *+<2ex>[o][F]{} \ar[r] && {\cdots} & \ar[r] &
+      *+<2ex>[o][F=]{} & {\cdots} & \ar[r] & *+<2ex>[o][F=]{}
+      \\\\ & \ar[r] & *+<2ex>[o][F]{} \ar[r] && {\cdots} & \ar[r] &
+      *+<2ex>[o][F=]{} & {\cdots} & \ar[r] & *+<2ex>[o][F=]{}
+    }
+
+    \vspace*{3.2ex}}%
+  \only<2>{%
+    \hfill\xymatrix@R=0ex@C=3.5ex{%
+      && *+<2ex>[o][F]{} \ar[r] && {\cdots} & \ar[r] &
+      *+<2ex>[o][F=]{} & {\cdots} & \ar[r] & *+<2ex>[o][F=]{}
+      \\ \ar[r] & *+<2ex>[o][F]{} \ar[ur]^\epsilon \ar[dr]_\epsilon
+      \\ && *+<2ex>[o][F]{} \ar[r] && {\cdots} & \ar[r] &
+      *+<2ex>[o][F=]{} & {\cdots} & \ar[r] & *+<2ex>[o][F=]{}
+    }
+
+    \bigskip\qquad\qquad\alert{Intuitivt!}
+  }%
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Sætning 1.47:} Hvis $A_1$ og $A_2$ er regulære sprog over et
+  alfabet $\Sigma$, da er også $A_1\circ A_2$ et regulært sprog over
+  $\Sigma$.
+
+  \medskip \alert{Bevis:} Lad $N_1$ og $N_2$ være NFAs med $\llbracket
+  N_1\rrbracket= A_1$ og $\llbracket N_2\rrbracket= A_2$.
+
+  Skriv $N_1=( Q_1, \Sigma, \delta_1, q_1, F_1)$, $N_2=( Q_2, \Sigma,
+  \delta_2, q_2, F_2)$, og konstruér en ny NFA $N=( Q, \Sigma, \delta,
+  q_1, F_2)$ ved
+  \begin{itemize}
+  \item $Q= Q_1\cup Q_2$
+  \item \blue{(starttilstanden er $q_1$, accepttilstandene er $F_2$)}
+  \item $\delta( q, a)=
+    \begin{cases}
+      \delta_1( q, a) &\text{hvis $q\in Q_1$ og $q\notin F_1$} \\
+      \delta_1( q, a) &\text{hvis $q\in F_1$ og $a\ne \epsilon$} \\
+      \delta_1( q, a)\cup\{ q_2\} &\text{hvis $q\in F_1$ og $a= \epsilon$}
+      \\
+      \delta_2( q, a) &\text{hvis $q\in Q_2$}
+    \end{cases}$
+  \end{itemize}
+  Da er $\llbracket N\rrbracket= A_1\circ A_2$.
+
+  \hfill\qquad\only<1>{%
+    \xymatrix@R=.9ex@C=3.5ex{%
+      &&& *+<2ex>[o][F=]{} &&&&& *+<2ex>[o][F=]{}
+      \\ \ar[r] & *+<2ex>[o][F]{} & {\cdots} & *+<2ex>[o][F=]{} && \ar[r] &
+      *+<2ex>[o][F]{} & {\cdots} & *+<2ex>[o][F=]{}
+      \\ &&& *+<2ex>[o][F=]{} &&&&& *+<2ex>[o][F=]{}
+    }}%
+  \only<2>{%
+    \xymatrix@R=.9ex@C=3.5ex{%
+      &&& *+<2ex>[o][F=]{} \ar@<.4ex>[drrr]^\epsilon &&&&& *+<2ex>[o][F=]{}
+      \\ \ar[r] & *+<2ex>[o][F]{} & {\cdots} & *+<2ex>[o][F=]{}
+      \ar[rrr]|\epsilon &&& *+<2ex>[o][F]{} & {\cdots} & *+<2ex>[o][F=]{}
+      \\ &&& *+<2ex>[o][F=]{} \ar@<-.4ex>[urrr]_\epsilon &&&&& *+<2ex>[o][F=]{}
+    }}\hfill\mbox{}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Sætning 1.49:} Hvis $A$ er et regulært sprog over et alfabet
+  $\Sigma$, da er også $A^*$ et regulært sprog over $\Sigma$.
+
+  \medskip \alert{Bevis:} Lad $N_1=( Q_1, \Sigma, \delta_1, q_1, F_1)$
+  være en NFA med $\llbracket N_1\rrbracket= A$. Konstruér en ny NFA $N=(
+  Q, \Sigma, \delta, q_0, F)$ ved
+  \begin{itemize}
+  \item $Q= Q_1\cup\{ q_0\}$,
+  \item $F= F_1\cup\{ q_0\}$ og
+
+    \vspace{-7ex}
+    \begin{equation*}
+      \qquad\qquad\quad\delta( q, a)=
+      \begin{cases}
+        \delta_1( q, a) &\text{hvis $q\in Q_1$ og $q\notin F_1$} \\
+        \delta_1( q, a) &\text{hvis $q\in F_1$ og $a\ne \epsilon$} \\
+        \delta_1( q, a)\cup\{ q_1\} &\text{hvis $q\in F_1$ og $a=
+          \epsilon$} \\
+        \{ q_1\} &\text{hvis $q= q_0$ og $a= \epsilon$} \\
+        \emptyset &\text{hvis $q= q_0$ og $a\ne \epsilon$}
+      \end{cases}
+    \end{equation*}
+  \end{itemize}
+
+  \hfill\only<1>{%
+    \xymatrix@R=.9ex@C=4ex{%
+      &&& *+<2ex>[o][F=]{}
+      \\ \ar[r] & *+<2ex>[o][F]{} & {\cdots} & *+<2ex>[o][F=]{}
+      \\ &&& *+<2ex>[o][F=]{}
+    }}%
+  \only<2>{%
+    \xymatrix@R=.9ex@C=4ex{%
+      \ar[dr] &&&& *+<2ex>[o][F=]{} \ar@/_.5ex/[dll]_\epsilon
+      \\ & *+<2ex>[o][F=]{} \ar[r]_\epsilon & *+<2ex>[o][F]{} & {\cdots} &
+      *+<2ex>[o][F=]{} \ar@/^/[ll]^\epsilon
+      \\ &&&& *+<2ex>[o][F=]{} \ar@/^2ex/[ull]^\epsilon
+    }}%
+    \qquad\qquad\qquad\mbox{}
+\end{frame}
+
+\section[RE $\Rightarrow$ NFA]{Regulære udtryk genererer regulære sprog}
+
+\begin{frame}[t]
+  \only<1>{%
+    \alert{Sætning 1.54:} Et sprog er regulært hvis og kun hvis det kan
+    beskrives ved et regulært udtryk.
+
+    \medskip \emph{Eller:\/} Givet et alfabet $\Sigma$ og $L\subseteq
+    \Sigma^*$, da er $L$ et regulært sprog hvis og kun hvis der findes et
+    regulært udtryk $R$ over $\Sigma$ således at $L= \llbracket
+    R\rrbracket$.
+
+    \bigskip (Bevis til første halvdel nu, til anden halvdel næste
+    gang.)}%
+  \only<2>{%
+    \alert{Lemma 1.55:} Givet et alfabet $\Sigma$ og et sprog $L\subseteq
+    \Sigma^*$.  Hvis der findes et regulært udtryk $R$ over $\Sigma$ med
+    $\llbracket R\rrbracket= L$, da er $L$ regulært.
+
+    \medskip \alert{Bevis} (ved \alert{strukturel induktion}):
+    \begin{enumerate}
+    \item Hvis $L= \llbracket a\rrbracket$ for et $a\in \Sigma$: Lad
+      \alert{$M= \xymatrix@C=3ex{%
+          \ar[r] & *+<2ex>[o][F]{} \ar[r]^a & *+<2ex>[o][F=]{} }$}%
+      , da er $\llbracket M\rrbracket=\{ a\}= L$.
+    \item Hvis $L= \llbracket \epsilon\rrbracket$: Lad \alert{$M=
+        \xymatrix{%
+          \ar[r] & *+<2ex>[o][F=]{} }$}%
+      , da er $\llbracket M\rrbracket=\{ \epsilon\}= L$.
+    \item Hvis $L= \llbracket \emptyset\rrbracket$: Lad \alert{$M=
+        \xymatrix{%
+          \ar[r] & *+<2ex>[o][F]{} }$}%
+      , da er $\llbracket M\rrbracket= \emptyset= L$.
+    \item Hvis $L= \llbracket R_1\cup R_2\rrbracket$: Ved
+      \alert{induktionsantagelsen} har vi NFAs $M_1$ og $M_2$ således at
+      $\llbracket M_1\rrbracket= \llbracket R_1\rrbracket$ og $\llbracket
+      M_2\rrbracket= \llbracket R_2\rrbracket$. Derfor er $\llbracket
+      R_1\rrbracket$ og $\llbracket R_2\rrbracket$ regulære sprog, med
+      sætning 1.45 altså også $\llbracket R_1\rrbracket\cup \llbracket
+      R_2\rrbracket= \llbracket R_1\cup R_2\rrbracket= L$.
+    \item Hvis $L= \llbracket R_1\cup R_2\rrbracket$ eller $L= \llbracket
+      R_1^*\rrbracket$: Analogt til tilfælde 4, bortset fra at sætning
+      1.47 hhv.\ 1.49 skal benyttes.
+    \end{enumerate}}
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel 1.56:} Konvertér $( ab\cup a)^*$ til en NFA.
+  \begin{align*}
+    a &\hspace{6.15em} \xymatrix@C=3ex{%
+      \ar[r] & *+<2ex>[o][F]{} \ar[r]^a & *+<2ex>[o][F=]{}
+    } \\
+    b &\hspace{6.15em} \xymatrix@C=3ex{%
+      \ar[r] & *+<2ex>[o][F]{} \ar[r]^b & *+<2ex>[o][F=]{}
+    } \\
+    ab &\hspace{6.15em} \xymatrix@C=3ex{%
+      \ar[r] & *+<2ex>[o][F]{} \ar[r]^a & *+<2ex>[o][F]{} \ar[r]^\epsilon
+      & *+<2ex>[o][F]{} \ar[r]^b & *+<2ex>[o][F=]{}
+    } \\
+    ab\cup a &\hspace{3.5em} \vcenter{\xymatrix@C=3ex@R=0ex{%
+        && *+<2ex>[o][F]{} \ar[r]^a & *+<2ex>[o][F]{} \ar[r]^\epsilon
+        & *+<2ex>[o][F]{} \ar[r]^b & *+<2ex>[o][F=]{} \\
+        \ar[r] & *+<2ex>[o][F]{} \ar[ur]^\epsilon \ar[dr]_\epsilon \\
+        && *+<2ex>[o][F]{} \ar[r]^a & *+<2ex>[o][F=]{}
+      }} \\
+    (ab\cup a)^* &\hspace{.9em} \vcenter{\xymatrix@C=3ex@R=0ex{%
+        &&& *+<2ex>[o][F]{} \ar[r]^a & *+<2ex>[o][F]{} \ar[r]^\epsilon &
+        *+<2ex>[o][F]{} \ar[r]_b & *+<2ex>[o][F=]{} \ar@(ul,u)[lllld]_\epsilon
+        \\ \ar[r] & *+<2ex>[o][F=]{} \ar[r]^\epsilon & *+<2ex>[o][F]{}
+        \ar[ur]^\epsilon \ar[dr]_\epsilon
+        \\ &&& *+<2ex>[o][F]{} \ar[r]^a & *+<2ex>[o][F=]{}
+        \ar@/^4ex/[llu]^\epsilon
+      }}
+  \end{align*}
+\end{frame}
+
+\end{document}

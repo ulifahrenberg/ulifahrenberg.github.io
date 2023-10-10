@@ -1,0 +1,309 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{7}
+\date{6 marts 2007}
+\usepackage{../sogs07-color}
+\RequirePackage{skull}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Fra sidst}
+
+\section[CFG]{Kontekstfrie grammatikker}
+
+\begin{frame}[t]
+  \alert{Definition 2.2:} En \alert{kontekstfri grammatik} (\alert{CFG})
+  er en 4-tupel $G=( V, \Sigma, R, S)$, hvor delene er
+  \begin{enumerate}
+  \item $V$ : en endelig mængde af \alert{variable}
+  \item $\Sigma$ : en endelig mængde af \alert{terminaler}, med $V\cap
+    \Sigma= \emptyset$
+  \item $R: V\to \Pot\big(( V\cup \Sigma)^*\big)$ : \alert{produktioner} /
+    \alert{regler}
+  \item $S\in V$ : \alert{startvariablen}
+  \end{enumerate}
+
+  \medskip -- produktioner skrives \alert{$A\to w$} i stedet for $w\in R(
+  A)$
+
+  \begin{itemize}
+  \item Hvis $u, v, w\in( V\cup \Sigma)^*$ er ord og $A\to w$ er en
+    produktion, siges $uAv$ at \alert{frembringe} $uwv$: \alert{$uAv\To
+      uwv$}.
+  \item Hvis $u, v\in( V\cup \Sigma)^*$ er ord, siges $u$ at
+    \alert{derivere} $v$: \alert{$u\overset*\To v$}, hvis $u= v$ (\alert!)
+    eller der findes en følge $u_1, u_2,\dots, u_k$ af ord således at
+    $u\To u_1\To u_2\To\dots\To u_k\To v$.
+  \item \alert{Sproget} som $G$ genererer er \alert{$\llbracket
+      G\rrbracket=\{ w\in \Sigma^*\mid S\overset*\To w\}$}.
+  \end{itemize}
+
+  \medskip -- dvs.\ et ord $w\in \Sigma^*$ genereres af $G$ hvis og kun
+  hvis der findes en \alert{derivation} $S\To w_1\To w_2\To\dots\To w_k\To
+  w$, hvor alle $w_i\in( V\cup \Sigma)^*$.
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel:} Opgave 2.6 d (ca.)
+  \begin{align*}
+    S &\to A\# T\# A \\
+    T &\to aTa\mid bTb\mid \# A\# \\
+    A &\to aA\mid bA\mid \epsilon\mid A\# A
+  \end{align*}
+  Genererer sproget
+  \begin{multline*}
+    \{ x_1\# x_2\#\dots\# x_k\mid k\ge 5, \text{alle } x_i\in \{ a, b\}^*,
+    \\
+    \text{og } x_i= x_j^R \text{ for to indices $i\ne j$} \}
+  \end{multline*}
+\end{frame}
+
+\section[PDA]{Pushdown-automater}
+
+\begin{frame}[t]
+  \alert{Definition 2.13:} En \alert{pushdown-automat} (\alert{PDA}) er en
+  6-tupel \alert{$M=( Q, \Sigma, \Gamma, \delta, q_0, F)$}, hvor delene er
+  \begin{enumerate}
+  \item $Q$ : en endelig mængde af tilstande
+  \item $\Sigma$ : input-alfabetet
+  \item $\Gamma$ : stack-alfabetet
+  \item $\delta: Q\times \Sigma_\epsilon\times \Gamma_\epsilon\to \Pot(
+    Q\times \Gamma_\epsilon)$ : transitionsfunktionen
+  \item $q_0\in Q$ : starttilstanden
+  \item $F\subseteq Q$ : mængden af accepttilstande
+  \end{enumerate}
+
+  \medskip $M$ siges at \alert{acceptere} et ord $w\in \Sigma^*$ hvis der
+  findes $m\in \Nat$ og $w_1, w_2,\dots, w_m\in \Sigma_\epsilon$, $r_0,
+  r_1,\dots, r_m\in Q$ og $s_0, s_1,\dots, s_m\in \Gamma^*$ således at $w=
+  w_1 w_2\dots w_m$ og
+  \begin{enumerate}
+  \item $r_0= q_0$ og $s_0= \epsilon$,
+  \item for alle $i= 0, 1,\dots, m-1$ findes $a, b\in \Gamma_\epsilon$ og
+    $t\in \Gamma^*$ som opfylder $s_i= at$, $s_{i+1}= bt$ og $( r_{i+1},
+    b)\in \delta( r_i, w_{i+1}, a)$, og
+  \item $r_m\in F$.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Eksempel:}
+
+  \vspace{-4ex}
+  \begin{equation*}
+    \qquad\xymatrix@C=4ex{%
+      \ar[r] & *+<2ex>[o][F=]{q_0} \ar[rr]_{\txt{ \footnotesize
+          $\epsilon, \epsilon\to \$$}}
+      && *+<2ex>[o][F]{q_1} \ar@(dl,dr)[]_{\txt{ \footnotesize $a, \epsilon\to
+          a$\\ \footnotesize $a, b\to \epsilon$\\ \footnotesize $b,
+          \epsilon\to b$\\ \footnotesize $b, a\to \epsilon$}}
+      \ar[rr]_{\txt{ \footnotesize $\epsilon, \$\to \epsilon$}}
+      && *+<2ex>[o][F=]{q_2}    
+    }
+  \end{equation*}
+
+  \vspace{-3ex} Genkender sproget
+  \begin{equation*}
+    \{ w\in\{ a, b\}^*\mid \text{antallet
+    af $a$ i $w$}= \text{antallet af $b$ i $w$}\}
+  \end{equation*}
+
+  At læse strengen $abba$:
+
+  \vspace{-4ex}
+  \begin{equation*}
+    \xymatrix@R=1.5ex@C=5ex{%
+      \ar@{}[r]_{\alert a}="1u" & \ar@{}[r]_{\alert b}="2u" &
+      \ar@{}[r]_{\alert b}="3u" & \ar@{}[r]_{\alert a}="4u" &
+      \\ q_0 \ar[r] \ar[d] & {\skull}
+      &&& q_1^{abba\$}
+      \\ q_1^\$ \ar[r] \ar[d]
+      & q_1^{a\$} \ar[r] \ar[dr]
+      & q_1^{ba\$} \ar[r]
+      & q_1^{bba\$} \ar[r] \ar[ur]
+      & q_1^{ba\$}
+      \\ q_2 \ar[r] & {\skull}
+      & q_1^\$ \ar[r] \ar[d]
+      & q_1^{b\$} \ar[r] \ar[dr]
+      & q_1^{ab\$}
+      \\ && q_2 \ar[r] & {\skull}
+      & q_1^\$ \ar[r] & {\alert{q_2}}
+      \\ \ar@{}[r]^{\alert a}="1l" & \ar@{}[r]^{\alert b}="2l" &
+      \ar@{}[r]^{\alert b}="3l" & \ar@{}[r]^{\alert a}="4l" &
+      \ar@{.}"1l";"1u" \ar@{.}"2l";"2u" \ar@{.}"3l";"3u" \ar@{.}"4l";"4u"
+    }
+  \end{equation*}
+    
+\end{frame}
+
+
+\begin{frame}
+  \alert{Definition:} Et sprog siges at være \alert{kontekstfrit} hvis der
+  findes en CFG der genererer det.
+
+  \bigskip \alert{Sætning 2.20:} Et sprog er kontekstfrit hvis og kun hvis
+  der findes en PDA der genkender det.
+
+  \medskip \alert{Bevis} lige om lidt.
+\end{frame}
+
+\section{Lukningsegenskaber}
+
+\begin{frame}[t]
+  \mbox{\alert{Sætning:} Klassen af kontekstfrie sprog er lukket under
+    $\cup$, $\circ$ og ${}^*$.}
+
+  \medskip \alert{Bevis:} (Opgave 2.8) Lad $A_1$ og $A_2$ være
+  kontekstfrie sprog over et fælles alfabet $\Sigma$.
+  \begin{itemize}
+  \item[$\boldsymbol\cup$ :] Lad $G_1=( V_1, \Sigma, R_1, S_1)$, $G_2=(
+    V_2, \Sigma, R_2, S_2)$ være CFGs med $\llbracket G_1\rrbracket=A_1$
+    og $\llbracket G_2\rrbracket=A_2$. Konstruér en ny CFG $G=( V, \Sigma,
+    R, S)$ ved $V= V_1\cup V_2\cup\{ S\}$ og $R= R_1\cup R_2\cup\{ S\to
+    S_1\mid S_2\}$.  Da er $\llbracket G\rrbracket=A_1\cup A_2$.
+  \item[$\boldsymbol\circ$ :] Lad $M_1=( Q_1, \Sigma, \Gamma_1, \delta_1,
+    q_1, F_1)$, $M_2=( Q_2, \Sigma, \Gamma_2, \delta_2, q_2, F_2)$ være
+    PDAs med $\llbracket M_1\rrbracket=A_1$ og $\llbracket
+    M_2\rrbracket=A_2$.  Antag at $\Gamma_1\cap \Gamma_2= \emptyset$.
+    Konstruér en ny PDA $M=( Q, \Sigma, \Gamma, \delta, q_1, F_2)$ ved $Q=
+    Q_1\cup Q_2$, $\Gamma= \Gamma_1\cup \Gamma_2$ og $\delta= \delta_1\cup
+    \delta_2\cup\{( q_f, \epsilon, \epsilon)\to( q_2, \epsilon)\mid q_f\in
+    F_1\}$. Da er $\llbracket M\rrbracket=A_1\circ A_2$.
+  \item[${}^{\boldsymbol*}$ :] Lad $G_1=( V_1, \Sigma, R_1, S_1)$ være en
+    CFG med $\llbracket G_1\rrbracket=A_1$. Konstruér en ny CFG $G=( V,
+    \Sigma, R, S)$ ved $V= V_1\cup\{ S\}$ og $R=\{ S\to \epsilon\mid
+    SS\mid S_1\}$.  Da er $\llbracket G\rrbracket=A_1^*$.
+  \end{itemize}
+\end{frame}
+
+\part{Kontekstfrie grammatikker og pushdown-automater}
+
+
+\section[CFG $\Rightarrow$ PDA]{Ethvert kontekstfrit sprog genkendes af en
+  PDA}
+
+\begin{frame}[t]
+  \alert{Lemma 2.21:} Lad $\Sigma$ være et alfabet og $A\subseteq \Sigma^*$
+  et kontekstfrit sprog. Da findes en PDA $P$ med $\llbracket
+  P\rrbracket= A$.
+
+  \medskip \alert{Bevis:} Lad $G=( V, \Sigma, R, S)$ være en CFG med
+  $\llbracket G\rrbracket= A$.
+
+  \only<1>{%
+    {\color{blue}%
+      Idéen er at PDAen, givet en inputstreng $s$, nondeterministisk
+      forsøger at finde en derivation for $s$ i $G$:
+      \begin{enumerate}
+      \item \color{blue} Push $S$ på stacken
+      \item \color{blue} Hvis topsymbolet på stacken er en variabel $A$:
+        Pop $A$ og push højresiden $w$ af en produktion $A\to w$ i $R$.
+        (Dø hvis der ikke er nogen produktion $A\to w$ i $R$.)
+      \item \color{blue} Hvis topsymbolet på stacken er en terminal $a$:
+        Sammenlign med næste inputsymbol. Hvis de er ens, pop $a$. Hvis de
+        ikke er ens, dø.
+      \item Gentag step 2 og 3 indtil stacken er tom.
+      \end{enumerate}
+    }}%
+  \only<2>{%
+    Vi konstruerer først en ``generaliseret PDA'' $P=( Q, \Sigma, \Gamma,
+    \delta, q_s, F)$, der kan pushe strenge i stedet for bare symboler.
+    Lad \alert{$Q=\{ q_s, q_\ell, q_f\}$}, \alert{$F=\{ q_a\}$} og
+    \alert{$\Gamma= V\cup \Sigma\cup\{ \$\}$}. Lad
+
+    \vspace{-1ex}
+    \begin{columns}
+      \begin{column}{.7\textwidth}
+        \begin{align*}
+          \delta( q_s, \epsilon, \epsilon) &= \{( q_\ell, S\$)\} \\
+          \delta( q_\ell, \epsilon, A) &= \{( q_\ell, w)\mid w\in R( A)\}
+          \quad \text{for alle $A\in V$} \\
+          \delta( q_\ell, a, a) &= \{( q_\ell, \epsilon)\}
+          \quad \text{for alle $a\in \Sigma$} \\
+          \delta( q_\ell, \epsilon, \$) &= \{( q_a, \epsilon)\} \\
+          \delta( q, a, b) &= \emptyset \quad \text{for alle andre}
+        \end{align*}
+      \end{column}
+      \begin{column}{.2\textwidth}
+        \xymatrix@R=3ex{%
+          *+<2ex>[o][F]{q_s} \ar[d]^{\txt{ \footnotesize $\epsilon,
+              \epsilon\to \$$}}
+          \\ *+<2ex>[o][F]{q_\ell} \ar@(ur,dr)[]^{\txt{ \footnotesize
+              $\epsilon, A\to w$ \\ \footnotesize $a, a\to \epsilon$}}
+          \ar[d]^{\txt{ \footnotesize $\epsilon, \$\to \epsilon$}}
+          \\ *+<2ex>[o][F=]{q_a}
+        }
+      \end{column}
+    \end{columns}
+
+    \medskip Lav til sidst $P$ om til en ``almindelig'' PDA ved at
+    erstatte enhver transition \alert{$q\xrightarrow{a, b\to s_1 s_2\dots
+        s_n} r$} med (nye tilstande og) en følge \alert{$q\xrightarrow{ a,
+        b\to s_n} q_1\xrightarrow{ \epsilon, \epsilon\to s_{n-1}}
+      q_2\tto{}\dots\tto{} q_{n-1}\xrightarrow{ \epsilon, \epsilon\to s_1}
+      r$}. }
+\end{frame}
+
+\section[PDA $\Rightarrow$ CFG]{Ethvert sprog genkendt af en PDA er
+  kontekstfrit}
+
+\begin{frame}[t]
+  \alert{Lemma 2.27:} Lad $\Sigma$ være et alfabet og $P$ en PDA over
+  $\Sigma$. Da findes en CFG $G$ over $\Sigma$ med $\llbracket
+  G\rrbracket=\llbracket P\rrbracket$.
+
+  \medskip \mbox{\alert{Bevis:} Lad $P=( Q, \Sigma, \Gamma, \delta, q_0, F)$. Vi
+  konstruerer $G=( V, \Sigma, R, S)$:}
+
+  \begin{enumerate}
+    \only<1-2>{%
+    \item \blue{Sørg for at $P$ kun har én accepttilstand $q_a$ og at
+        stacken tømmes før $P$ går i $q_a$.}}%
+    \only<2>{%
+      
+      Nyt stacksymbol $\$ $. Tre nye tilstande:\ $q_s$, $q_e$ og $q_a$.
+      Nye transitioner: $q_s\xrightarrow{ \epsilon, \epsilon\to \$} q_0$,
+      $q\xrightarrow{ \epsilon, \epsilon\to \epsilon} q_e$ for alle $q\in
+      F$, $q_e\xrightarrow{ \epsilon, a\to \epsilon} q_e$ for alle $a\in
+      \Sigma$, og $q_e\xrightarrow{ \epsilon, \$\to \epsilon} q_a$.
+
+      \medskip \blue{Sørg for at enhver transition \emph{enten\/} pusher
+        \emph{eller\/} popper.}
+      \begin{itemize}
+      \item Erstat enhver transition $q\xrightarrow{ a, b\to c} r$ med
+        $q\xrightarrow{ a, b\to \epsilon} q_1\xrightarrow{ \epsilon,
+          \epsilon\to c} r$
+      \item Erstat enhver transition $q\xrightarrow{ a, \epsilon\to
+          \epsilon} r$ med $q\xrightarrow{ a, \epsilon\to x}
+        q_1\xrightarrow{ \epsilon, x\to \epsilon} r$ for et eller andet
+        symbol $x\in \Gamma$.
+      \end{itemize}}%
+      \only<3>{ \stepcounter{enumi}}%
+      \only<1,3>{%
+      \item \blue{Lad $V=\{ A_{pq}\mid p, q\in Q\}$, og sørg for at
+          $A_{pq}$ deriverer præcist de strenge som bringer $P$ fra $p$
+          med tom stack til $q$ med tom stack.}}%
+      \only<3>{%
+        \begin{itemize}
+        \item Lav en produktion $A_{pp}\to \epsilon$ for alle $p\in Q$
+          \hfill \blue{(terminering)}
+        \item Lav en produktion $A_{pq}\to A_{pr} A_{rq}$ for alle $p, q,
+          r\in Q$ \\ \hfill \blue{(rekursion)}
+        \item For alle $p, q, r, s\in Q$: Hvis \alert{$p\xrightarrow{ a,
+              \epsilon\to t} r$} og \alert{$s\xrightarrow{ b, t\to
+              \epsilon} q$} for nogle $a, b\in \Sigma_\epsilon$ og et
+          $t\in \Gamma$: Lav en produktion \alert{$A_{pq}\to a A_{rs}
+            b$}. \hfill \blue{(produktion)}
+        \end{itemize}
+        \medskip -- der skal \emph{argumenteres\/} for at dette giver det
+        rigtige resultat!  }%
+      \only<1>{%
+    \item \blue{Lad $S= A_{q_0 q_a}$. Voilà!}}
+  \end{enumerate}
+\end{frame}
+
+\end{document}

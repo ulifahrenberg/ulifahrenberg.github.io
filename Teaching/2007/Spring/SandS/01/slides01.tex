@@ -1,0 +1,561 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{1}
+\date{6 februar 2007}
+\usepackage{../sogs07-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}[plain]
+  \frametitle{I dag}
+
+  \Large
+  \begin{enumerate}
+  \item Introduktion
+  \item Ord og sprog
+  \item Regulære udtryk
+  \end{enumerate}
+\end{frame}
+
+\part{Introduktion til kurset}
+
+\section{Indhold}
+
+\begin{frame}
+  \frametitle{Kursets emne}
+  Grundlæggende aspekter ved programmeringssprog:
+
+  \medskip
+  \begin{itemize}
+  \item Hvordan kan vi beskrive hvordan et sprog \alert{ser ud}? (dets
+    \alert{form})
+
+    \medskip\visible<2->{%
+      \alert{Syntaks}:
+      \begin{itemize}
+      \item regulære sprog, endelige automater, regulære udtryk
+      \item kontekst-frie sprog, push-down-automater, kontekst-frie grammatikker
+      \end{itemize}
+    }
+  \item Hvordan kan vi beskrive hvordan et sprog skal \alert{forstås}?
+    (dets \alert{adfærd})
+
+    \medskip\visible<2->{%
+      \alert{Semantik}:
+      \begin{itemize}
+      \item operationel semantik
+      \end{itemize}
+    }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kursets indhold}
+  \alert{Syntaks -- regulære sprog:}
+  \begin{enumerate}
+  \item Introduktion; sprog; regulære udtryk
+  \item Endelige automater
+  \item Regulære udtryk
+  \item Sprog der \emph{ikke} er regulære
+  \end{enumerate}
+
+  \medskip
+  \alert{Syntaks -- kontekstfrie sprog:}
+  \begin{enumerate}
+    \setcounter{enumi}4
+  \item Kontekstfrie grammatikker
+  \item Pushdown-automater
+  \item Sprog der \emph{ikke} er kontekstfrie
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kursets indhold}
+  \alert{Semantik:}
+  \begin{enumerate}
+    \setcounter{enumi}7
+  \item Introduktion til operationel semantik
+  \item Operationelle semantikker for \textbf{Bims}
+  \item Udvidelser af \textbf{Bims}
+  \item Blokke og procedurer
+  \item Parametermekanismer
+  \item Objektorientede sprog
+  \end{enumerate}
+
+  \medskip
+  \alert{Teoretisk grundlag:}
+  \begin{enumerate}
+    \setcounter{enumi}{13}
+  \item Rekursive definitioner
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hvad kan jeg bruge det til?}
+  \begin{itemize}
+  \item Vil jeg lære et nyt programmeringssprog?
+
+    \quad\blue{Nej.}
+  \item Skal vi se nogen smarte algoritmer?
+
+    \quad\blue{Nej.}
+  \item Vil jeg blive bedre til at programmere?
+
+    \quad\blue{Forhåbentlig.}
+  \item Vil jeg opnå større forståelse for hvordan programmeringssprog er
+    opbygget?
+
+    \quad\blue{Ja.}
+
+  \item Vil jeg opnå større forståelse for hvilke problemer computere kan
+    løse?
+
+    \quad\blue{Til dels.}
+  \item Vil jeg blive bedre til at forstå teorien bag programmering?
+
+    \quad\blue{Ja.}
+  \end{itemize}
+\end{frame}
+
+\section{Form}
+
+\begin{frame}
+  \frametitle{Kursets form}
+  \begin{itemize}
+  \item 8:15 -- 10:00: Forelæsning
+
+    \visible<2->{%
+      \begin{itemize}
+      \item i \alert{B3-104} og i \alert{NOVI}s auditorium
+      \item de sidste 5 minutter bruges på \hyperlink{quiz}{\alert{quiz}}
+      \item Læs stoffet \emph{hurtigt} inden forelæsningen, så I ved hvad
+        det handler om, og læs det \emph{grundigt} igen bagefter, så I er
+        sikre på at have forstået det.
+      \item Kursets emner bygger ovenpå hinanden, så hvis der er noget man
+        misser, er det svært at finde tilbage igen!
+      \end{itemize}
+    }
+  \item 10:10 -- 12:00: Opgaveregning
+
+    \visible<2->{%
+      \begin{itemize}
+      \item i grupperum
+      \item to større \hyperlink{opgaver}{\alert{afleveringsopgaver}}
+      \item Forvent ikke at kunne forstå stoffet uden at regne opgaver.
+      \item Studerende der ikke regner opgaver, kan ikke opholde sig i
+        grupperummet under opgaveregningen.
+      \end{itemize}
+    }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Quiz}
+
+  \hypertarget{quiz}{}
+  \begin{itemize}
+  \item sidste 5 minutter af hver forelæsning
+  \item små opgaver, multiple choice
+  \item afleveres anonymt
+  \item \alert{I} kan se hvad dagens vigtige pointer var, og om I har
+    forstået dem
+  \item \alert{Jeg} kan se om jeg formår at formidle de vigtige pointer
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Afleveringsopgaver}
+
+  \hypertarget{opgaver}{}
+  \begin{itemize}
+  \item to gennemgående opgaver som I skal bruge en del af opgaveregningen
+    på, \emph{hver gang}
+  \item afleveres til mig, kommenteres bagefter først af jeres kolleger og
+    til sidst af mig
+  \item vil være del af \hyperlink{eksamen}{\alert{eksamenspensum}}
+  \item kan for PE-studerende erstattes af tilsvarende opgaver der har
+    \emph{relation til projektet}
+  \item Syntaksopgave
+
+    \visible<2->{%
+      \begin{itemize}
+      \item tilgængelig nu
+      \item afleveres senest 12 marts
+      \item evt. erstatnings\emph{opgave} skal indleveres senest 16
+        februar
+      \end{itemize}
+    }
+  \item Semantikopgave
+
+    \visible<2->{%
+      \begin{itemize}
+      \item vil blive offentliggjort senest 6 marts
+      \end{itemize}
+    }
+  \end{itemize}
+\end{frame}
+
+\section{Materiale}
+
+\begin{frame}
+  \frametitle{Bøger}
+  \begin{itemize}
+  \item Michael \alert{Sipser}: \emph{Introduction to the Theory of
+      Computation}, Second Edition, PWS Publishing Co. 2005.
+
+    \quad \blue{Brug ikke ældre udgaver, der er lavet for meget om!}
+
+    \bigskip
+  \item Hans \alert{Hüttel}: \emph{Pilen ved træets rod}, Aalborg
+    Universitet 2007.
+
+    \bigskip
+  \item begge klar i boghandelen nu
+  \item Sipser skal vi bruge \emph{nu}
+  \item Hüttel først i marts
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hjemmeside}
+
+  \hfill {\Large\alert{\textbf{\url{http://sands07.twoday.net}}}} \hfill\mbox{}
+
+  \bigskip
+  \begin{itemize}
+  \item slides
+  \item opgaver
+  \item andet materiale
+  \item interessante links
+  \item RSS-feed
+  \item kommentarfunktion!
+  \end{itemize}
+\end{frame}
+
+\section{Eksamen}
+
+\begin{frame}
+  \frametitle{Eksamen}
+
+  \hypertarget{eksamen}{}
+  \begin{itemize}
+  \item mundtlig, 20min
+  \item et antal spørgsmål kendt på forhånd -- træk ét af dem
+  \item 20min forberedelsestid
+  \item ekstern censor, karakter
+  \item pensum og spørgsmål fastlægges ved tredjesidste kursusgang
+  \item afleveringsopgaver indgår som hver deres spørgsmål
+  \end{itemize}
+\end{frame}
+
+\section{Folk}
+
+\begin{frame}
+  \begin{columns}[T]
+    \begin{column}{.3\linewidth}
+      \hfill\includegraphics[height=15ex]{uli}\hfill\mbox{}
+
+      \medskip
+      \centering
+      Uli Fahrenberg
+
+      underviser
+
+      \url{uli@cs.aau.dk}
+    \end{column}
+    \begin{column}{.3\linewidth}
+      \hfill\includegraphics[height=15ex]{alsted}\hfill\mbox{}
+
+      \medskip
+      \centering
+      Jens Alsted
+
+      hjælpelærer
+
+      \hspace*{-.5em}\mbox{\url{alsted@cs.aau.dk}}
+    \end{column}
+    \begin{column}{.3\linewidth}
+      \hfill\includegraphics[height=15ex]{hans}\hfill\mbox{}
+
+      \medskip
+      \centering
+      Hans Hüttel
+
+      lærebogsforfatter
+
+      \url{hans@cs.aau.dk}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+\part{Ord og sprog}
+
+\section{Bogstaver, ord}
+
+\begin{frame}
+  \begin{itemize}
+  \item $\Sigma$ \quad-- en endelig mængde af \alert{bogstaver} eller
+    \alert{symboler}
+
+    -- et \alert{alfabet}
+  \item et \alert{ord}: en endelig følge af bogstaver
+
+    -- normalt skrevet uden parenteser eller kommaer
+  \item eksempel: $\Sigma= \{ 0, 1\}$
+    
+    ord over $\Sigma$: f.x.\ $0, 1, 00, 01, 1001010110101$
+  \item eksempel: $\Sigma= \{ a, b, c, d, r\}$
+
+    ord over $\Sigma$: f.x.\ $a, b, c, d, r, abba, abracadabra$
+  \item eksempel: $\Sigma= \{ \text{gik}, \text{jeg}, \text{land},
+    \text{mig}, \text{og}, \text{over}, \text{sø}, \text{to}, \text{vi}\}$
+
+    ord over $\Sigma$: f.x.\ ``jeg og mig og vi to''\\ eller ``jeg gik mig
+    over sø og land''
+  \item eksempel: $\Sigma= \{ \text{else}, \text{if}, \text{then},
+    \text{\textit{Exp}}, \text{\textit{Stm}}\}$
+
+    ord over $\Sigma$: f.x.\ ``if \textit{Exp} then \textit{Stm} else \textit{Stm}''
+  \end{itemize}
+\end{frame}
+
+\section{Sprog}
+
+\begin{frame}
+  \begin{itemize}
+  \item et \alert{sprog}: en mængde af ord (endelig eller uendelig)
+  \item mængden af \emph{alle} ord over et alfabet $\Sigma$ skrives
+    \alert{$\Sigma^*$}
+
+    (den er altid uendelig (medmindre $\Sigma$ er tom \dots))
+  \item eksempel: $\Sigma= \{ 0, 1\}$
+
+    $\Sigma^*= \{ \epsilon, 0, 1, 00, 01, 10, 11, 000, 001, 010,\dots \}$
+  \item \alert{$\epsilon$} \quad-- det \emph{tomme} ord; ordet af længde 0
+  \item \alert{længden} af et ord: $|w|=$ antallet af bogstaver i ordet
+  \item \alert{$\emptyset$} \quad-- det \emph{tomme sprog}; mængden uden
+    indhold
+  \item \alert{Bemærk:} $\epsilon$ er et \emph{ord}, $\emptyset$ er et
+    \emph{sprog}. Og \alert{$\{ \epsilon\}\ne \emptyset$}
+  \end{itemize}
+\end{frame}
+
+\section{At sammensætte ord}
+
+\begin{frame}
+  \begin{itemize}
+  \item at \alert{sammensætte} ord: $abe\circ kat= abekat$
+
+    (svarer til at gange tal sammen, men \emph{ikke kommutativt!})
+
+    ($\circ$-tegnet udelades de fleste gange)
+  \item $\epsilon$ er \alert{identiteten}: $w\circ \epsilon= w$ og
+    $\epsilon\circ w= w$ for alle ord $w$.
+
+    (ligesom tallet 1 er identiteten for multiplikation)
+  \item gentagen sammensættelse skrives som \alert{potenser}: $a^2= aa$,
+    $a^3= aaa$, $a^9= aaaaaaaaa$ etc.
+  \end{itemize}
+\end{frame}
+
+\section{Operationer på sprog}
+
+\begin{frame}
+  Hvis $L_1$ og $L_2$ er sprog over et alfabet $\Sigma$, kan vi danne
+  \begin{itemize}
+  \item foreningsmængden $\alert{L_1\cup L_2}= \{ w\mid w\in L_1\text{
+      eller } w\in L_2\}$
+
+    -- sproget med alle de ord der er i $L_1$ \alert{eller} $L_2$
+  \item fællesmængden $\alert{L_1\cap L_2}= \{ w\mid w\in L_1\text{
+      og } w\in L_2\}$
+
+    -- sproget med alle de ord der er i $L_1$ \alert{og} $L_2$
+  \item sammensætningen $\alert{L_1\circ L_2}= \{ w_1\circ w_2\mid w_1\in
+    L_1\text{ og } w_2\in L_2\}$
+
+    -- sproget med alle de ord der er \alert{sammensætninger} af et ord
+    fra $L_1$ efterfulgt af et ord fra $L_2$
+  \item stjernen $\alert{L_1^*}= \{ w_1\circ w_2\circ\dots\circ w_k\mid
+    \text{alle } w_i\in L_1\}$
+
+    -- sproget med alle de ord der er \alert{sammensætninger} af
+    \alert{vilkårligt mange} ord fra $L_1$
+
+    -- indeholder $\epsilon$: det tomme ord $=$ sammensætningen af
+    \alert{$0$} ord fra $L_1$ \dots
+  \end{itemize}
+\end{frame}
+
+\part{Regulære udtryk}
+
+\section{At beskrive sprog}
+
+\begin{frame}
+  Vi kan beskrive sprog som mængder: (her lader vi $\Sigma= \{ a, b\}$ )
+  \begin{itemize}
+  \item $L_1= \{ a, b, ab\}$ \quad (et \emph{endeligt} sprog)
+  \item $L_2= \{ a^n\mid n\in \Nat\}$ \quad-- alle ord der indeholder kun
+    $a$, af vilkårlig længde
+  \item $L_3= \{ a^n b a^m\mid n, m\in \Nat\}$ ~-- alle ord der
+    indeholder præcist ét $b$
+  \item $L_4= \{ a^n b^n\}$ \quad-- alle ord der indeholder et antal $a$
+    og så \emph{samme} antal $b$
+  \end{itemize}
+  eller ved hjælp af \alert{regulære udtryk}:
+  \begin{itemize}
+  \item $L_1= a\cup b\cup ab$
+  \item $L_2= a^*$
+  \item $L_3= a^*\circ b\circ a^*$
+  \item $L_4=$ ???
+
+    (vi skal senere se at $L_4$ \emph{ikke} kan beskrives ved regulære
+    udtryk!)
+  \end{itemize}
+\end{frame}
+
+\section{Regulære udtryk}
+
+\begin{frame}[t]
+  \alert{Definition 1.52:} Et \alert{regulært udtryk} over et alfabet
+  $\Sigma$ er et udtryk af formen
+  \begin{enumerate}
+  \item\label{1.52:1} $a$ for et $a\in \Sigma$,
+  \item $\epsilon$,
+  \item\label{1.52:3} $\emptyset$,
+  \item\label{1.52:4} $(R_1\cup R_2)$, hvor $R_1$ og $R_2$ er regulære udtryk,
+  \item $(R_1\circ R_2)$, hvor $R_1$ og $R_2$ er regulære udtryk, eller
+  \item\label{1.52:6} $(R_1^*)$, hvor $R_1$ er et regulært udtryk.
+  \end{enumerate}
+
+  \medskip
+  \only<1>{%
+    -- en \alert{induktiv} (eller \alert{rekursiv}) definition:
+    \ref{1.52:1}. til \ref{1.52:3}. giver de basale \emph{byggesten}, og
+    \ref{1.52:4}. til \ref{1.52:6}. giver \emph{byggeregler} til hvordan
+    man kan sætte ting sammen.
+
+    -- parenteserne udelades ofte
+  }%
+  \only<2>{%
+    Eksempler (med $\Sigma= \{ a, b\}$ ):
+
+    $a$, $b$, $a\cup b$, $(a\cup b)^*$, $(a\cup b)^*\circ b$, $((a\cup
+    b)^*\circ b)^*$
+  }
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Definition 1.52, fortsat:} \alert{Sproget}, som et regulært udtryk
+  $R$ beskriver, betegnes $\llbracket R\rrbracket$ og er defineret som
+  følger:
+  \begin{enumerate}
+  \item $\llbracket a\rrbracket= \{ a\}$
+  \item $\llbracket \epsilon\rrbracket= \{ \epsilon\}$
+  \item $\llbracket \emptyset\rrbracket= \emptyset$
+  \item $\llbracket R_1\cup R_2\rrbracket= \llbracket R_1\rrbracket\cup
+    \llbracket R_2\rrbracket$
+  \item $\llbracket R_1\circ R_2\rrbracket= \llbracket R_1\rrbracket\circ
+    \llbracket R_2\rrbracket$
+  \item $\llbracket R_1^*\rrbracket= \llbracket R_1\rrbracket^*$
+  \end{enumerate}
+
+  \medskip \only<2>{%
+    -- Sipser skriver $L( R)$ i stedet for $\llbracket R\rrbracket$. Jeg
+    vil bruge begge notationer
+
+    \medskip \alert{Udvidelser:}
+    \begin{itemize}
+    \item $\Sigma= a_1\cup a_2\cup\dots\cup a_n$ (hvis sproget er $\Sigma=
+      \{ a_1, a_2,\dots, a_n\}$ )
+    \item $R^+= R\circ R^*$
+    \end{itemize}
+  }
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempler} (1.53): (for $\Sigma= \{ 0, 1\}$ )
+  \begin{enumerate}
+  \item $\llbracket 0^* 1 0^*\rrbracket=$ sproget med alle ord der
+    indeholder symbolet $1$ \emph{præcist} én gang
+  \item $\llbracket \Sigma^* 0 \Sigma^*\rrbracket=$ sproget med alle ord
+    der indeholder symbolet $1$ \emph{mindst} én gang
+    \setcounter{enumi}3
+  \item $\llbracket ( 0 1^+)^*\rrbracket=$ sproget af alle ord hvori
+    ethvert $0$ efterfølges af mindst ét $1$
+  \item $\llbracket ( \Sigma \Sigma)^*\rrbracket= \{ w\mid |w| \text{ er
+      et lige tal} \}$
+    \setcounter{enumi}7
+  \item $\llbracket 0 \Sigma^* 0\cup 1 \Sigma^* 1\cup 0\cup 1\rrbracket=\{
+    w\mid \text{start- og slutsymbolet i $w$ er ens}\}$
+  \item $( 0\cup \epsilon) 1^*= 01^*\cup 1^*$
+    \renewcommand{\theenumi}X
+  \item $( 0\cup 1)^*=( 0^* 1^*)^*$
+  \end{enumerate}
+\end{frame}
+
+\section{I praksis}
+
+\begin{frame}[fragile]
+  \begin{itemize}
+  \item regul\ae re udtryk bruges i praksis bl.a.\ til analyse og editering
+    af tekst
+  \item i dag ser vi på \verb!grep! og \verb!sed!
+  \item senere skal vi også bruge \verb!flex!
+  \item ellers bruges de i \verb!ed!, \verb!vi!, \verb!emacs! og stort set
+    alle skriptsprog (\verb!perl!, \verb!PHP!, \verb!bash! etc.)
+  \item Men \alert{pas på!} Der er store forskelle i syntaksen mellem de
+    forskellige programmers ``regul\ae re udtryk,'' og nogen gange d\ae kker
+    ``regul\ae re udtryk'' også over ting der faktisk \emph{ikke} er regul\ae re
+    i teknisk forstand. (Fy, \verb!perl!! )
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \begin{tabular}{ccl}
+    Sipser & \verb!grep!, \verb!sed! etc. & kommentarer
+    \\\hline
+    $a$ & \verb!a! & \\
+    $\Sigma$ & \verb!.! & \\
+    $\epsilon$, $\emptyset$ && findes ikke \\
+    $R_1\cup R_2$ & $R_1$ \verb!\|! $R_2$ & \\
+    $R_1\circ R_2$ & $R_1 R_2$ & \\
+    $R^*$ & $R$\verb!*! & \\
+    $R^+$ & $R$\verb!+! & \\
+    $($, $)$ & \verb!\(!, \verb!\)! & \\
+    & \verb![abcd]! & svarer til \verb!a! $\cup$ \verb!b! $\cup$
+    \verb!c! $\cup$ \verb!d! \\
+    & \verb![:alpha:]! & matcher alle bogstaver \\
+    & \verb![:digit:]! & matcher alle cifre\\
+    & \verb!^! & negation. \alert{Rigtige regexps} \\
+    && \quad\alert{indeholder \emph{ikke}
+      negation!} \\\hline
+  \end{tabular}
+
+  \bigskip
+  se også \verb!man sed! eller \verb!man 7 regex!
+\end{frame}
+
+\begin{frame}[fragile]
+  Eksempler:
+  \begin{itemize}
+  \item \verb!grep 'In' regexp-ex.txt!
+  \item \verb!grep 'In\(d\|t\)' regexp-ex.txt!
+  \item \verb!grep 'In\([dt]\)' regexp-ex.txt #det samme!
+  \item \verb!grep '[HJ][ae]ns' regexp-ex.txt!
+  \item \verb!grep 'a.*e.*e' regexp-ex.txt!
+  \item \verb!grep 'a[^ ]*e[^ ]*e' regexp-ex.txt!
+    \medskip
+  \item \verb!sed 's:a:u:g' regexp-ex.txt!
+  \item \verb!sed 's:  *: :g' regexp-ex.txt!
+  \item \verb!sed 's: :\n:g' regexp-ex.txt!
+  \end{itemize}
+\end{frame}
+
+\end{document}

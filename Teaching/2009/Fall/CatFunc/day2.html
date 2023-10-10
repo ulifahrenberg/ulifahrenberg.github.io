@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Category Theory with Applications in Functional Programming: Second Day</title>
+
+<style type="text/css" media="screen">
+BODY {
+  margin-left: 2px;
+  padding:		0 10px 0 0;
+  color:		#000000;
+  background-color:	#ffffff;
+  font-family:		Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+h1 {
+  font-size:		large;
+  margin-bottom:	0.2em;
+  margin-right: 20%;
+  padding-left: 1px; 
+  background-color: #003366;
+  color: #FFFFFF; 
+}
+h3 {
+  font-size: 95%;
+  margin-bottom:	0.1em;
+  margin-right: 20%;
+  padding-left: 1px;
+  background-color: #6699cc; 
+  color: #FFFFFF;
+}
+td {
+  padding-right: 1cm;
+}
+</style>
+</head>
+
+<body>
+<h1>Category Theory with Applications in Functional Programming: Ph.D. Course</h1>
+
+<h3>Second Day Programme</h3>
+
+<p>The second day in the course takes place <strong>Wednesday 7
+October</strong> from <strong>9:00</strong> to <strong>15:00</strong>
+at <strong><a href="http://www.cs.aau.dk/en/department/cs-mapsystem/?buildingsec=0nw&level=2&room=0.2.13">SLV300-0.2.13</a></strong><p>
+
+<p>The programme for the second day of the course is as follows (a
+  superscript &quot;R&quot; indicates a repetition from the last day):
+
+<table>
+<tr><td><strong>9:00</strong></td><td>CT2.1: Graphs;
+    categories<sup>R</sup>; transition systems; functors<sup>R</sup>;
+    natural transformations<sup>R</sup></td></tr>
+<tr><td><strong>9:40</strong></td><td>Break</td></tr>
+<tr><td><strong>9:50</strong></td><td>CT2.2: Adjoints; reflections;
+    adjoint equivalences; Galois connections</td></tr>
+<tr><td><strong>10:40</strong></td><td>Exercises</td></tr>
+<tr><td><strong>11:20</strong></td><td>CT2.3: Transition systems,
+    synchronization trees, and languages</td></tr>
+<tr><td><strong>12:00</strong></td><td>Lunch</td></tr>
+<tr><td><strong>12:30</strong></td><td>FP2: Type classes;
+    constructor classes</td></tr>
+<tr><td><strong>15:00</strong></td><td>Closing</td></tr>
+</table></p>
+
+<h3>Reading</h3>
+
+<p>For the new material, we shall use the following sources:
+<ul>
+<li>Pierce: Section 2.4</li>
+<li>Rydeheard-Burstall: Section 6.3</li>
+<li>Mac Lane: Sections 4.2 to 4.4</li>
+<li>Winskel-Nielsen (Models): Sections 4 up to (and not including)
+  4.0.6, and 5 up to (and not including) &quot;We can immediately
+  observe some categorical constructions...&quot;</li>
+</ul>
+
+The Mac Lane sections are <a href="Mac_Lane-2.pdf">available
+on-line here</a>.  We will not go through all this material, but leave
+some for self study.</p>
+
+<h3>Exercises</h3>
+
+<p>Exercises marked with <b>*</b> are again available for student
+presentation.  Exercises marked with + may require some extra
+mathematical pre-requisites.</p>
+
+<p><ol>
+<li><i>Pierce</i> 2.4.12.5</li>
+<li><i>Mac Lane</i> 1.4.3+ (p.18)</li>
+<li><b>*</b> <i>Mac Lane</i> 4.2.5 (p.90)</li>
+<li><b>*</b> <i>Mac Lane</i> 4.2.9 (p.90)</li>
+<li><i>Mac Lane</i> 4.3.4(a) (p.92)</li>
+<li><i>Mac Lane</i> 4.3.5 (p.92)</li>
+<li><i>Mac Lane</i> 4.4.3 (p.95)</li>
+<li><b>*</b> <i>Mac Lane</i> 4.4.4 (p.95)</li>
+<!-- <li><i>Mac Lane</i> 4.6.1 (p.98)</li> -->
+    <li> Implement a version of set equality (for <code>Set a</code>)
+         requiring only <code>Eq a</code>.</li>
+
+    <li><b>*</b> Model categories (objects and morphisms) as an algebraic
+      data type (i.e., using <code>data</code>)
+      <ol>
+	<li> Show how the category of (finite) Sets and functions
+	     is represented</li>
+        <li> Define a finite category as a data type and show how it is
+	     represented.</li>
+        <li> Discuss if/how your representation captures the axioms
+             defining a category.</li>
+      </ol></li>
+
+    <li> Model functors as a data type
+      <ol>
+	<li> Define two functors, e.g., between the categories defined in
+             exercise 1, and show how they are represented.</li>
+      </ol></li>
+
+   <li> Make a representation of the ninf-max semiring and make a
+      (direct) instance of the semiring class.</li>
+
+   <li> Define a type class for groups
+     <ol>
+      <li> Make an instance of the group class for Int's</li>
+      <li> Can you make an instance for Num's?</li>
+    </ol></li>
+  
+   <li><b>*</b> Model categories and functors again, this time using type
+        clasess (note: the name <code>Functor</code> is already used)
+      <ol>
+	<li> Does your model of functors correspond to the pre-defined
+	     representation?</li>
+	<li> Re-do the representations from exercise 1.</li>
+      </ol></li>
+
+   <li> Discuss pros and cons of the data type vs. type class
+      representations.</li>
+
+</ol></p>
+
+<h3>Slides etc.</h3>
+
+<p><ul>
+<li><a href="cat2.pdf">Category theory slides</a> (<a href="cat2-2.pdf">A4 2-up</a>; <a href="cat2-4.pdf">A4 4-up</a>)</li>
+<li><a href="src02.hs">Haskell code transcript</a></li>
+</ul></p>
+
+</body></html>

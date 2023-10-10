@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Spin 2012</title>
+</head>
+
+<body>
+
+<h2>Second lecture</h2>
+
+<p>Friday 2 March 2012, 16:15 to 18:15</p>
+
+<p>Short URL: http://ow.ly/9oa5A</p>
+
+<p>Given what you did during the last lecture, I will now assume that you
+<ul>
+	<li>have installed the <a href="http://spinroot.com/">Spin model checker</a> and the <a href="http://stwww.weizmann.ac.il/g-cs/benari/jspin/">jSPIN</a> graphical interface to Spin.</li>
+	<li>(I note that some of you instead use the command-line interface to Spin, and some use an Emacs mode.  This is all OK, but my exercises will be based on the jSPIN interface, so you'll have to translate the instructions to your interface yourselves.  Also, I won't be able to help you with questions regarding your alternative interface.)</li>
+	<li>know how to use jSPIN to do random simulations, verification, and guided simulations.</li>
+	<li>know the basics of the Spin input language <em>Promela</em>.</li>
+</ul></p>
+
+<p>And in case you are still speculating about the solution to <b>Exercise 5</b> from the last lecture, Spin can give you the answer:
+<ol>
+	<li>Open <a href="../01/count.pml">count.pml</a> in jSPIN.</li>
+	<li>Click on "Verify" for verification.</li>
+	<li>jSPIN will say "Assertion violated (n>2)".</li>
+	<li>Spin has also generated an <em>error trace</em>, which jSPIN can use in a guided simulation.  Click on "Guided", and you will see an execution of the processes which ends with <tt>n=2</tt>.</li>
+	<li>For more compact and readable output, you can <em>filter</em> variables and statements.  Click on "Output->Exclude variables" and enter <tt>i</tt> to filter this variable.  Click on "Output->Exclude statements" and enter <tt>9</tt> and <tt>15</tt> on separate lines to filter these lines.  Clicking on "Guided" again should give you a much more compact error trace.</li>
+</ol></p>
+
+<p>Now for <b>today's exercises</b>.  We'll deal with various proposals for solving the <em>mutual exclusion</em> problem: Given two parallel processes which both have a <em>critical section</em> in which they need exclusive access to some resource, how do we ensure that they cannot both be in their critical section at the same time?<br />
+
+This is a surprisingly difficult problem, and many false solutions have been proposed.  It is a very subtle cause for software bugs, and there are thousands of software systems out there which do it wrong.  The problem has been one of the earliest motivations for formal methods and verification.
+<ol>
+	<li>A naïve proposal to solve the mutex problem is in <a href="mutex1.pml">mutex1.pml</a>.  Verify whether it solves the problem, and if not, find out why.</li>
+	<li>The problem of <a href="mutex1.pml">mutex1.pml</a> is that both processes can set the signal flag at the same time.  Let's fix that.  Change the program so that there's two separate signal flags, and one process waits for the other's flag to be 0.  Verify whether that's a solution.</li>
+	<li><a href="http://en.wikipedia.org/wiki/Peterson's_algorithm">Peterson's algorithm</a> (où <a href="http://fr.wikipedia.org/wiki/Algorithme_de_Peterson">l'algorithme de Peterson</a> si vous préférez; mais la version anglaise est beaucoup mieux, malheureusement) was one of the first correct solution to the mutex problem.  Implement it (for two processes) in Spin and verify whether it is indeed correct.</li>
+	<li>For the situation where there are more than two processes competing for exclusive access, a very clever solution is the <a href="http://en.wikipedia.org/wiki/Lamport's_bakery_algorithm">Bakery algorithm</a> (où <a href="http://fr.wikipedia.org/wiki/Algorithme_de_la_boulangerie">l'algorithme de la boulangerie</a>, mais la version anglaise est encore mieux).  Model it in Spin and verify its correctness.</li>
+</ol>
+
+</body>
+</html>
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Spin 2012</title>
+</head>
+
+<body>
+
+<h2>Fourth lecture: Solutions</h2>
+
+<p>Friday 16 March 2012, 16:15 to 18:15</p>
+
+<p><ol>
+	<li><span style="font-size:0.8em">The <a href="http://fr.wikipedia.org/wiki/D%C3%AEner_des_philosophes">Dining philosophers' problem</a> has a nice Petri net model which you can find, for four philosophers, at <a href="http://fr.wikipedia.org/wiki/D%C3%AEner_des_philosophes#Solutions">http://fr.wikipedia.org/wiki/Dîner_des_philosophes#Solutions</a>.  Model this in Spin and check for deadlocks.</span><br />
+My solution is in <a href="dp1.pml">dp1.pml</a>.  Verifying this with Spin reveals that there are no deadlocks.</li>
+	<li><span style="font-size:0.8em">This is not a good model of the dining philosophers: they are supposed to pick up their forks <em>one by one</em>, which is exactly what may lead to deadlocks.  Change your model so that the philosophers pick up their forks one at a time, and use Spin to find a deadlocking execution.</span><br />
+See <a href="dp2.pml">dp2.pml</a>, obtained from the previous model by splitting each of the fork-picking transitions into two places and four transitions.  Yes, there is a deadlock.</li>
+	<li><span style="font-size:0.8em">Add a <em>counting semaphore</em> to your model to make it deadlock-free.</span><br />
+See <a href="dp3.pml">dp3.pml</a>.  The counting semaphore is implemented using an extra place, initially with 3 tokens, from which a token is taken every time a philosopher picks up her first fork (and put back when she puts the forks down).</li>
+	<li><span style="font-size:0.8em">Petri net models are nice, but we need something more scalable.  Make a new model of the dining philosophers (without the waiter), this time as transition systems which pick up and put down forks by sending signals.  Make your model scalable, so it works for any number of philosophers.</span><br />
+See <a href="dp-ts1.pml">dp-ts1.pml</a>.  Note how philosophers and forks communicate using <em>synchronous</em> channnels of size 0.</li>
+	<li><span style="font-size:0.8em">Implement the waiter semaphore in your transition system model, and verify that the system is deadlock-free.</span>
+See <a href="dp-ts2.pml">dp-ts2.pml</a>.  I implemented the waiter as an extra process.</li>
+	<li><span style="font-size:0.8em">Experiment with Spin: Starting with <code>n=2</code> and working upwards, run Spin on the <code>n</code>-philosophers' problem.  For each <code>n</code>, note down the size of the state vector and the number of stored states.</span></li>
+	<li><span style="font-size:0.8em">Try to optimize your model, to be able to verify the <code>n</code>-philosophers' problem for larger values of <code>n</code>.</span><br />
+In <a href="dp-ts3.pml">dp-ts3.pml</a> there is another implementation where the waiter is implemented as a communication channel instead; this is much more efficient!  Here are my numbers (I also give the state vector size for the solution without waiter, for reference):<br /><br />
+<table border="1"><tr>
+	<th><code>n</code></th>
+	<th>dp-ts1</th>
+	<th colspan="2">dp-ts2</th>
+	<th colspan="2">dp-ts3</th>
+</tr><tr>
+	<th></th>
+	<th>state vector</th>
+	<th>state vector</th>
+	<th>stored states</th>
+	<th>state vector</th>
+	<th>stored states</th>
+</tr><tr>
+	<td>2</td><td>52</td><td>68</td><td>22</td><td>56</td><td>16</td>
+</tr><tr>
+	<td>3</td><td>68</td><td>88</td><td>292</td><td>76</td><td>152</td>
+</tr><tr>
+	<td>4</td><td>88</td><td>104</td><td>3.214</td><td>96</td><td>1.360</td>
+</tr><tr>
+	<td>5</td><td>104</td><td>124</td><td>29.418</td><td>116</td><td>11.492</td>
+</tr><tr>
+	<td>6</td><td>124</td><td>140</td><td>252.740</td><td>132</td><td>93.484</td>
+</tr><tr>
+	<td>7</td><td>140</td><td>160</td><td>2.094.819</td><td>152</td><td>741.008</td>
+</tr><tr>
+	<td>8</td><td>160</td><td>??</td><td>??</td><td>172</td><td>5.766.208</td>
+</tr>
+</table><br />
+Note how the size of the state vector increases linearly with <code>n</code>, but the number of stored states increases <em>exponentially</em>.  This is the <em>state space explosion</em> phenomenon.<br />
+Some of you also tried to use a global variable for the waiter, but I found this difficult because of mutex problems, and also, the state vector is increased by the size of the waiter variable, so it gets bigger than for the channel solution.
+</li>
+</ol></p>
+
+</body>
+</html>
+

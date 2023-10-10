@@ -1,0 +1,194 @@
+%\setbeamersize{text margin left=1cm}
+\setbeamersize{text margin right=.2cm}
+
+% we don't want smaller fonts in itemize
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\normalsize}
+
+\listfiles
+
+%\RequirePackage{etex}
+%\RequirePackage[english,danish]{babel}
+\RequirePackage[latin1]{inputenc}
+\RequirePackage{times}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{listings}
+\lstset{ language=C,
+  showstringspaces=false,
+  backgroundcolor=\color{yellow}
+}
+\RequirePackage[matrix,arrow,cmtip,frame
+%,rotate
+,curve
+%,color
+%,line
+]{xy}\SilentMatrices\CompileMatrices
+\RequirePackage{pgf,pgfarrows}
+\RequirePackage{array}
+%\RequirePackage{dcolumn}
+\RequirePackage{my_math}
+\let\vec\old@vec
+\RequirePackage{bbm}
+\RequirePackage{textpos}
+\RequirePackage{mathtools}
+\RequirePackage{ifthen}
+\RequirePackage{rotating}
+\RequirePackage{mathdots}
+\RequirePackage{stmaryrd}
+\RequirePackage{cancel}
+%\RequirePackage{flow}
+%\setiftext{\color{blue}\footnotesize ja}{\color{blue}\footnotesize nej}
+
+\newcommand{\prog}[1][def@ult]{%
+  \ifthenelse{\equal{#1}{def@ult}}{%
+      \hfill\textcolor{green}{[P]}}{%
+      \hfill\textcolor{green}{[#1]}}}
+
+\newlength{\eplboxone}\newlength{\eplboxtwo}
+\newcommand{\e@color}{}
+\newcommand{\explbox}[6][def@ult]{%  %% arrow up
+  %% #0: arrow color
+  %% #1,#2: x,y for arrowhead
+  %% #3: length of arrow
+  %% #4: negative text indent
+  %% #5: (explanation) text
+  \setlength{\eplboxone}{#2}%
+  \setlength{\eplboxtwo}{#3}%
+  \ifthenelse{\equal{#1}{def@ult}}{%
+    \renewcommand{\e@color}{blue}}{%
+    \renewcommand{\e@color}{#1}}%
+  \begin{textblock*}{1pt}(\the\eplboxone,\the\eplboxtwo)%
+    \textcolor{\e@color}{$\mathord{\uparrow}$}%
+  \end{textblock*}%
+  \addtolength{\eplboxone}{.22em}%
+  \addtolength{\eplboxtwo}{.1em}%
+  \begin{textblock*}{1pt}(\the\eplboxone,\the\eplboxtwo)%
+    \textcolor{\e@color}{\rule{.03em}{#4}}%
+  \end{textblock*}%
+  \addtolength{\eplboxone}{-.22em}%
+  \addtolength{\eplboxone}{-#5}%
+  \addtolength{\eplboxtwo}{.2em}%
+  \addtolength{\eplboxtwo}{#4}%
+  \begin{textblock*}{20em}(\the\eplboxone,\the\eplboxtwo)%
+    \textcolor{blue}{#6}%
+  \end{textblock*}%
+}%
+\newcommand{\negexplbox}[6][def@ult]{%  %% arrow down
+  %% #0: arrow color
+  %% #1,#2: x,y for arrowhead
+  %% #3: length of arrow
+  %% #4: negative text indent
+  %% #5: (explanation) text
+  \setlength{\eplboxone}{#2}
+  \setlength{\eplboxtwo}{#3}
+  
+  \ifthenelse{\equal{#1}{def@ult}}{
+    \renewcommand{\e@color}{blue}}{
+    \renewcommand{\e@color}{#1}}
+
+  \begin{textblock*}{1pt}[0,1](\the\eplboxone,\the\eplboxtwo)
+    \textcolor{\e@color}{$\mathord{\downarrow}$}
+  \end{textblock*}
+
+  \addtolength{\eplboxone}{.22em}
+  \addtolength{\eplboxtwo}{-.1em}
+
+  \begin{textblock*}{1pt}[0,1](\the\eplboxone,\the\eplboxtwo)
+    \textcolor{\e@color}{\rule{.03em}{#4}}
+  \end{textblock*}
+
+  \addtolength{\eplboxone}{-.22em}
+  \addtolength{\eplboxone}{-#5}
+  \addtolength{\eplboxtwo}{-.1em}
+  \addtolength{\eplboxtwo}{-#4}
+
+  \begin{textblock*}{20em}[0,1](\the\eplboxone,\the\eplboxtwo)
+    \textcolor{blue}{#6}
+  \end{textblock*}
+}
+
+\definecolor{magenta4}{rgb}{.5635,0,.5625}
+
+\renewcommand{\IFF}{\ensuremath{\mathrel{\textcolor{blue}{\Leftrightarrow}}}}
+\renewcommand{\IMPL}{\ensuremath{\mathrel{\textcolor{blue}{\Rightarrow}}}}
+\newcommand{\LPMI}{\ensuremath{\mathrel{\textcolor{blue}{\Leftarrow}}}}
+
+\newcommand*\Pot{\ensuremath{\mathcal P}}
+
+\newcommand*\rowdash{\raisebox{.5ex}{\rule{1.5em}{.36pt}}}
+
+%% Shortcuts
+\newcommand*\blue[1]{\textcolor{blue}{#1}}
+\newcommand*\gray[1]{\textcolor{gray}{#1}}
+\newcommand*\grey[1]{\textcolor{gray}{#1}}
+\newcommand*\green[1]{\textcolor{green}{#1}}
+\newcommand*\red[1]{\textcolor{red}{#1}}
+\newcommand*\brown[1]{\textcolor{brown}{#1}}
+\newcommand*\magenta[1]{\textcolor{magenta}{#1}}
+
+\title{Markov-kæder og deres anvendelse på rangordning af knuder i netværk}
+
+\author{Uli Fahrenberg}
+
+\newcommand\p@rtimage{THIS.FILE.DOES.NOT.EXIST} %% image to put in part-frame
+\newcommand\partimage[1]{\renewcommand\p@rtimage{#1}}
+
+\newcommand*\tocprehook{}
+\newcommand*\tocposthook{}
+\newcommand{\fancypart}{%
+  \AtBeginPart{%
+    \begin{frame}
+      \frametitle{\insertpart}
+      \begin{columns}[onlytextwidth]
+        \IfFileExists{\p@rtimage}{%
+          \begin{column}{.5\textwidth}
+            \tocprehook
+            \tableofcontents
+            \tocposthook
+          \end{column}
+          \begin{column}{.5\textwidth}
+            \includegraphics[width=\textwidth]{\p@rtimage}
+          \end{column}
+          \partimage{THISFILEDOESNOTEXIST}
+        }{%
+          \begin{column}{.1\textwidth}
+          \end{column}
+          \begin{column}{.9\textwidth}
+            \tocprehook
+            \tableofcontents
+            \tocposthook
+          \end{column}}
+      \end{columns}
+    \end{frame}
+  }
+}
+
+\newcommand*\insertproptitle{}
+\newcounter{propstart}
+\newcounter{proppage}
+\newcommand*{\plainpart}{\AtBeginPart{}}
+\newcommand{\proppart}{%
+  \plainpart
+  \setcounter{propstart}{\insertpagenumber}
+  \renewcommand\insertproptitle{%
+    \setcounter{proppage}{\insertpagenumber}
+    \addtocounter{proppage}{-\thepropstart}
+    \addtocounter{proppage}1
+    \insertpart\hfill side~\theproppage
+  }
+}
+
+\fancypart
+
+\renewcommand*\parto\rightharpoonup
+\DeclareMathOperator{\graf}{graf}
+
+%% \displaystyle \atop
+\newcommand*\datop[2]{\genfrac{}{}{0pt}{0}{#1}{#2}}
+
+%% cases for lambda-notation
+\newcommand\lcases[3]{%
+  \textit{\ul{hvis} } #1 \textit{ \ul{så} } #2 \textit{ \ul{ellers} } #3}
+
+
+

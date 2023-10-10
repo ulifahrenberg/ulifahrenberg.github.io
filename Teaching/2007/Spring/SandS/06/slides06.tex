@@ -1,0 +1,377 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{6}
+\date{1 marts 2007}
+\usepackage{../sogs07-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Kontekstfrie grammatikker}
+
+\section{Eksempel}
+
+\begin{frame}[t]
+  En \alert{kontekstfri grammatik}:
+
+  \vspace{-4ex}
+  \begin{align*}
+    \qquad\magenta{S} &\tto1 \magenta{ASB} \\
+    \magenta{S} &\tto2 \epsilon \\
+    \magenta{A} &\tto3 0 \\
+    \magenta{B} &\tto4 1
+  \end{align*}
+
+  \vspace{-3ex}
+  \begin{itemize}
+  \item \magenta{$S$, $A$, $B$}: \alert{variable}
+  \item $0$, $1$: \alert{terminaler}
+  \item \alert{startvariablen}: \magenta{$S$}
+  \end{itemize}
+  At \emph{generere ord\/}:
+  \begin{itemize}
+  \item $\magenta{S}\Tto2 \epsilon$\qquad\blue\checkmark
+  \item $\magenta{S}\Tto1 \magenta{ASB}\Tto2
+    \magenta{A}\grey{\epsilon}\magenta{B}\Tto3 0\magenta{B}\Tto4
+    01$\qquad\blue\checkmark
+  \item $\magenta{S}\Tto1 \magenta{ASB} \Tto1 \magenta{AASBB}\Tto2
+    \magenta{AA}\grey{\epsilon}\magenta{BB}\Tto{3,3,4,4}
+    0011$\qquad\blue\checkmark
+  \item $\magenta{S}\Tto{1,\dots, 1} \magenta{A}^n \magenta{S}
+    \magenta{B}^n\Tto2 \magenta{A}^n \grey{\epsilon}
+    \magenta{B}^n\Tto{3,4} 0^n 1^n$
+  \item grammatikken genererer sproget \alert{$\{ 0^n 1^n\mid n\in
+      \Nat_0\}$}
+  \end{itemize}
+
+\end{frame}
+
+\section{Definition}
+
+\begin{frame}[t]
+  \alert{Definition 2.2:} En \alert{kontekstfri grammatik} (\alert{CFG})
+  er en 4-tupel $G=( V, \Sigma, R, S)$, hvor delene er
+  \begin{enumerate}
+  \item $V$ : en endelig mængde af \alert{variable}
+  \item $\Sigma$ : en endelig mængde af \alert{terminaler}, med $V\cap
+    \Sigma= \emptyset$
+  \item $R: V\to \Pot\big(( V\cup \Sigma)^*\big)$ : \alert{produktioner} /
+    \alert{regler}
+  \item $S\in V$ : \alert{startvariablen}
+  \end{enumerate}
+
+  \medskip -- produktioner skrives \alert{$A\to w$} i stedet for $w\in R(
+  A)$
+
+  \begin{itemize}
+  \item Hvis $u, v, w\in( V\cup \Sigma)^*$ er ord og $A\to w$ er en
+    produktion, siges $uAv$ at \alert{frembringe} $uwv$: \alert{$uAv\To
+      uwv$}.
+  \item Hvis $u, v\in( V\cup \Sigma)^*$ er ord, siges $u$ at
+    \alert{derivere} $v$: \alert{$u\overset*\To v$}, hvis $u= v$ eller der
+    findes en følge $u_1, u_2,\dots, u_k$ af ord således at $u\To u_1\To
+    u_2\To\dots\To u_k\To v$.
+  \item \alert{Sproget} som $G$ genererer er \alert{$\llbracket
+      G\rrbracket=\{ w\in \Sigma^*\mid S\overset*\To w\}$}.
+  \end{itemize}
+
+  \medskip -- dvs.\ et ord $w\in \Sigma^*$ genereres af $G$ hvis og kun
+  hvis der findes en \alert{derivation} $S\To w_1\To w_2\To\dots\To w_k\To
+  w$, hvor alle $w_i\in( V\cup \Sigma)^*$.
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel 2.3:} $G_3=\big(\{ S\}, \{ a, b\}, R, S\big)$ med
+  produktioner
+  \begin{equation*}
+    S\to aSb\mid SS\mid \epsilon
+  \end{equation*}
+
+  Et par derivationer:
+  \begin{itemize}
+  \item $S\To \epsilon$
+  \item $S\To aSb\To ab$
+  \item $S\To aSb\To aSSb\To aaSbSb\To aaSbaSbb\To aababb$
+  \end{itemize}
+
+  \bigskip Generelt er det nok at opskrive \emph{produktionerne\/} for at
+  specificere en kontekstfri grammatik:
+  \begin{itemize}
+  \item de variable er venstresiderne
+  \item terminalerne er alle andre bogstaver
+  \item startvariablen er venstresiden af den \emph{øverste\/} produktion
+  \end{itemize}
+\end{frame}
+
+\section{Parse-træer}
+
+\begin{frame}[t]
+  \alert{Eksempel 2.4:} Aritmetiske udtryk
+  \begin{align*}
+    \text{Expr} &\to \text{Expr}+ \text{Term}\mid \text{Term} \\
+    \text{Term} &\to \text{Term}\times \text{Factor}\mid \text{Factor} \\
+    \text{Factor} &\to ( \text{Expr})\mid a
+  \end{align*}
+  En derivation:
+  \begin{multline*}
+    \text{Expr}\To \text{Expr}+ \text{Term}\To \text{Term}+
+    \text{Term}\overset*\To \text{Factor}+ \text{Term}\times \text{Factor}
+    \\[-.8ex]
+    \To \text{Factor}+ \text{Factor}\times \text{Factor}\overset*\To a+
+    a\times a
+  \end{multline*}
+  Et \alert{parse-træ}:
+
+  \vspace{-3ex}
+  \begin{equation*}
+    \qquad\xymatrix@R=1.5ex@C=3ex{%
+      & \text{Expr} \ar[dl] \ar[drr] \ar[dddd]
+      \\  \text{Expr} \ar[d]
+      &&& \text{Term} \ar[dl] \ar[dr] \ar[ddd]
+      \\ \text{Term} \ar[d]
+      && \text{Term} \ar[d]
+      && \text{Factor} \ar[dd]
+      \\ \text{Factor} \ar[d]
+      && \text{Factor} \ar[d]
+      \\ a & {+} & a & \times & a
+    }
+  \end{equation*}
+\end{frame}
+
+\begin{frame}
+  Et \alert{parsetræ}:
+
+  \vspace{-3ex}
+  \begin{equation*}
+    \qquad\xymatrix@R=1.5ex@C=3ex{%
+      & \text{Expr} \ar[dl] \ar[drr] \ar[dddd]
+      \\  \text{Expr} \ar[d]
+      &&& \text{Term} \ar[dl] \ar[dr] \ar[ddd]
+      \\ \text{Term} \ar[d]
+      && \text{Term} \ar[d]
+      && \text{Factor} \ar[dd]
+      \\ \text{Factor} \ar[d]
+      && \text{Factor} \ar[d]
+      \\ a & {+} & a & \times & a
+    }
+  \end{equation*}
+  
+  \begin{itemize}
+  \item Parsetræer udtrykker \alert{betydningen} af et ord
+  \item At parse: programkode \blue{$\rightsquigarrow$} parsetræ
+    \blue{$\rightsquigarrow$} \dots
+  \item En kontekstfri grammatik i hvilken der er et ord der har to
+    \emph{forskellige\/} parsetræer kaldes \alert{tvetydig}.
+  \item to forskellige parsetræer \IMPL\ to forskellige
+    \emph{betydninger\/} \\ \IMPL\ \alert{BAD}
+  \end{itemize}
+\end{frame}
+
+\section{Opsummering}
+
+\begin{frame}
+  \alert{Opsummering:}
+  \begin{itemize}
+  \item CFG: et (endeligt) antal \alert{produktioner} af formen
+    \alert{$A\to s_1\mid s_2\mid\dots s_k$} for symboler $A$ og strenge
+    $s_1, s_2,\dots, s_k$.
+  \item ``$\mid$'' kendetegner \emph{alternativer\/} (nondeterminisme!)
+  \item symboler på venstre side af produktionerne: \alert{variable}
+    (eller \alert{non-terminaler})
+  \item alle andre symboler: \alert{terminaler}
+  \item venstre side af \emph{første\/} produktion: \alert{startsymbolet}
+  \item at \alert{frembringe}: $uAv\To uwv$ hvis $A\to w$ er en produktion
+  \item hvis $w$ er en streng af \emph{terminaler\/}: grammatikken
+    \alert{genererer} $w$ hvis der findes en \alert{derivation} $S\To
+    w_1\To\dots\To w_k\To w$, hvor alle $w_i$ er strenge af terminaler og
+    variable.
+  \item vigtigt: \alert{parsetræer}
+  \item \alert{Definition:} Et sprog siges at være \alert{kontekstfrit}
+    hvis det kan genereres af en CFG.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel:} En CFG til sproget
+  \begin{equation*}
+    \{ w\in\{ a, b\}^*\mid \text{antallet af $a$ i $w$}= \text{antallet af
+      $b$ i $w$}\}
+  \end{equation*}
+
+  Idé: Variable som \emph{tilstande\/}:
+  \begin{itemize}
+  \item $S$ : Jeg har set lige mange $a$ og $b$
+  \item $A$ : Jeg mangler et $a$
+  \item $B$ : Jeg mangler et $b$
+  \end{itemize}
+
+  \begin{align*}
+    S &\to aB\mid bA\mid \epsilon \\
+    A &\to aS\mid bAA \\
+    B &\to bS\mid aBB
+  \end{align*}
+
+  \hfill\green{(opgave 2.21!)}
+\end{frame}
+
+\section[Sok]{\protect\textbf{Sok}}
+
+\begin{frame}
+  \alert{Eksempel:} En (ufuldstændig og ikke helt rigtig) CFG for
+  \textbf{Sok}
+  \begin{align*}
+    \text{ProGram} &\to \text{VarErkList}\,; \text{MetErkList} \\
+    \text{VarErkList} &\to \text{VarErk}\,; \text{VarErkList}\mid \epsilon
+    \\
+    \text{VarErk} &\to \textit{var } \text{VarNavn}= \text{HelTal} \\
+    \text{MetErkList} &\to \text{MetErk}\,; \text{MetErkList}\mid \epsilon
+    \\
+    \text{MetErk} &\to \textit{metode\/ } \text{MetNavn }
+    \text{StateMentList } \textit{end} \\
+    \text{StateMentList} &\to \text{StateMent}\,; \text{StateMentList}\mid
+    \epsilon \\
+    \text{StateMent} &\to \text{MetKald}\mid \text{TilSkriv} \\
+    \text{TilSkriv} &\to \text{VarNavn}:= \text{ArUdtryk} \\
+    \text{MetKald} &\to \textit{kald\/ } \text{MetNavn}
+  \end{align*}
+\end{frame}
+
+\section{Tvetydighed}
+
+\begin{frame}
+  \alert{Eksempel:} Grammatikken $G_5$, ca.:
+  \begin{equation*}
+    \text{Expr}\to \text{Expr}+ \text{Expr}\mid \text{Expr}\times
+    \text{Expr}\mid( \text{Expr})\mid \text{Heltal}
+  \end{equation*}
+  To forskellige parsetræer for $1+ 2\times 3$:
+  \begin{equation*}
+    \xymatrix@R=1.5ex@C=.5ex{%
+      &&& \text{Expr} \ar[dll] \ar[ddd] \ar[dr]
+      \\ & \text{Expr} \ar[dl] \ar[dd] \ar[dr]
+      &&& \text{Expr} \ar[dd]
+      \\ \text{Expr} \ar[d]
+      && \text{Expr} \ar[d]
+      \\ 1 & {+} & 2 & \times & 3 \\
+      && {\alert{= 9}}
+    } \qquad
+    \xymatrix@R=1.5ex@C=.5ex{%
+      & \text{Expr} \ar[dl] \ar[ddd] \ar[drr]
+      \\ \text{Expr} \ar[dd]
+      &&& \text{Expr} \ar[dl] \ar[dd] \ar[dr]
+      \\ && \text{Expr} \ar[d]
+      && \text{Expr} \ar[d]
+      \\ 1 & {+} & 2 & \times & 3 \\
+      && {\alert{= 7}}
+    }
+  \end{equation*}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Definition:} En derivation $S\To w_1\To w_2\To\dots\To w_k$ i en
+  grammatik kaldes en \alert{venstre-derivation} hvis det i ethvert skridt
+  er den variable \emph{længst til venstre\/} der erstattes.
+
+  \medskip Eksempel:
+  \begin{itemize}
+  \item $S\To AB\To aB\To ab$ er en venstre-derivation,
+  \item $S\To AB\To Ab\To ab$ er ikke.
+  \end{itemize}
+
+  \medskip \alert{Bemærk:} Til ethvert parsetræ svarer en entydig
+  venstre-derivation.
+
+  \medskip \alert{Definition 2.7:}
+  \begin{itemize}
+  \item Et ord siges at være genereret \alert{tvetydigt} hvis det har to
+    forskellige venstre-derivationer.
+  \item En grammatik er \alert{tvetydig} hvis den genererer et ord på en
+    tvetydig måde.
+  \item Et kontekstfrit sprog er \alert{\textit{inherently ambiguous\/}}
+    hvis enhver CFG der genererer det er tvetydig.
+  \end{itemize}
+\end{frame}
+
+\section[CNF]{Chomsky-normalformen}
+
+\begin{frame}
+  Mål: specielle former for kontekstfrie grammatikker som er nemme at
+  håndtere
+
+  \bigskip \alert{Definition 2.8:} En CFG med startvariabel $S$ er i
+  \alert{Chomsky-normalform} hvis hver produktion er af formen
+  \alert{$A\to BC$} eller \alert{$A\to a$}, hvor $a$ er en terminal, $A$,
+  $B$ og $C$ er variable og $B, C\ne S$. Desuden tillades produktionen
+  \alert{$S\to \epsilon$}.
+
+  \bigskip \alert{Sætning 2.9:} Ethvert kontekstfrit sprog genereres af en
+  CFG i Chomsky-normalform.
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Bevis:} Lad $( V, \Sigma, R, S)$ være en CFG. Vi konverterer den
+  til Chomsky-normalform:
+  \begin{enumerate}
+  \item \blue{$S$ må ikke forekomme på højresider.}
+
+    \only<1>{%
+      Introducér en ny startvariabel $S_0$ og en produktion $S_0\to S$.
+    }%
+    \only<2->{%
+    \item \blue{Vi vil ikke have $\epsilon$-produktioner $A\to \epsilon$,
+        medmindre $A= S$.}
+    }%
+    \only<2>{%
+      \begin{itemize}
+      \item Tag en produktion $A\to \epsilon$ og fjern den.
+      \item For alle produktioner $R\to uAv$: introducér en ny produktion
+        $R\to uv$.
+      \item Men hvis der er en produktion $R\to A$, introduceres $R\to
+        \epsilon$ \emph{kun hvis den ikke allerede før er blevet fjernet}.
+      \item Gentag indtil alle $\epsilon$-produktioner er væk (undtaget
+        måske $S\to \epsilon$).
+      \end{itemize}
+    }%
+    \only<3->{%
+    \item \blue{Vi vil ikke have \textit{unit rules\/}: produktioner af
+        formen $A\to B$.}  }%
+    \only<3>{%
+      \begin{itemize}
+      \item Tag en produktion $A\to B$ og fjern den.
+      \item For alle produktioner $B\to u$: introducér en ny produktion
+        $A\to u$.
+      \item Men hvis der er en produktion $B\to C$, introduceres $A\to C$
+        \emph{kun hvis den ikke allerede før er blevet fjernet}.
+      \item Gentag indtil alle \textit{unit rules\/} er væk.
+      \end{itemize}
+    }%
+    \only<4->{%
+    \item \blue{Vi vil ikke have produktioner af formen $A\to u_1 u_2\dots
+        u_k$ for $k\ge 3$.}
+    }%
+    \only<4>{%
+      \begin{itemize}
+      \item Lad $A\to u_1 u_2\dots u_k$ være en sådan produktion. (Her er
+        $u_i$erne variable eller terminaler.)
+      \item Erstat den med produktioner $A\to u_1 A_1$, $A_1\to u_2
+        A_2$,\dots, $A_{k-2}\to u_{k-1} u_k$, hvor $A_i$erne er nye
+        variable.
+      \item Gentag.
+      \end{itemize}
+    }%
+    \only<5->{%
+    \item \blue{Vi vil ikke have produktioner af formen $A\to bC$, $A\to
+        Bc$ eller $A\to bc$.}
+      \begin{itemize}
+      \item Erstat $A\to bC$ med $A\to BC$ og $B\to b$, og gør lignende
+        for de andre to. (Igen introduceres nye variable.)
+      \end{itemize}
+    \item \blue{Færdig!}
+    }
+  \end{enumerate}
+\end{frame}
+
+\end{document}

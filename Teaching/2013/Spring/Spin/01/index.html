@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Spin 2013</title>
+</head>
+
+<body>
+
+<h2>First lecture</h2>
+
+Short URL: <a href="http://ow.ly/hUrjB">http://ow.ly/hUrjB</a>
+
+<p>Friday 22 February 2013, 16:15 to 18:00</p>
+
+<p>Exercises during class:
+<ol>
+<li>Install the <a href="http://spinroot.com/">Spin model checker</a>.
+	<ul>
+	<li>Follow the instructions on <a href="http://spinroot.com/spin/Man/README.html">http://spinroot.com/spin/Man/README.html</a>.</li>
+	<li>For Windows and Linux, a good start is to copy the executable from <a href="http://spinroot.com/spin/Bin/">http://spinroot.com/spin/Bin/</a>.</li>
+	<li>But you will eventually also need some files from the full distribution, found at <a href="http://spinroot.com/spin/Src/index.html">http://spinroot.com/spin/Src/index.html</a>.</li>
+	<li>(Note that we will <em>not</em> use iSpin.)</li>
+	<li>For operating systems other than Linux and Windows, you'll probably need to compile the thing from sources.</li>
+	<li>You'll need to have <a href="http://gcc.gnu.org/">gcc</a> installed for Spin to work.  On Linux and other Unixes this will usually not be a problem. (On Ubuntu, you might want to install the <em>build-essential</em> package to avoid future trouble.)  For Windows, you might want to have a look at <a href="http://www.cygwin.com/">http://www.cygwin.com/</a> or <a href="http://http://www.mingw.org/">http://http://www.mingw.org/</a>.</li>
+	</ul></li>
+<li>Install the <a href="http://stwww.weizmann.ac.il/g-cs/benari/jspin/">jSPIN</a> graphical interface to Spin.
+	<ul>
+	<li>This uses JAVA, so you'll need a JAVA runtime engine.  If you don't have this, go to <a href="http://www.java.com/">http://www.java.com/</a>.</li>
+	<li>Find jSPIN at <a href="http://code.google.com/p/jspin/downloads/">http://code.google.com/p/jspin/downloads/</a>. There's a <a href="http://code.google.com/p/jspin/downloads/detail?name=jspin-5-0.zip&can=2&q=">zip file</a> which works fine on Ubuntu; probably on Windows, too.</li>
+	<li>On Linux, I had to make a few changes to the jSPIN config file to make it work; specifically, paths to gcc and help files, and the font used in the tool. I offer you <a href="config.cfg">my config file</a> for simplicity.</li>
+	</ul></li>
+<li>Start jSPIN and open the example model <a href="count.pml">count.pml</a> which we have talked about. See if you can recognize what I showed you.</li>
+<li>Program a Spin model which has a global variable <tt>n</tt> with initial value 2, and which consists of 2 processes P1 and P2. P1 computes <tt>n=n*3</tt> and P2 computes <tt>n=n+4</tt>. What are the possible values of <tt>n</tt> at the end?</li>
+</ol></p>
+
+<p>Exercises at home:
+<ol start="6">
+<li>Using the Spin Manual at <a href="http://spinroot.com/spin/Man/Manual.html">http://spinroot.com/spin/Man/Manual.html</a>, familiarize yourself with the Spin input language. (Enough to read the first 2 sections of the manual.) Play with jSPIN to see whether you understand the language.</li>
+<li>Coming back to the <a href="count.pml">count.pml</a> example: How do the 2 processes need to cooperate to achieve a value of <tt>n=2</tt> at the end? Try to find out, using the Spin documentation, how you can get Spin to give you the answer to this question.</li>
+</ol></p>
+</body>
+</html>
+

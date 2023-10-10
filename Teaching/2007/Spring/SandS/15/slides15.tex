@@ -1,0 +1,514 @@
+\documentclass{beamer}
+
+\newcommand*\lektion{15}
+\date{24 april 2007}
+\usepackage{../sogs07-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Forord}
+
+\section{Eksamen}
+
+\begin{frame}
+  \begin{itemize}
+  \item mundtlig
+  \item 10 eksamensspørgsmål, kendt på forhånd:
+
+    \url{http://www.cs.aau.dk/~uli/Teaching/07/Spring/SandS/Eksamen/Foreloebig/}
+  \item 20 minutters forberedelse
+  \item 20 minutters eksamen
+  \item hjælpemidler: ingen slides, ingen computer, ingen mobiltelefon
+  \item Ekstern censor: Anders Møller, Århus
+
+    \url{http://www.brics.dk/~amoeller/}
+  \item syntaks- og semantikopgaven plus 8 andre
+  \item de andre: prøveopgave
+  \item prøveopgaven dækker \emph{kun en del af\/} opgavens pensum
+  \item prøveopgavens besvarelse indgår \emph{som en del af\/} en samlet
+    præsentation
+  \end{itemize}
+\end{frame}
+
+\section{Semantikopgaven}
+
+\begin{frame}
+  \begin{align*}
+    S &\;::=\; \cdots\; \mid \texttt{begin $D_V$ $D_F$ $S$ end} \\
+    a &\;::=\; \cdots\; \mid f(a) \\
+    D_F &\;::=\; \texttt{function $f(x)$ is $S$ \xcancel{\grey{end}}}\,; D_F \mid \epsilon
+  \end{align*}
+
+  \begin{itemize}
+  \item \alert{sideeffekter} i aritmetiske udtryk \IMPL\ evaluering af et
+    aritmetisk udtryk kan ændre store \IMPL\ transitioner på formen
+    \begin{equation*}
+      \textit{env}_V, \textit{env}_F\vdash \la a, \textit{sto}\ra\to_a \la
+      v, \textit{sto}'\ra
+    \end{equation*}
+  \item samme for boolske udtryk
+  \item transitionsregler for \textbf{Aud}, \textbf{Bud}, \textbf{ErkV} og
+    \textbf{Kom} skal laves om, de fleste kun lidt (!)
+  \item nye regler til funktionserklæringer (transitionssystem
+    $\mathord\to_{DF}$)
+  \item ny regel til funktionskald (i \textbf{Aud}!)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  Eksempel: gammel regel til variabelerklæringer:
+  \begin{multline*}
+    \!\!\!\runa{var-erkl-bip}{bss} \\
+    \dfrac{%
+      \langle D_{V},\textit{env}_{V}[x \mapsto \ell][\text{next} \mapsto
+      \text{new}( \ell)],\textit{sto}[\ell \mapsto v] \rangle \to_{DV}
+      \la \textit{env}'_{V},\textit{sto}'\ra}{%
+      \langle \texttt{var $x$:=$a$;$D_{V}$}, \textit{env}_{V},\textit{sto}
+      \rangle \to_{DV} \la \textit{env}'_{V},\textit{sto}'\ra} \\
+    \text{hvor }
+    \begin{aligned}[t]
+      & \ell = \textit{env}_{V}( \text{next}) \\
+      & \textit{env}_{V},\textit{sto} \vdash a \to_a v
+    \end{aligned}
+  \end{multline*}
+
+  ny regel:
+  \begin{multline*}
+    \!\!\!\runa{var-erkl-bof}{bss} \\
+    \dfrac{%
+      \datop{%
+        \textit{env}_F\vdash \langle D_V, \textit{env}_V[ x\mapsto \ell][
+        \text{next}\mapsto \text{new}( \ell)], \alert{\textit{sto}''}[ \ell\mapsto
+        v]\rangle\qquad\qquad}{%
+        \hfill \to_{DV} \langle \textit{env}_V', \textit{sto}'\rangle%
+      }}{%
+      \textit{env}_F\vdash \langle \texttt{var $x$:=$a$;$D_V$},
+      \textit{env}_V, \textit{sto}\rangle \to_{DV} \langle
+      \textit{env}_V', \textit{sto}'\rangle%
+    } \\
+    \text{hvor }
+    \begin{aligned}[t]
+      & \ell= \textit{env}_V( \text{next}) \\
+      & \textit{env}_V, \textit{env}_F\vdash \langle a, \textit{sto}\rangle
+      \to_a \langle v, \alert{\textit{sto}''}\rangle
+    \end{aligned}
+  \end{multline*}
+\end{frame}
+
+\part{Denotationel semantik for \protect\textbf{Bims}}
+
+\section{Overblik}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{operationel} semantik:
+    \begin{itemize}
+    \item oversæt et program til et \alert{transitionssystem}:
+      \begin{itemize}
+      \item \emph{konfigurationer:} kodestump plus programtilstand
+      \item \emph{slutkonfigurationer:} mulige resultater af
+        programudførelser
+      \item \emph{transitioner:} programskridt (small-step vs.\ big-step)
+      \end{itemize}
+    \item beskrivelse af en faktisk \emph{programudførsel}
+    \item \alert{abstrakt maskine}
+    \end{itemize}
+  \item \alert{denotationel} semantik:
+    \begin{itemize}
+    \item oversæt et program til en \alert{funktion fra input til output}:
+      \begin{itemize}
+      \item \emph{$\lambda$-notation\/} for at kunne beskrive funktioner
+        på en effektiv måde
+      \item funktioner mellem funktionsrum (\emph{højere-ordens-funktioner\/})
+      \end{itemize}
+    \item beskrivelse af et programs \emph{effekt}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{$\lambda$-notation}
+
+\begin{frame}
+  \alert{$\lambda$-notation}:\ en praktisk måde at skrive funktioner på
+  \begin{itemize}
+  \item før: Lad $f$ være funktionen givet ved $f( z)= 3+ z$
+  \item nu: \blue{$\lambda z. 3+ z$}
+
+    \medskip
+  \item før: Lad $f_2$ være funktionen givet ved
+    \raisebox{0pt}[0pt][0pt]{%
+      $f_2( x)=
+      \begin{cases}
+        x &\text{hvis $x> 0$} \\
+        0 &\text{ellers}
+      \end{cases}$}
+  \item nu: \blue{$\lambda x. \lcases{x> 0}{x}{0}$}
+
+    \medskip
+  \item før: Lad $g$ være funktionen der, givet en funktion $h$ som input,
+    returnerer funktionen der er givet ved foreskriften $h( h( x+ 3))$
+  \item nu: \blue{$\lambda h. \lambda x. h( h( x+ 3))$}
+  \end{itemize}
+
+  \rule{5em}{.7pt}
+
+  \begin{itemize}
+  \item \alert{$\lambda x. f(x)$} betegner funktionen $f$ med variabel $x$
+  \item ``kroppen'' $f(x)$ har scope så langt til højre som muligt
+  \item at anvende en funktion på en værdi: \alert{$( \lambda x. x+ 3)4=
+      7$}
+  \item udefineret output: \alert{$\lambda x. \lcases{x\ge 0}{\sqrt
+        x}{\udef}$}
+  \end{itemize}
+\end{frame}
+
+\section{Aritmetiske udtryk}
+
+\begin{frame}
+  Aritmetiske udtryk \emph{uden variable}:
+  \begin{equation*}
+    \textbf{Aud}:\quad a\;::=\; n\mid a_1\splus a_2\mid a_1\smult a_2\mid
+    a_1\ssub a_2\mid \slp a_1\srp
+  \end{equation*}
+
+  betydning af et aritmetisk udtryk:\ \alert{dens værdi}
+  \begin{equation*}
+    \mathcal A^-: \textbf{Aud}\to \Int
+  \end{equation*}
+  givet ved
+  \begin{align*}
+    \mathcal A^-\sem n &= \mathcal N\sem n \\
+    \mathcal A^-\sem{ a_1\splus a_2} &= \mathcal A^-\sem{ a_1}+ \mathcal
+    A^-\sem{ a_2} \\
+    \mathcal A^-\sem{ a_1\smult a_2} &= \mathcal A^-\sem{ a_1}\cdot \mathcal
+    A^-\sem{ a_2} \\
+    \mathcal A^-\sem{ a_1\ssub a_2} &= \mathcal A^-\sem{ a_1}- \mathcal
+    A^-\sem{ a_2} \\
+    \mathcal A^-\sem{ \slp a\srp} &= \mathcal A^-\sem a
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  Aritmetiske udtryk \emph{med variable}:
+  \begin{equation*}
+    \textbf{Aud}:\quad a\;::=\; x\mid n\mid a_1\splus a_2\mid a_1\smult
+    a_2\mid a_1\ssub a_2\mid \slp a_1\srp
+  \end{equation*}
+
+  betydning af et aritmetisk udtryk:\ \alert{en funktion fra tilstande til
+    værdier}
+  \begin{equation*}
+    \mathcal A: \textbf{Aud}\to( \textbf{Tilstande}\to \Int)
+  \end{equation*}
+  givet ved
+  \begin{align*}
+    \mathcal A\sem x &= \lambda s. s( x) \\
+    \mathcal A\sem n &= \lambda s. \mathcal N\sem n \\
+    \mathcal A\sem{ a_1\splus a_2} &= \lambda s. \mathcal A\sem{ a_1}s+  \mathcal
+    A\sem{ a_2}s \\
+    \mathcal A\sem{ a_1\smult a_2} &= \lambda s. \mathcal A\sem{ a_1}s\cdot \mathcal
+    A\sem{ a_2}s \\
+    \mathcal A\sem{ a_1\ssub a_2} &= \lambda s. \mathcal A\sem{ a_1}s- \mathcal
+    A\sem{ a_2}s \\
+    \mathcal A\sem{ \slp a\srp} &= \lambda s. \mathcal A\sem a s
+  \end{align*}
+\end{frame}
+
+\begin{frame}[t]
+
+  \vspace*{-3ex}
+  \begin{align*}
+    \mathcal A\sem x &= \lambda s. s( x) \\
+    \mathcal A\sem n &= \lambda s. \mathcal N\sem n \\
+    \mathcal A\sem{ a_1\splus a_2} &= \lambda s. \mathcal A\sem{ a_1}s+  \mathcal
+    A\sem{ a_2}s \\
+    \mathcal A\sem{ a_1\smult a_2} &= \lambda s. \mathcal A\sem{ a_1}s\cdot \mathcal
+    A\sem{ a_2}s \\
+    \mathcal A\sem{ a_1\ssub a_2} &= \lambda s. \mathcal A\sem{ a_1}s- \mathcal
+    A\sem{ a_2}s \\
+    \mathcal A\sem{ \slp a\srp} &= \lambda s. \mathcal A\sem a s
+  \end{align*}
+
+  \rule{5em}{.7pt}
+
+  \medskip \alert{Eksempel:} Lad $s$ være tilstanden givet ved $s( \texttt
+  x)= 4$ og $s( \texttt y)= 6$.
+  \begin{align*}
+    \mathcal A\sem{ \texttt{x*y+\ul{18}}} &= \lambda s. \mathcal A\sem{
+      \texttt{x*y}}s+ \mathcal A\sem{ \texttt{\ul{18}}} s \\
+    &= \lambda s. \mathcal A\sem{ \texttt{x*y}}s+ \mathcal N\sem{
+      \texttt{\ul{18}}} \\
+    &= \lambda s. \mathcal A\sem{ \texttt{x*y}}s+ 18 \\
+    &= \lambda s. \mathcal A\sem{ \texttt x}s\cdot \mathcal A\sem{ \texttt
+      y}s+ 18 \\
+    &= \lambda s. s( \texttt x)\cdot s( \texttt y)+ 18 \\
+    &= 24+ 18= 42 \qquad\blue{\text{(igen! $\ddot\smile$ )}}
+  \end{align*}
+\end{frame}
+
+\section{Boolske udtryk}
+
+\begin{frame}
+  Boolske udtryk:
+  \begin{equation*}
+    \textbf{Bud}:\quad b\;::=\; a_1\seq a_2\mid a_1\sless a_2\mid \neg
+    b_1\mid b_1\wedge b_2\mid \slp b_1\srp
+  \end{equation*}
+
+  betydning af et boolsk udtryk:\ \alert{en funktion fra tilstande til
+    sandhedsværdier}
+  \begin{equation*}
+    \mathcal B: \textbf{Bud}\to\big( \textbf{Tilstande}\to\{ \sand,
+    \falsk\}\big)
+  \end{equation*}
+  givet ved
+  \begin{align*}
+    \mathcal B\sem{ a_1\seq a_2} &= \lambda s. \lcases{ \mathcal A\sem{
+        a_1}s= \mathcal A\sem{ a_2}s}{\sand}{\falsk} \\
+    \mathcal B\sem{ a_1\sless a_2} &= \lambda s. \lcases{ \mathcal A\sem{
+        a_1}s< \mathcal A\sem{ a_2}s}{\sand}{\falsk} \\
+    \mathcal B\sem{ \neg b} &= \lambda s. \lcases{ \mathcal B\sem{
+        b}s= \sand}{\falsk}{\sand} \\
+    \mathcal B\sem{ b_1\wedge b_2} &= \lambda s. \lcases{ \mathcal B\sem{
+        b_1}s= \sand \text{ og } \mathcal B\sem{ b_2}s=
+      \sand}{\sand}{\falsk} \\
+    \mathcal B\sem{ \slp b\srp} &= \lambda s. \mathcal B\sem b s
+  \end{align*}
+\end{frame}
+
+\section{Kommandoer}
+
+\begin{frame}
+
+  \vspace*{-2.5ex}
+  \begin{align*}
+    \textbf{Kom}:\quad S &\;::=\; x \texttt{:=} a \mid \texttt{skip} \mid
+    S_1\texttt; S_2\mid \texttt{if $b$ then $S_1$ else $S_2$} \\
+    &\qquad \mid \texttt{while $b$ do $S$}
+  \end{align*}
+
+  betydningen af en kommando: \alert{\emph{partiel\/} funktion fra
+    tilstande til tilstande}
+  \begin{equation*}
+    \mathcal S: \textbf{Kom}\to( \textbf{Tilstande}\parto
+    \textbf{Tilstande})
+  \end{equation*}
+  givet ved
+  \begin{align*}
+    \mathcal S\sem{ \texttt{skip}} &= \lambda s. s \\
+    \mathcal S\sem{ x\texttt{:=} a} &= \lambda s. s[ x\mapsto \mathcal
+    A\sem{ a}s] \\
+    \mathcal S\sem{ S_1\texttt; S_2} &= \mathcal S\sem{ S_2}\circ \mathcal
+    S\sem{ S_1} \\
+    \mathcal S\sem{ \texttt{if $b$ } &\texttt{then $S_1$ else $S_2$}} \\
+    &= \lambda s. \lcases{ \mathcal B\sem{b}s= \sand}{ \mathcal S\sem{
+        S_1}s}{ \mathcal S\sem{ S_2}s} \\
+    \mathcal S\sem{ \texttt{while } &\texttt{$b$ do $S$}} \\
+    &= \lambda s. \lcases{ \mathcal B\sem{b}s= \sand \\&\phantom{=\lambda s.}}{( \mathcal S\sem{
+        \texttt{while $b$ do $S$}}\circ \mathcal S\sem S)s}{s}
+  \end{align*}
+
+  (\alert{partiel} funktion -- fordi \alert{nogle kommandoer ikke
+    terminerer})
+\end{frame}
+
+\section[while-løkker]{Denotationel semantik af
+  \protect\texttt{while}-løkker}
+
+\begin{frame}[t]
+  Ligningen
+  \begin{align*}
+    \mathcal S\sem{ \texttt{while $b$ do $S$}} 
+    &= \lambda s. \lcases{ \mathcal B\sem{b}s= \sand \\&\phantom{=\lambda s.}}{( \mathcal S\sem{
+        \texttt{while $b$ do $S$}}\circ \mathcal S\sem S)s}{s}
+  \end{align*}
+  er \alert{rekursiv}.
+
+  \medskip \emph{Mere præcist:\/} Lad $b\in \textbf{Bud}$ og $S\in
+  \textbf{Kom}$.
+
+  En løsning $f= \mathcal S\sem{ \texttt{while $b$ do $S$}}$ må opfylde
+  ligningen
+  \begin{equation*}
+    f= \lambda s. \lcases{ \mathcal B\sem{b}s= \sand}{( f\circ \mathcal
+      S\sem S)s}{s}
+  \end{equation*}
+
+  \emph{Endnu mere præcist:\/} Lad
+  \begin{equation*}
+    F:( \textbf{Tilstande}\parto \textbf{Tilstande})\to(
+    \textbf{Tilstande}\parto \textbf{Tilstande})
+  \end{equation*}
+  være funktionen givet ved
+  \begin{equation*}
+    F( f)= \lambda s. \lcases{ \mathcal B\sem{b}s= \sand}{( f\circ
+      \mathcal S\sem S)s}{s}
+  \end{equation*}
+  Vi leder efter et \alert{mindste fikspunkt} for $F$.
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel:} Lad $b= \texttt{$\neg$(x=0)}$ og $S= \texttt{x:=x-1}$. Find
+  \begin{equation*}
+    \mathcal S\sem{ \texttt{while $\neg$(x=0) do x:=x-1}}
+  \end{equation*}
+  Fikspunktligningen:
+  \begin{equation*}
+    f= F( f)= \lambda s. \lcases{ \mathcal B\sem{ \texttt{$\neg$(x=0)}}s=
+      \sand}{( f\circ \mathcal S\sem{ \texttt{x:=x-1}})s}{s}
+  \end{equation*}
+  Et par fikspunkter:
+  \begin{align*}
+    f_1 &= \lambda s. \lcases{ s( \texttt x)\ge 0}{ s[ \texttt x\mapsto
+      0]}{ \udef} \\
+    f_2 &= \lambda s. \lcases{ s( \texttt x)\ge 0}{ s[ \texttt x\mapsto
+      0]}{ s[ \texttt x\mapsto 42]} \\
+    f_3 &= \lambda s. s[ \texttt x\mapsto 0]
+  \end{align*}
+  \alert{Mål:} Domænestruktur på mængden $\textbf{Tilstande}\parto
+  \textbf{Tilstande}$ så
+  \begin{itemize}
+  \item \emph{fikspunktsætningen\/} kan anvendes på $F$, og
+  \item $f_1$ bliver \emph{mindste fikspunkt\/} for $F$
+  \end{itemize}
+\end{frame}
+
+\section[Funktionsrum]{Funktionsrums-domænet}
+
+\begin{frame}[t]
+  \alert{Definition 14.10(200):} Givet mængder $A$, $B$ og en partiel
+  funktion $f: A\parto B$, da er \alert{grafen} af $f$ defineret som
+  \begin{equation*}
+    \graf( f)=\big\{( a, b)\mid f( a)= b\big\}
+  \end{equation*}
+  \blue{(dén kendte vi vist allerede \dots)}
+
+  \medskip \alert{Definition 14.11(200):} For mængder $A$, $B$ defineres
+  ordningen $\sqsubseteq$ på funktionsrummet $A\parto B$ ved
+  \begin{equation*}
+    f_1\sqsubseteq f_2\quad\IFF\quad \graf( f_1)\subseteq \graf( f_2)
+  \end{equation*}
+
+  \vspace{-1ex}
+  \begin{itemize}
+  \item \blue{dvs.\ $f_1\sqsubseteq f_2$ hvis $f_1( a)= f_2( a)$ for alle
+      $a$ for hvilke $f_1$ er defineret}
+  \item \blue{men $f_1$ må godt være $\udef$ for nogle værdier for hvilke
+      $f_2$ er defineret}
+  \end{itemize}
+
+  \alert{Eksempel:} For $A= B= \textbf{Tilstande}$ og
+  \begin{align*}
+    f_1 &= \lambda s. \lcases{ s( \texttt x)\ge 0}{ s[ \texttt x\mapsto
+      0]}{ \udef} \\
+    f_2 &= \lambda s. \lcases{ s( \texttt x)\ge 0}{ s[ \texttt x\mapsto
+      0]}{ s[ \texttt x\mapsto 42]}
+  \end{align*}
+  er $f_1\sqsubseteq f_2$.
+\end{frame}
+
+\begin{frame}
+  \begin{equation*}
+    f_1\sqsubseteq f_2\quad\IFF\quad \graf( f_1)\subseteq \graf( f_2)
+  \end{equation*}
+  \alert{Lemma 14.14(200):} Med ordningen $\sqsubseteq$ er $A\parto B$ et
+  \alert{domæne}.
+  
+  \medskip \alert{Bevis:}
+  \begin{enumerate}
+  \item $\sqsubseteq$ er en partiel orden fordi $\subseteq$ er.
+  \item Bundelementet er \alert{$\bot= \lambda a. \udef$}.
+  \item Lad $Y= \{ f_0\sqsubseteq f_1\sqsubseteq f_2\sqsubseteq\cdots\}$
+    være en voksende mængde.
+
+    \blue{Vi skal finde $\lim Y$.}
+  \item \blue{Grafer af funktioner $A\parto B$ er delmængder af $A\times
+      B$, og $\sqsubseteq$ mellem svarer til $\subseteq$ mellem grafer}
+
+    \blue{\IMPL\ forsøg med ``$\lim Y= \bigcup_i \graf( f_i)$'' ligesom
+      for potensmængde-domænet!}
+  \item Lad \alert{$f= \lambda a. \lcases{f_i( a)= b\text{ for et $i$}}{
+        b}{ \udef}$}
+
+    \blue{Det svarer til $\graf( f)= \bigcup_i \graf( f_i)$}
+  \item \blue{Vis at $f= \lim Y$.}
+  \end{enumerate}
+\end{frame}
+
+\section[while-løkker 2]{Denotationel semantik af
+  \protect\texttt{while}-løkker, 2.}
+
+\begin{frame}[t]
+  \alert{Recap:}
+  \begin{itemize}
+  \item Lad $b\in \textbf{Bud}$, $S\in \textbf{Kom}$. Betragt kommandoen
+    \alert{\texttt{while $\!b\!$ do $\!S$}}.
+  \item Lad $F:( \textbf{Tilstande}\parto \textbf{Tilstande})\to(
+    \textbf{Tilstande}\parto \textbf{Tilstande})$ være funktionen
+    \begin{equation*}
+      F= \lambda f. \lambda s. \lcases{ \mathcal B\sem{b}s= \sand}{(
+        f\circ \mathcal S\sem S)s}{s}
+    \end{equation*}
+  \item Vi ønsker at \emph{definere\/} $\mathcal S\sem{ \texttt{while $b$
+        do $S$}}$ som det \alert{mindste fiks- punkt} for $F$, og at anvende
+    \alert{fikspunktsætningen} for at \emph{finde\/} det.
+  \item \alert{Fikspunktsætningen:} Lad $D$ være et domæne og $g: D\to D$
+    en kontinuert funktion. Da har $g$ et mindste fikspunkt $x^*$, som kan
+    beregnes ved
+    \begin{equation*}
+      x^*= \lim\{ g^i( \bot)\mid i\in \Nat\}
+    \end{equation*}
+    hvor $\bot$ er bundelementet i $D$.
+  \item $\textbf{Tilstande}\parto \textbf{Tilstande}$ er nu et domæne,
+    \emph{men er $F$ kontinuert?}
+  \item \alert{Ja.} Bevis: \emph{Opgave} \dots
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Eksempel:} Betragt igen \alert{\texttt{while $\neg$(x=0) do
+      x:=x-1}}
+  \begin{align*}
+    F &= \lambda f. \lambda s. \lcases{ \mathcal B\sem{
+        \texttt{$\neg$(x=0)}}s= \sand}{( f\circ \mathcal S\sem{
+        \texttt{x:=x-1}})s}{s} \\
+    &= \lambda f. \lambda s. \lcases{ s( \texttt x)\ne 0}{ f( s[ \texttt
+      x\mapsto s( \texttt x)- 1])}{ s}
+  \end{align*}
+
+  at beregne det mindste fikspunkt:
+
+  \vspace{-1ex}
+  \hspace*{-2.5em}
+  \begin{minipage}{1.1\linewidth}
+  \begin{alignat*}{2}
+    F^0( \bot) &=\qquad \bot &&= \lambda s. \udef \\
+    F^1( \bot) &=\quad F( \bot) &&= \lambda s. \lcases{ s( \texttt x)\ne
+      0}{
+      \bot( s[ \texttt x\mapsto \texttt x- 1])}{ s} \\
+    &&&= \lambda s. \lcases{ s( \texttt x)\ne 0}{ \udef}{ s} \\
+    F^2( \bot) &= F( F( \bot)) &&= \lambda s. \textit{\ul{hvis} } s(
+    \texttt x)\ne 0 \textit{ \ul{så}} \\
+    &&&\qquad\qquad \textit{\ul{hvis} } s[ \texttt x\mapsto s( \texttt x)-
+    1]( \texttt x)\ne 0 \textit{ \ul{så} } \udef \\
+    &&&\qquad\qquad\qquad\qquad\qquad \textit{\ul{ellers} } s[ \texttt
+    x\mapsto s( \texttt x)- 1] \\
+    &&&\qquad\quad \textit{\ul{ellers} } s \\
+    &&&= \lambda s. \lcases{ s( \texttt x)\ne 0\text{ og } s( \texttt
+      x)\ne 1}{ \udef}{ s[ \texttt x\mapsto 0]} \\
+    \ldots &\qquad \alert{F^i( \bot)} &&\alert{= \lambda s.
+      \textit{\ul{hvis} } s(
+      \texttt x)< 0 \text{ eller } s( \texttt x)> i- 1} \\
+    &&&\qquad\quad \alert{\textit{\ul{så} } \udef \textit{ \ul{ellers} }
+      s[ \texttt x\mapsto 0]}
+  \end{alignat*}
+    
+  \end{minipage}
+
+\end{frame}
+
+\end{document}

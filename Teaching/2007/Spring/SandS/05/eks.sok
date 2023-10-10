@@ -1,0 +1,5 @@
+var xY32 = +457
+
+metode start
+	xY32 := xY32 * ( -5 + 9 )
+end

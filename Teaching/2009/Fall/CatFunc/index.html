@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+<meta name="author" content="Uli Fahrenberg" />
+<title>Category Theory with Applications in Functional Programming</title>
+
+<style type="text/css" media="screen">
+BODY {
+  margin-left: 2px;
+  padding:		0 10px 0 0;
+  color:		#000000;
+  background-color:	#ffffff;
+  font-family:		Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+h1 {
+  font-size:		large;
+  margin-bottom:	0.2em;
+  margin-right: 20%;
+  padding-left: 1px; 
+  background-color: #003366;
+  color: #FFFFFF; 
+}
+h3 {
+  font-size: 95%;
+  margin-bottom:	0.1em;
+  margin-right: 20%;
+  padding-left: 1px;
+  background-color: #6699cc; 
+  color: #FFFFFF;
+}
+td {
+  padding-right: 1cm;
+}
+</style>
+</head>
+
+<body>
+<h1>Category Theory with Applications in Functional Programming: Ph.D. Course, October 2009</h1>
+
+<p>This course aims at giving you a solid introduction to category theory, and to apply concepts from category theory to gain insights in some advanced notions within functional programming.</p>
+
+<p>This is a 2 ECTS Ph.D. course within the Computer Science and Engineering programme at the Doctoral School of Technology and Science at Aalborg University.
+<!--
+Its doctoral-school homepage is <a href="http://adm.aau.dk/fak-tekn/phd/kurser/s2_1.htm">http://adm.aau.dk/fak-tekn/phd/kurser/s2_1.htm</a>, where you also can register for the course.  To make your life easier, we've copied the registration button:
+
+<center>
+  <form method="POST" action="http://adm.aau.dk/administration/formular/phdform.php3">
+    <input type="hidden" name="title" value="CATEGORY THEORY WITH APPLICATIONS IN FUNCTIONAL PROGRAMMING">
+    <input type="hidden" name="number" value="s2_1">
+    <input type="submit" value="Request Registration Form">
+  </form>
+</center>
+-->
+</p>
+
+<h3>Organizers</h3>
+
+<ul>
+<li><a href="http://cs.aau.dk/~hans">Hans Hüttel</a></li>
+<li><a href="http://cs.aau.dk/~rrh">Rene R. Hansen</a></li>
+<li><a href="http://cs.aau.dk/~uli">Uli Fahrenberg</a></li>
+</ul>
+
+<h3>Lecturers</h3>
+
+<ul>
+<li><a href="http://cs.aau.dk/~rrh">Rene R. Hansen</a></li>
+<li><a href="http://cs.aau.dk/~uli">Uli Fahrenberg</a></li>
+</ul>
+
+<h3><i>&quot;Why should I listen to you?&quot;</i></h3>
+
+<p>Through this course you will gain insight in the basic concepts of category theory, an organizing paradigm increasingly used in many areas of computer science and mathematics.  This will hopefully help you to be more structured in your research and to avoid pitfalls.  You will also gain an understanding of modern functional programming and its relations to other fields.</p>
+
+<h3>Organization</h3>
+
+<p>The course will take place on the following four days in October 2009, each day from 9:00 to 15:00:
+<ol>
+<li>Thursday 1 October</li>
+<li>Wednesday 7 October</li>
+<li>Wednesday 21 October</li>
+<li>Wednesday 28 October</li>
+</ol></p>
+
+<p>The course will subsume four kinds of activity: lectures and exercises in category theory, and lectures and exercises in functional programming.  In the beginning we will do more category theory, and in the end the functional programming part will have more weight.</p>
+
+<p>Lectures and exercises in category theory will be given and supervised by Uli Fahrenberg; those in functional programming by Rene R. Hansen.</p>
+
+<h3>Evaluation</h3>
+
+<p>In order to pass the course, we will require you to present the solution of a selected exercise to the other course participants.  More details on this during the first lecture.</p>
+
+<h3>Contents</h3>
+
+<p>Category theory:
+<ul>
+<li>Categories, duality, functors</li>
+<li>Natural transformations, adjunctions</li>
+<li>Universality, limits, co-limits</li>
+<li>Monads, algebras, co-monads, co-algebras</li>
+<li>Examples, examples, examples; from computer science and mathematics</li>
+</ul></p>
+
+<p>Functional programming:
+<ul>
+<li>Introduction to <a href="http://www.haskell.org/">Haskell</a></li>
+<li>Advanced constructions in Haskell</li>
+<li>Monads in functional programming</li>
+</ul></p>
+
+<h3>Literature</h3>
+<a name="lit" />
+
+<p>For the <strong>category theory part</strong> of the course, we will use the following as a basic textbook:
+<ul>
+<li>Benjamin C. Pierce:
+<a href="http://books.google.dk/books?id=ezdeaHfpYPwC">Basic category theory
+for computer scientists</a>.  MIT Press, 1991</li>
+</ul>
+
+We will also make use of material from the following sources:
+<ul>
+<li>David E. Rydeheard, Rod M. Burstall: <a href="http://books.google.dk/books?id=gN1QAAAAMAAJ">Computational category theory</a>.  Prentice Hall, 1988.  Available at <a href="http://www.cs.man.ac.uk/~david/categories/book/">http://www.cs.man.ac.uk/~david/categories/book/</a></li>
+<li>Saunders Mac Lane: <a href="http://books.google.dk/books?id=MXboNPdTv7QC">Categories for the working mathematician</a>.  Springer, 1998</li>
+</ul>
+
+We will make copies from these books available if needed.  Also, for the numerous examples of categorical structures and constructions in the course we will read other material; more about this later.</p>
+
+<p>For the <strong>functional programming part</strong> of the course, we will mainly use the following:
+<ul>
+<li>Bryan O'Sullivan, John Goerzen, Don Stewart: <a href="http://books.google.com/books?id=nh0okI1a1sQC">Real World Haskell</a>.  O'Reilly, 2008.  Available at <a href="http://book.realworldhaskell.org/">http://book.realworldhaskell.org/</a></li>
+</ul></p>
+
+<h3>Additional material</h3>
+<a name="addmat" />
+
+<p>We will additionally make use of the following sources:
+<ul>
+<li>Glynn Winskel, Mogens Nielsen: <i>Models for Concurrency.</i>  In S. Abramsky, Dov M. Gabbay, and T.S.E. Maibaum: Handbook of Logic in Computer Science, vol. 4.  Oxford University Press, 1995.  Also available at <a href="http://www.daimi.au.dk/PB/463/PB-463.pdf">http://www.daimi.au.dk/PB/463/PB-463.pdf</a></li>
+<li>Michael B. Smyth, Gordon D. Plotkin: <i>The Category-Theoretic Solution of Recursive Domain Equations.</i> SIAM Journal of Computing 11(4):761-783 (1982).  Available at <a href="http://homepages.inf.ed.ac.uk/gdp/publications/Category_Theoretic_Solution.pdf">http://homepages.inf.ed.ac.uk/gdp/publications/Category_Theoretic_Solution.pdf</a></li>
+<li>Mads Rosendahl: <i>Introduktion til domæneteori</i> (Danish).  DIKU 1995.  Available at <a href="http://akira.ruc.dk/~madsr/webpub/domaene.pdf">http://akira.ruc.dk/~madsr/webpub/domaene.pdf</a></li>
+</ul>
+
+<h3>Lectures</h3>
+
+<p><ol>
+<li><a href="day1.html">First day programme</a></li>
+<li><a href="day2.html">Second day programme</a></li>
+<li><a href="day3.html">Third day programme</a></li>
+<li><a href="day4.html">Fourth day programme</a></li>
+</ol></p>
+
+<h3>Material for further study</h3>
+<a name="further" />
+
+<p>Below follows a list of topics and material which can guide you further in exploring the land of categories and functional programming:
+<ul>
+<li><strong>Cartesian closed categories.</strong>  These are a special kind of categories which are important for applications in computer science.  They are covered in <i>Pierce</i> Section 3.1 and <i>Mac Lane</i> Section 4.6.</li>
+<li>Closely related is the more advanced notion of <strong>monoidal categories</strong>, which are categories with an extra &quot;tensor&quot; product.  These are covered in <i>Mac Lane</i> Chapter 7; especially interesting for computer scientists is <i>Mac Lane</i> Section 7.7.</li>
+<li><strong>Galois connections</strong> are a concept heavily used in static analysis, especially abstract interpretation.  Essentially these are adjoint functors between preorder categories.  They are introduced in <i>Mac Lane</i> Section 4.5.</li>
+<!-- <li><strong>Pre-sheaves and topoi</strong> are another special kind of categories which are important for some applications in computer science.  Essentially, a pre-sheaf is the dual of a category of functors <b>C</b>-><b>Set</b>, and topoi are similar but with more constraints.  The standard reference on these is
+<ul><li>Saunders Mac Lane, Ieke Moerdijk: <a href="http://books.google.com/books?id=SGwwDerbEowC">Sheaves in geometry and logic: a first introduction to topos theory</a>.</li></ul>
+</li> -->
+<li>Following up on <i>Winskel-Nielsen</i>'s important work on the category of transition systems, the notion of <strong>open maps</strong> gives a categorical characterization of <em>bisimulation</em>.  The standard reference on this is
+<ul><li>André Joyal, Mogens Nielsen, Glynn Winskel: <i>Bisimulation from Open Maps.</i> Information and Computation 127(2):164-185 (1996).  Available at <a href="http://www.brics.dk/RS/94/7/index.html">http://www.brics.dk/RS/94/7/index.html</a>.</li></ul>
+</li>
+<li>Categorical formalisms and bisimulation-via-open-maps are useful for relating different formalisms.  For <i>timed automata</i> for example, there is a notion of open maps in
+<ul><li>Mogens Nielsen, Thomas Hune: <i>Bisimulation and Open Maps for Timed Transition Systems.</i> Fundamenta Informaticae 38(1-2):61-77 (1999).  Available at <a href="http://www.brics.dk/RS/98/4/index.html">http://www.brics.dk/RS/98/4/index.html</a>.</li></ul>
+</li>
+<li>The notion of <strong>co-monads and co-algebras</strong>, dual to the one of monads and algebras, gives a different view on formal models.  Essentially, a given formal model can be seen as a co-algebra for some functor, and bisimulation can be explained via <em>co-induction</em> to the <em>final co-algebra</em>.  The standard reference is
+<ul><li>Jan Rutten: <i>Universal coalgebra: A theory of systems.</i> Theoretical Computer Science 249(1):3-80 (2000).  Also available at <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.34.1958">http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.34.1958</a>.</li></ul>
+</li>
+</ul></p>
+</body></html>
+
+

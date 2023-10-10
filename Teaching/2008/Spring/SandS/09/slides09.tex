@@ -1,0 +1,630 @@
+\documentclass{beamer}
+
+\newcommand*{\lektion}9
+\date{11 marts 2008}
+\usepackage{../sogs08-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Semantik}
+
+\section{Syntaks vs.\ semantik}
+
+\begin{frame}
+  \alert{Syntaks:} Læren om sprogs \emph{form}
+  \begin{itemize}
+  \item hvordan \emph{ser\/} et lovligt program \emph{ud\/}?
+  \item beskriv byggesten (\emph{alfabet\/}) og hvordan de kan sættes
+    sammen (\emph{grammatik}, \emph{automat\/} etc.)
+  \end{itemize}
+
+  \alert{Semantik:} Læren om sprogs \emph{betydning}
+  \begin{itemize}
+  \item hvordan \emph{opfører\/} et givet program sig?
+  \item beskriv \emph{betydningen\/} af byggesten og hvordan betydningen
+    af sammensætninger af byggesten fås ud fra de enkelte betydninger
+  \end{itemize}
+\end{frame}
+
+\section[Tilgange]{Forskellige tilgange til semantik}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{denotationel} semantik
+    \begin{itemize}
+    \item beskriv et programs betydning som funktion fra \emph{input\/}
+      til \emph{output}
+    \item \emph{Hvad\/} laver det her program?
+    \end{itemize}
+  \item \alert{operationel} semantik
+    \begin{itemize}
+    \item beskriv et programs betydning som \emph{transitionssystem}
+    \item \emph{Hvordan\/} udføres det her program?
+    \end{itemize}
+  \item \alert{aksiomatisk} semantik
+    \begin{itemize}
+    \item beskriv et program ved \emph{præ-\/} og \emph{post-betingelser}
+    \item \emph{Hvilke egenskaber\/} har det her program?
+    \end{itemize}
+  \item (\alert{algebraisk} semantik: variant af aksiomatisk semantik)
+  \end{itemize}
+\end{frame}
+
+\section{Anvendelser}
+
+\begin{frame}
+  \begin{itemize}
+  \item \alert{præcis beskrivelse} af programmeringssprog
+    \begin{itemize}
+    \item ``rettesnor'' til implementation
+    \end{itemize}
+  \item \alert{automatisk generering} af compilere og fortolkere
+  \item \alert{automatisk verifikation} af programmer
+    \begin{itemize}
+    \item det kan være \emph{dyrt\/} at finde fejl i et program ved
+      aftestning
+    \item[\IMPL] heller finde fejl \emph{før}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Transitionssystemer}
+
+\begin{frame}[t]
+  \alert{Husk: Definition:}
+  \begin{itemize}
+  \item Et \alert{transitionssystem} er et par $( \Gamma,
+    \mathord\to)$, hvor delene er
+    \begin{enumerate}
+    \item $\Gamma$ : en mængde af \alert{tilstande} (eller
+      \alert{konfigurationer})
+    \item $\mathord\to\subseteq \Gamma\times \Gamma$ :
+      \alert{transitions-relationen}
+    \end{enumerate}
+    -- en \emph{orienteret graf}
+  \item Et \alert{afmærket transitionssystem} er en tripel $( \Gamma,
+    \Sigma, \mathord\to)$, hvor delene er
+    \begin{enumerate}
+    \item $\Gamma$ : en mængde af \alert{tilstande} (eller
+      \alert{konfigurationer})
+    \item $\Sigma$ : en mængde af \alert{mærker}
+    \item $\mathord\to\subseteq \Gamma\times\Sigma\times \Gamma$ :
+      \alert{transitions-relationen}
+    \end{enumerate}
+  \item De (afmærkede) transitionssystemer vi er interesserede her,
+    har alle specificeret et antal \alert{sluttilstande} $T\subseteq
+    \Gamma$.
+  \item Nogle gange er vi også interesserede i (afmærkede)
+    transitionssystemer der har en \alert{starttilstand} $\gamma_0\in
+    \Gamma$.
+  \item \textit{Hüttel}s definition 3.2 inkluderer sluttilstande.
+  \item Jeg har i lektion 4 givet en definition af transitionssystemer
+    med starttilstand, men uden sluttilstande.
+  \end{itemize}
+\end{frame}
+
+\section[Eksempler]{Eksempler : syntaks}
+
+\begin{frame}
+  \begin{itemize}
+  \item En \alert{NFA} er et afmærket transitionssystem med start- og
+    sluttilstande $(\Gamma, \Sigma, \gamma_0, T, \mathord\to)$, hvor
+    både $\Gamma$ og $\Sigma$ er \alert{endelige}.
+    \begin{equation*}
+      \begin{array}{l|ccccc}
+        \text{gammel notation} & Q & \Sigma & q_0 & F & \delta
+        \\\hline
+        \text{ny notation} & \Gamma & \Sigma & \gamma_0 & T &
+        \mathord\to
+      \end{array}
+    \end{equation*}
+
+  \item En \alert{DFA} er en NFA der er \alert{deterministisk}, dvs.
+    \begin{enumerate}
+    \item $\forall \gamma\in \Gamma: \forall a\in \Sigma: \exists
+      \gamma'\in \Gamma: \gamma\stto a\gamma'$
+    \item $\forall \gamma\in \Gamma: \forall a\in \Sigma: \forall
+      \gamma_1', \gamma_2'\in \Gamma:( \gamma\stto a\gamma_1'\wedge
+      \gamma\stto a\gamma_2')\To \gamma_1'= \gamma_2'$
+    \end{enumerate}
+
+  \item En \alert{PDA} er et afmærket transitionssystem med start- og
+    sluttilstande $(\Gamma, \alert{\Sigma_1\times \Sigma_2\times
+      \Sigma_2}, \gamma_0, T, \mathord\to)$, hvor $\Gamma$, $\Sigma_1$
+    og $\Sigma_2$ er endelige.
+    \begin{itemize}
+    \item $\Sigma_1$ : inputalfabet, $\Sigma_2$ : stackalfabet
+    \item transitioner
+      \alert{$\gamma\overset{a}{\underset{b,c}{\longrightarrow}}
+        \gamma'$} : læs $a$, pop $b$, push $c$
+    \end{itemize}
+
+  \item dvs. transitionssystemer giver en fælles ramme for
+    \alert{syntaktisk} beskrivelse af NFAs, DFAs og PDAs, \blue{nice!}
+  \item men hvad med deres \alert{semantik}?
+
+    \blue{Mål: fælles ramme for beskrivelsen af virkemåden for NFA,
+      PDA og en masse andre maskiner}
+  \end{itemize}
+\end{frame}
+
+\section{Operationel semantik}
+
+\begin{frame}
+  \alert{Idé} i operationel semantik:
+  \begin{itemize}
+  \item transitionssystemer (uden mærker) som den mest basale model
+    for beregninger
+  \item ``abstrakt maskine''
+  \item modeller (automater, grammatikker, programmeringssprog,~\dots)
+    gives mening ved at \alert{angive hvordan man konverterer dem til
+      transitionssystemer}
+  \end{itemize}
+
+\end{frame}
+
+\section[Eksempler]{Eksempler : semantik}
+
+\begin{frame}
+  \alert{Eksempel:} En operationel semantik for \alert{endelige
+    automater}:
+
+  \medskip Givet en NFA $M= ( Q, \Sigma, \delta, q_0, F)$:
+  \begin{itemize}
+  \item konfigurationer: tilstand i $Q$ plus tilbageværende del af
+    inputstrengen
+    
+    dvs.\ \alert{$\Gamma= Q\times \Sigma^*$} \quad\blue{\emph{(uendeligt
+        mange konfigurationer!)}}
+  \item slutkonfigurationer: sluttilstand i $F$ plus tom streng
+
+    dvs.\ \alert{$T=\{( q, \epsilon)\mid q\in F\}$}
+  \item transitioner: at læse et tegn (eller $\epsilon$) og gå i en anden
+    tilstand
+
+    dvs.\ \alert{$( q, aw)\to( q', w)$} hver gang $q'\in \delta( q, a)$,
+    og for alle $w\in \Sigma^*$
+  \end{itemize}
+
+  \bigskip $M$ accepterer en streng $w$ hvis og kun hvis der findes
+  $\gamma\in T$ således at \alert{$( q_0, w)\overset*\to \gamma$}.
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel:} En operationel semantik for \alert{PDAs}:
+
+  \medskip Givet en PDA $M= ( Q, \Sigma_1, \Sigma_2, \delta, q_0, F)$
+  \blue{($\Sigma_2$ er stackalfabetet)}:
+  \begin{itemize}
+  \item konfigurationer: tilstand i $Q$ plus tilbageværende del af
+    inputstrengen plus stackindhold
+    
+    dvs.\ \alert{$\Gamma= Q\times \Sigma_1^*\times \Sigma_2^*$}
+  \item slutkonfigurationer: sluttilstand i $F$ plus tom streng plus
+    vilkårlig stackstreng
+
+    dvs.\ \alert{$T=\{( q, \epsilon, s)\mid q\in F, s\in \Sigma_2^*\}$}
+  \item transitioner: at læse et tegn (eller $\epsilon$) fra input og
+    fra stacken, gå i en anden tilstand og pushe et tegn (eller
+    $\epsilon$) på stacken
+
+    dvs.\ \alert{$( q, aw, bs)\to( q', w, cs)$} hver gang $(q',c)\in
+    \delta( q, a, b)$, og for alle $w\in \Sigma_1^*$, $s\in
+    \Sigma_2^*$
+  \end{itemize}
+
+  \bigskip $M$ accepterer en streng $w$ hvis og kun hvis der findes
+  $\gamma\in T$ således at \alert{$( q_0, w, \epsilon)\overset*\to
+    \gamma$}.
+\end{frame}
+
+\begin{frame}
+  \alert{Eksempel:} En operationel semantik for \emph{kontekstfrie
+    grammatikker\/}:
+
+  \medskip Givet en CFG $G=( V, \Sigma, R, S)$:
+  \begin{itemize}
+  \item konfigurationer: strenge af variable og terminaler: \\
+    \alert{$\Gamma=( V\cup \Sigma)^*$}
+  \item slutkonfigurationer: strenge af terminaler: \\
+    \alert{$T= \Sigma^*$}
+  \item transitioner: derivationsskridt! \\
+    \alert{$uAv\To uwv$} hvis $A\to w$ er i $R$
+  \end{itemize}
+
+  \bigskip $G$ genererer en streng $w\in T$ hvis og kun hvis
+  \alert{$S\overset*\To w$}.
+\end{frame}
+
+\section[Aflukningen]{Transitionsaflukningen}
+
+\begin{frame}
+  \alert{Definition 3.11:} Lad $( \Gamma, \mathord{\Tto{}}, T)$ være et
+  transitionssystem. \alert{Transitionsaflukningen} i $k$ skridt
+  \;\alert{$\Tto k$}\; er defineret induktivt ved
+  \begin{align*}
+    \gamma \Tto0 \gamma &\quad\text{for alle }\gamma \\
+    \gamma \Tto{n+1} \gamma' &\quad\text{hvis der findes } \gamma''\text{ for
+      hvilket } \gamma \Tto{} \gamma'' \Tto{n} \gamma'
+  \end{align*}
+  Vi skriver $\gamma \Tto* \gamma'$ hvis der findes et $k$ så $\gamma
+  \Tto k \gamma'$.
+
+  \bigskip -- dvs.\ $\gamma\Tto k \gamma'$ hvis der findes en
+  \emph{transitionsfølge}
+  \begin{equation*}
+    \gamma\Tto{} \gamma_1\Tto{} \gamma_2\Tto{}\dots\Tto{}
+    \gamma_{k-1}\Tto{} \gamma'
+  \end{equation*}
+
+  \medskip -- vi har allerede brugt aflukningen $\Tto*$ adskillige gange!
+\end{frame}
+
+\part{Operationel semantik}
+
+\section[Bims]{Abstrakt syntaks for \protect\textbf{Bims}}
+
+\begin{frame}[t]
+  \begin{textblock*}{\textwidth}[0,1](1ex,\textheight)
+    \small
+    \begin{pgfpicture}{0pt}{0pt}{\textwidth}{\textheight}
+      \pgfsetxvec{\pgfpoint{1em}{0ex}}
+      \pgfsetyvec{\pgfpoint{0em}{1em}}
+      \color{blue}
+      \pgfsetlinewidth{.5pt}
+      \pgfsetendarrow{\pgfarrowto}
+      \pgfputat{\pgfxy(2,6)}{\pgfbox[left,bottom]{basiselementer}}
+      \pgfxyline(5.8,7)(6.1,8)
+      \pgfxyline(6.3,7)(7.3,8)
+      \pgfputat{\pgfxy(2.5,4)}{\pgfbox[left,bottom]{sammensatte elementer}}
+      \pgfxyline(9,5)(10,8)
+      \pgfxyline(10,5)(14.2,8)
+      \pgfxyline(11,5)(18,8)
+      \pgfxyline(12,5)(22,8)
+      \color{magenta}
+      \pgfputat{\pgfxy(14,2)}{\pgfbox[center,bottom]{umiddelbare bestanddele}}
+      \pgfxyline(14,3)(13.1,8)
+      \pgfxyline(14.5,3)(15.2,8)
+    \end{pgfpicture}
+  \end{textblock*}
+
+  \begin{description}
+  \item[$n \in \mbox{\bf Num}$] -- Numeraler
+  \item[$x \in \mbox{\bf Var}$] --  Variable
+  \item[$a \in \mbox{\bf Aud}$] --  Aritmetiske udtryk
+  \item[$b \in \mbox{\bf Bud}$] --  Boolske udtryk
+  \item[$S \in \mbox{\bf Kom}$] --  Kommandoer
+  \end{description}
+  \begin{align*} 
+    S &\;::=\;  x \mathtt{:=} a \mid \mbox{\tt skip} \mid S_{1};S_{2} 
+    \mid \mbox{\tt if}\;\; b \;\;  \mbox{\tt then} \;\; S_{1} \;\;
+    \mbox{\tt else} \;\; S_{2}
+    \\ &\qquad\mid \mbox{\tt while} \;\; b \;\; \mbox{\tt do} \;\; S
+    \\ b &\;::=\; a_{1} = a_{2} \mid a_{1}  <  a_{2} \mid \neg b_{1} \mid
+    b_{1} \wedge b_{2} \mid \mbox{\tt (}\, b_{1}\, \mbox{\tt )}
+    \\ a &\;::=\; n \mid x \mid a_{1} \splus a_{2} \mid a_{1} \smult a_{2}
+    \mid a_{1} \ssub a_{2} \mid \mbox{\tt (}\, a_{1}\, \mbox{\tt )}
+  \end{align*}
+\end{frame}
+
+\section[Aud:\ big-step]{Big-step-semantik for aritmetiske udtryk (uden
+  variable)}
+
+\begin{frame}
+  \alert{Aritmetiske udtryk} uden variable:
+  \begin{equation*}
+    \mbox{\bf Aud:}\qquad a \;::=\; n \mid a_{1} \splus a_{2} \mid a_{1}
+    \smult a_{2} \mid a_{1} \ssub a_{2} \mid \mbox{\tt (}\, a_{1}\,
+    \mbox{\tt )}
+  \end{equation*}
+  hvor $n$ er et \alert{numeral} (talord) (en \emph{streng\/}!),
+  \emph{ikke et tal}
+  \begin{itemize}
+  \item numeraler skrives $\ul{42}$, tal skrives $42$
+  \item \emph{værdien\/} af $\ul{42}$ er $42$
+  \item vi har en \emph{semantisk funktion} $\mathcal N: \mbox{\bf Num}\to
+    \Int$ som giver værdien af en numeral
+  \end{itemize}
+
+  \medskip \alert{Big-step}-semantik:\ udtryk evalueres \alert{i ét hug}
+  \begin{itemize}
+  \item transitioner fra \emph{udtryk\/} til \emph{værdier}
+  \item f.x.\ en transition $\slp \ul2\splus
+    \ul4\srp\smult\slp \ul6\splus \ul1\srp\to 42$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+  \begin{textblock*}{\textwidth}[0,1](0pt,\textheight)
+    \small \only<2>{%
+      \begin{pgfpicture}{0pt}{0pt}{\textwidth}{\textheight}
+        \pgfsetxvec{\pgfpoint{2em}{0ex}}
+        \pgfsetyvec{\pgfpoint{0em}{2em}}
+%        \color{yellow}\pgfsetlinewidth{.2pt}\pgfgrid[step=\pgfpoint{2em}{2em}]{\pgfpoint{0pt}{0pt}}{\pgfpoint{\textwidth}{\textheight}}
+        \color{blue}
+        \pgfsetlinewidth{.5pt}
+        \pgfsetendarrow{\pgfarrowto}
+        \pgfputat{\pgfxy(.5,8)}{\pgfbox[left,base]{transitionsregel}}
+        \pgfxycurve(2.6,8.4)(2.8,9)(2.9,9.3)(3.3,9.4)
+        \pgfputat{\pgfxy(5.55,11)}{\pgfbox[center,base]{præmis}}
+        \pgfxyline(5.2,10.8)(4.6,10.2)
+        \pgfxyline(5.9,10.8)(6.5,10.2)
+        \pgfputat{\pgfxy(5,7.5)}{\pgfbox[left,base]{konklusion}}
+        \pgfxyline(5.9,8)(5.6,8.6)
+        \pgfputat{\pgfxy(10,7.5)}{\pgfbox[left,base]{sidebetingelse}}
+        \pgfxyline(11.3,7.9)(10.85,9.1)
+        \pgfputat{\pgfxy(3,5)}{\pgfbox[left,base]{aksiom
+            \emph{(transitionsregel uden præmis)}}}
+        \pgfxycurve(3.5,4.9)(3.7,4.3)(3.8,4.3)(4.2,4.2)
+      \end{pgfpicture}}
+  \end{textblock*}
+
+  \vspace*{-.5em}
+  \begin{tabular}{lc}
+    \uncover<1,3->{%
+      \runa{plus}{bss} & \newcondinfrule{a_{1} \to v_{1} \;\;\; a_{2}
+        \to v_{2}}{a_{1} \splus a_{2} \to v}{\mbox{hvor}\; v = v_{1} +
+        v_{2}} \\}
+    \runa{minus}{bss} & \newcondinfrule{a_{1} \to v_{1} \;\;\; a_{2}
+      \to v_{2}}{a_{1} \ssub a_{2} \to v}{\mbox{hvor}\; v = v_{1} - v_{2}} \\
+    \uncover<1,3->{%
+      \runa{mult}{bss} & \newcondinfrule{a_{1} \to v_{1} \;\;\; a_{2}
+        \to v_{2}}{a_{1} \mbox{\tt *} a_{2} \to v}{\mbox{hvor}\; v = v_{1} \cdot v_{2}} \\
+      \runa{parent}{bss} & \infrule{a_{1} \to v_{1}}{\mbox{\tt (}
+        a_{1} \mbox{\tt )} \to v_{1}} \\}
+    \runa{num}{bss} & $n \to v \;\;\;\; \mbox{hvis} \;\;\;\;
+    {\cal N}\sem{n} = v$
+  \end{tabular}
+
+  \bigskip\medskip \uncover<3->{%
+    Transitionssystemet $( \Gamma, \mathord\to, T)$:
+    \begin{itemize}
+    \item $\Gamma= \mbox{\bf Aud}\cup \Int$, $T= \Int$
+    \item $\mathord\to$ består af \alert{præcis de transitioner som kan
+        udledes af aksiomerne ved brug af et endeligt antal
+        transitionsregler}
+    \end{itemize}}
+\end{frame}
+
+\section{Derivationstræer}
+
+\begin{frame}[t]
+  At konstruere et \alert{derivationstræ} for udtrykket $\slp
+  \ul2\splus \ul4\srp\smult\slp \ul6\splus
+  \ul1\srp$:
+
+  \begin{pgfpicture}{0pt}{0pt}{\textwidth}{.5\textheight}
+        \pgfsetxvec{\pgfpoint{2em}{0ex}}
+        \pgfsetyvec{\pgfpoint{0em}{2em}}
+%        \color{yellow}\pgfsetlinewidth{.2pt}\pgfgrid[step=\pgfpoint{2em}{2em}]{\pgfpoint{0pt}{0pt}}{\pgfpoint{\textwidth}{.5\textheight}}
+        \color{black}\pgfsetlinewidth{.4pt}
+        \pgfputat{\pgfxy(7,.5)}{\pgfbox[center,center]{$\slp \ul2\splus
+            \ul4\srp\smult\slp \ul6\splus \ul1\srp\to
+            \alt<4->{\alert<4>{42}}{\blue{\text?\;\;}}$}}
+        \uncover<2->{%
+          \pgfxyline(3.2,1.3)(10.9,1.3)
+          \pgfputat{\pgfxy(4.5,2)}{\pgfbox[center,center]{$\slp \ul2\splus
+              \ul4\srp\to \alt<4->{\alert<4>6}{\blue{\text?}}$}}
+          \pgfputat{\pgfxy(9.5,2)}{\pgfbox[center,center]{$\slp
+              \ul6\splus \ul1\srp\to \alt<4->{\alert<4>7}{\blue{\text?}}$}}
+        }%
+        \uncover<3->{%
+          \pgfxyline(3.3,2.8)(5.8,2.8)
+          \pgfxyline(8.3,2.8)(10.8,2.8)
+          \pgfputat{\pgfxy(4.6,3.5)}{\pgfbox[center,center]{$\ul2\splus
+              \ul4\to \alt<4->{\alert<4>6}{\blue{\text?}}$}}
+          \pgfputat{\pgfxy(9.6,3.5)}{\pgfbox[center,center]{$\ul6\splus
+              \ul1\to \alt<4->{\alert<4>7}{\blue{\text?}}$}}
+        }%
+        \uncover<4->{%
+          \pgfxyline(2.8,4.3)(6.3,4.3)
+          \pgfxyline(7.8,4.3)(11.3,4.3)
+          \pgfputat{\pgfxy(3.5,5)}{\pgfbox[center,center]{$\ul2\to \alert<4>2$}}
+          \pgfputat{\pgfxy(5.7,5)}{\pgfbox[center,center]{$\ul4\to \alert<4>4$}}
+          \pgfputat{\pgfxy(8.5,5)}{\pgfbox[center,center]{$\ul6\to \alert<4>6$}}
+          \pgfputat{\pgfxy(10.7,5)}{\pgfbox[center,center]{$\ul1\to \alert<4>1$}}
+        }%
+        \uncover<5>{%
+          \color{red}\pgfsetlinewidth{.7pt}\pgfsetendarrow{\pgfarrowto}
+          \pgfxyline(7,.9)(4.6,1.6)
+          \pgfxyline(7,.9)(9.6,1.6)
+          \pgfxyline(4.6,2.4)(4.6,3.1)
+          \pgfxyline(9.6,2.4)(9.6,3.1)
+          \pgfxyline(4.6,3.9)(3.5,4.6)
+          \pgfxyline(4.6,3.9)(5.7,4.6)
+          \pgfxyline(9.6,3.9)(8.5,4.6)
+          \pgfxyline(9.6,3.9)(10.7,4.6)
+        }
+  \end{pgfpicture}
+
+  \uncover<5>{%
+    \bigskip derivationstræer:
+    \begin{itemize}
+    \item aksiomer i bladene
+    \item knude $k$ har sønner $p_1, p_2,\dots, p_n$ hvis og kun hvis der
+      er en transitionsregel
+
+      \vspace{-3ex}
+      \begin{equation*}
+        \infrule{p_{1}, p_2,\dots, p_{n}}{k}
+      \end{equation*}
+    \end{itemize}}
+\end{frame}
+
+\section[Aud:\ small-step]{Small-step-semantik for aritmetiske udtryk (uden
+  variable)}
+
+\begin{frame}
+  \alert{Small-step}-semantik:\ udtryk evalueres \alert{et skridt ad gangen}
+  \begin{itemize}
+  \item transitioner fra \emph{udtryk\/} til \emph{udtryk\/} og fra
+    \emph{udtryk\/} til \emph{værdier}
+  \item f.x.
+
+    \vspace{-4ex}
+    \begin{align*}
+      \slp \ul2\splus \ul4\srp\smult\slp \ul6\splus \ul1\srp
+       &\To \slp 2\splus \ul4\srp\smult\slp \ul6\splus \ul1\srp
+      \\ &\To \slp 2\splus 4\srp\smult\slp \ul6\splus \ul1\srp
+      \\ &\To \slp 6\srp\smult\slp \ul6\splus \ul1\srp
+    \end{align*}
+  \item transitionssystem $(\Gamma, \mathord\To, T)$:
+    \begin{itemize}
+    \item $\Gamma= \mbox{\bf Aud}'\cup \Int$, $T= \Int$
+    \item $\mathord\To$ defineret ved transitionsregler
+      \blue{\emph{(coming up!)}}
+    \end{itemize}
+  \end{itemize}
+
+  \bigskip Aritmetiske udtryk uden variable, men \emph{med værdier\/}:
+  \begin{equation*}
+    \mbox{\bf Aud}':\qquad a \;::=\; n \mid v\mid a_{1} \splus a_{2} \mid
+    a_{1} \smult a_{2} \mid a_{1} \ssub a_{2} \mid \mbox{\tt (}\, a_{1}\,
+    \mbox{\tt )}
+  \end{equation*}
+  hvor $n\in \mbox{\bf Num}$ er et numeral og $v\in \Int$ en værdi
+\end{frame}
+
+\begin{frame}
+\begin{tabular}{lc}
+\runa{plus-1}{sss} & \infrule{a_{1} \To a'_{1}}{a_{1} \splus a_{2} \To
+  a'_{1} \splus a_{2}} \\[-2ex]
+\runa{plus-2}{sss} & \infrule{a_{2} \To a'_{2}}{a_{1}
+  \splus a_{2} \To a_{1} \splus a'_{2} } \\
+\runa{plus-3}{sss} & $v_{1} \splus v_{2} \To v \;\;\; \mbox{hvor}\;\;
+v = v_{1}+v_{2}$ \\
+\runa{mult-1}{sss} & \infrule{a_{1} \To a'_{1}}{a_{1} \smult a_{2} \To
+  a'_{1} \smult a_{2}} \\[-2ex]
+\runa{mult-2}{sss} & \infrule{a_{2} \To a'_{2}}{a_{1}
+  \smult a_{2} \To a_{1} \smult a'_{2} } \\
+\runa{mult-3}{sss} & $v_{1} \smult v_{2} \To v \;\;\; \mbox{hvor}\;\;
+v = v_{1} \cdot v_{2}$
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+  \begin{tabular}{lc}
+\runa{sub-1}{sss} & \infrule{a_{1} \To a'_{1}}{a_{1} \ssub a_{2} \To
+  a'_{1} \ssub a_{2}} \\[-2ex]
+\runa{sub-2}{sss} & \infrule{a_{2} \To a'_{2}}{a_{1}
+  \ssub a_{2} \To a_{1} \ssub a'_{2} } \\
+\runa{sub-3}{sss} & $v_{1} \ssub v_{2} \To v \;\;\; \mbox{hvor}\;\;
+v = v_{1}-v_{2}$ \\[1ex]
+\runa{parent-1}{sss} & \infrule{a_{1} \To a'_{1}}{\mbox{\tt (}
+  a_{1} \mbox{\tt )} \To \mbox{\tt (} a'_{1}\mbox{\tt )}} \\[1ex]
+\runa{parent-2}{sss} & $\mbox{(} v \mbox{)} \To v$ \\[2ex]
+\runa{num}{sss} & $n \To v \;\;\;\; \mbox{hvis} \;\;\;\;
+{\cal N}\sem{n} = v$
+  \end{tabular}
+\end{frame}
+
+\section{Egenskaber}
+
+\begin{frame}
+  \alert{Sætning:} Vores big-step- og small-step-semantikker for
+  \textbf{Aud} er ækvivalente: Givet $a\in \textbf{Aud}$ og $v\in \Int$,
+  da har vi \alert{$a\to v$ hvis og kun hvis $a\overset*\To v$}.
+  \hfill\emph{\blue{(Bevis næste gang)}}
+
+  \bigskip \alert{Definition:} En operationel semantik givet ved et
+  transitionssystem $( \Gamma, \mathord\to, T)$ kaldes
+  \alert{deterministisk} hvis $\gamma\to \gamma_1$ og $\gamma\to \gamma_2$
+  medfører $\gamma_1= \gamma_2$ for alle $\gamma\in \Gamma$ og $\gamma_1,
+  \gamma_2\in T$ (\alert!).
+
+  Semantikken kaldes \alert{deterministisk på lang sigt} hvis
+  $\gamma\overset*\to \gamma_1$ og $\gamma\overset*\to \gamma_2$ medfører
+  $\gamma_1= \gamma_2$ for alle $\gamma\in \Gamma$ og $\gamma_1,
+  \gamma_2\in T$.
+
+  \bigskip \alert{Sætning 3.13 / 3.15 :} Vores big-step-semantik for
+  \textbf{Aud} er \emph{deterministisk}. Vores small-step-semantik for
+  \textbf{Aud} er \emph{deterministisk på lang
+    sigt}. \hfill\emph{\blue{(Bevises senere)}}
+
+  \bigskip \alert{Opgave $\pi$:} Vores small-step-semantik for
+  \textbf{Aud} er \emph{ikke deterministisk}. Lav den om så den er!
+\end{frame}
+
+\section[Bud:\ big-step]{Big-step-semantik for boolske udtryk (uden
+  variable)}
+
+\begin{frame}[t]
+  \alert{Boolske udtryk}:
+  \begin{equation*}
+    \qquad\textbf{Bud:}\qquad b \;::=\; a_{1} = a_{2} \mid a_{1}  <  a_{2} \mid
+    \neg b_{1} \mid b_{1} \wedge b_{2} \mid \mbox{\tt (}\, b_{1}\,
+    \mbox{\tt )}
+  \end{equation*}
+
+%  \vspace{-2ex}
+  \begin{itemize}
+  \item transitionssystem $( \textbf{Bud}\cup\{ \sand, \falsk\},
+    \mathord\to_b, \{ \sand, \falsk\})$
+  \item $\sand=$ sandt, $\falsk=$ falsk
+  \item $\mathord\to_a$ er transitioner fra \textbf{Aud}-transitionssystemet
+  \end{itemize}
+  
+  \rule{10em}{.2pt}
+
+  \begin{tabular}{ll}
+    \runa{ligmed-1}{bss} & \newcondinfrule{ a_{1} \to_a v_{1} \;\;\;
+      a_{2} \to_a v_{2}}{ a_{1} = a_{2} \to_b \sand}{\mbox{hvis}\; v_{1} =
+      v _{2}} \\[-1.2ex] 
+    \runa{ligmed-2}{bss} & \newcondinfrule{ a_{1} \to_a v_{1} \;\;\;
+      a_{2} \to_a v_{2}}{ a_{1} = a_{2} \to_b \falsk}{\mbox{hvis}\; v_{1}
+      \neq v _{2}} \\[-1.2ex] 
+    \runa{størreend-1}{bss} & \newcondinfrule{ a_{1} \to_a v_{1} \;\;\;
+      a_{2} \to_a v_{2}}{ a_{1}  <  a_{2} \to_b \sand}{\mbox{hvis}\; v_{1}
+      <  v _{2}} \\[-1.2ex] 
+    \runa{størreend-2}{bss} & \newcondinfrule{ a_{1} \to_a v_{1} \;\;\;
+      a_{2} \to_a v_{2}}{ a_{1}  <  a_{2} \to_b \falsk}{\mbox{hvis}\;
+      v_{1} \nless  v _{2}} 
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \begin{tabular}{ll}
+    \runa{ikke-1}{bss} & \infrule{ b \to_b \sand}{ \neg b \to_b \falsk} \\ 
+    \runa{ikke-2}{bss} & \infrule{ b \to_b \falsk}{ \neg b \to_b \sand} \\ 
+    \runa{parent-b}{bss} & \infrule{ b_{1} \to_b v}{ \mbox{\tt (} b_{1}
+      \mbox{\tt )} \to_b v} \\ 
+    \runa{og-1}{bss} & \infrule{ b_{1} \to_b \sand \;\;\; b_{2} \to_b
+      \sand}{ b_{1} \wedge b_{2} \to_b \sand} \\ 
+    \runa{og-2}{bss} & \infrule{ b_1 \to_b \falsk}{b_{1} \wedge
+      b_{2} \to_b \falsk} \\
+    \runa{og-3}{bss} & \infrule{ b_2 \to_b \falsk}{b_{1} \wedge
+      b_{2} \to_b \falsk}
+  \end{tabular}
+\end{frame}
+
+\end{document}
+
+
+
+  \alert{Definition 3.2:} Et \alert{transitionssystem} er en tripel $(
+  \Gamma, \mathord\to, T)$, hvor delene er
+  \begin{enumerate}
+  \item $\Gamma$ : en mængde af \alert{konfigurationer} (eller
+    \alert{tilstande})
+  \item $\mathord\to\subseteq \Gamma\times \Gamma$ :
+    \alert{transitions-relationen}
+  \item $T\subseteq \Gamma$ : mængden af \alert{slut-konfigurationer}
+  \end{enumerate}
+  -- en \emph{orienteret graf}
+
+  \medskip Det forudsættes desuden at slutkonfigurationerne er
+  \alert{terminale}, dvs.\ ikke har nogen udgående transitioner: \\
+  for ethvert $\gamma\in T$ findes der ingen $\gamma'\in \Gamma$ med
+  $\gamma\to \gamma'$.
+
+  \bigskip Operationel semantik $=$ at oversætte et \emph{program\/} til
+  et \emph{transitionssystem\/}:
+  \begin{itemize}
+  \item konfigurationer $=$ programtilstande
+  \item transitioner $=$ programskridt
+  \end{itemize}

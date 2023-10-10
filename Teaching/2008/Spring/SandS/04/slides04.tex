@@ -1,0 +1,567 @@
+\documentclass{beamer}
+
+\newcommand{\lektion}{4}
+\date{14 februar 2008}
+\usepackage{../sogs08-color}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\part{Forord}
+
+\section{Administrivia}
+
+\begin{frame}
+  \frametitle{Syntaksopgaven}
+
+  Et tip / ønske til syntaksopgaven:
+
+  \medskip Indfør 4 alfabeter:
+  \begin{align*}
+    \Sigma_0 &= \{ \texttt0\} \\
+    \Sigma_1 &= \{ \texttt1, \texttt2,\dots, \texttt9\} \\
+    \Sigma_2 &= \{ \texttt a,\dots, \texttt z, \texttt A,\dots,
+    \texttt Z\} \\
+    \Sigma_3 &= \{ \texttt+, \texttt-, \mathtt*\}
+  \end{align*}
+  Sæt $\Sigma= \Sigma_0\cup \Sigma_1\cup \Sigma_2\cup \Sigma_3$, og
+  betragt alle automater og udtryk \alert{over alfabetet $\Sigma$}.
+
+  \medskip Brug $\Sigma_0$, $\Sigma_1$, $\Sigma_2$, $\Sigma_3$ som
+  forkortelser på automaters pile og i udtrykkene.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Planen}
+  \begin{itemize}
+  \item i dag: afslutning på kursusdelen omhandlende regulære sprog
+  \item og afslutning på syntaksopgavens del omhandlende regulære
+    sprog
+  \item næste gang: perspektivering og \alert{spørgetime} !
+  \item og start på \alert{kontekstfrie sprog}
+  \end{itemize}
+\end{frame}
+
+\section[NFA]{Non-deterministiske endelige automater}
+
+\begin{frame}[t]
+  \hfill\xymatrix{%
+    \ar[r] & *+<2ex>[o][F]{q_1} \ar[r]^1 \ar@(ul,ur)[]^(.65){0,1}
+    & *+<2ex>[o][F]{q_2} \ar[r]^{0, \epsilon} 
+    & *+<2ex>[o][F]{q_3} \ar[r]^1
+    & *+<2ex>[o][F=]{q_4} \ar@(ul,ur)[]^(.65){0,1}
+  }\hfill\mbox{}
+
+  \bigskip \alert{Definition 1.37:} En \alert{nondeterministisk endelig
+    automat} (\alert{NFA}) er en 5-tupel \alert{$M= (Q, \Sigma, \delta,
+    q_0, F)$}, hvor delene er
+  \begin{enumerate}
+  \item $Q$ : en endelig mængde af tilstande
+  \item $\Sigma$ : input-alfabetet
+  \item \alert{$\delta: Q\times\big( \Sigma\cup\{ \epsilon\}\big)\to
+      \Pot(Q)$} : transitions-funktionen
+  \item $q_0\in Q$ : starttilstanden
+  \item $F\subseteq Q$ : mængden af accepttilstande
+  \end{enumerate}
+
+  \medskip $M$ siges at \alert{acceptere} et ord $w\in \Sigma^*$ hvis der
+  findes $m\in \Nat$ og $y_1, y_2,\dots, y_m\in \Sigma\cup\{ \epsilon\}$
+  og $r_0, r_1,\dots, r_m\in Q$ således at $w= y_1 y_2\dots y_m$ og
+  \begin{enumerate}
+  \item $r_0= q_0$,
+  \item $r_{i+1}\in \delta( r_i, y_{i+1})$ for alle $i= 0, 1,\dots, m-1$, og
+  \item $r_m\in F$.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+  \item enhver DFA er også en NFA
+  \item enhver NFA kan laves om til en DFA der genkender samme sprog
+    (\alert{delmængdekonstruktionen})
+  \item et sprog er defineret til at være \alert{regulært} hvis der er en
+    DFA der genkender det
+  \item[\IMPL] et sprog er regulært hvis og kun hvis der er en NFA der
+    genkender det
+  \item regulære sprog er lukket under $\cup$, $\circ$, ${}^*$ (vises ved
+    at konstruere en ny NFA ud fra de givne NFAs)
+  \item regulære sprog er lukket under $\cap$ og $\bar{~}$
+    (komplement) (vises ved at konstruere en ny \alert DFA ud fra de givne
+    \alert DFAs; konstruktionerne virker \emph{kun\/} for DFAs!)
+  \item NFAs er generelt mere simple at fremstille
+  \item NFA $=$ \alert{abstraktion} !
+  \end{itemize}
+\end{frame}
+
+\section[NFA vs.\ RE]{NFAs og regulære udtryk}
+
+\begin{frame}
+  \alert{Lemma 1.55:} Hvis et sprog beskrives ved et regulært udtryk, da
+  er det regulært.
+
+  \medskip \alert{Bevises} ved \alert{strukturel induktion}:
+  \begin{enumerate}
+  \item konvertér de basale regulære udtryk til NFAs
+  \item brug lukningsegenskaber til at konvertere sammensætninger af
+    regulære udtryk til sammensætninger af NFAs
+  \item \alert{Smart!}
+  \end{enumerate}
+
+  \bigskip I dag: \alert{Lemma 1.60:} Hvis et sprog er regulært, da kan
+  det beskrives ved et regulært udtryk.
+
+  \medskip (Bevises ved at \emph{generalisere\/} NFAs til \alert{GNFA}s.)
+
+  \bigskip \IMPL\ \alert{Sætning 1.54:} Et sprog er regulært \blue{hvis og
+    kun hvis} det kan beskrives ved et regulært udtryk.
+\end{frame}
+
+\section[Eksempel]{Eksempel på delmængdekonstruktion}
+
+\begin{frame}
+  \frametitle{Opgave 1.16}
+
+  Konvertér følgende to NFAs til DFAs ved hjælp af
+  delmængdekonstruktionen: \quad\blue{(ved tavlen)}
+  \begin{equation*}
+    \xymatrix@C=3ex@R=3ex{%
+      \ar[r] & *+<2ex>[o][F=]{1} \ar@(ur,dr)[]^(.3){\texttt a}
+      \ar@<1ex>[dd]^{\texttt a,\texttt b} \\\\ & *+<2ex>[o][F]{2}
+      \ar@<1ex>[uu]^{\texttt b} \\ & (\text a)
+    }\qquad\qquad\xymatrix@C=3ex@R=3ex{%
+      \ar[r] & *+<2ex>[o][F]{1} \ar@<1ex>[rr]^\epsilon
+      \ar[ddr]_{\texttt a} && *+<2ex>[o][F=]{2} \ar@<1ex>[ll]^{\texttt
+        a} \\\\ && *+<2ex>[o][F]{3} \ar@(ur,dr)[]^{\texttt b}
+      \ar[uur]_{\texttt a, \texttt b} \\ && (\text b)
+    }
+  \end{equation*}
+
+\end{frame}
+
+\section{Transitionssystemer}
+
+\begin{frame}
+  \alert{Transitions-systemer}: en generalisering af endelige
+  automater, både DFA og NFA:
+
+  \medskip \alert{Definition:} Et \alert{transitionssystem} er en
+  4-tupel \alert{$(Q, \Sigma, T, q_0)$}, hvor delene er
+  \begin{enumerate}
+  \item $Q$ : en mængde af tilstande \blue{(endelig eller uendelig)}
+  \item $\Sigma$ : et alfabet \blue{(en endelig mængde)}
+  \item $\alert{T\subseteq Q\times \Sigma\times Q}$ :
+    transitions-\alert{relationen}
+  \item $q_0\in Q$ : starttilstanden
+  \end{enumerate}
+
+  \bigskip
+  \begin{itemize}
+  \item En NFA er et \alert{endeligt} transitionssystem med en
+    specificeret mængde af \alert{accepttilstande}, og med et specielt
+    tegn $\alert\epsilon\in \Sigma$
+  \item En DFA er en NFA som opfylder følgende egenskaber:
+    \begin{enumerate}
+    \item der er ingen transitioner $(q, \epsilon, q')\in T$
+    \item for alle $q\in Q$ og alle $a\in \Sigma$, med $a\ne
+      \epsilon$, findes $q'\in Q$ og en transition $(q, a, q')\in T$
+    \item hvis $(q, a, q_1')\in T$ og $(q, a, q_2')\in T$, så er
+      $q_1'= q_2'$
+    \end{enumerate}
+
+  \end{itemize}
+
+
+\end{frame}
+
+\part{Regulære og ikke-regulære sprog}
+
+\section[NFA $\Rightarrow$ RE]{Regulære sprog genereres af regulære udtryk}
+
+\begin{frame}[t]
+  \alert{Lemma 1.60:} Givet et alfabet $\Sigma$ og et regulært sprog
+  $L\subseteq \Sigma^*$, da findes et regulært udtryk $R$ over $\Sigma$
+  således at $L= \llbracket R\rrbracket$.
+
+  \medskip \alert{Nøgle} til beviset: Ny slags maskiner der kombinerer NFA
+  og regulære udtryk: \alert{generaliserede nondeterministiske endelige
+    automater} (\alert{GNFA})
+
+  \bigskip \alert{Definition 1.64:} En \alert{GNFA} er en 5-tupel
+  \alert{$(Q, \Sigma, \delta, q_0, q_f)$}, hvor delene er
+  \begin{enumerate}
+  \item $Q$ : en endelig mængde af tilstande
+  \item $\Sigma$ : input-alfabetet
+  \item \alert{$\delta:\big( Q\setminus\{ q_f\}\big)\times\big(
+      Q\setminus\{ q_0\}\big)\to \mathcal R$} : transitions-funktionen
+  \item $q_0\in Q$ : starttilstanden
+  \item \alert{$q_f\in Q$} : accepttilstanden
+  \end{enumerate}
+
+  \medskip \alert{Notation:} $\alert{\mathcal R}= \mathcal R( \Sigma)=$
+  mængden af alle \alert{regulære udtryk} over et givet alfabet $\Sigma$.
+
+  \medskip (Bemærk at GNFAs introduceres kun for det her bevis. De bruges
+  ikke til andet.)
+\end{frame}
+
+\begin{frame}[t]
+  \begin{textblock*}{.4\textwidth}(.58\textwidth,.7\textheight)
+    \only<2>{{\color{blue}%
+      Endnu en speciel form for \alert{transitionssystem}:  alfabetet
+      er $\mathcal R( \Sigma)$, så transitionerne er $T\subseteq
+      Q\times \mathcal R( \Sigma)\times Q$.
+    }}
+  \end{textblock*}
+
+  Definition 1.64: En \alert{GNFA} er en 5-tupel $(Q, \Sigma,
+    \delta, q_0, q_f)$, hvor delene er
+  \begin{enumerate}
+    \setcounter{enumi}2
+  \item $\delta:\big( Q\setminus\{ q_f\}\big)\times\big(
+      Q\setminus\{ q_0\}\big)\to \mathcal R$ : transitions-funktionen
+    \setcounter{enumi}4
+  \item $q_f\in Q$ : accepttilstanden
+  \end{enumerate}
+
+  \medskip Ligesom NFAs, men
+  \begin{itemize}
+  \item med kun \alert{én} accepttilstand
+  \item med \alert{regulære udtryk} på transitionerne i stedet for tegn
+  \item med transitioner \alert{fra enhver tilstand til enhver tilstand}
+    (også sig selv), bortset fra at
+    \begin{itemize}
+    \item starttilstanden ikke har \alert{indgående} transitioner, og at
+    \item accepttilstanden ikke har \alert{udgående} transitioner
+    \end{itemize}
+  \end{itemize}
+
+  \xymatrix@C=7ex@R=7ex{%
+    \ar[r] \ar@{}[d]|{\alert{(1.61)}}
+    & *+<2ex>[o][F]{q_0} \ar[r]^{ab^*} \ar[d]_\emptyset
+    \ar@/^2ex/[dr]|(.65){}="l2"
+    & *+<2ex>[o][F]{} \ar@(ur,r)[]^(.65){aa} \ar@/_/[dl]_(.6){a^*}
+    \ar[d]^{ab\cup ba} \ar@{}[drrr]|(.3)b="l1"
+    \\ & *+<2ex>[o][F]{} \ar@(l,dl)[]_(.35){ab} \ar[r]_{b^*}
+    \ar@/_/[ur]_(.4){(aa)^*}
+    & *+<2ex>[o][F=]{q_f} &&&
+    \ar@/_/@{.>}"l1";"l2"
+  }
+\end{frame}
+
+\begin{frame}[t]
+  Definition 1.64: En \alert{GNFA} er en 5-tupel \alert{$(Q, \Sigma,
+    \delta, q_0, q_f)$}, hvor delene er
+  \begin{enumerate}
+  \item $Q$ : en endelig mængde af tilstande
+  \item $\Sigma$ : input-alfabetet
+  \item $\delta:\big( Q\setminus\{ q_f\}\big)\times\big(
+      Q\setminus\{ q_0\}\big)\to \mathcal R$ : transitions-funktionen
+  \item $q_0\in Q$ : starttilstanden
+  \item $q_f\in Q$ : accepttilstanden
+  \end{enumerate}
+
+  \medskip GNFAen \alert{accepterer} et ord $w\in \Sigma^*$ hvis der
+  findes $m\in \Nat$ og $y_1, y_2,\dots, y_m\in \Sigma^{\alert *}$
+  (\alert!) og $r_0, r_1,\dots, r_m\in Q$ således at $w= y_1 y_2\dots y_m$
+  og
+  \begin{enumerate}
+  \item $r_0= q_0$,
+  \item $y_{i+1}\in \llbracket \delta( r_i, r_{i+1})\rrbracket$ for alle
+    $i= 0, 1,\dots, m-1$, og
+  \item $r_m= q_f$.
+  \end{enumerate}
+
+  \bigskip \alert{Bevisidé:} konvertér en DFA til en GNFA og så GNFAen til
+  et regulært udtryk ved at \alert{fjerne én tilstand ad gangen}.
+\end{frame}
+
+\begin{frame}[t]
+  \begin{textblock*}{\textwidth}[0,1](0em,1.03\textheight)
+    \only<1>{%
+      \alert{Eksempel $1.68'$:}
+      
+      \vspace{-5ex}
+      \begin{equation*}
+        \vcenter{\xymatrix@C=2.5ex{%
+            \ar[r] & *+<2ex>[o][F]{1} \ar@/^/[rr]^a \ar[dr]^b
+            && *+<2ex>[o][F=]{2} \ar@(u,ur)[]^(.7){a,b} \ar[ll]^a
+            \\ && *+<2ex>[o][F=]{3} \ar@/^/[ul]^b \ar@/_/[ur]_a
+          }} \quad\blue{\Longrightarrow}\hspace{-1em}
+        \vcenter{\xymatrix@C=2.5ex{%
+            && *+<2ex>[o][F]{1} \ar@/^/[rr]^a \ar[dr]^(.65)b
+            \ar[drrr]^(.67){\alert \emptyset} \ar@(ul,u)[]^(.3){\alert \emptyset}
+            && *+<2ex>[o][F]{2} \ar@(u,ur)[]^(.7){\alert{a\cup b}}
+            \ar[ll]^a \ar[dr]^{\alert \epsilon} \ar[dl]_(.65){\alert \emptyset}
+            \\ \ar[r] & *+<2ex>[o][F]{\alert{q_0}} \ar[ur]^{\alert \epsilon}
+            \ar@/_/[rr]_{\alert \emptyset} \ar[urrr]^(.33){\alert \emptyset}
+            && *+<2ex>[o][F]{3} \ar@/^/[ul]^(.35)b \ar@/_/[ur]_(.35)a
+            \ar[rr]_{\alert \epsilon} \ar@(d,dr)[]_(.7){\alert \emptyset}
+            && *+<2ex>[o][F=]{\alert{q_f}}
+          }}
+      \end{equation*}}%
+  \end{textblock*}
+  \begin{textblock*}{\textwidth}[0,1](0em,1.03\textheight)
+    \only<2>{%
+      {\color{blue}
+        \begin{align*}
+          &Q= Q_1\cup\{ q_0, q_f\} \\[-.5ex]
+          &\delta( q, q')=
+          \begin{cases}
+            \epsilon &\text{hvis $q= q_0$ eller $q'= q_f$} \\
+            a_1\cup a_2\cup\dots\cup a_k &\text{hvis $q, q'\in Q_1$ og
+              $\delta_1( q, a_i)= q'$} \\
+            &\text{\qquad  for alle $i= 1, 2,\dots, k$} \\
+            \emptyset &\text{hvis $q, q'\in Q_1$ og $\delta_1( q, a)\ne q'$} \\
+            &\text{\qquad for alle $a\in \Sigma$}
+          \end{cases}
+        \end{align*}}}%
+  \end{textblock*}
+  \begin{textblock*}{2em}[1,1](1.1\textwidth,.975\textheight)
+    \only<2>{%
+      {\color{magenta} $(a)$
+
+        \vspace{3.3ex} $(b)$
+
+        \vspace{3.4ex} $(c)$
+      }}
+  \end{textblock*}
+  \begin{textblock*}{.5\textwidth}(-3ex,13.5em)
+    \only<3>{%
+      \begin{equation*}
+        \vcenter{\xymatrix@R=1ex@C=2ex{%
+            *+<2ex>[o][F]{q} \ar[dr]^{R_1} \ar[dd]_{R_4}
+            \\ & *+<2ex>[o][F]{q_\text{rip}} \ar@(u,ur)[]^(.7){R_2}
+            \ar[dl]^{R_3}
+            \\ *+<1.5ex>[o][F]{q'}
+          }} \quad\blue{\Longrightarrow}\qquad
+        \vcenter{\xymatrix@R=2.2ex{%
+            *+<2ex>[o][F]{q} \ar[dd]^{\alert{R_4\cup R_1( R_2)^* R_3}}
+            \\ \\ *+<1.5ex>[o][F]{q'}
+          }}
+      \end{equation*}}%
+  \end{textblock*}
+  \begin{textblock*}{.5\textwidth}(-3ex,13.5em)
+    \only<4>{%
+      \begin{equation*}
+        \vcenter{\xymatrix@R=1ex@C=2ex{%
+            *+<2ex>[o][F]{q} \ar[dr]^{R_1} \ar[dd]_{R_4}
+            \\ & *+<2ex>[o][F]{q_\text{rip}} \ar@(u,ur)[]^(.7){R_2}
+            \ar[dl]^{R_3}
+            \\ *+<1.5ex>[o][F]{q'}
+          }} \phantom{\quad\blue{\Longrightarrow}\qquad
+        \vcenter{\xymatrix@R=2.2ex{%
+            *+<2ex>[o][F]{q} \ar[dd]^{\alert{R_4\cup R_1( R_2)^* R_3}}
+            \\ \\ *+<1.5ex>[o][F]{q'}
+          }}}
+      \end{equation*}}%
+  \end{textblock*}
+
+  \alert{Lemma 1.60:} Givet et alfabet $\Sigma$ og et regulært sprog
+  $L\subseteq \Sigma^*$, da findes et regulært udtryk $R$ over $\Sigma$
+  således at $L= \llbracket R\rrbracket$.
+  
+  \medskip \alert{Bevis:} Lad $M\;\blue{=( Q_1, \Sigma, \delta_1, q_1,
+    F_1)}$ være en DFA med $\llbracket M\rrbracket= L$.
+  \begin{enumerate}
+  \item Konvertér $M$ til en GNFA $G=( Q, \Sigma, \delta, q_0, q_f)$%
+    \only<1-2>{%
+      :
+      \begin{enumerate}
+      \item[\magenta{$(a)$}] Lav en ny starttilstand $q_0$ og en ny
+        accepttilstand $q_f$, med $\epsilon$-transitioner fra $q_0$ til den
+        gamle starttilstand og fra alle gamle accepttilstande til $q_f$.
+      \item[\magenta{$(b)$}] Erstat transitioner med flere end ét label med
+        én transition der som label har foreningen af disse labels.
+      \item[\magenta{$(c)$}] Indsæt $\emptyset$-transitioner hvor der
+        mangler pile.
+      \end{enumerate}}%
+    \only<3->{%
+    \item Konvertér $G$ til et regulært udtryk $R$%
+      \only<3-4>{%
+        :
+      
+        \blue{\textsc{Convert}}$(G)$:
+        \begin{enumerate}
+        \item Lad \alert{$k=| Q|$}\quad -- antallet af tilstande i $G$.
+        \item Hvis \alert{$k= 2$}, returnér \alert{$\delta( q_0, q_f)$}.
+        \item Vi har \alert{$k> 2$}. Lad $q_\text{rip}\in Q\setminus\{ q_0,
+          q_f\}$.
+          
+          Lad \alert{$Q'= Q\setminus\{ q_\text{rip}\}$}, og definér
+          $\delta': \big( Q'\setminus\{ q_f\}\big)\times\big( Q'\setminus\{
+          q_0\}\big)\to \mathcal R$ på følgende måde:
+          \only<4>{%
+            
+            \medskip\hspace*{.15\linewidth}
+            \begin{minipage}[t]{.85\linewidth}
+              \raggedright For $q\in Q'\setminus\{ q_f\}$ og $q'\in
+              Q'\setminus\{ q_0\}$ lad $R_1= \delta( q, q_\text{rip})$,
+              $R_2= \delta( q_\text{rip}, q_\text{rip})$, $R_3= \delta(
+              q_\text{rip}, q')$ og $R_4= \delta( q, q')$, og lad
+              \alert{$\delta'( q, q')= R_4\cup R_1( R_2)^* R_3$}.
+            \end{minipage}
+            
+            \vspace{2ex}
+          \item Returnér \blue{\textsc{Convert}}$(\alert{G'=( Q', \Sigma,
+              \delta', q_0, q_f)})$}
+        \end{enumerate}}%
+      \only<5->{%
+        .
+      \item Vis at $\llbracket M\rrbracket= \llbracket R\rrbracket$:
+        \begin{enumerate}
+        \item Vis at \alert{$\llbracket M\rrbracket= \llbracket
+            G\rrbracket$}: nemt
+        \item Vis at \alert{$\llbracket G\rrbracket= \llbracket R\rrbracket$}:
+          \begin{enumerate}
+          \item Hvis \alert{$k=| Q|= 2$}: $Q=\{ q_0, q_f\}$, og $R=
+            \delta( q_0, q_f)$ \IMPL\ \blue\checkmark
+          \item Hvis \alert{$k> 2$}: Vis at \alert{$\llbracket
+              G\rrbracket= \llbracket G'\rrbracket$}
+          \end{enumerate}
+        \end{enumerate}
+      \item \alert{Done!}
+      }}
+    \vspace*{20ex}
+  \end{enumerate}
+\end{frame}
+
+\section{Ikke-regulære sprog}
+
+\begin{frame}
+  \emph{Ikke alle sprog er regulære.\/} F.x.\ sproget \alert{$\{ 0^n
+    1^n\mid n\in \Nat\}$}:
+  \begin{equation*}
+    \xymatrix{%
+      \ar[r] & *+<2ex>[o][F=]{} \ar[r]^0
+      & *+<2ex>[o][F]{} \ar[r]^0 \ar[d]^1
+      & *+<2ex>[o][F]{} \ar[r]^0 \ar[d]^1
+      && {\cdots} & \ar[r]^0
+      & *+<2ex>[o][F]{} \ar[r]^0 \ar[d]^1
+      && {\cdots}
+      \\ && *+<2ex>[o][F=]{}
+      & *+<2ex>[o][F]{} \ar[l]^1
+      & \ar[l]^1
+      & {\cdots}
+      && *+<2ex>[o][F]{} \ar[l]^1
+      & \ar[l]^1
+      & {\cdots}
+    }
+  \end{equation*}
+
+  -- en \alert{uendelig} automat!
+
+  \bigskip \emph{Pumping Lemma}: en egenskab ved alle regulære sprog.
+
+  \medskip \IMPL\ Hvis et sprog \emph{ikke\/} har den egenskab, \alert{kan
+    det ikke være regulært}.
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Sætning 1.70 (Pumpelemmaet):} For ethvert regulært sprog $A$
+  findes der et (naturligt) tal $p$ således at ethvert ord $s\in A$ der
+  har længde mindst $p$ kan opsplittes i tre stykker, $s= xyz$, med
+  \begin{itemize}
+  \item $|y|> 0$ og $|xy|\le p$,
+  \item og således at ordene $x y^i z\in A$ for alle $i\in \Nat_0$.
+  \end{itemize}
+
+  \only<1>{%
+    \bigskip \emph{En gang til:}\\
+    For ethvert regulært sprog $A$\\
+    \qquad findes $p\in \Nat_0$ således at\\
+    \qquad\qquad for ethvert $s\in A$ med $|s|\ge p$\\
+    \qquad\qquad\qquad findes en opsplitning $s= xyz$ således at\\
+    \qquad\qquad\qquad\qquad $|y|> 0$ og $|xy|\le p$ og\\
+    \qquad\qquad\qquad\qquad for alle $i\in \Nat_0$\\
+    \qquad\qquad\qquad\qquad\qquad $x y^i z\in A$.
+
+  \vspace*{20ex}}%
+  \only<2>{%
+    \bigskip \alert{Eksempel 1.73:} Sproget $B= \{ 0^n 1^n\mid
+    n\in \Nat\}$ er ikke regulært.
+
+    \medskip \alert{Bevis} (ved modstrid; kortere end i bogen!):
+    \emph{Antag\/} at $B$ er regulært, og lad $p$ være pumpelængden. Lad
+    \alert{$s= 0^p 1^p$}, da er $|s|\ge p$.
+
+    \smallskip Lad $s= xyz$ være en opsplitning af $s$ som opfylder
+    pumpelemmaets betingelser. Pga.\ \alert{$|xy|\le p$} kan $y$ kun
+    indeholde $0$er, og pga.\ \alert{$|y|> 0$} indeholder $y$ mindst ét
+    $0$.
+
+    \smallskip Sidste betingelse i lemmaet siger bl.a.\ at ordet
+    $\alert{xyyz}\in A$, men dette ord indeholder for mange
+    $0$er. \alert{Modstrid!}
+
+  \vspace*{20ex}}%
+  \only<3->{%
+    \bigskip \alert{Bevis:} Lad $M=( Q, \Sigma, \delta, q_0, F)$ være en
+    DFA der genkender $A$, og lad \alert{$p=| Q|$}. Lad $s= s_1 s_2\dots
+    s_n\in A$ med $|s|\ge p$.}
+
+  \only<3>{%
+    {\color{blue} \smallskip Mens $M$ læser $s$, kommer den igennem en
+      følge af $n+1$ tilstande. Men \alert{$n+1> p$}, så der er flere
+      tilstande i følgen end der er i $M$!
+
+      \smallskip Dvs.\ der er en tilstand der optræder \alert{to gange} i
+      følgen -- en \alert{løkke}!
+
+      \smallskip Hvis vi tager $x$ til at være den del af $s$ der læses
+      \emph{før\/} løkken, $y$ den del der læses \emph{i\/} løkken, og $z$
+      den del der læses \emph{efter\/} løkken, kan vi gennemløbe løkken
+      \alert{$i$} gange og genkende strengen $x y^{\alert i} z$.}
+
+    \vspace*{20ex}}%
+  \only<4->{%
+    \smallskip Lad $r_1, r_2,\dots, r_{n+1}\in Q$ således at $r_1= q_0$,
+    $r_{n+1}\in F$, og $r_{i+1}= \delta( r_i, s_i)$ for alle $i$.
+
+    \smallskip Vi har $n+1\ge p+1$, og $|Q|= p$. Derfor findes indices $j$
+    og $\ell$ således at $1\le j< \ell\le p+1$ og $r_j= r_\ell$.
+
+    \smallskip Lad $x= s_1\dots s_{j-1}$, $y= s_j\dots s_{\ell-1}$, $z=
+    s_\ell\dots s_n$. Pga.\ $j< \ell$ har vi $|y|\ge 0$, og $\ell\le p+1$
+    medfører $|xy|\le p$.
+
+    \smallskip Eftersom $\delta( r_{\ell-1}, s_{\ell-1})= r_j$, er enhver
+    følge $(r_1,\dots, r_{j-1})( r_j,\dots, r_{\ell-1})^{\alert i}(
+    r_\ell,\dots, r_{n+1})$ en accepterende følge for $M$, og ordet den
+    genkender er $x y^{\alert i} z$.
+
+  \vspace*{20ex}}
+\end{frame}
+
+\begin{frame}[t]
+  \alert{Eksempel 1.74:} Sproget $C=\{ w\mid \text{antallet af $0$ i $w$
+    er lig med antallet af $1$}\}\subseteq\{ 0, 1\}^*$ er ikke regulært.
+
+  \medskip (Samme bevis som for eksempel 1.73)
+
+  \bigskip \alert{Bemærkning} (opgave 1.48): Sproget $D=\{ w\mid
+  \text{antallet af $01$ i $w$ er lig med antallet af $10$}\}\subseteq\{
+  0, 1\}^*$ \alert{er regulært!}
+
+  (Men \emph{kun\/} over alfabetet $\{ 0, 1\}$; hvis alfabetet f.x.\ er
+  $\{ 0, 1, 2\}$, er $D$ \emph{ikke\/} regulært \dots~)
+
+  \medskip \alert{Bevis:}
+
+  \vspace{-5ex}
+  \begin{equation*}
+    \xymatrix@R=3ex{%
+      && *+<2ex>[o][F=]{} \ar@(u,ul)[]_(.7)0 \ar@/^/[r]^1
+      & *+<2ex>[o][F]{} \ar@(ur,u)[]_(.3)1 \ar@/^/[l]^0
+      \\ \ar[r] & *+<2ex>[o][F=]{} \ar[ur]^0 \ar[dr]_1
+      \\ && *+<2ex>[o][F=]{} \ar@(d,dl)[]^(.7)1 \ar@/^/[r]^0
+      & *+<2ex>[o][F]{} \ar@(dr,d)[]^(.3)0 \ar@/^/[l]^1
+    }\qquad\qquad
+  \end{equation*}
+\end{frame}
+
+\end{document}
+
+HUSK ex. 1.48!
