@@ -1,0 +1,16 @@
+Hi,
+
+following a suggestion of Kim G. Larsen, I am organizing a post-MFCS workshop on distributed hybrid systems.  See website for description.
+
+I intend to have 5-6 invited speakers and 6-10 contributed papers (but this is, of course, difficult to predict).  For now, 2.5 invited speakers have confirmed, and two others are local and have already confirmed that they will be available for the workshop.
+
+I have 10 people in mind for the PC, but haven't contacted them yet.  I've told Easychair that we expect 10-20 submissions, but see again the note about predictability.
+
+I have organized the FORMATS'11 conference and several workshops, so I know how to do this.  We do have sponsors, both here at École polytechnique and at CISS in Aalborg.  Several people, including Kim G. Larsen and Martin Fränzle, find this topic of great importance, and we are spending it much attention here at École polytechnique also.
+
+Contributed papers will be reviewed by at least two PC members and only accepted after considerable scrutiny.
+
+Best regards,
+Uli Fahrenberg
+École polytechnique, Palaiseau, France
+

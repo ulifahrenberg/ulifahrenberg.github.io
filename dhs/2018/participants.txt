@@ -1,0 +1,29 @@
+Dang		Thao		Verimag				thao.dang@imag.fr
+Fajstrup	Lisbeth		Aalborg	University		fajstrup@math.aau.dk
+Jaulin		Luc		ENSTA Bretagne			luc.jaulin@ensta-bretagne.fr
+Ledinot		Emmanuel	Dassault Aviation		emmanuel.ledinot@dassault-aviation.com
+Platzer		André		Carnegie Mellon	University	aplatzer@cs.cmu.edu
+
+	vegetarian or chicken
+
+Abate		Alessandro	Oxford				alessandro.abate@cs.ox.ac.uk
+Azaiez		Selma		CEA Saclay			selma.azaiez@cea.fr
+Bidet		François	LIX				francois.bidet@polytechnique.edu
+Boulanger	Frédéric	LRI				frederic.boulanger@centralesupelec.fr
+Bournez		Olivier		LIX				bournez@lix.polytechnique.fr
+Chapoutot	Alexandre	ENSTA ParisTech			alexandre.chapoutot@ensta-paristech.fr
+Charron-Bost	Bernadette	LIX				charron@lix.polytechnique.fr
+Cucu-Grosjean	Liliana		Inria Paris			liliana.cucu@inria.fr
+Dubut		Jérémy		NII Tokyo			dubutjeremy@gmail.com
+Fahrenberg	Uli		LIX				uli@lix.polytechnique.fr
+Fribourg	Laurent		LSV				fribourg@lsv.ens-cachan.fr
+Goubault	Eric		LIX				goubault@lix.polytechnique.fr
+Jacquemin	Maxime		CEA Saclay			maxime2.jacquemin@gmail.com
+Kröger		Paul		University of Oldenburg		paul.kroeger@informatik.uni-oldenburg.de
+Le Coënt	Adrien		Aalborg University		adrien@cs.aau.dk
+Mullier		Olivier		ENSTA ParisTech			olivier.mullier@ensta-paristech.fr
+Nguyen Van	Hai		LRI				hai.nguyen-van@lri.fr
+Ouazzani	Sabrina		Paris-Est Créteil		sabouazz@gmail.com
+Pautet		Laurent		Télécom ParisTech		laurent.pautet@telecom-paristech.fr
+Tanguy		Herlicq		LIX				tanguy.herlicq@polytechnique.edu
+Westphal	Bernd		University of Freiburg		westphal@informatik.uni-freiburg.de

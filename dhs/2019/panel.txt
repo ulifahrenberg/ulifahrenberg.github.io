@@ -1,0 +1,22 @@
+title: 
+
+Verification and synthesis for heterogeneous systems encompassing learned and learning components
+
+abstract: 
+
+Modern complex engineering goals require complex models, such as
+distributed hybrid systems and heterogeneous system architectures. In
+view of recent data-driven technologies and data access capabilities,
+models ought to encompass the presence of data-dependent,
+learned or learning, and adaptive components. This results in a complex
+networked model with black- or grey-box learning components, for
+instance a networked control model with a DNN-enabled controller.  
+
+This panel discusses approaches to verify such models, or to synthesise
+control architectures abiding by network-level goals or requirements. We
+solicit contributions and participation from experts in Rigorous
+System Design (e.g., contract-based design), Formal Verification (e.g.,
+assume-guarantee verification), Control Engineering (e.g., networked
+control systems), as well as Robotics and Artificial Intelligence (e.g.,
+multi-agent systems) and Machine Learning (e.g., deep neural nets).
+

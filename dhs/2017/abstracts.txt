@@ -1,0 +1,60 @@
+Franzle
+
+Indecision and delays are the parents of failures
+
+The advent of systems of cooperative cyber-physical systems
+draws attention to a central problem of networked and distributed
+control systems: the ubiquity of delay in feedback loops between
+logically or spatially distributed components, which is not adequately 
+reflected in traditional models of hybrid-state dynamics based on
+ordinary differential equations and immediate transitions. Occurrence
+of feedback delays may significantly alter a system's dynamic response.
+Unmodeled delays in a control loop consequently have the potential to
+invalidate any stability and safety certificate obtained on a related
+delay-free model, which is current practice in hybrid-system analysis.
+In this talk, we will present various approaches to the analysis and
+correct-by-construction design of dynamical systems subject to delayed
+information exchange, as pertinent to distributed hybrid systems. We
+will explain automatic verification procedures for invariance properties
+and bounded temporal-logic based on constraint-solving or rigorous
+generalization from simulations. This analytical view will be
+complemented by a constructive one based on a notion of delayed games
+and corresponding strategy synthesis algorithms.
+
+
+Raussen
+
+Topological models for spaces of executions in HDA
+
+Higher dimensional automata (HDA) are powerful models for concurrency in terms of
+expressiveness. They can be described using cubical complexes which makes the topic
+amenable to a combinatorial/topological analysis. An execution corresponds to a directed
+path (d-path) in such a (time-flow directed) state space, and a d-homotopy
+(preserving the directions) of d-paths has equivalent computations as a result. This is why
+we started investigating the space of all executions (d-paths between given end points)
+in an HDA from a topological perspective. The determination of path components is
+particularly important for applications.
+
+Getting to grips with the effects of the non-reversible time-flow is essential, and one
+needs to "twist" methods from ordinary algebraic topology in order to make them
+applicable. I will discuss particular directed spaces arising from Higher Dimensional
+Automata (HDA). There are various methods identifying the homotopy type of the space
+of executions between two states in such an automaton with some finite complex: in
+simple cases as prodsimplicial complex - with products of simplices as building blocks
+- or as a configuration space living in a product of simplices.
+In several interesting cases,
+it is possible to calculate homology groups and other topological invariants of execution
+spaces. We sketch a method recently devised by Ziemiański identifying - for a general
+HDA - a space of directed paths with a prodpermutahedral complex arising by glueing
+various permutahedra along their boundaries.
+
+Joint work with L. Fajstrup (Aalborg), E. Goubault, E. Haucourt, S. Mimram (Éc.
+Polytechnique, Paris), R. Meshulam (Haifa) and K. Ziemiański (Warsaw)
+
+
+Wisniewski
+
+Safety Verification of Stochastic Hybrid Systems
+
+I will define the notion of safety both for deterministic and stochastic systems. As for stability of dynamical systems, we associate a function to the dynamical systems and study its properties. A barrier certificate is such a function. If we additionally assume that this function is polynomial, we arrive at an algebraic test. In short, we check if a function and its directional derivative is positive on certain sets. To this end, one can use the sum of squares and associated toolboxes in Matlab. I will extend the concept of barrier certificates from dynamical systems to stochastic hybrid systems. Two hybrid systems will be discussed: a switching diffusion process and piecewise deterministic Markov process. A switching diffusion process is a family of diffusions coupled by a random switching process - a compound Poisson process. The random switching process models sporadic switches between continuous subsystems. The second object of interest is Davis’ piecewise deterministic Markov process. A piecewise deterministic Markov process consists of deterministic dynamical systems that alternate with random discrete transitions. Randomness of the discrete transitions (jumps) is characterised by stochastic time of jumps, and stochastic jump-destinations. This work has been done in collaboration with Manuela L. Bujorianu (Strathclyde).
+

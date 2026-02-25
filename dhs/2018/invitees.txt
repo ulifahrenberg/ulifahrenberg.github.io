@@ -1,0 +1,21 @@
+Dang            Thao            Verimag                 thao.dang@imag.fr
+
+Fajstrup        Lisbeth         Aalborg                 fajstrup@math.aau.dk
+
+	arrival	Tue morning
+	dept	Thu afternoon
+	dinner	both
+
+Jaulin          Luc             ENSTA Bretagne          luc.jaulin@ensta-bretagne.fr
+
+	arrival	Tue evening Paris
+	dept	Wed 19:00 Massy
+
+Ledinot         Emmanuel        Dassault Aviation       emmanuel.ledinot@dassault-avi$
+
+	dinner	Wed
+
+Platzer         André           Carnegie Mellon         aplatzer@cs.cmu.edu
+
+	arrival	Tue 16:15 CDG
+	dept	Wed 20:00 CDG

@@ -1,0 +1,15 @@
+Formal modeling of cyber-physical systems (CPS) is hard, because they pose the double challenge of combined discrete-continous dynamics and concurrent behavior.
+Existing formal specification and verification languages for CPS are designed on top of their underlying proof search technology. They lack high-level structuring elements.
+In addition, they are not or not efficiently executable. This makes formal CPS models hard to understand and to validate, hence impairs their usability.
+Instead, we suggest to model CPS in an Active Objects (AO) language designed for concise, intuitive modeling of concurrent systems.
+To this end, we extend the AO language ABS and its runtime environment with Hybrid Active Objects (HAO).
+CPS models and requirements formalized in HAO must follow certain communication patterns that permit automatic translation into differential dynamic logic, a sequential hybrid program logic.
+Verification is achieved by discharging the resulting formulas with the theorem prover KeYmaera X.  Validation is achieved by simulation.
+We demonstrate the practicality of our approach with case studies.
+
+Authors:Eduard Kamburjan(1), Stefan Mitsch(2), Martina Kettenbach(1), Reiner Hähnle(1)
+(1) Technische Universität Darmstadt (2) Carnegie Mellon University
+
+
+kamburjan@cs.tu-darmstadt.de
+Tel:  +49 6151 16 21955

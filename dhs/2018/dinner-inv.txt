@@ -1,0 +1,14 @@
+Abate			n
+Chapoutot		n
+Dang		y
+Fahrenberg	y
+Fajstrup	y
+Gauvin			n
+Goubault	y
+Jaulin		y
+Ledinot			n
+Mullier			n
+Pautet			n
+Platzer		y?
+
+6

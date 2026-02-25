@@ -1,0 +1,7 @@
+announcements@lists.artist-embedded.org		send	reject (snd)	send	hold	OK
+concurrency@listserver.tue.nl			send	hold	OK
+SEWORLD@SIGSOFT.ORG				send	reject (PGP)	send	reject (snd)	send	reject (no workshops)	send
+types-announce@lists.seas.upenn.edu		send	reject (snd)	send	reject (off topic?)	send	OK
+labolix@lix.polytechnique.fr			OK
+PC						send
+invited						send

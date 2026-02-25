@@ -1,0 +1,14 @@
+announcements@lists.artist-embedded.org	sent(irisa)	ok
+concurrency@listserver.tue.nl	sent(irisa)	mod	ok
+types-announce@lists.seas.upenn.edu	sent(irisa)
+ecoop-info@ecoop.org	sent	mod	rej(members only)	regist
+gdr.gpl@imag.fr	sent
+fmics@inrialpes.fr	sent	mod
+seworld@sigsoft.org	sent(irisa)	rej
+PROCOS@JISCMAIL.AC.UK	sent(MF)
+events@fmeurope.org	sent(MF)	rej
+qest-announce@iti.uiuc.edu	sent(MF)
+hscc	sent(AA)
+
+labolix@lix.polytechnique.fr
+invited + committee

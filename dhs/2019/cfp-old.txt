@@ -1,0 +1,70 @@
+Apologies for multiple copies of this email; please distribute as you
+see fit.
+
+                   CALL FOR CONTRIBUTIONS
+
+                           DHS  2019
+                   International Workshop on
+       Methods and Tools for Distributed Hybrid Systems
+           Associated with CONCUR / FORMATS / FMICS
+
+                  Amsterdam, The Netherlands
+                        26 August 2019
+
+                  http://dhs.gforge.inria.fr
+
+
+The purpose of DHS is to connect researchers working in real-time and
+hybrid systems, control theory, distributed computing, and concurrency,
+in order to advance the subject of distributed hybrid systems.
+
+Distributed hybrid systems, or distributed cyber-physical systems, are
+abundant.  Many of them are safety-critical, but ensuring their correct
+functioning is very difficult.  Convergence and interaction of methods
+and tools from different areas of computer science, engineering, and
+mathematics is needed in order to advance the subject.
+
+This third edition of DHS will have a special theme on distributed robotics.
+This emerging field is concerned with the control of collaborative swarms
+of autonomous robots.  Some of our invited speakers will treat this subject
+both from a theoretical and a practical perspective, and we hope to install
+a conversation which will outlast DHS 2019.
+
+We are calling for presentations of original, unfinished, already published,
+or otherwise interesting work which can highlight how the research topics
+of DHS may interact in order to advance the subject.  DHS 2019 will have no
+formal proceedings, but there will be a call for contributions to a special
+issue of a journal after the workshop.  Please send your proposal to dhs-2019@lists.gforge.inria.fr by 10 June 2019.
+
+INVITED SPEAKERS
+
+    Thierry Grousset, Kopadia, Paris, France
+    Majid Zamani, University of Colorado Boulder, United States
+    Xavier Urbain, Université Lyon 1, France
+
+PANEL
+
+DHS 2019 will comprise a panel session under the theme
+
+    Verification and synthesis for heterogeneous systems
+    encompassing learned and learning components
+
+Modern complex engineering goals require complex models, such as
+distributed hybrid systems and heterogeneous system architectures. In
+view of recent data-driven technologies and data access capabilities,
+models ought to encompass the presence of data-dependent,
+learned or learning, and adaptive components. This results in a complex
+networked model with black- or grey-box learning components, for
+instance a networked control model with a DNN-enabled controller.  
+
+This panel discusses approaches to verify such models, or to synthesise
+control architectures abiding by network-level goals or requirements. We
+solicit contributions and participation from experts in Rigorous
+System Design (e.g., contract-based design), Formal Verification (e.g.,
+assume-guarantee verification), Control Engineering (e.g., networked
+control systems), as well as Robotics and Artificial Intelligence (e.g.,
+multi-agent systems) and Machine Learning (e.g., deep neural nets).
+
+
+For more information, see: http://dhs.gforge.inria.fr/
+

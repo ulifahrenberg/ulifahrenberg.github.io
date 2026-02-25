@@ -1,0 +1,52 @@
+Apologies for multiple copies of this email; please distribute as you see
+fit.
+
+                       CALL FOR PAPERS
+
+                          DHS  2018
+                  International Workshop on
+      Methods and Tools for Distributed Hybrid Systems
+
+             Ecole polytechnique, Paris, France
+                         4 July 2018
+
+                 http://dhs.gforge.inria.fr/
+
+
+The purpose of DHS is to connect researchers working in real-time and
+hybrid systems, control theory, distributed computing, and concurrency,
+in order to advance the subject of distributed hybrid systems.
+
+Distributed hybrid systems, or distributed cyber-physical systems, are
+abundant.  Many of them are safety-critical, but ensuring their correct
+functioning is very difficult.  Convergence and interaction of methods
+and tools from different areas of computer science, engineering, and
+mathematics is needed in order to advance the subject.
+
+This second edition of the DHS workshop aims at gathering researchers
+which work in the above areas in order to facilitate collaboration and
+discuss how the subject may advance.
+
+We are calling for presentations of work which can highlight how the
+research topics of DHS may interact in order to advance the subject of
+distributed hybrid systems. Note that DHS 2018 will have no formal
+proceedings. 
+
+INVITED SPEAKERS
+
+    Luc Jaulin, ENSTA Bretagne, Brest, France
+    Dmitry Kozlov, University of Bremen, Germany (TBC)
+    Thao Dang, Verimag, Grenoble, France
+    Lisbeth Fajstrup, Aalborg University, Denmark
+    Emmanuel Ledinot, Dassault Aviation, France
+    Eric Goubault, Ecole polytechnique, France
+
+IMPORTANT DATES
+
+Paper submission: 31 May 2018
+Notification: 15 June 2018
+Workshop: 4 July
+
+
+For more information, see: http://dhs.gforge.inria.fr/
+

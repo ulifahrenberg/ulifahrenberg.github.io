@@ -1,0 +1,98 @@
+Goubault
+
+Inner and Outer Approximating Flowpipes for Delay Differential Equations
+Sylvie Putot et Eric Goubault
+
+Delay differential equations are fundamental for modeling networked control systems where the underlying network
+induces delay for retrieving values from sensors or delivering orders to actuators.
+They are notoriously difficult to integrate as these are actually functional
+equations, the initial state being a function.
+We propose a scheme to compute inner and outer-approximating flowpipes
+for such equations with uncertain initial states and parameters.
+Inner-approximating flowpipes are guaranteed to contain only reachable states, while outer-approximating
+flowpipes enclose all reachable states. We also introduce a notion of robust inner-approximation, which we believe opens promising perspectives for verification, beyond property falsification.
+The efficiency of our approach relies on the combination of Taylor models in time, with an abstraction or parameterization in space based on affine forms, or zonotopes.
+It also relies on an extension of the mean-value theorem, which allows us to deduce inner-approximating flowpipes, from flowpipes outer-approximating the solution of the DDE and its Jacobian with respect to constant but uncertain parameters and initial conditions.
+
+
+Jaulin
+
+Distributed localization and control of underwater robots
+
+We consider the problem of localizing a group of underwater robots and to control the group in order to accomplish a survey. We assume here that
+1. When a robot surfaces, it can use the GPS for its localization
+2. The robots can communicate with a very low symbol rate
+3. The robots can measure their distances with a given accuracy, but not the direction of arrival
+4. Some outliers on the distances could occur, but their numbers is limited
+I will propose a Lagrangian approach based on interval analysis and constraint propagation. It is based on the notion of 'tubes' which are intervals of trajectories and can easily be distributed. Some test-cases will be presented in order to illustrate the efficiency of the approach. Moreover an actual experiment involving actual underwater robots will be shown.
+
+
+Ledinot-1
+
+Practice looking for Effective Theory: three challenges originating from research on certification of distributed hybrid systems
+
+Introduction will be a quick glimpse on aero regulation and development assurance, 
+mainly to say "what you are doing in this community is important to meet regulation", 
+and "assurance is currently evolving toward more product-oriented and more scientifically founded approaches". 
+Plus the minute-ad on the RESSAC web site as platform also for academic challenges, with the toy multi-physics muti-system as the illustrative theme of the remaining of the talk (sorry for not refraining from that :-)).
+
+Challenge 1  is on comprehensive contract-based modelling of DHSs. 
+It will be based on some hints to a first RESSAC use case instantiation of Beveniste &al 's book: from a unique top level continuous-time contract  to many bottom scheduling and interface contracts, with A/G everywhere.
+I will mention DDEs in addressing communication delays and asynchrony introduction in continuous-synchronous control design.
+Will question the relevance of the asynchronous setting (no distinction between slow and dead), 
+because to me, in the safety-critical arena, too late = killed, so semi-synchronous would be enough.
+Still needs the bounded-drift multi-clock-timed.
+To me liveness is not an issue in safety-relevant systems, it is valueless over complication.
+
+Challenge 2 is on local timed-abstractions of HSs: set-based reachability analysis to establish safety invariants  on continuous+discrete closed loops with switching. 
+I 'see' it (more precisely  'I guess it' or 'I fancy it', this is the first issue where I  really miss background and need to work before July 7th), 
+as needed to perform some sort of safety-invariant-driven predicate abstraction to get rid of  the continuous time and the periodic discrete time dynamics.
+It would consist in  summarizing them  as 'cells' to be introduced in the simplicial complexes that model the global behavioral structure of the distributed H-system.
+Will be partly based on two papers sent by Eric a few years ago + readings on combinatorial algebraic topology (2 additional books ordered :-))
+ It is related to the point we had discussed together when you visited us at Dassault.
+This abstraction of control dynamics is also need to build sound combinatorial models for qualitative and quantitative safety assessment,
+ and for timing analysis of critical annunciation messages (Crew Alert System - (min,max) timed-abstractions multi-system wide. Distributed aspects there).
+
+Challenge 3 is  analysis, by combinatorial topology?, of a conservative (wt. timing and safety invariants) abstraction of the DHS' global behavioral structure, to perform DHS verification coverage analysis. 
+Mapping of the DHS test cases on the simplicial structure (I don't understand what I'm writing, let me make you confident on the invited speaker :-)).
+This mapping of the simulation/test traces "footprint" on the mathematical  object is a "must have"  to make these techniques accessible to laymen.
+And so to have any chance of transitioning some day from process-dominant assurance to product-dominant assurance.
+
+This consideration (formal system coverage analysis, the missing "DHS level MC/DC criterion" :-)),
+will close the loop with the introduction.
+As a conclusion I will invite to conduct research along lines that would help do what I failed to do during the talk.   
+
+
+Ledinot-2
+
+Towards CPS certification reformation: call for effective foundations.
+
+Motivated by the undergoing certification reformation attempt in civil aviation, this talk will review four problems that are open from the industrial  standpoint and under investigation by the hybrid system research community: contract abstraction and refinement, combinatorial structure of CPS behavioral spaces, timed-behavioral abstractions, and correctness of distributed control. 
+Contract-based hybrid system engineering is gaining acceptance in industry as the most promising approach to lean certification (i.e more product-oriented and safety-case oriented), 
+and to incremental certification in particular.
+Topological methods open interesting perspectives to lift structural and behavioral coverage analysis at system level. Difficult at software level where test-equivalence classes are mentioned in textbooks but hardly used in practice, behavioral coverage analysis is just inconceivable at system level, as of today in industry. 
+However, in addition to requirement coverage analysis which is standard through traceability, effective system behavioral coverage analysis (i.e tool-supported, scalable and qualified) would open key additional perspectives to streamline certification: it would be a pivotal enabler to depart from "the smaller, the safer" assurance principle.
+This implementation minimization principle, whose soundness is not disputed here, has severe economic consequences. It conflicts with reuse of partially fit-for-purpose Components Off the Shelf (COTS).
+Sound timed abstraction of CPS models would be helpful for many dysfunctional combinatorial analyses, in particular for model-based safety assessment where hand-written Boolean functions or Boolean sequential processes are the industrial state of the art.
+Last but not least, generalized-control functions mapped on systems of systems have recently put emphasis on the need for formal verification of distributed control functions potentially disturbed by fluctuating communication delays or multi-system wide FDIR switches.
+The talk will conclude on European industry-academia collaboration perspectives on these topics in the coming years.
+
+
+Fajstrup
+
+Symmetries in the PV-model and of directed invariants.
+
+Symmetry considerations may reveal equivalences and hence possible reduction of the number of different cases to be studied for e.g. verification. The setting here is the PV-model in a geometric version, where executions are time directed paths and equivalence of executions correspond to deformation of such directed paths.In the PV-model, certainly loops provide a kind of symmetry, but the focus here is different: Copies of the same thread run in parallel with itself without control of the number N of copies gives rise to different symmetry questions and also partial results than the symmetry arising from loops, where copies of (part of) a string are run sequentially. Some results are presented in this setting - cut off for the number, N, of copies needed to ensure deadlock freedom; and also such cut offs for studying equivalence classes of executions. Another symmetry,  time reversal, certainly changes some properties - for instance deadlocks become unreachable states. Other features are preserved - the execution paths from a to b correspond to execution paths from b to a under time reversal. Hence, if pairs of points are used as the basic objects, and the connections are through $(a,b) \to (a',b')$ is a pair of directed paths $a'\to a$ and $b\to b'$ often time reversal is an equivalence. (The latter is joint work with Kathryn Hess, EPFL Lausanne.)
+
+Questions to the distributed and hybrid community may be: The space in which these directed paths run, is in most cases a cube with a set of hyper rectangles removed, and the time direction is that each coordinate to be non decreasing- How do these models and results change if e.g. paths are smooth and the time direction is defined though cones on the tangent space. If obstacles are not rectangular. If the space is a manifold.
+
+
+Platzer
+
+Logic of Distributed Hybrid Systems
+
+This talk addresses a fundamental mismatch between the combinations of dynamics that occur in cyber-physical systems and the limited kinds of dynamics supported in analysis. Modern applications combine communication, computation, and control. They may even form dynamic distributed networks, where neither structure nor dimension stay the same while the system follows hybrid dynamics, i.e., mixed discrete and continuous dynamics.
+
+We provide the logical foundations for closing this analytic gap. We develop a formal model for distributed hybrid systems. It combines quantified differential equations with quantified assignments and dynamic dimensionality-changes. We introduce a dynamic logic for verifying distributed hybrid systems and present a proof calculus for this logic. This is the first formal verification approach for distributed hybrid systems. We prove that our calculus is a sound and complete axiomatization of the behavior of distributed hybrid systems relative to quantified differential equations. The talk will also survey the use of this logic in verifying distributed car control, robot obstacle avoidance, distributed aircraft controllers, and a surgical robot.
+
+

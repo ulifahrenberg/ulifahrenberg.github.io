@@ -1,0 +1,33 @@
+A Compositional synthesis of interconnected control systems (I)
+
+B Underwater robotics: past, present, and future (I)
+
+C Swarms of mobile robots, towards safety with versatility (I)
+
+1 Timed Automata as synchronization abstractions for aperiodic control systems (C)
+
+2 Relational Differential Dynamic Logic (C)
+
+3 Hybrid Active Objects (C)
+
+4 Decentralized Real-Time Safety Verification for Distributed Cyber-Physical Systems (C)
+
+5 Delayed Hybrid Systems (C)
+
+7 Simulation of Hybrid Reo Connectors (C)
+
+
+
+ 9:00 - 10:00	A
+
+10:30 - 11:30	1, 2
+
+11:30 - 12:30	B
+
+13:30 - 14:30	C
+
+14:30 - 15:00	4
+
+15:30 - 17:00	3, 5, 7
+
+17:00 - 17:45	Panel

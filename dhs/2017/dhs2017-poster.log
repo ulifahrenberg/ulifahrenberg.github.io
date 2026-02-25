@@ -1,0 +1,344 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.11.10)  13 JUN 2017 12:06
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**dhs2017-poster.tex
+(./dhs2017-poster.tex
+LaTeX2e <2016/02/01>
+Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count87
+\Gm@cntv=\count88
+\c@Gm@tempcnt=\count89
+\Gm@bindingoffset=\dimen103
+\Gm@wd@mp=\dimen104
+\Gm@odd@mp=\dimen105
+\Gm@even@mp=\dimen106
+\Gm@layoutwidth=\dimen107
+\Gm@layoutheight=\dimen108
+\Gm@layouthoffset=\dimen109
+\Gm@layoutvoffset=\dimen110
+\Gm@dimlist=\toks15
+)
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\labelindent=\skip43
+\enit@outerparindent=\dimen111
+\enit@toks=\toks16
+\enit@inbox=\box26
+\enitdp@description=\count90
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fix-cm.sty
+Package: fix-cm 2015/01/14 v1.1t fixes to LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+))
+(/usr/share/texlive/texmf-dist/tex/latex/hyphenat/hyphenat.sty
+Package: hyphenat 2009/09/02 v2.3c hyphenation utilities
+\langwohyphens=\language81
+LaTeX Info: Redefining \_ on input line 43.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 95.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count91
+))
+\Gin@req@height=\dimen112
+\Gin@req@width=\dimen113
+)
+
+LaTeX Warning: Unused global option(s):
+    [a3paper].
+
+(./dhs2017-poster.aux)
+\openout1 = `dhs2017-poster.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a3paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(42.25493pt, 760.53699pt, 42.25493pt)
+* v-part:(T,H,B)=(47.80353pt, 1075.50687pt, 71.70535pt)
+* \paperwidth=845.04684pt
+* \paperheight=1195.01575pt
+* \textwidth=760.53699pt
+* \textheight=1075.50687pt
+* \oddsidemargin=-30.01506pt
+* \evensidemargin=-30.01506pt
+* \topmargin=-61.46646pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count92
+\scratchdimen=\dimen114
+\scratchbox=\box27
+\nofMPsegments=\count93
+\nofMParguments=\count94
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count95
+\MPscratchDim=\dimen115
+\MPnumerator=\count96
+\makeMPintoPDFobject=\count97
+\everyMPtoPDFconversion=\toks18
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+<Aalborg-panorama.jpg, id=1, 3083.52pt x 618.31pt>
+File: Aalborg-panorama.jpg Graphic file (type jpg)
+ <use Aalborg-panorama.jpg>
+Package pdftex.def Info: Aalborg-panorama.jpg used on input line 37.
+(pdftex.def)             Requested size: 608.4319pt x 121.99931pt.
+
+Underfull \hbox (badness 1394) in paragraph at lines 44--48
+[]\OT1/cmr/m/n/16 The pur-pose of DHS is to con-nect re-searchers
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--77
+[]\OT1/cmr/m/n/16 We are call-ing for con-tri-bu-tions pre-sent-ing
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 84.
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <16> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 84.
+
+Underfull \hbox (badness 10000) in paragraph at lines 85--88
+[]\OT1/cmr/m/n/16 Regular pa-pers, con-tain-ing orig-i-nal
+ []
+
+
+Underfull \hbox (badness 5388) in paragraph at lines 85--88
+\OT1/cmr/m/n/16 work. If ac-cepted, these pa-pers will
+ []
+
+
+Underfull \hbox (badness 7649) in paragraph at lines 85--88
+\OT1/cmr/m/n/16 be pub-lished in the EPTCS work-shop
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 88--92
+[]\OT1/cmr/m/n/16 Extended ab-stracts of work-in-progress,
+ []
+
+
+Underfull \hbox (badness 4084) in paragraph at lines 88--92
+\OT1/cmr/m/n/16 of work al-ready pub-lished or sub-mit-ted
+ []
+
+
+Underfull \hbox (badness 4913) in paragraph at lines 88--92
+\OT1/cmr/m/n/16 else-where, po-si-tion pa-pers, or oth-er-wise
+ []
+
+
+Underfull \hbox (badness 1189) in paragraph at lines 96--99
+[]\OT1/cmr/m/n/16 Both types of sub-mis-sions will be care-fully
+ []
+
+LaTeX Font Info:    Calculating math sizes for size <16> on input line 99.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <16> on input line 99.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <11.19995> on input line 99.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 99.
+<franzle.jpg, id=2, 72.27pt x 101.178pt>
+File: franzle.jpg Graphic file (type jpg)
+ <use franzle.jpg>
+Package pdftex.def Info: franzle.jpg used on input line 110.
+(pdftex.def)             Requested size: 68.44681pt x 95.82983pt.
+
+<larsen.jpg, id=3, 406.51875pt x 459.96844pt>
+File: larsen.jpg Graphic file (type jpg)
+ <use larsen.jpg>
+Package pdftex.def Info: larsen.jpg used on input line 132.
+(pdftex.def)             Requested size: 68.44681pt x 90.9112pt.
+
+<raussen.jpg, id=5, 1638.12pt x 1228.59pt>
+File: raussen.jpg Graphic file (type jpg)
+ <use raussen.jpg>
+Package pdftex.def Info: raussen.jpg used on input line 160.
+(pdftex.def)             Requested size: 68.44681pt x 79.63618pt.
+
+<wisniewski.jpg, id=7, 90.3375pt x 120.45pt>
+File: wisniewski.jpg Graphic file (type jpg)
+ <use wisniewski.jpg>
+Package pdftex.def Info: wisniewski.jpg used on input line 165.
+(pdftex.def)             Requested size: 68.44681pt x 92.89696pt.
+
+Overfull \hbox (3.48145pt too wide) in paragraph at lines 178--187
+[]|  $[]$ 
+ []
+
+
+Overfull \hbox (3.48145pt too wide) in paragraph at lines 190--220
+[]|  $[]$ 
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <24.88> on input line 223.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <20.74> on input line 223.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <17.28> on input line 223.
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./larsen.jpg> <./raussen.j
+pg> <./wisniewski.jpg> <./Aalborg-panorama.jpg> <./franzle.jpg>]
+(./dhs2017-poster.aux) ) 
+Here is how much of TeX's memory you used:
+ 2725 strings out of 493029
+ 42955 string characters out of 6136233
+ 106318 words of memory out of 5000000
+ 6241 multiletter control sequences out of 15000+600000
+ 11286 words of font info for 39 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 37i,9n,23p,274b,328s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on dhs2017-poster.pdf (1 page, 1588506 bytes).
+PDF statistics:
+ 43 PDF objects out of 1000 (max. 8388607)
+ 25 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 44 words of extra memory for PDF output out of 10000 (max. 10000000)
+

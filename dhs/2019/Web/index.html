@@ -1,0 +1,631 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+    <meta name="author" content="Uli Fahrenberg" />
+    <link rel="stylesheet" type="text/css" href="CSS/site.css" title="DHS stylesheet" />
+    <link rel="stylesheet" type="text/css" media="print" href="CSS/print.css" title="DHS print stylesheet" />
+
+    <title>DHS 2019</title>
+
+    <script language="javascript">
+      function toggleDiv(divid){
+	if(document.getElementById(divid).style.display == 'none'){
+	  document.getElementById(divid).style.display = 'inline';
+	}else{
+	  document.getElementById(divid).style.display = 'none';
+	}}
+    </script>
+  </head>
+
+  <body>
+
+<!-- ###### Header ###### -->
+
+    <div id="header">
+      <span class="headerTitle">
+	<a href="index.html">Methods and Tools for Distributed Hybrid Systems (DHS 2019)</a></span>
+    </div>
+
+    <!-- ###### Side Boxes ###### -->
+
+    <div class="sideBox LHS">
+      <div>Contents</div>
+	<a href="index.html">Home</a>
+	<a href="#invited">Invited Talks</a>
+<!--	<a href="dhs2019-flyer.pdf">Flyer</a> -->
+	<a href="#panel">Panel</a>
+<!--	<a href="#cfsc">Call for Contributions</a> -->
+	<a href="#venue">Venue</a>
+	<a href="#regis">Registration</a>
+	<a href="#program"><font color="red">Program</font></a>
+<!--	<a href="#dinner">Workshop dinner</a> -->
+	<a href="#sponsors">Sponsors</a>
+	<a href="mailto:dhs-2019@lists.gforge.inria.fr">Contact</a>
+    </div>
+
+    <div class="sideBox LHS">
+      <div>Invited Speakers</div>
+	<a href="https://www.kopadia.com/accueil/plus-qu-une-%C3%A9quipe/">Hervé
+	de Forges, France</a>
+	<a href="https://sites.google.com/site/zamani1362/">Majid Zamani, Colorado, US</a>
+	<a href="https://perso.liris.cnrs.fr/xavier.urbain/">Xavier Urbain, France</a>
+    </div>
+
+<!--
+    <div class="sideBox LHS">
+      <div>Program Committee</div>
+    </div>
+-->
+
+    <div class="sideBox LHS">
+      <div>Organizers</div>
+	<a href="https://www.cs.ox.ac.uk/people/alessandro.abate/home.html">Alessandro Abate</a>
+	<a href="http://www.lix.polytechnique.fr/Labo/Ulrich.Fahrenberg/">Uli
+	  Fahrenberg</a>
+	<a href="https://uol.de/hs/mitarbeiterinnen-und-mitarbeiter/prof-dr-martin-fraenzle/">Martin Fränzle</a>
+    </div>
+
+<!-- ###### Body Text ###### -->
+
+    <div id="bodyText">
+
+      <h1 id="intconf">
+	Third International Workshop on<br />
+	Methods and Tools for Distributed Hybrid Systems<br />
+	Amsterdam, The Netherlands, 26 August 2019<br />
+	Associated with CONCUR 2019
+      </h1>
+
+      <center>
+	<img class="noprint" src="ams1.jpg" title="Amsterdam tourist office" alt="Amsterdam tourist office seen from the water" />
+      </center>
+
+      <p>
+	DHS 2019 will take place in Amsterdam, the day
+	before <a href="https://event.cwi.nl/concur2019/">CONCUR</a>,
+	26 August 2019.
+      </p>
+
+      <center>
+	<a href="dhs2019-poster.pdf">Download workshop poster</a> (or
+	in <a href="dhs2019-poster-a4.pdf">A4 format</a>)
+      </center>
+
+<!--
+      <p>
+	Download <a href="dhs2019-program.pdf">program</a> (or as a <a href="dhs2019-program-book.pdf">booklet</a>)
+      </p>
+-->
+
+<!--
+      <h3 id="news"><font color="red">News</font></h3>
+-->
+
+      <h3 id="about">About</h3>
+
+      <p>
+	The purpose of DHS is to connect researchers working in <em>real-time systems</em>, <em>hybrid systems</em>, <em>control theory</em>, <em>distributed computing</em>, and <em>concurrency theory</em>, in order to advance the subject of <strong>distributed hybrid systems</strong>.
+      </p>
+
+      <p>
+	Distributed hybrid systems, or distributed <em>cyber-physical systems</em>, are abundant.  Many of them are safety-critical, but ensuring their correct functioning is very difficult.  We believe that new techniques are needed for the analysis and validation of DHS.  More precisely, we believe that convergence and interaction of methods and tools from different areas of computer science, engineering, and mathematics is needed in order to advance the subject.
+      </p>
+
+	<img src="ams2.jpg" title="Amsterdam Westerkerk" alt="Amsterdam Westerkerk seen from the water" style="float:right; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px" />
+
+      <p>
+	The <a href="2017/">first DHS workshop</a> was held in
+	Aalborg, Denmark, in August 2017 and associated with
+	<a href="http://mfcs2017.cs.aau.dk/">MFCS</a>.  It featured
+	invited talks
+	by <a href="https://www.cs.ox.ac.uk/people/alessandro.abate/home.html">Alessandro
+	Abate</a>, <a href="https://uol.de/hs/mitarbeiterinnen-und-mitarbeiter/prof-dr-martin-fraenzle/">Martin
+	Fränzle</a>, <a href="http://people.cs.aau.dk/~kgl/">Kim
+	G. Larsen</a>, <a href="http://people.math.aau.dk/~raussen/">Martin
+	Raussen</a>, and <a href="http://kom.aau.dk/~raf/">Rafael
+	Wisniewski</a>.  The <a href="2018/">second edition</a> was
+	held in Palaiseau, France, in July 2018, with invited talks
+	by <a href="https://www.ensta-bretagne.fr/jaulin/">Luc
+	Jaulin</a>, <a href="http://www-verimag.imag.fr/PEOPLE/Thao.Dang/">Thao
+	Dang</a>, <a href="http://people.math.aau.dk/~fajstrup/">Lisbeth
+	Fajstrup</a>, <a href="index.html">Emmanuel Ledinot</a>,
+	and <a href="http://symbolaris.com/">André Platzer</a>.
+      </p>
+
+      <p>
+	This third edition of DHS will add <strong>distributed
+	robotics</strong> as a special theme.  This emerging field is
+	concerned with the control of collaborative swarms of
+	autonomous robots.  Some of our invited speakers will treat
+	this subject both from a theoretical and a practical
+	perspective, and we hope to install a conversation which will
+	outlast DHS 2019.
+      </p>
+
+      <h3 id="invited">Invited Talks</h3>
+
+      <p><ul>
+	<li><a href="https://sites.google.com/site/zamani1362/">Majid
+	Zamani</a>, University of Colorado Boulder, United
+	States<br />Compositional synthesis of interconnected control systems</li>
+	<li><a href="https://www.kopadia.com/accueil/plus-qu-une-%C3%A9quipe/">Hervé
+	de Forges</a>, Kopadia, Paris, France<br />Underwater
+	robotics: past, present, and future</li>
+	<li><a href="https://perso.liris.cnrs.fr/xavier.urbain/">Xavier
+	Urbain</a>, Université Lyon 1, France<br />Swarms of mobile
+	robots, towards safety with versatility</li>
+      </ul></p>
+
+      <h3 id="panel">Panel <i><font color="red">canceled</font></i></h3>
+
+      <!--
+      <p>DHS 2019 will comprise a <em>panel session</em> under the
+      theme <strong>Verification and synthesis for heterogeneous
+      systems encompassing learned and learning
+	  components</strong>.</p>
+
+      <p>Modern complex engineering goals require complex models, such
+	as distributed hybrid systems and heterogeneous system
+	architectures. In view of recent data-driven technologies and
+	data access capabilities, models ought to encompass the
+	presence of data-dependent, learned or learning, and adaptive
+	components. This results in a complex networked model with
+	black- or grey-box learning components, for instance a
+	networked control model with a DNN-enabled controller.</p>
+
+      <p>This panel discusses approaches to verify such models, or to
+	synthesise control architectures abiding by network-level
+	goals or requirements. We solicit contributions and
+	participation from experts in Rigorous System Design (e.g.,
+	contract-based design), Formal Verification (e.g.,
+	assume-guarantee verification), Control Engineering (e.g.,
+	networked control systems), as well as Robotics and Artificial
+	Intelligence (e.g., multi-agent systems) and Machine Learning
+	(e.g., deep neural nets).</p>
+      -->
+      
+      <h3 id="venue">Venue</h3>
+
+      <p>
+	DHS 2019 is associated with the CONCUR conference, please
+	refer to the <a href="https://event.cwi.nl/concur2019/">CONCUR
+	  website</a> for further information.
+      </p>
+
+      <h3 id="regis">Registration</h3>
+
+      <p>
+	Registration to DHS 2019 is handled by CONCUR.  Please head
+	over to
+	the <a href="https://event.cwi.nl/concur2019/participation.html">CONCUR
+	registration page</a> and remember to tick the box
+	labeled <strong>DHS</strong>.  Note that <strong>early
+	registration ends 1 August</strong>.
+      </p>
+
+      <h3 id="program">Program (tentative; click on the titles to see
+      abstracts)</h3>
+
+      <p><table padding="0px" cellpadding="2px" width="99%">
+	  <tr style="background-color:green;color:white" valign="top">
+	    <th colspan="3">Monday 26 August</th>
+	  </tr>
+	  <tr style="background-color:#fafcff" valign="top">
+	    <td width="50">9:00</td>
+	    <td width="25%" align="left"><strong>Majid
+		Zamani</strong></td>
+	    <td align="left"><i>Invited
+		talk: </i><a href="javascript:toggleDiv('zamani')">Compositional
+		synthesis of interconnected control systems</a>
+	      <div id="zamani" style="display:none">
+		<br />In this talk, I will propose a design approach
+		for interconnected control systems, in which the
+		controllers are synthesized compositionally from
+		high-level logic requirements in a push-button and
+		formal manner. Examples of such requirements include
+		those expressed as linear temporal logic (LTL)
+		formulae. In particular, I will leverage decomposition
+		and abstraction as two key tools to tackle the design
+		complexity, by either breaking the design object into
+		semi-independent parts or by aggregating components
+		and eliminating unnecessary details. I will illustrate
+		the effectiveness of the proposed results on some case
+		studies. I will show that our proposed results can
+		handle large-scale systems, which would not have been
+		possible to tackle using existing techniques.
+	    </div></td>
+	  </tr>
+	  <tr style="background-color:#f2ffff" valign="top">
+	    <td>10:00</td>
+	    <td colspan="2"><i>Break</i></td>
+	  </tr>
+	  <tr style="background-color:#fafcff" valign="top">
+	    <td>10:30</td>
+	    <td align="left">M. Mazo Jr., G. Gleizer, G. Delimpaltadakis, P. Schaalwijk</td>
+	    <td align="left"><i><font color="red">canceled</font></i></td>
+	    <!--
+	    <td align="left"><a href="javascript:toggleDiv('mazogds')">Timed
+	      automata as synchronization abstractions for aperiodic
+		control systems</a>
+	      <div id="mazogds" style="display:none">
+		<br />Modern control systems are often implemented as
+		networked systems, in which bandwidth of a
+		communication medium is shared among a number of
+		applications. Furthermore, often the act of
+		communicating also has an energy impact on the system
+		infrastructure, e.g. in the case of wireless control
+		systems. In the last decade the study of controller
+		implementation strategies aiming at reducing the
+		communication footprint, to save bandwidth (and
+		energy), has thus attracted great attention. Arguably,
+		one of the most promising implementation paradigms in
+		the literature is that of event-triggered control
+		(ETC), in which communications are triggered by the
+		state of the plant itself, which makes the system
+		communicate only when necessary to retain stability of
+		the closed- loop.  ETC implementations, while reducing
+		drastically the amount of required bandwidth, result
+		in aperiodic transmissions whose time of occurrence
+		are highly unpredictable, leading to difficulties for
+		scheduling such systems. Such difficulties usually
+		imply that the freed bandwidth may not be reusable by
+		other (real-time) applications, and that energy
+		savings may be completely lost, thus rendering ETC
+		schemes inefficient.<br />
+		In this talk I’ll describe a possible solution to the
+		ETC scheduling problem through the construction of
+		timed-automata models for the ETC systems’ traffic. I
+		will start introducing ETC and illustrating the impact
+		of the problem on some examples from our experimental
+		work. I will then introduce the notions of symbolic
+		abstractions of control systems, simulation relations
+		and timed-automata, and I’ll show how all of those
+		come together in our approach to schedule ETC. I’ll
+		finalize the talk describing our most recent advances
+		on how to construct ETC traffic models, and the
+		available tools to use them for controller scheduling.
+	    </div></td>
+	    -->
+	  </tr>
+	  <tr style="background-color:#f2ffff" valign="top">
+	    <td>11:00</td>
+	    <td align="left">J. Kolčák, I. Hasuo, J. Dubut, S. Katsumata, D. Sprunger, A. Yamada</td>
+	    <td align="left"><a href="javascript:toggleDiv('kolcakhdksy')">Relational
+		differential dynamic logic</a>
+	      <div id="kolcakhdksy" style="display:none">
+		<br />In the field of quality assurance of hybrid
+		systems (that combine continuous physical dynamics and
+		discrete digital control), Platzer’s differential
+		dynamic logic (dL) is widely recognized as a
+		deductive verification method with solid mathematical
+		foundations and sophisticated tool support. Motivated
+		by benchmarks provided by our industry partner, we
+		study a relational extension of dL, aiming to formally
+		prove statements such as "an earlier deployment of the
+		emergency brake decreases the collision speed." A main
+		technical challenge here is to relate two states of
+		two dynamics at different time points. Our main
+		contribution is a theory of suitable relational
+		differential invariants (a relational extension of
+		differential invariants that are central proof methods
+		in dL), and a derived technique of time
+		stretching. The latter features particularly high
+		applicability, since the user does not have to
+		synthesize a relational differential invariant out of
+		the air.  We derive new inference rules for dL from
+		these notions, and demonstrate their use over a couple
+		of automotive case studies.
+	    </div></td>
+	  </tr>
+	  <tr style="background-color:#fafcff" valign="top">
+	    <td>11:30</td>
+	    <td align="left"><strong>Hervé de Forges</strong></td>
+	    <td align="left"><i>Invited
+		talk: </i><a href="javascript:toggleDiv('deforges')">Underwater
+		robotics: past, present, and future</a>
+	      <div id="deforges" style="display:none">
+		<br />Demographic and economic developments require
+		more and more resources, but onshore possibilities are
+		limited. Naturally, oceans, covering 72% of our
+		planet, appear as the solution to provide food,
+		minerals or energy. Most of countries consider these
+		domains as a key for the future. For example, the
+		European commission supports the "blue growth
+		strategy" to develop high-potential sectors such as
+		aquaculture, tourism, biotechnology, energy or seabed
+		mining.<br />
+		Most of the seas must still be considered unknown
+		areas. The French oceanic institute (IFREMER) consider
+		that only 10% of the sea bed is well known. Out of
+		these areas lives a huge and quite unknown
+		biodiversity (scientists estimate knowing only 24000
+		species out of several millions – without
+		bacteria). Most of these ecosystems live out of
+		continental shelves, in more than 200m depth and their
+		organization and equilibrium are poorly known.<br />
+		Here appears the tremendous challenge to withdraw
+		resources from this environment by preserving its
+		environmental balances and the need for intensive
+		exploration and monitoring solutions for these
+		areas.<br />
+		Access to the deep sea is extremely difficult, due to
+		the complexity of high sea operation organization
+		(distance from port, communications, cost, etc.) but
+		also due to sea water specificity: no air, viscosity
+		pressure, no magnetic waves... This has, up to now,
+		prevented a complete exploration, but after pioneering
+		ages, autonomous underwater robotics starts a
+		revolution in the access to the abyss.<br />
+		In this talk, we will see why and how people have
+		continuously searched to go deeper and to last longer
+		undersea. We will start from the early ages of
+		assisted diving to offshore robotics for oil & gas
+		deep seas operations and the latest developments in
+		autonomous robot.  The end of the talk will deal with
+		the future of underwater autonomous solutions into an
+		exploration perspective and particularly on what
+		coordinated distributed systems can provide to our
+		ocean knowledge.
+	    </div></td>
+	  </tr>
+	  <tr style="background-color:#f2ffff" valign="top">
+	    <td>12:30</td>
+	    <td colspan="2"><i>Lunch</i></td>
+	  </tr>
+	  <tr style="background-color:#fafcff" valign="top">
+	    <td>13:30</td>
+	    <td align="left">E. Kamburjan, S. Mitsch, M. Kettenbach,
+	      R. Hähnle</td>
+	    <td align="left"><a href="javascript:toggleDiv('kamburjanmkh')">Hybrid
+		active objects</a>
+	      <div id="kamburjanmkh" style="display:none">
+		<br />Formal modeling of cyber-physical systems (CPS)
+		is hard, because they pose the double challenge of
+		combined discrete-continous dynamics and concurrent
+		behavior.  Existing formal specification and
+		verification languages for CPS are designed on top of
+		their underlying proof search technology. They lack
+		high-level structuring elements.  In addition, they
+		are not or not efficiently executable. This makes
+		formal CPS models hard to understand and to validate,
+		hence impairs their usability.<br />		
+		Instead, we suggest to model CPS in an Active Objects
+		(AO) language designed for concise, intuitive modeling
+		of concurrent systems.  To this end, we extend the AO
+		language ABS and its runtime environment with Hybrid
+		Active Objects (HAO).<br />
+		CPS models and requirements formalized in HAO must
+		follow certain communication patterns that permit
+		automatic translation into differential dynamic logic,
+		a sequential hybrid program logic.  Verification is
+		achieved by discharging the resulting formulas with
+		the theorem prover KeYmaera X.  Validation is achieved
+		by simulation.  We demonstrate the practicality of our
+		approach with case studies.
+	    </div></td>
+	  </tr>
+	  <tr style="background-color:#f2ffff" valign="top">
+	    <td>14:00</td>
+	    <td align="left">H.-D. Tran, L. V. Nguyen, P. Musau, W. Xiang, T. T. Johnson</td>
+	    <td align="left"><a href="javascript:toggleDiv('trannmxj')">Decentralized
+		real-time safety verification for distributed
+		cyber-physical systems</a>
+	      <div id="trannmxj" style="display:none">
+		<br />Safety-critical distributed cyber-physical
+		systems (CPSs) have been found in a wide range of
+		applications. Notably, they have displayed a great
+		deal of utility in intelligent transportation, where
+		autonomous vehicles communicate and cooperate with
+		each other via a high-speed communication
+		network. Such systems require an ability to identify
+		maneuvers in real-time that cause dangerous
+		circumstances and ensure the implementation always
+		meets safety-critical requirements. In this paper, we
+		propose a real-time decentralized safety verification
+		approach for a distributed multi-agent CPS with the
+		underlying assumption that all agents are
+		time-synchronized with a low degree of error. In the
+		proposed approach, each agent periodically computes
+		its local reachable set and exchanges this reachable
+		set with the other agents with the goal of verifying
+		the system safety. Our method, implemented in Java,
+		takes advantages of the timing information and the
+		reachable set information that are available in the
+		exchanged messages to reason about the safety of the
+		whole system in a decentralized manner. Any particular
+		agent can also perform local safety verification tasks
+		based on their local clocks by analyzing the messages
+		it receives. We applied the proposed method to verify,
+		in real-time, the safety properties of a group of
+		quadcopters performing a distributed search mission.
+	    </div></td>
+	  </tr>
+	  <tr style="background-color:#fafcff" valign="top">
+	    <td>14:30</td>
+	    <td align="left">E. B. Abdelwahab</td>
+	    <td align="left"><a href="javascript:toggleDiv('abdelwahab')">Delayed
+		hybrid systems</a>
+	      <div id="abdelwahab" style="display:none">
+		<br />Delays arise naturally in feedback loops in
+		modern forms of embedded digital control, like
+		networked control systems where communication between
+		the plant and the controller is crucial. Especially
+		when dealing with safety-critical systems, the
+		communication delay in the feedback loop may however,
+		become significant. In continuous control, delays are
+		modeled by Delay Differential Equations (DDE) and it
+		is already well-known that such delays may cause
+		oscillations which directly affect the stability and
+		control performance of the system. However, despite a
+		large portion of digital control schemes being subject
+		to hybrid state dynamics, there has not been much
+		interest in considering delays in hybrid systems. To
+		the best of our knowledge, neither an established
+		notion of delayed hybrid system nor corresponding
+		verification methods exist. Introducing a formal
+		semantic, i.e., mathematical model for rigorously
+		modeling delays arising in hybrid systems thus
+		constitutes the main objective of this PhD
+		project.<br />
+		Currently, we are exploiting the idea of using
+		distributed delays as a more relevant model and
+		potentially easier to analyze compared to discrete
+		delays. The smoothing effect embedded in distributed
+		delays implies promising results in reconstructing the
+		history segment based on finite samples. This approach
+		ultimately leads to the reduction of a DDE problem to
+		that of solving an, albeit higher-dimensional,
+		standard ODE. Future work will exploit this reduction
+		for automatic verification of hybrid systems
+		incorporating distributed delays.
+	    </div></td>
+	  </tr>
+	  <tr style="background-color:#f2ffff" valign="top">
+	    <td>15:00</td>
+	    <td colspan="2"><i>Break</i></td>
+	  </tr>
+	  <tr style="background-color:#fafcff" valign="top">
+	    <td>15:30</td>
+	    <td align="left">E. Ardeshir-Larijani, A. Farhadi,
+	      F. Arbab, M. Izadi</td>
+	    <td align="left"><i><font color="red">canceled</font></i></td>
+	    <!--
+	    <td align="left">Simulation of hybrid Reo connectors</td>
+	    -->
+	  </tr>
+	  <tr style="background-color:#f2ffff" valign="top">
+	    <td>16:00</td>
+	    <td align="left"><strong>Xavier Urbain</strong></td>
+	    <td align="left"><i>Invited
+		talk: </i><a href="javascript:toggleDiv('urbain')">Swarms of
+		mobile robots, towards safety with versatility</a>
+	      <div id="urbain" style="display:none">
+		<br />Swarms of mobile robots introduced by Suzuki and
+		Yamashita in their seminal paper of 1999 have enjoyed
+		ever since a constant growth in popularity, based on
+		the various applications they promise, and the
+		numerous variants this model supports.<br />
+		Characterized by the Look-Compute-Move cycle of
+		robots, they are suitable for different universes,
+		either discrete or continuous, various capabilities of
+		the agents and their sensors. The power given to the
+		adversarial environment plays an important role in
+		this diversity, allowing or not for faults, and
+		several kinds of synchrony.<br />
+		Serving the versatility of such swarms, the variants
+		add also to the tremendous intricacy of proving the
+		soundness of results in this context, that is proving
+		that a task can be achieved or, to the contrary, that
+		it is impossible to realise. As potential applications
+		may be critical, formal methods are of invaluable help
+		to certify protocol correctness, and theorem
+		soundness.<br />
+		This presentation will give an overview of some
+		possibilities given by this Look-Compute-Move model,
+		with an emphasis on formal aspects, definitions and
+		proofs.
+	    </div></td>
+	  </tr>
+	  <tr style="background-color:#fafcff" valign="top">
+	    <td>17:00</td>
+	    <td align="left"><em>Panel</em></td>
+	    <td align="left"><a href="javascript:toggleDiv('ppanel')">Verification
+		and synthesis for heterogeneous systems encompassing
+		learned and learning components</a>
+	      <div id="ppanel" style="display:none">
+		<br />Modern complex engineering goals require complex
+		models, such as distributed hybrid systems and
+		heterogeneous system architectures. In view of recent
+		data-driven technologies and data access capabilities,
+		models ought to encompass the presence of
+		data-dependent, learned or learning, and adaptive
+		components. This results in a complex networked model
+		with black- or grey-box learning components, for
+		instance a networked control model with a DNN-enabled
+		controller.<br />
+		This panel discusses approaches to verify such models,
+		or to synthesise control architectures abiding by
+		network-level goals or requirements. We solicit
+		contributions and participation from experts in
+		Rigorous System Design (e.g., contract-based design),
+		Formal Verification (e.g., assume-guarantee
+		verification), Control Engineering (e.g., networked
+		control systems), as well as Robotics and Artificial
+		Intelligence (e.g., multi-agent systems) and Machine
+		Learning (e.g., deep neural nets).
+	    </div></td>
+	  </tr>
+	  <tr style="background-color:#f2ffff" valign="top">
+	    <td>17:45</td>
+	    <td colspan="2"><i>DHS 2019 ends</i></td>
+	  </tr>
+	  <tr style="background-color:green" valign="top">
+	    <th colspan="3">&nbsp;</th>
+	  </tr>
+	</table>
+
+	<!-- <h3 id="dinner">Workshop Dinner</h3> -->
+
+      <h3 id="cfsc">Call for Short Contributions</h3>
+
+      <p>
+	We are calling for presentations of original, unfinished,
+	already published, or otherwise interesting work which can
+	highlight how the research topics of DHS may interact in order
+	to advance the subject of distributed hybrid systems.
+      </p>
+
+      <p>
+	DHS 2019 will have no formal proceedings, but there will be a
+	call for contributions to a special issue of a journal (under
+	negotiation) after the workshop.
+      </p>
+      
+      <p>
+	Please send your proposal (which may take the form of an
+	abstract, a paper, slides, etc.)
+	to <a href="mailto:dhs-2019@lists.gforge.inria.fr">dhs-2019@lists.gforge.inria.fr</a>
+	by
+	<strong>28 June 2019</strong>.
+      </p>
+
+      <h3 id="sponsors">DHS 2019 Sponsors</h3>
+
+      <center>
+	<a href="http://ciss.dk/">
+	  <img src="ciss2.png" title="CISS" alt="CISS logo" style="margin-bottom:30px; margin-left:20px; margin-right:20px" />
+	</a>
+
+        <a href="http://www.master-comasic.fr/chaire-isc/">
+	  <img src="isc2.png" title="Chaire ISC" alt="Chaire ISC logo" style="margin-left:20px; margin-right:20px" />
+	</a>
+<!--
+	<a href="https://www.lix.polytechnique.fr/">
+	  <img src="lix2.png" title="LIX" alt="LIX logo" style="margin-left:20px; margin-right:20px" />
+	</a>
+-->
+      </center>
+
+      <h3 id="contact">Contact</h3>
+
+      <p>
+	<a href="mailto:dhs-2019@lists.gforge.inria.fr">dhs-2019@lists.gforge.inria.fr</a>
+      </p>
+
+    </div>
+    
+    <!-- ###### Footer ###### -->
+
+    <div id="footer">
+      <div>
+        Website design based on <a href="http://www.oswd.org/design/preview/id/1152">Blue Haze</a> by <a href="http://www.oswd.org/user/profile/id/3013">haran</a> from <a href="http://www.oswd.org/">OSWD</a>.  <a href="mailto:uli@lix.polytechnique.fr">Contact</a>
+      </div>
+    </div>
+
+  </body>
+
+</html>
+

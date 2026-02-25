@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+    <meta name="author" content="Uli Fahrenberg" />
+    <link rel="stylesheet" type="text/css" href="CSS/site.css" title="DHS stylesheet" />
+    <link rel="stylesheet" type="text/css" media="print" href="CSS/print.css" title="DHS print stylesheet" />
+
+    <title>DHS 2017</title>
+
+    <script language="javascript">
+      function toggleDiv(divid){
+	if(document.getElementById(divid).style.display == 'none'){
+	  document.getElementById(divid).style.display = 'inline';
+	}else{
+	  document.getElementById(divid).style.display = 'none';
+	}}
+    </script>
+  </head>
+
+  <body>
+
+<!-- ###### Header ###### -->
+
+    <div id="header">
+      <span class="headerTitle">
+	<a href="index.html">Methods and Tools for Distributed Hybrid Systems (DHS 2017)</a></span>
+    </div>
+
+    <!-- ###### Side Boxes ###### -->
+
+    <div class="sideBox LHS">
+      <div>Contents</div>
+	<a href="index.html">Home</a>
+	<a href="#invited">Invited Talks</a>
+<!--	<a href="dhs2017-flyer.pdf">Flyer</a> -->
+	<a href="#program">Program</a>
+<!--	<a href="#cfsc">Call for Contributions</a> -->
+	<a href="#venue">Venue</a>
+	<a href="#regis"><b><font color="red">Registration</font></b></a>
+	<a href="#sponsors">Sponsors</a>
+	<a href="mailto:dhs-2017@lists.gforge.inria.fr">Contact</a>
+    </div>
+
+    <div class="sideBox LHS">
+      <div>Invited Speakers</div>
+	<a href="https://www.cs.ox.ac.uk/people/alessandro.abate/home.html">Alessandro Abate, UK</a>
+	<a href="https://www.uni-oldenburg.de/informatik/hs/mitarbeiterinnen-und-mitarbeiter/prof-dr-martin-fraenzle/">Martin Fränzle, Germany</a>
+	<a href="http://people.cs.aau.dk/~kgl/">Kim G. Larsen, Denmark</a>
+	<a href="http://people.math.aau.dk/~raussen/">Martin Raussen, Denmark</a>
+	<a href="http://kom.aau.dk/~raf/">Rafael Wisniewski, Denmark</a>
+    </div>
+
+    <div class="sideBox LHS">
+      <div>Program Committee</div>
+	<a href="https://wwwtcs.inf.tu-dresden.de/~baier/">Christel Baier, Germany</a>
+	<a href="http://perso.ensta-paristech.fr/~chapoutot/">Alexandre Chapoutot, France</a>
+	<a href="http://www.lix.polytechnique.fr/Labo/Ulrich.Fahrenberg/">Uli Fahrenberg, France (chair)</a>
+	<a href="http://people.math.aau.dk/~fajstrup/">Lisbeth Fajstrup, Denmark</a>
+	<a href="https://www.offis.de/en/offis/person/sebastian-gerwinn.html">Sebastian Gerwinn, Germany</a>
+	<a href="http://www.lix.polytechnique.fr/Labo/Eric.Goubault/">Éric Goubault, France</a>
+	<a href="http://www.mn.uio.no/its/english/people/aca/cristi/">Christian Johansen, Norway</a>
+	<a href="http://www-sop.inria.fr/members/Frederic.Mallet/">Frédéric Mallet, France</a>
+	<a href="http://ceres.hh.se/mediawiki/index.php/Mohammad_Mousavi">Mohammad Reza Mousavi, Sweden</a>
+	<a href="http://ulrik.blog.aau.dk/">Ulrik Nyman, Denmark</a>
+	<a href="https://www.lix.polytechnique.fr/member/203/view">Adina Panchea, France</a>
+	<a href="http://www.informatik.uni-leipzig.de/~quaas/">Karin Quaas, Germany</a>
+	<a href="http://kom.aau.dk/~ces/">Christoffer Sloth, Denmark</a>
+    </div>
+
+    <div class="sideBox LHS">
+      <div>Organizers</div>
+	<a href="http://www.lix.polytechnique.fr/Labo/Ulrich.Fahrenberg/">Uli Fahrenberg (chair)</a>
+	<a href="http://people.cs.aau.dk/~mardare/">Radu Mardare (MFCS workshop chair)</a>
+	<a href="http://personprofil.aau.dk/109128">Rikke W. Uhrenholt (administration)</a>
+    </div>
+
+
+<!-- ###### Body Text ###### -->
+
+    <div id="bodyText">
+
+      <h1 id="intconf">
+	International Workshop on<br />
+	Methods and Tools for Distributed Hybrid Systems<br />
+	Aalborg, Denmark, 26 August 2017<br />
+	Associated with <a href="http://mfcs2017.cs.aau.dk/">MFCS 2017</a>
+      </h1>
+
+      <center>
+	<img class="noprint" src="Aalborg-panorama-small.jpg" title="Panorama of Aalborg" alt="Panorama of Aalborg" />
+      </center>
+
+<!--
+      <h3 id="news"><font color="red">News</font></h3>
+-->
+
+      <h3 id="about">About</h3>
+
+      <p>
+	The purpose of DHS is to connect researchers working in <em>real-time systems</em>, <em>hybrid systems</em>, <em>control theory</em>, <em>distributed computing</em>, and <em>concurrency</em>, in order to advance the subject of <strong>distributed hybrid systems</strong>.
+      </p>
+
+      <p>
+	Distributed hybrid systems, or distributed <em>cyber-physical systems</em>, are abundant.  Many of them are safety-critical, but ensuring their correct functioning is very difficult.  We believe that new techniques are needed for the analysis and validation of DHS.  More precisely, we believe that convergence and interaction of methods and tools from different areas of computer science, engineering, and mathematics is needed in order to advance the subject.
+      </p>
+
+      <p>
+	This first edition of the DHS workshop aims at gathering researchers which work in the above areas in order to facilitate collaboration and discuss how the subject may advance.
+      </p>
+
+      <h3 id="invited">Invited Talks</h3>
+
+      <ul>
+	<li><a href="https://www.cs.ox.ac.uk/people/alessandro.abate/home.html">Alessandro Abate</a>, Oxford University, United Kingdom<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;<em>Hybrid models for heterogeneous populations of photovoltaic panels on the grid</em></li>
+	<li><a href="https://www.uni-oldenburg.de/informatik/hs/mitarbeiterinnen-und-mitarbeiter/prof-dr-martin-fraenzle/">Martin Fränzle</a>, Carl von Ossietzky Universität Oldenburg, Germany<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;<em>Indecision and delays are the parents of failures</em></li>
+	<li><a href="http://people.cs.aau.dk/~kgl/">Kim G. Larsen</a>, Aalborg Universitet, Denmark<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;<em>Synthesis and optimization for cyber-physical systems</em></li>
+	<li><a href="http://people.math.aau.dk/~raussen/">Martin Raussen</a>, Aalborg Universitet, Denmark<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;<em>Topological models for spaces of executions in HDA</em></li>
+	<li><a href="http://kom.aau.dk/~raf/">Rafael Wisniewski</a>, Aalborg Universitet, Denmark<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;<em>Safety verification of stochastic hybrid systems</em></li>
+      </ul>
+
+      <h3 id="program">Program (click on the titles to see abstracts)</h3>
+
+<p><table padding="0px" cellpadding="2px" width="99%">
+<tr style="background-color:green;color:white" valign="top">
+	<th colspan="3">Saturday 26 August</th>
+</tr>
+<tr style="background-color:#fafcff" valign="top">
+	<td>8:30</td>
+	<td colspan="2"><i>Registration opens</i></td>
+</tr>
+<tr style="background-color:#f2ffff" valign="top">
+	<td>9:00</td>
+	<td colspan="2"><i>Welcome</i></td>
+</tr>
+<tr style="background-color:#fafcff" valign="top">
+	<td width="50">9:10</td>
+	<td width="25%" align="left"><strong>Martin Fränzle</strong></td>
+	<td align="left"><i>Invited talk: </i><a href="javascript:toggleDiv('franzle')">Indecision and delays are the parents of failures</a>
+	  <div id="franzle" style="display:none"><br />
+The advent of systems of cooperative cyber-physical systems
+draws attention to a central problem of networked and distributed
+control systems: the ubiquity of delay in feedback loops between
+logically or spatially distributed components, which is not adequately 
+reflected in traditional models of hybrid-state dynamics based on
+ordinary differential equations and immediate transitions. Occurrence
+of feedback delays may significantly alter a system's dynamic response.
+Unmodeled delays in a control loop consequently have the potential to
+invalidate any stability and safety certificate obtained on a related
+delay-free model, which is current practice in hybrid-system analysis.
+In this talk, we will present various approaches to the analysis and
+correct-by-construction design of dynamical systems subject to delayed
+information exchange, as pertinent to distributed hybrid systems. We
+will explain automatic verification procedures for invariance properties
+and bounded temporal-logic based on constraint-solving or rigorous
+generalization from simulations. This analytical view will be
+complemented by a constructive one based on a notion of delayed games
+and corresponding strategy synthesis algorithms.
+	</div></td>
+</tr>
+<tr style="background-color:#f2ffff" valign="top">
+	<td>10:10</td>
+	<td colspan="2"><i>Break</i></td>
+</tr>
+<tr style="background-color:#fafcff" valign="top">
+	<td>10:30</td>
+	<td align="left"><strong>Martin Raussen</strong></td>
+	<td align="left"><i>Invited talk: </i><a href="javascript:toggleDiv('raussen')">Topological models for spaces of executions in HDA</a>
+		<div id="raussen" style="display:none"><br />
+Higher dimensional automata (HDA) are powerful models for concurrency in terms of
+expressiveness. They can be described using cubical complexes which makes the topic
+amenable to a combinatorial/topological analysis. An execution corresponds to a directed
+path (d-path) in such a (time-flow directed) state space, and a d-homotopy
+(preserving the directions) of d-paths has equivalent computations as a result. This is why
+we started investigating the space of all executions (d-paths between given end points)
+in an HDA from a topological perspective. The determination of path components is
+particularly important for applications.<br />
+Getting to grips with the effects of the non-reversible time-flow is essential, and one
+needs to "twist" methods from ordinary algebraic topology in order to make them
+applicable. I will discuss particular directed spaces arising from Higher Dimensional
+Automata (HDA). There are various methods identifying the homotopy type of the space
+of executions between two states in such an automaton with some finite complex: in
+simple cases as prodsimplicial complex - with products of simplices as building blocks
+- or as a configuration space living in a product of simplices.
+In several interesting cases,
+it is possible to calculate homology groups and other topological invariants of execution
+spaces. We sketch a method recently devised by Ziemiański identifying - for a general
+HDA - a space of directed paths with a prodpermutahedral complex arising by glueing
+various permutahedra along their boundaries.<br />
+Joint work with L. Fajstrup (Aalborg), E. Goubault, E. Haucourt, S. Mimram (Éc.
+Polytechnique, Paris), R. Meshulam (Haifa) and K. Ziemiański (Warsaw)
+		</div></td>
+</tr>
+<tr style="background-color:#f2ffff" valign="top">
+	<td>11:30</td>
+	<td align="left">B.Martin, O.Mullier</td>
+	<td align="left"><a href="javascript:toggleDiv('martinm')">Rigorous computation of viability kernel</a>
+		<div id="martinm" style="display:none"><br />
+The study of viability kernels can be of critical importance for the verification of control systems. A viability kernel over a set of safe states is the set of initial states for which the trajectory can be controlled so as to stay within the safe set for an indefinite amount of time.<br />
+This paper investigates several improvements of the rigorous method from Monnet et al (2015). This method computes rigorously an inner and an outer approximation of the viability kernel of a control system using methods based on interval analysis. It consists of two phases: first a phase where an initial inner-approximation of the viability kernel is computed via Lyapunov-like functions; second the initial inner-approximation is improved by finding other states that can reach the inner-approximation, without exiting the safe set, using guaranteed numerical integration.<br />
+Among the improvements, we discuss an approach inspired by an interval method for the computation of barrier function for computing a good initial inner-approximation of the viability kernel in order to ease the improvement phase.
+		</div></td>
+</tr>
+<tr style="background-color:#fafcff" valign="top">
+	<td>12:00</td>
+	<td colspan="2"><i>Lunch</i></td>
+</tr>
+<tr style="background-color:#f2ffff" valign="top">
+	<td>13:30</td>
+	<td align="left"><strong>Kim G. Larsen</strong></td>
+	<td align="left"><i>Invited talk: </i><a href="javascript:toggleDiv('kgl')">Synthesis and optimization for cyber-physical systems</a>
+		<div id="kgl" style="display:none"><br />
+UPPAAL SMC offers a highly scalable statistical model checking engine supporting performance analysis of stochastic hybrid automata, and the recent UPPAAL STRATEGO supports synthesis (using machine learning) of near-optimal  yet safe strategies for stochastic hybrid games. In the talk I will present the underlying formalisms (stochastic hybrid automata and games) used by the tools, and demonstrate their concerted application to a selection of cyber-physical examples including safe and optimal cruise control, optimal floor heating as well as intelligent traffic control.
+		</div></td>
+</tr>
+<tr style="background-color:#fafcff" valign="top">
+	<td>14:30</td>
+	<td align="left"><strong>Alessandro Abate</strong></td>
+	<td align="left"><i>Invited talk: </i><a href="javascript:toggleDiv('abate')">Hybrid models for heterogeneous populations of photovoltaic panels on the grid</a>
+		<div id="abate" style="display:none"><br />
+In recent years, in view of growing environmental concerns and fostered by the Kyoto protocol, 
+the Paris Agreement, and the so called 2-degrees challenge, 
+industry and academia alike have increased their interest and attention on renewable energy sources, 
+with a focus on new technologies for power generation. 
+In the field of renewables, many studies are now focused on photovoltaics (PV- or solar panels), 
+which is nowadays the third most important renewable energy source in terms on total installed capacity, 
+after hydro and wind power. Devices producing such renewable energy are typically distributed over a large region, 
+rather than being concentrated in a small area, which leads to consider the issue of distributed generation.<br />
+
+PV panels produce electrical current from solar irradiation by virtue of the photovoltaic effect in semiconductor materials. 
+Although models for a single PV cell or panel are well known in literature, 
+a model dealing with distributed generation of power in a large area is still missing, 
+and there has not been any modelling effort describing the connection between a population of solar panels and the grid.<br />
+
+We present a new framework for modelling and abstraction of a large population of heterogeneous PV panels.   
+We firstly analyse the behaviour of a single physical PV device when connected to the grid (through its frequency), 
+and argue it is naturally described as a hybrid model.  
+Thereafter, in order to encompass the heterogeneity of a population of solar panels, 
+we present two models, one closer to the physical population, the other more abstract, 
+which are then connected to the dynamics of the network: 
+this provides an extended quantitative description of the whole system, 
+for which stability properties are studied.<br />
+
+The talk concludes with ongoing efforts, and with a call for feedback on an enticing issue we have encountered, 
+dealing with hybrid and timed models.
+		</div></td>
+</tr>
+<tr style="background-color:#f2ffff" valign="top">
+	<td>15:30</td>
+	<td colspan="2"><i>Break</i></td>
+</tr>
+<tr style="background-color:#fafcff" valign="top">
+	<td>16:00</td>
+	<td align="left"><strong>Rafael Wisniewski</strong></td>
+	<td align="left"><i>Invited talk: </i><a href="javascript:toggleDiv('wisniewski')">Safety verification of stochastic hybrid systems</a>
+		<div id="wisniewski" style="display:none"><br />
+I will define the notion of safety both for deterministic and stochastic systems. As for stability of dynamical systems, we associate a function to the dynamical systems and study its properties. A barrier certificate is such a function. If we additionally assume that this function is polynomial, we arrive at an algebraic test. In short, we check if a function and its directional derivative is positive on certain sets. To this end, one can use the sum of squares and associated toolboxes in Matlab. I will extend the concept of barrier certificates from dynamical systems to stochastic hybrid systems. Two hybrid systems will be discussed: a switching diffusion process and piecewise deterministic Markov process. A switching diffusion process is a family of diffusions coupled by a random switching process - a compound Poisson process. The random switching process models sporadic switches between continuous subsystems. The second object of interest is Davis’ piecewise deterministic Markov process. A piecewise deterministic Markov process consists of deterministic dynamical systems that alternate with random discrete transitions. Randomness of the discrete transitions (jumps) is characterised by stochastic time of jumps, and stochastic jump-destinations. This work has been done in collaboration with Manuela L. Bujorianu (Strathclyde).
+</div></td>
+</tr>
+<tr style="background-color:#f2ffff" valign="top">
+	<td>17:00</td>
+	<td align="left"></td>
+	<td align="left"><i>Discussion</i></td>
+</tr>
+<tr style="background-color:#fafcff" valign="top">
+	<td>17:30</td>
+	<td colspan="2"><i>DHS ends</i></td>
+<tr style="background-color:green" valign="top">
+	<th colspan="3">&nbsp;</th>
+</tr>
+</table>
+
+<!--
+      <h3 id="cfsc">Call for Short Contributions</h3>
+
+      <p>
+	We are calling for presentations of original, unfinished, already published, or otherwise interesting work which can highlight how the research topics of DHS may interact in order to advance the subject of distributed hybrid systems.  Note that DHS 2017 will have no formal proceedings.
+      </p>
+
+      <p>
+	Please send your proposal to <a href="mailto:dhs-2017@lists.gforge.inria.fr">dhs-2017@lists.gforge.inria.fr</a> by <strong>15 July</strong>.
+      </p>
+-->
+
+      <h3 id="venue">Venue</h3>
+
+      <p>
+	DHS 2017 will take place at <a href="https://www.scandichotels.com/hotels/denmark/aalborg/scandic-aalborg-ost">Scandic hotel Aalborg Øst</a>.  This hotel is situated in-between the city center and the university campus; both are easily accessible by bus.  Please see the <a href="http://mfcs2017.cs.aau.dk/">MFCS</a> travel information for further details.
+      </p>
+
+      <h3 id="regis">Registration</h3>
+
+      <p>
+	Registration to DHS 2017 is handled by the Aalborg University webshop, together with the registration for <a href="http://kimfest.cs.aau.dk/">KiMfest</a>.  The registration fee is 695 DKK, approx. 93 €, and covers the workshop, coffee breaks, and lunch.
+      </p>
+
+      <p>
+	Please head over to the <a href="https://www.erap.aau.dk/event/index.php/MFCS2017">AAU webshop</a> for registration.
+      </p>
+
+      <h3 id="sponsors">DHS 2017 Sponsors</h3>
+
+      <center>
+	<a href="http://ciss.dk/">
+	  <img src="ciss2.png" title="CISS" alt="CISS" />
+	</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="http://www.master-comasic.fr/chaire-isc/">
+	  <img src="isc2.jpg" title="Chaire ISC" alt="Chaire ISC" />
+	</a>
+      </center>
+
+      <h3 id="contact">Contact</h3>
+
+      <p>
+	<a href="mailto:dhs-2017@lists.gforge.inria.fr">dhs-2017@lists.gforge.inria.fr</a>
+      </p>
+
+    </div>
+    
+    <!-- ###### Footer ###### -->
+
+    <div id="footer">
+      <div>
+        Website design based on <a href="http://www.oswd.org/design/preview/id/1152">Blue Haze</a> by <a href="http://www.oswd.org/user/profile/id/3013">haran</a> from <a href="http://www.oswd.org/">OSWD</a>.  <a href="mailto:uli@lix.polytechnique.fr">Contact</a>
+      </div>
+    </div>
+
+  </body>
+
+</html>
+

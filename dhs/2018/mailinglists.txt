@@ -1,0 +1,5 @@
+announcements@lists.artist-embedded.org		sent(irisa)		ok
+concurrency@listserver.tue.nl			sent(irisa)		ok
+types-announce@lists.seas.upenn.edu		sent(irisa)+explain	ok
+labolix@lix.polytechnique.fr
+invited + committee

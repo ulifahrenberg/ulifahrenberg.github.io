@@ -1,0 +1,160 @@
+\RequirePackage{etex}
+\usetheme{Warsaw}
+% \usetheme{Singapore}
+% \useoutertheme[subsection=false]{smoothbarsnosubs}
+\useoutertheme[subsection=false]{smoothbars}
+% \usecolortheme{beetle}
+\usecolortheme[RGB={145,112,255}]{structure}
+
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    % pagenumber in footline
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle \hfill \insertpagenumber
+    \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\author{Uli Fahrenberg}
+\institute{{\'E}cole polytechnique, Palaiseau, France}
+%\titlegraphic{\includegraphics[height=15ex]{logo-v}}
+
+\RequirePackage{graphicx}
+%\RequirePackage{rotating}
+%\RequirePackage{textcomp}
+\RequirePackage{textpos}
+\RequirePackage{lmodern}
+\usepackage[T1]{fontenc}
+\RequirePackage{mathtools}
+%\RequirePackage{complexity}
+
+\RequirePackage[noend]{algorithmic}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\RequirePackage{tikz}
+\usetikzlibrary{arrows,automata,shapes,calc}
+\tikzset{->, >=stealth', auto}
+\tikzset{state/.style={initial text=, fill=white, shape=circle, inner
+    sep=.5mm, minimum size=3mm, draw}}
+
+%\setbeamercolor{frametitle}{bg=green}
+%\setbeamercolor*{palette primary}{use=structure,fg=white,bg=SeaGreen}
+%\setbeamercolor{structure}{fg=blue!30!white}
+
+%\newcommand*\spnewtheorem[4]{}
+\usepackage{microtype}
+\usepackage{amsmath,amsxtra,amssymb,stmaryrd,bbm}
+\usepackage[matrix,arrow,cmtip,curve,rotate,frame
+]{xy}
+\SelectTips{cm}{}\SilentMatrices\CompileMatrices
+
+\newcommand\tocalert[1][]{%
+  \begin{frame}{#1}
+    \setbeamercolor{section in toc}{fg=alerted text.fg}
+    \setbeamercolor{section in toc shaded}{bg=structure!20,
+      fg=structure}
+    \setbeamertemplate{section in toc shaded}[default][100]
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+
+\newcommand*\Real{\mathbbm{R}}
+\newcommand*\Realnn{\Real_{ \ge 0}}
+\newcommand*\Int{\mathbb{Z}}
+\newcommand*\Nat{\mathbbm{N}}
+\newcommand*\Natp{\Nat_+}
+\newcommand*\Tr{\textup{Tr}}
+\newcommand*\mayto[1]{\ensuremath{\overset{#1}{\dashrightarrow}}}
+\newcommand*\mustto[1]{\ensuremath{\overset{#1}{\longrightarrow}}}
+\newcommand*\tto{\mustto}
+\newcommand*\ksim[2]{#2^{#1\textup{-sim}}} % k-nested sim.
+
+\newcommand*\ie{\textit{i.e.}} 
+\newcommand*\eg{\textit{e.g.}}
+\newcommand*\cf{\textit{cf.}}
+\newcommand*\etal{\textit{et~al.}}
+
+\newcommand*\blue[1]{\textcolor{blue}{#1}}
+\newcommand*\green[1]{\textcolor{green}{#1}}
+\newcommand*\dgreen[1]{\textcolor{green!60!black}{#1}}
+\newcommand*\red[1]{\textcolor{red}{#1}}
+\newcommand*\white[1]{\textcolor{white}{#1}}
+\newcommand*\gray[1]{\textcolor{gray}{#1}}
+\newcommand*\magenta[1]{\textcolor{magenta}{#1}}
+\colorlet{jaune}{yellow!80!green}
+\def\enjaune#1{\textcolor{jaune!70!red!70!green}{#1}}
+\colorlet{vert}{green!45!black}
+\def\envert#1{\textcolor{vert}{#1}}
+\colorlet{bleu}{blue!70!black}
+\def\enbleu#1{\textcolor{bleu}{#1}}
+\colorlet{rouge}{red!80!black}
+\def\enrouge#1{\textcolor{rouge}{#1}}
+
+\newcommand*\limpl{\mathrel{\,\Longrightarrow\,}}
+\newcommand*\liff{\mathrel{\,\Longleftrightarrow\,}}
+% \newcommand*\tatop[2]{\genfrac{}{}{0pt}{1}{#1}{#2}}
+% \newcommand*\datop[2]{\genfrac{}{}{0pt}{0}{#1}{#2}}
+\newcommand*\bigmid{\mathrel{\big|}}
+
+\newcommand*\ltrue{\textup{\textbf{t\!t}}}
+\newcommand*\lfalse{\textup{\textbf{ff}}}
+\newcommand*\tprod{\textstyle\prod}
+
+\setbeamersize{text margin left=.6cm}
+\setbeamersize{text margin right=.6cm}
+
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\normalsize}
+
+\setbeamertemplate{navigation symbols}{}
+
+\colorlet{drouge}{red}
+\colorlet{frouge}{red!20!white}
+\colorlet{dorange}{orange!80!red}
+\colorlet{forange}{orange!80!red!20!white}
+\colorlet{dbleu}{blue}
+\colorlet{fbleu}{blue!40!white}
+\colorlet{dvert}{green!80!black}
+\colorlet{fvert}{green!80!black!20!white}
+\colorlet{djaune}{yellow!80!black}
+\colorlet{fjaune}{yellow!80!black!20!white}
+\colorlet{dgris}{white!60!black}
+\colorlet{fgris}{white!90!black}
+\colorlet{dgrisf}{white!30!black}
+\colorlet{fgrisf}{white!70!black}
+\tikzstyle{ptrond}=[draw,circle,minimum height=2mm]
+\tikzstyle{ptcarre}=[draw,minimum width=3mm,minimum height=3mm]
+\tikzstyle{rond}=[draw,circle,minimum height=7mm]
+\tikzstyle{carre}=[draw,minimum width=6mm,minimum height=6mm]
+\tikzstyle{rouge}=[draw=drouge,fill=frouge]
+\tikzstyle{orange}=[draw=dorange,fill=forange]
+\tikzstyle{vert}=[draw=dvert,fill=fvert]
+\tikzstyle{jaune}=[draw=djaune,fill=fjaune]
+\tikzstyle{bleu}=[draw=dbleu,fill=fbleu]
+\tikzstyle{gris}=[draw=dgris,fill=fgris]
+\tikzstyle{grisf}=[draw=dgrisf,fill=fgrisf]
+\tikzstyle{rvert}=[style=rond,style=vert]
+\tikzstyle{rrouge}=[style=rond,style=rouge]
+
+\newcommand*\mcal[1]{\mathcal{#1}}
+
+\newcommand*\Spec{\textup{\textsf{Spec}}}
+\newcommand*\Proc{\textup{\textsf{Mod}}}
+\newcommand*\cA{\mathcal A}
+\newcommand*\cL{\mathcal L}
+\newcommand*\cM{\mathcal M}
+\newcommand*\cS{\mathcal S}
+\newcommand*\Tran{\textup{Tran}}
+\newcommand*\varland{\mathbin\&}
+\newcommand*\varlor{\mathbin\textup{ or}}
+\newcommand*\varliff{\mathrel{\hat{=}}}
+\newcommand*\cupplus{\overset{\scriptscriptstyle+}{\cup}}
+\newcommand*\varlimpl{\Rightarrow}

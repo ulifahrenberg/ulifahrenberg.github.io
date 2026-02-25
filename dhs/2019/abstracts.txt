@@ -1,0 +1,118 @@
+Majid Zamani, University of Colorado Boulder, United States
+
+Majid Zamani is an assistant professor in the Computer Science
+Department at University of Colorado Boulder. Between May 2014 and
+January 2019, he was an assistant professor (W2 grade) in the
+Department of Electrical Engineering at Technical University of Munich
+where he led the Hybrid Control Systems Group. He received a
+Ph.D. degree in Electrical Engineering and an MA degree in Mathematics
+both from University of California, Los Angeles in 2012, an
+M.Sc. degree in Electrical Engineering from Sharif University of
+Technology in 2007, and a B.Sc. degree in Electrical Engineering from
+Isfahan University of Technology in 2005. He has received an ERC
+starting grant award from the European Research Council in 2018.  His
+research interests include verification and control of cyber-physical
+systems, hybrid systems, embedded control software synthesis,
+networked control systems, and incremental properties of nonlinear
+control systems.
+
+Compositional synthesis of interconnected control systems
+
+In this talk, I will propose a design approach for interconnected
+control systems, in which the controllers are synthesized
+compositionally from high-level logic requirements in a push-button
+and formal manner. Examples of such requirements include those
+expressed as linear temporal logic (LTL) formulae. In particular, I
+will leverage decomposition and abstraction as two key tools to tackle
+the design complexity, by either breaking the design object into
+semi-independent parts or by aggregating components and eliminating
+unnecessary details. I will illustrate the effectiveness of the
+proposed results on some case studies. I will show that our proposed
+results can handle large-scale systems, which would not have been
+possible to tackle using existing techniques.
+
+
+---
+
+Hervé de Forges, Kopadia, Paris, France
+
+Hervé de Forges, engineer, has for several years been developing new
+solutions for underwater oil and gas exploration. In 2017, he
+co-founded Kopadia, an innovative engineering and operating company
+based on autonomous underwater vehicles (AUV). The specificity of the
+company is to develop and operate effective operational models by
+having several AUVs collaborate.
+
+Underwater robotics: past, present, and future
+
+Demographic and economic developments require more and more resources,
+but onshore possibilities are limited. Naturally, oceans, covering 72%
+of our planet, appear as the solution to provide food, minerals or
+energy. Most of countries consider these domains as a key for the
+future. For example, the European commission supports the "blue growth
+strategy" to develop high-potential sectors such as aquaculture,
+tourism, biotechnology, energy or seabed mining.
+
+Most of the seas must still be considered unknown areas. The French
+oceanic institute (IFREMER) consider that only 10% of the sea bed is
+well known. Out of these areas lives a huge and quite unknown
+biodiversity (scientists estimate knowing only 24000 species out of
+several millions – without bacteria). Most of these ecosystems live
+out of continental shelves, in more than 200m depth and their
+organization and equilibrium are poorly known.
+
+Here appears the tremendous challenge to withdraw resources from this
+environment by preserving its environmental balances and the need for
+intensive exploration and monitoring solutions for these areas.
+
+Access to the deep sea is extremely difficult, due to the complexity
+of high sea operation organization (distance from port,
+communications, cost, etc.) but also due to sea water specificity: no
+air, viscosity pressure, no magnetic waves... This has, up to now,
+prevented a complete exploration, but after pioneering ages,
+autonomous underwater robotics starts a revolution in the access to
+the abyss.
+
+In this call, we will see why and how people have continuously
+searched to go deeper and to last longer undersea. We will start from
+the early ages of assisted diving to offshore robotics for oil & gas
+deep seas operations and the latest developments in autonomous robot.
+The end of the talk will deal with the future of underwater autonomous
+solutions into an exploration perspective and particularly on what
+coordinated distributed systems can provide to our ocean knowledge.
+
+
+---
+
+Xavier Urbain, Université Lyon 1, France
+
+Xavier Urbain is full professor at Université Claude Bernard Lyon 1,
+in France.  He obtained his PhD from Université Paris-Sud XI in 2001,
+as well as his Habilitation in 2010. Specialist of automated deduction
+and certified proof, in particular aimed at exhibiting properties of
+programs, he has been principal investigator of various projects on
+certified automated proof, and on formal proof for mobile robots.
+
+Swarms of mobile robots, towards safety with versatility
+
+Swarms of mobile robots introduced by Suzuki and Yamashita in their
+seminal paper of 1999 have enjoyed ever since a constant growth in
+popularity, based on the various applications they promise, and the
+numerous variants this model supports.
+
+Characterized by the Look-Compute-Move cycle of robots, they are
+suitable for different universes, either discrete or continuous,
+various capabilities of the agents and their sensors. The power given
+to the adversarial environment plays an important role in this
+diversity, allowing or not for faults, and several kinds of synchrony.
+
+Serving the versatility of such swarms, the variants add also to the
+tremendous intricacy of proving the soundness of results in this
+context, that is proving that a task can be achieved or, to the
+contrary, that it is impossible to realise. As potential applications
+may be critical, formal methods are of invaluable help to certify
+protocol correctness, and theorem soundness.
+
+This presentation will give an overview of some possibilities given by
+this Look-Compute-Move model, with an emphasis on formal aspects,
+definitions and proofs.

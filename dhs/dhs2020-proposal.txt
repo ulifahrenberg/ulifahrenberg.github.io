@@ -1,0 +1,138 @@
+QONFEST 2020 Workshop Proposal
+
+Uli Fahrenberg
+Sergio Rajsbaum
+
+The above organizers would like to propose to colocate the Fourth
+International Workshop on Methods and Tools for Distributed Hybrid
+Systems with QONFEST 2020.
+
+Name of workshop: Fourth International Workshop on Methods and Tools
+for Distributed Hybrid Systems
+
+Preferred date: 5 September 2020
+
+Description:
+
+The DHS workshops have been organized since 2017.  The first edition
+was colocated with MFCS in Aalborg, the second was held in Paris, and
+the third was associated with CONCUR in Amsterdam; see
+
+    http://dhs.gforge.inria.fr/
+
+The purpose of DHS is to connect researchers working in real-time
+systems, hybrid systems, control theory, distributed computing, and
+concurrency theory, in order to advance the subject of distributed
+hybrid systems.
+
+Distributed hybrid systems, or distributed cyber-physical systems, are
+abundant.  Many of them are safety-critical, but ensuring their
+correct functioning is very difficult.  We believe that new techniques
+are needed for the analysis and validation of DHS.  More precisely, we
+believe that convergence and interaction of methods and tools from
+different areas of computer science, engineering, and mathematics is
+needed in order to advance the subject.
+
+The DHS workshops thus place themselves nicely in the intersection of
+the QONFEST member conferences.  The first three editions were rather
+successful in getting mathematicians, control theorists, and computer
+scientists to talk with one another, and colocating DHS with QONFEST
+would allow this endeavor to continue and grow.
+
+DHS 2020 will have a special focus on geometric and topological
+methods, aiming for synergy with the GETCO conference which will be
+held in Paris the week after QONFEST.  GETCO has been organized
+regularly since 1999, at some occasions as CONCUR workshops, and
+concerns itself with geometric and topological methods in concurrency,
+distributed computing, robotics, and data analysis; see
+
+    http://www.lix.polytechnique.fr/~uli/getco20/
+
+Past versions:
+
+DHS 2017 (26 August) had five invited talks and one contributed talk.
+We organized the workshop with EPTCS pre-proceedings and a formal CfP;
+in hindsight this was an error, as we solicited only one submission
+(which was accepted).
+
+The invited speakers were Alessandro Abate (Oxford), Martin Fraenzle
+(Oldenburg), Kim G. Larsen (Aalborg), Martin Raussen (Aalborg), and
+Rafael Wisniewski (Aalborg).  The workshop had about 15 participants.
+We had very lively discussions; most speakers could not finish their
+talks as intended because they were being side-tracked by the
+audience.
+
+DHS 2018 (4 July) had a more light-weight format, without
+pre-proceedings and instead a call for presentations.  We received
+four submissions which were all accepted.
+
+We again had five invited speakers, Thao Dang (Grenoble), Lisbeth
+Fajstrup (Aalborg), Luc Jaulin (Brest), Emmanuel Ledinot (Paris), and
+Andre Platzer (Pittsburgh), with an attendance of about 30.  The
+program was more compact than in 2017, but we still had a lot of
+interesting discussions.
+
+DHS 2019 (26 August) had three invited and six contributed talks, plus
+a panel at the end.  (Unfortunately two of the contributed talks were
+canceled at the last minute.)  We kept the no-proceedings format and
+received seven submissions, of which we had to reject one because
+there was no space in the program.
+
+The invited speakers were Majid Zamani (Colorado), Herve de Forges
+(Paris), and Xavier Urbain (Lyon).  Participation was down to 15
+again, but it was a very pleasant and convivial experience.
+
+Expected number of participants: 15-30
+
+Organizers:
+
+In order to put DHS on a more permanent footing, we have recently
+established a Steering Committee consisting of Alessandro Abate
+(Oxford), Uli Fahrenberg (Paris), Lisbeth Fajstrup (Aalborg), Martin
+Fraenzle (Oldenburg), Ichiro Hasuo (Tokyo), Taylor T. Johnson
+(Vanderbilt), and Sergio Rajsbaum (Mexico).  The SC is responsible for
+the overall development of DHS and has appointed Uli Fahrenberg and
+Sergio Rajsbaum to organize DHS 2020.
+
+Uli Fahrenberg: Researcher, Computer Science lab, Ecole polytechnique,
+Paris, France.  PhD 2005, Aalborg University, Denmark.  Assistant
+professor, Aalborg University, then postdoc, Inria Rennes.  Research
+interests: algebraic topology, concurrency theory, real-time
+verification, and general quantitative verification.
+http://www.lix.polytechnique.fr/~uli/
+
+Sergio Rajsbaum: Professor (SNI nivel III), Institute of Mathematics,
+National Autonomous University of Mexico (UNAM), Mexico City, Mexico.
+PhD 1991, Technion, Israel.  Postdoc at MIT, then at Cambridge
+Research Lab.  Research interests: theory of distributed computing,
+especially issues related to coordination, complexity and
+computability; graph theory, and algorithms.
+
+Organization and publication plan:
+
+We intend to keep the 2019 "light-weight" format, without formal
+preproceedings.  After the workshop, we may send a separate CfP for a
+journal special issue which covers DHS 2020 but is open for other
+contributions.  (We are in the process of doing this for DHS 2018 and
+2019.)
+
+All previous DHS workshops had a sponsorship of 2000€ from the Chaire
+of Complex Systems Engineering at Ecole polytechnique.  This
+sponsorship is again available for DHS 2020, which will allow us to
+invite several speakers.  We intend to have four invited talks (60 min
+each), four contributed talks (30 min each), plus a discussion panel
+at the end (30 min); this should fill a day's program.
+
+Potential invited speakers (not confirmed; in alphabetical order):
+
+Erika Abraham (Aachen)
+Pierre Fraigniaud (Paris)
+Eric Goubault (Paris)
+Tom Henzinger (Vienna)
+Maurice Herlihy (Brown)
+Maryam Kamgarpour (Zurich)
+Marta Kwiatkowska (Oxford)
+Luis Montejano (Mexico)
+Rotem Oshman (Tel Aviv)
+Pavithra Prabhakar (Kansas)
+Ulrich Schmid (Vienna)

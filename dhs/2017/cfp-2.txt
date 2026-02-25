@@ -1,0 +1,52 @@
+Apologies for multiple copies of this email; please distribute as you
+see fit.
+
+                   SECOND CALL FOR PAPERS
+
+                          DHS  2017
+                  International Workshop on
+      Methods and Tools for Distributed Hybrid Systems
+                  Associated with MFCS 2017
+
+                 Aalborg University, Denmark
+                      25-26 August 2017
+
+                 http://dhs.gforge.inria.fr/
+
+
+The deadline for submission has been extended to 20 June.
+
+
+The purpose of DHS is to connect researchers working in real-time and
+hybrid systems, control theory, distributed computing, and concurrency,
+in order to advance the subject of distributed hybrid systems.
+
+Distributed hybrid systems, or distributed cyber-physical systems, are
+abundant.  Many of them are safety-critical, but ensuring their correct
+functioning is very difficult.  We believe that new techniques are needed
+for the analysis and validation of DHS.  More precisely, we believe that
+convergence and interaction of methods and tools from different areas of
+computer science, engineering, and mathematics is needed in order to
+advance the subject.
+
+This first edition of the DHS workshop aims at gathering researchers which
+work in the above areas in order to facilitate collaboration and discuss
+how the subject may advance. 
+
+INVITED SPEAKERS
+
+Martin Fränzle, Carl von Ossietzky Universität Oldenburg, Germany
+Kim G. Larsen, Aalborg Universitet, Denmark
+Martin Raussen, Aalborg Universitet, Denmark
+Rafael Wisniewski, Aalborg Universitet, Denmark
+
+IMPORTANT DATES
+
+Paper submission: 20 June 2017
+Notification: 15 July 2017
+Final version: 31 July 2017
+Workshop: 25 August (afternoon) - 26 August (evening)
+
+
+For more information, see: http://dhs.gforge.inria.fr/
+

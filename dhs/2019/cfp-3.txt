@@ -1,0 +1,72 @@
+Apologies for multiple copies of this email; please distribute as you
+see fit.
+
+                    CALL FOR PARTICIPATION
+
+                          DHS  2019
+                  International Workshop on
+      Methods and Tools for Distributed Hybrid Systems
+          Associated with CONCUR / FORMATS / FMICS
+
+                 Amsterdam, The Netherlands
+                       26 August 2019
+
+                 http://dhs.gforge.inria.fr
+
+ABOUT
+
+The purpose of DHS is to connect researchers working in real-time and
+hybrid systems, control theory, distributed computing, and concurrency,
+in order to advance the subject of distributed hybrid systems.
+
+Distributed hybrid systems, or distributed cyber-physical systems, are
+abundant.  Many of them are safety-critical, but ensuring their correct
+functioning is very difficult.  Convergence and interaction of methods
+and tools from different areas of computer science, engineering, and
+mathematics is needed in order to advance the subject.
+
+PROGRAM
+
+The program comprises three invited talks, six contributed talks, and
+a panel session:
+
+ 9:00  Invited talk: Majid Zamani, U Colorado, US
+ 
+       Compositional synthesis of interconnected control systems
+
+10:30  Timed automata as synchronization abstractions for aperiodic
+       control systems
+
+11:00  Relational differential dynamic logic
+
+11:30  Invited talk: Herve de Forges, Kopadia, France
+
+       Underwater robotics: past, present, and future
+
+13:30  Hybrid active objects
+
+14:00  Decentralized real-time safety verification for distributed
+       cyber-physical systems
+
+14:30  Delayed hybrid systems
+
+15:30  Simulation of hybrid Reo connectors
+
+16:00  Invited talk: Xavier Urbain, U Lyon 1, France
+
+       Swarms of mobile robots, towards safety with versatility
+
+17:00  Panel
+
+       Verification and synthesis for heterogeneous systems
+       encompassing learned and learning components
+       
+ORGANIZERS
+
+   Alessandro Abate, Oxford University, UK
+   Uli Fahrenberg, Ecole polytechnique, France
+   Martin Fraenzle, University of Oldenburg, Germany
+
+
+For more information, see: http://dhs.gforge.inria.fr/
+
