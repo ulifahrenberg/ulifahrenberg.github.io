@@ -93,6 +93,11 @@ ul {
   margin-bottom: -1em;
 }
 
+ol {
+  margin-top: -1.5em;
+  margin-bottom: -1em;
+}
+
 #bodyText {
   text-align: justify;
   line-height: 1.5em;
